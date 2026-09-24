@@ -11,7 +11,7 @@
       "y": 0
     },
     "Main.dc.html": {
-      "h": 1600,
+      "h": 2100,
       "is_interactive": true,
       "title": "1 · Oefeningen-dashboard",
       "w": 1440,
@@ -31,14 +31,22 @@
       "title": "Component · Navigatie",
       "w": 1440,
       "x": 0,
-      "y": 2000
+      "y": 2440
     },
     "Pitch.dc.html": {
       "h": 200,
       "title": "Component · Tactisch diagram",
       "w": 320,
       "x": 1520,
-      "y": 2000
+      "y": 2440
+    },
+    "Trainingen.dc.html": {
+      "h": 1480,
+      "is_interactive": true,
+      "title": "4 · Trainingen-overzicht",
+      "w": 1440,
+      "x": 4560,
+      "y": 0
     }
   },
   "createdOnFiles": {
@@ -52,7 +60,7 @@
   "notes": {
     "t1": {
       "kind": "title1",
-      "maxW": 4480,
+      "maxW": 6000,
       "text": "Kon. Ik Dien FC · Trainingsplatform",
       "w": 240,
       "x": 0,
@@ -64,13 +72,14 @@
       "text": "Bouwstenen",
       "w": 240,
       "x": 0,
-      "y": 1720
+      "y": 2200
     }
   },
   "order": [
     "Main.dc.html",
     "Builder.dc.html",
     "Detail.dc.html",
+    "Trainingen.dc.html",
     "Nav.dc.html",
     "Pitch.dc.html"
   ],

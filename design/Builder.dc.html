@@ -45,6 +45,7 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid #5B2B
 <dc-import name="Pitch" variant="{{e.variant}}" w="84" h="56" hint-size="84px,56px"></dc-import>
 </div>
 <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px">
+<sc-if value="{{e.fits}}" hint-placeholder-val="{{false}}"><span style="align-self: flex-start; height: 20px; padding: 0 7px; border-radius: 5px; background: #2A1464; color: #FFFFFF; font-size: 11px; font-weight: 700; display: flex; align-items: center; gap: 4px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"></path><circle cx="7.5" cy="7.5" r="1.5"></circle></svg>{{theme}}</span></sc-if>
 <span style="font-size: 14px; font-weight: 600; line-height: 1.25">{{e.title}}</span>
 <span style="font-size: 12px; color: #625A78; display: flex; align-items: center; gap: 6px"><span style="width: 7px; height: 7px; border-radius: 99px; background: {{e.dot}}"></span>{{e.type}} · {{e.min}} min · {{e.ageLabel}}</span>
 </div>
@@ -57,18 +58,48 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid #5B2B
 <main style="flex-grow: 1; box-sizing: border-box; padding: 28px 32px 28px; display: flex; flex-direction: column; gap: 20px; min-width: 0">
 <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 24px">
 <div style="display: flex; flex-direction: column; gap: 8px">
-<span style="font-size: 13px; color: #625A78"><a href="#" style="text-decoration: none; color: #625A78">Trainingen</a> <span aria-hidden="true">/</span> <span style="color: #1A1033; font-weight: 600">Nieuwe training</span></span>
-<h1 style="margin: 0; font-family: 'Barlow Condensed', sans-serif; font-size: 44px; line-height: 1; font-weight: 700; text-transform: uppercase">Dinsdag 29 september · U13 A</h1>
+<span style="font-size: 13px; color: #625A78"><a href="Trainingen.dc.html" style="text-decoration: none; color: #625A78">Trainingen</a> <span aria-hidden="true">/</span> <span style="color: #1A1033; font-weight: 600">Nieuwe training</span></span>
+<div style="position: relative">
+<h1 style="margin: 0; font-family: 'Barlow Condensed', sans-serif; font-size: 44px; line-height: 1; font-weight: 700; text-transform: uppercase; display: flex; align-items: center; gap: 12px"><button type="button" onClick="{{toggleCal}}" aria-expanded="{{calOpen}}" aria-haspopup="dialog" aria-label="Datum kiezen, nu {{dateTitle}}" style="margin: 0 0 0 -8px; padding: 2px 8px; border: 0; border-radius: 10px; font: inherit; color: inherit; text-transform: inherit; display: flex; align-items: center; gap: 10px; cursor: pointer; {{calBtnSt}}">{{dateTitle}}<span style="width: 36px; height: 36px; border-radius: 10px; background: #EFE9FB; color: #5B2BC4; display: flex; align-items: center; justify-content: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="16" rx="2"></rect><path d="M3 9.5h18M8 2.5v4M16 2.5v4"></path></svg></span></button><span aria-hidden="true">·</span><label style="margin-left: -4px; padding: 2px 8px; border-radius: 10px; display: flex; align-items: center; gap: 10px; cursor: text; {{teamWrapSt}}"><span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap">Team</span><input type="text" value="{{team}}" onChange="{{setTeam}}" onFocus="{{teamFocus}}" onBlur="{{teamBlur}}" size="{{teamSize}}" placeholder="Team" style="margin: 0; padding: 0; border: 0; background: transparent; font: inherit; color: inherit; text-transform: inherit; outline: none; min-width: 3ch"><span style="width: 36px; height: 36px; flex-shrink: 0; border-radius: 10px; background: #EFE9FB; color: #5B2BC4; display: flex; align-items: center; justify-content: center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg></span></label></h1>
+<sc-if value="{{calOpen}}" hint-placeholder-val="{{false}}">
+<div role="dialog" aria-label="Kies de datum van de training" style="position: absolute; top: 56px; left: -8px; z-index: 30; width: 340px; box-sizing: border-box; padding: 16px; background: #FFFFFF; border: 1px solid #E4DDF3; border-radius: 16px; box-shadow: 0 16px 40px rgba(26,16,51,0.18); display: flex; flex-direction: column; gap: 12px; font-family: Figtree, system-ui, sans-serif">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<button type="button" onClick="{{prevMonth}}" aria-label="Vorige maand" style="width: 36px; height: 36px; border: 0; border-radius: 10px; background: #F5F2FC; color: #2A1464; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"></path></svg></button>
+<span style="font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em">{{monthTitle}}</span>
+<button type="button" onClick="{{nextMonth}}" aria-label="Volgende maand" style="width: 36px; height: 36px; border: 0; border-radius: 10px; background: #F5F2FC; color: #2A1464; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"></path></svg></button>
+</div>
+<div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px">
+<sc-for list="{{weekdays}}" as="w" hint-placeholder-count="7"><span style="height: 24px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; text-transform: uppercase; color: #625A78">{{w}}</span></sc-for>
+<sc-for list="{{cells}}" as="c" hint-placeholder-count="35">
+<sc-if value="{{c.blank}}" hint-placeholder-val="{{false}}"><span style="height: 40px"></span></sc-if>
+<sc-if value="{{c.isDay}}" hint-placeholder-val="{{true}}">
+<button type="button" onClick="{{c.pick}}" disabled="{{c.disabled}}" aria-pressed="{{c.on}}" aria-label="{{c.label}}" title="{{c.hint}}" style="position: relative; height: 40px; border-radius: 10px; font: inherit; font-size: 14px; display: flex; align-items: center; justify-content: center; {{c.st}}">{{c.num}}<sc-if value="{{c.busy}}" hint-placeholder-val="{{false}}"><span style="position: absolute; bottom: 5px; left: 50%; margin-left: -2.5px; width: 5px; height: 5px; border-radius: 99px; background: #F2A541"></span></sc-if></button>
+</sc-if>
+</sc-for>
+</div>
+<div style="display: flex; align-items: center; gap: 14px; padding-top: 10px; border-top: 1px solid #F1EDF9; font-size: 12px; color: #3D3552">
+<span style="display: flex; align-items: center; gap: 6px"><span style="width: 14px; height: 14px; border-radius: 4px; background: #EFE9FB; border: 1px solid #C7B6EF"></span>Trainingsdag</span>
+<span style="display: flex; align-items: center; gap: 6px"><span style="width: 6px; height: 6px; border-radius: 99px; background: #F2A541"></span>Al een training</span>
+<button type="button" onClick="{{closeCal}}" style="margin-left: auto; height: 36px; padding: 0 16px; border: 0; border-radius: 10px; background: #5B2BC4; color: #FFFFFF; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer">Klaar</button>
+</div>
+</div>
+</sc-if>
+</div>
 <div style="display: flex; gap: 8px; flex-wrap: wrap">
-<span style="height: 30px; padding: 0 12px; border-radius: 999px; background: #F5F2FC; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5B2BC4" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>18:00 – 19:30</span>
-<span style="height: 30px; padding: 0 12px; border-radius: 999px; background: #F5F2FC; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5B2BC4" stroke-width="2.2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"></rect><path d="M12 5v14"></path><circle cx="12" cy="12" r="2.5"></circle></svg>Veld 2 · half veld</span>
-<span style="height: 30px; padding: 0 12px; border-radius: 999px; background: #F5F2FC; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5B2BC4" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20c.8-3.5 3.4-5.5 6.5-5.5s5.7 2 6.5 5.5"></path></svg>14 spelers + 2 keepers</span>
-<span style="height: 30px; padding: 0 12px; border-radius: 999px; background: #2A1464; color: #FFFFFF; font-size: 13px; font-weight: 600; display: flex; align-items: center">Thema: omschakelen</span>
+
+<div style="position: relative">
+<button type="button" onClick="{{toggleTheme}}" aria-expanded="{{themeOpen}}" aria-haspopup="listbox" style="height: 30px; padding: 0 10px 0 12px; border-radius: 999px; border: 0; background: #2A1464; color: #FFFFFF; font: inherit; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; cursor: pointer">Thema: {{theme}}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
+<sc-if value="{{themeOpen}}" hint-placeholder-val="{{false}}">
+<div role="listbox" aria-label="Thema van de training" style="position: absolute; top: 38px; left: 0; z-index: 20; width: 260px; box-sizing: border-box; padding: 6px; background: #FFFFFF; border: 1px solid #E4DDF3; border-radius: 14px; box-shadow: 0 14px 36px rgba(26,16,51,0.18); display: flex; flex-direction: column; gap: 2px">
+<sc-for list="{{themeOpts}}" as="o" hint-placeholder-count="7">
+<button type="button" role="option" aria-selected="{{o.on}}" onClick="{{o.pick}}" style="height: 40px; padding: 0 12px; border: 0; border-radius: 9px; font: inherit; font-size: 14px; text-align: left; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px; {{o.st}}"><span>{{o.label}}</span><span style="font-size: 12px; color: #625A78">{{o.count}} oef.</span></button>
+</sc-for>
+</div>
+</sc-if>
+</div>
 </div>
 </div>
 <div style="display: flex; gap: 10px">
-<button type="button" style="height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #E4DDF3; background: #FFFFFF; font: inherit; font-size: 14px; font-weight: 600; color: #1A1033; display: flex; align-items: center; gap: 8px; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V3h12v6"></path><rect x="3" y="9" width="18" height="8" rx="2"></rect><path d="M6 14h12v7H6z"></path></svg>Afdrukken</button>
-<button type="button" style="height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #E4DDF3; background: #FFFFFF; font: inherit; font-size: 14px; font-weight: 600; color: #1A1033; display: flex; align-items: center; gap: 8px; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"></path></svg>Delen met staf</button>
 <button type="button" style="height: 44px; padding: 0 20px; border-radius: 12px; border: 0; background: #5B2BC4; font: inherit; font-size: 14px; font-weight: 700; color: #FFFFFF; display: flex; align-items: center; gap: 8px; cursor: pointer; box-shadow: 0 6px 16px rgba(91,43,196,0.28)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"></path></svg>Training opslaan</button>
 </div>
 </div>
@@ -76,14 +107,19 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid #5B2B
 <section aria-label="Tijdsverdeling" style="padding: 18px 22px; border: 1px solid #ECE6F7; border-radius: 16px; display: flex; align-items: center; gap: 28px">
 <div style="display: flex; flex-direction: column; gap: 2px; width: 150px; flex-shrink: 0">
 <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #625A78">Totale duur</span>
-<span style="font-family: 'Barlow Condensed', sans-serif; font-size: 40px; line-height: 1; font-weight: 700"><span style="color: {{totalColor}}">{{total}}</span><span style="color: #9D93B6"> / 90 min</span></span>
+<span style="font-family: 'Barlow Condensed', sans-serif; font-size: 40px; line-height: 1; font-weight: 700; white-space: nowrap"><span style="color: {{totalColor}}">{{total}}</span><span style="color: #9D93B6"> / {{duration}} min</span></span>
+<div role="group" aria-label="Duur van de training" style="margin-top: 8px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; padding: 3px; border-radius: 10px; background: #F7F5FC">
+<sc-for list="{{durations}}" as="d" hint-placeholder-count="3">
+<button type="button" aria-pressed="{{d.on}}" onClick="{{d.pick}}" style="height: 28px; border: 0; border-radius: 7px; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; {{d.st}}">{{d.label}}</button>
+</sc-for>
+</div>
 </div>
 <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 10px">
 <div style="height: 14px; border-radius: 999px; background: #F1EDF9; display: flex; overflow: hidden; gap: 2px">
-<sc-for list="{{segs}}" as="s" hint-placeholder-count="4"><span style="width: {{s.w}}%; background: {{s.c}}"></span></sc-for>
+<sc-for list="{{segs}}" as="s" hint-placeholder-count="3"><span style="width: {{s.w}}%; background: {{s.c}}"></span></sc-for>
 </div>
 <div style="display: flex; align-items: center; gap: 18px; font-size: 13px">
-<sc-for list="{{segs}}" as="s" hint-placeholder-count="4">
+<sc-for list="{{segs}}" as="s" hint-placeholder-count="3">
 <span style="display: flex; align-items: center; gap: 6px; color: #3D3552"><span style="width: 10px; height: 10px; border-radius: 3px; background: {{s.c}}"></span>{{s.name}} <strong style="color: #1A1033">{{s.min}}′</strong></span>
 </sc-for>
 <span style="margin-left: auto; font-weight: 600; color: {{statusColor}}">{{status}}</span>
@@ -98,8 +134,8 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid #5B2B
 </div>
 </section>
 
-<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; flex-grow: 1; min-height: 0">
-<sc-for list="{{zones}}" as="z" hint-placeholder-count="4">
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; flex-grow: 1; min-height: 0">
+<sc-for list="{{zones}}" as="z" hint-placeholder-count="3">
 <section aria-label="{{z.name}}" onDragOver="{{z.over}}" onDrop="{{z.drop}}" style="border-radius: 18px; display: flex; flex-direction: column; min-height: 0; overflow: hidden; {{z.st}}">
 <button type="button" onClick="{{z.select}}" aria-pressed="{{z.active}}" style="border: 0; background: transparent; font: inherit; color: inherit; text-align: left; padding: 16px 16px 12px; cursor: pointer; display: flex; flex-direction: column; gap: 10px">
 <span style="display: flex; align-items: center; gap: 10px; width: 100%">
@@ -143,34 +179,49 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid #5B2B
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1024}}'>
 var EX = [
-  { id: 'rondo', title: 'Rondo 4 tegen 2', variant: 'rondo', type: 'Warming-up', ageLabel: 'U10–13', players: '6', min: 12, mat: ['Kegels', 'Hesjes', 'Ballen'] },
-  { id: 'pass', title: 'Passvierkant met doorbewegen', variant: 'passing', type: 'Warming-up', ageLabel: 'U8–13', players: '8', min: 12, mat: ['Kegels', 'Ballen'] },
-  { id: 'coord', title: 'Coördinatieparcours met bal', variant: 'coordination', type: 'Fysiek', ageLabel: 'U7–11', players: '4–12', min: 10, mat: ['Ladder', 'Kegels', 'Ballen'] },
-  { id: 'trans', title: 'Omschakelen 4 tegen 4 op vier doeltjes', variant: 'transition', type: 'Tactisch', ageLabel: 'U11–15', players: '8', min: 20, mat: ['4 doeltjes', 'Hesjes', 'Ballen'] },
-  { id: 'fin', title: 'Afwerken na combinatie', variant: 'finishing', type: 'Technisch', ageLabel: 'U12–15', players: '8–12', min: 15, mat: ['Groot doel', 'Kegels', 'Ballen'] },
-  { id: 'pos', title: 'Positiespel 5 tegen 5 + 3', variant: 'positional', type: 'Tactisch', ageLabel: 'U14–19', players: '13', min: 20, mat: ['Kegels', 'Hesjes', 'Ballen'] },
-  { id: 'press', title: 'Druk zetten in blok 6 tegen 4', variant: 'pressing', type: 'Tactisch', ageLabel: 'U15–19', players: '10 + K', min: 18, mat: ['Groot doel', 'Hesjes', 'Kegels'] },
-  { id: 'game', title: 'Partijvorm 7 tegen 7 met zones', variant: 'game', type: 'Partijvorm', ageLabel: 'U12–17', players: '14', min: 25, mat: ['2 doelen', 'Hesjes', 'Kegels'] },
-  { id: 'gk', title: 'Keeper: duiken en opvolgen', variant: 'keeper', type: 'Keeper', ageLabel: 'Alle', players: '1 + 2', min: 15, mat: ['Groot doel', 'Ballen'] }
+  { id: 'rondo', title: 'Rondo 4 tegen 1', variant: 'rondo', type: 'Warming-up', ageLabel: 'U10–21', themes: ['Passing & aanname', 'Positiespel'], players: '5', min: 5, mat: ['Kegels', 'Ballen', 'Hesjes'] },
+  { id: 'trans', title: 'Omschakelen 4 tegen 4 op vier doeltjes', variant: 'transition', type: 'Tactisch', ageLabel: 'U11–15', themes: ['Omschakelen'], players: '8', min: 20, mat: ['4 doeltjes', 'Ballen', 'Hesjes', 'Kegels'] },
+  { id: 'pos', title: 'Positiespel 5 tegen 5 + 3', variant: 'positional', type: 'Tactisch', ageLabel: 'U14–21', themes: ['Positiespel', 'Opbouw van achteruit'], players: '13', min: 20, mat: ['Kegels', 'Ballen', 'Hesjes'] },
+  { id: 'fin', title: 'Afwerken na combinatie', variant: 'finishing', type: 'Technisch', ageLabel: 'U12–15', themes: ['Afwerken'], players: '8–12', min: 15, mat: ['Groot doel', 'Kegels', 'Ballen'] },
+  { id: 'press', title: 'Druk zetten in blok 6 tegen 4', variant: 'pressing', type: 'Tactisch', ageLabel: 'U14–21', themes: ['Druk zetten'], players: '10 + K', min: 18, mat: ['Groot doel', 'Hesjes', 'Kegels', 'Ballen'] },
+  { id: 'game', title: 'Partijvorm 8 tegen 8 met zones', variant: 'game', type: 'Partijvorm', ageLabel: 'U14–21', themes: ['Omschakelen', 'Opbouw van achteruit'], players: '16', min: 25, mat: ['2 doelen', 'Hesjes', 'Kegels', 'Ballen'] },
+  { id: 'pass', title: 'Passvierkant met doorbewegen', variant: 'passing', type: 'Technisch', ageLabel: 'U8–13', themes: ['Passing & aanname'], players: '8', min: 12, mat: ['Kegels', 'Ballen'] },
+  { id: 'coord', title: 'Coördinatieparcours met bal', variant: 'coordination', type: 'Fysiek', ageLabel: 'U7–11', themes: ['Dribbelen'], players: '4–12', min: 10, mat: ['Loopladder', 'Kegels', 'Ballen'] },
+  { id: 'duel', title: '1 tegen 1 op kleine doeltjes', variant: 'duel', type: 'Technisch', ageLabel: 'U8–11', themes: ['Dribbelen', 'Afwerken'], players: '4–12', min: 12, mat: ['2 doeltjes', 'Kegels', 'Ballen', 'Hesjes'] },
+  { id: 'game5', title: 'Partijvorm 5 tegen 5 op grote doelen', variant: 'smallgame', type: 'Partijvorm', ageLabel: 'U8–13', themes: ['Afwerken', 'Omschakelen'], players: '10', min: 20, mat: ['2 doelen', 'Hesjes', 'Kegels', 'Ballen'] }
 ];
 var BY = {}; EX.forEach(function (e) { BY[e.id] = e; });
-var DOT = { 'Warming-up': '#F2A541', 'Technisch': '#3B8FD9', 'Tactisch': '#5B2BC4', 'Fysiek': '#E0527A', 'Keeper': '#1FA37A', 'Partijvorm': '#1A1033' };
+var DOT = { 'Warming-up': '#F2A541', 'Technisch': '#3B8FD9', 'Tactisch': '#5B2BC4', 'Fysiek': '#E0527A', 'Partijvorm': '#1A1033' };
 var ZONES = [
-  { id: 'wu', name: 'Warming-up', target: 15, color: '#F2A541' },
-  { id: 'k1', name: 'Kern 1', target: 25, color: '#5B2BC4' },
-  { id: 'k2', name: 'Kern 2', target: 25, color: '#8B63E0' },
-  { id: 'pv', name: 'Partijvorm', target: 25, color: '#2A1464' }
+  { id: 'wu', name: 'Warming-up', color: '#F2A541' },
+  { id: 'kern', name: 'Kern', color: '#5B2BC4' },
+  { id: 'pv', name: 'Partijvorm', color: '#2A1464' }
 ];
-var TABS = ['Alle', 'Warming-up', 'Technisch', 'Tactisch', 'Partijvorm', 'Keeper'];
+var THEMES = ['Omschakelen', 'Positiespel', 'Opbouw van achteruit', 'Druk zetten', 'Afwerken', 'Dribbelen', 'Passing & aanname'];
+var DURATIONS = [60, 75, 90];
+var TARGETS = {
+  60: { wu: 10, kern: 30, pv: 20 },
+  75: { wu: 15, kern: 40, pv: 20 },
+  90: { wu: 15, kern: 50, pv: 25 }
+};
+var TABS = ['Alle', 'Warming-up', 'Technisch', 'Tactisch', 'Partijvorm'];
+function timeLabel(d) { var end = 18 * 60 + d; var pad = function (n) { return (n < 10 ? '0' : '') + n; }; return '18:00 – ' + pad(Math.floor(end / 60)) + ':' + pad(end % 60); }
 var uidN = 10;
+var MONTHS = ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'];
+var DAYNAMES = ['Zondag', 'Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag'];
+var TRAINING_DAYS = [2, 4];
+var TODAY = '2026-09-25';
+var BUSY = ['2026-09-10', '2026-09-15', '2026-09-17', '2026-09-22', '2026-10-01', '2026-10-06', '2026-10-08'];
+function iso(y, m, d) { var p = function (n) { return (n < 10 ? '0' : '') + n; }; return y + '-' + p(m + 1) + '-' + p(d); }
 
 class Component extends DCLogic {
   constructor(props) {
     super(props);
     this.drag = null;
     this.state = {
-      plan: { wu: [{ uid: 'a1', ex: 'rondo', min: 15 }], k1: [{ uid: 'a2', ex: 'trans', min: 20 }], k2: [], pv: [{ uid: 'a3', ex: 'game', min: 25 }] },
-      active: 'k2', hover: null, tab: 'Alle', query: ''
+      team: 'U11 Rangers', teamFocus: false, date: '2026-09-29', calOpen: false, calY: 2026, calM: 8,
+      plan: { wu: [{ uid: 'a1', ex: 'rondo', min: 5 }], kern: [{ uid: 'a2', ex: 'trans', min: 20 }], pv: [{ uid: 'a3', ex: 'game', min: 25 }] },
+      duration: 90, theme: 'Omschakelen', themeOpen: false, active: 'kern', hover: null, tab: 'Alle', query: ''
     };
   }
   clone() { var p = this.state.plan, o = {}; Object.keys(p).forEach(function (k) { o[k] = p[k].map(function (c) { return Object.assign({}, c); }); }); return o; }
@@ -183,10 +234,12 @@ class Component extends DCLogic {
     var self = this, st = this.state;
     var q = (st.query || '').toLowerCase();
     var activeName = ZONES.filter(function (z) { return z.id === st.active; })[0].name;
+    var fitsTheme = function (e) { return e.themes.indexOf(st.theme) >= 0; };
     var lib = EX.filter(function (e) {
       return (st.tab === 'Alle' || e.type === st.tab) && (!q || e.title.toLowerCase().indexOf(q) >= 0);
-    }).map(function (e) {
+    }).sort(function (a, b) { return (fitsTheme(b) ? 1 : 0) - (fitsTheme(a) ? 1 : 0); }).map(function (e) {
       return Object.assign({}, e, {
+        fits: fitsTheme(e),
         dot: DOT[e.type],
         addLabel: e.title + ' toevoegen aan ' + activeName,
         add: function () { self.addTo(st.active, e.id); },
@@ -194,7 +247,9 @@ class Component extends DCLogic {
       });
     });
     var total = 0, mats = [];
+    var targets = TARGETS[st.duration];
     var zones = ZONES.map(function (z, zi) {
+      var target = targets[z.id];
       var items = st.plan[z.id];
       var used = 0;
       var cards = items.map(function (c, ci) {
@@ -211,17 +266,17 @@ class Component extends DCLogic {
       });
       total += used;
       var isHover = st.hover === z.id, isActive = st.active === z.id;
-      var over = used > z.target;
+      var over = used > target;
       var st1 = isHover ? 'background:#F3EEFD;border:2px dashed #5B2BC4' : (isActive ? 'background:#FBFAFE;border:2px solid #5B2BC4' : 'background:#FBFAFE;border:2px solid #ECE6F7');
       var empty = cards.length === 0;
       return {
-        name: z.name, num: zi + 1, target: z.target, used: used, color: z.color, cards: cards, active: isActive,
-        pct: Math.min(100, Math.round(used / z.target * 100)),
-        statColor: over ? '#9A5B00' : (used === z.target ? '#5B2BC4' : '#625A78'),
+        name: z.name, num: zi + 1, target: target, used: used, color: z.color, cards: cards, active: isActive,
+        pct: Math.min(100, Math.round(used / target * 100)),
+        statColor: over ? '#9A5B00' : (used === target ? '#5B2BC4' : '#625A78'),
         st: st1,
         dashColor: isHover ? '#5B2BC4' : '#D9CEF3',
         slotSt: empty ? 'flex-grow: 1; min-height: 160px' : 'min-height: 72px',
-        slotText: empty ? 'Sleep een oefening hierheen' : (used < z.target ? 'Nog ' + (z.target - used) + ' min · sleep om aan te vullen' : 'Sleep om te wisselen'),
+        slotText: empty ? 'Sleep een oefening hierheen' : (used < target ? 'Nog ' + (target - used) + ' min · sleep om aan te vullen' : 'Sleep om te wisselen'),
         select: function () { self.setState({ active: z.id }); },
         over: function (ev) { ev.preventDefault(); if (self.state.hover !== z.id) self.setState({ hover: z.id }); },
         drop: function (ev) {
@@ -236,14 +291,63 @@ class Component extends DCLogic {
         }
       };
     });
-    var denom = Math.max(90, total);
+    var denom = Math.max(st.duration, total);
     var segs = zones.map(function (z) { return { name: z.name, min: z.used, c: z.color, w: (z.used / denom * 100).toFixed(2) }; });
-    var rest = 90 - total;
+    var rest = st.duration - total;
     return {
       lib: lib, zones: zones, segs: segs, total: total, mats: mats.length ? mats : ['Nog geen materiaal'],
       activeName: activeName,
+      dateTitle: (function () { var p = st.date.split('-'); var dt = new Date(+p[0], +p[1] - 1, +p[2]); return DAYNAMES[dt.getDay()] + ' ' + dt.getDate() + ' ' + MONTHS[dt.getMonth()]; })(),
+      calOpen: st.calOpen,
+      team: st.team,
+      teamSize: Math.max(4, (st.team || '').length + 1),
+      teamWrapSt: st.teamFocus ? 'background:#F5F2FC;box-shadow:inset 0 0 0 2px #5B2BC4' : 'background:transparent;box-shadow:inset 0 -2px 0 #E4DDF3',
+      setTeam: function (ev) { self.setState({ team: ev.target.value }); },
+      teamFocus: function () { self.setState({ teamFocus: true, calOpen: false, themeOpen: false }); },
+      teamBlur: function () { var v = (self.state.team || '').trim(); self.setState({ teamFocus: false, team: v || 'U11 Rangers' }); },
+      calBtnSt: st.calOpen ? 'background:#F5F2FC' : 'background:transparent',
+      toggleCal: function () { var p = self.state.date.split('-'); self.setState({ calOpen: !self.state.calOpen, calY: +p[0], calM: +p[1] - 1, themeOpen: false }); },
+      closeCal: function () { self.setState({ calOpen: false }); },
+      prevMonth: function () { var m = self.state.calM - 1, y = self.state.calY; if (m < 0) { m = 11; y--; } self.setState({ calM: m, calY: y }); },
+      nextMonth: function () { var m = self.state.calM + 1, y = self.state.calY; if (m > 11) { m = 0; y++; } self.setState({ calM: m, calY: y }); },
+      monthTitle: MONTHS[st.calM] + ' ' + st.calY,
+      weekdays: ['ma', 'di', 'wo', 'do', 'vr', 'za', 'zo'],
+      cells: (function () {
+        var first = new Date(st.calY, st.calM, 1).getDay();
+        var lead = (first + 6) % 7;
+        var days = new Date(st.calY, st.calM + 1, 0).getDate();
+        var out = [];
+        for (var i = 0; i < lead; i++) out.push({ blank: true, isDay: false });
+        for (var d = 1; d <= days; d++) {
+          (function (d) {
+            var key = iso(st.calY, st.calM, d);
+            var wd = new Date(st.calY, st.calM, d).getDay();
+            var on = key === st.date, past = key < TODAY, busy = BUSY.indexOf(key) >= 0 && !on;
+            var tday = TRAINING_DAYS.indexOf(wd) >= 0, today = key === TODAY;
+            var disabled = past || busy;
+            var s;
+            if (on) s = 'background:#5B2BC4;color:#FFFFFF;font-weight:700;border:1px solid #5B2BC4;cursor:pointer';
+            else if (disabled) s = 'background:transparent;color:#B8B0CC;border:1px solid transparent;cursor:not-allowed' + (busy ? ';font-weight:600' : '');
+            else if (tday) s = 'background:#EFE9FB;color:#2A1464;font-weight:700;border:1px solid #C7B6EF;cursor:pointer';
+            else s = 'background:transparent;color:#1A1033;border:1px solid transparent;cursor:pointer';
+            if (today && !on) s += ';box-shadow:inset 0 0 0 2px #1A1033';
+            out.push({ blank: false, isDay: true, num: d, on: on, busy: busy, disabled: disabled,
+              label: DAYNAMES[wd] + ' ' + d + ' ' + MONTHS[st.calM] + (busy ? ', er staat al een training' : '') + (past ? ', voorbij' : ''),
+              hint: busy ? 'Er staat al een training op deze dag' : (past ? 'Deze dag is voorbij' : (tday ? 'Vaste trainingsdag' : '')),
+              st: s, pick: function () { if (!disabled) self.setState({ date: key, calOpen: false }); } });
+          })(d);
+        }
+        return out;
+      })(),
+      theme: st.theme,
+      themeOpen: st.themeOpen,
+      toggleTheme: function () { self.setState({ themeOpen: !self.state.themeOpen }); },
+      themeOpts: THEMES.map(function (t) { var on = st.theme === t; return { label: t, on: on, count: EX.filter(function (e) { return e.themes.indexOf(t) >= 0; }).length, st: on ? 'background:#EFE9FB;color:#2A1464;font-weight:700' : 'background:transparent;color:#1A1033;font-weight:500', pick: function () { self.setState({ theme: t, themeOpen: false }); } }; }),
+      duration: st.duration,
+      timeLabel: timeLabel(st.duration),
+      durations: DURATIONS.map(function (d) { var on = st.duration === d; return { label: d + '′', on: on, st: on ? 'background:#5B2BC4;color:#FFFFFF' : 'background:transparent;color:#3D3552', pick: function () { self.setState({ duration: d }); } }; }),
       totalColor: rest < 0 ? '#9A5B00' : '#1A1033',
-      status: rest > 0 ? 'Nog ' + rest + ' min te plannen' : (rest === 0 ? 'Precies 90 minuten' : Math.abs(rest) + ' min te veel'),
+      status: rest > 0 ? 'Nog ' + rest + ' min te plannen' : (rest === 0 ? 'Precies ' + st.duration + ' minuten' : Math.abs(rest) + ' min te veel'),
       statusColor: rest < 0 ? '#9A5B00' : (rest === 0 ? '#1A7F5A' : '#5B2BC4'),
       tabs: TABS.map(function (t) { var on = st.tab === t; return { label: t, on: on, st: on ? 'background:#5B2BC4;color:#FFFFFF;border:1px solid #5B2BC4' : 'background:#FFFFFF;color:#1A1033;border:1px solid #E4DDF3', pick: function () { self.setState({ tab: t }); } }; }),
       query: st.query,

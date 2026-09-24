@@ -31,6 +31,7 @@ button:focus-visible,a:focus-visible{outline:2px solid #5B2BC4;outline-offset:2p
 <div style="display: flex; align-items: center; gap: 8px">
 <span style="height: 28px; padding: 0 12px; border-radius: 999px; background: #EFE9FB; color: #2A1464; font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 6px"><span style="width: 8px; height: 8px; border-radius: 99px; background: #5B2BC4"></span>Tactisch</span>
 <span style="height: 28px; padding: 0 12px; border-radius: 999px; background: #FFF3E0; color: #7A4A00; font-size: 13px; font-weight: 700; display: flex; align-items: center">Omschakelen → aanval</span>
+<span style="height: 28px; padding: 0 12px; border-radius: 999px; background: #2A1464; color: #FFFFFF; font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 6px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"></path><circle cx="7.5" cy="7.5" r="1.5"></circle></svg>Thema: Omschakelen</span>
 <span style="height: 28px; padding: 0 12px; border-radius: 999px; border: 1px solid #E4DDF3; font-size: 13px; font-weight: 600; color: #3D3552; display: flex; align-items: center">Ik Dien-methode · Bouwfase</span>
 </div>
 <h1 style="margin: 0; font-family: 'Barlow Condensed', sans-serif; font-size: 60px; line-height: 0.95; font-weight: 700; text-transform: uppercase; max-width: 860px">Omschakelen 4 tegen 4 op vier doeltjes</h1>
@@ -38,7 +39,6 @@ button:focus-visible,a:focus-visible{outline:2px solid #5B2BC4;outline-offset:2p
 </div>
 <div style="display: flex; gap: 10px; flex-shrink: 0">
 <button type="button" onClick="{{toggleFav}}" aria-pressed="{{fav}}" style="height: 48px; padding: 0 18px; border-radius: 12px; border: 1px solid #E4DDF3; background: #FFFFFF; font: inherit; font-size: 14px; font-weight: 600; color: #1A1033; display: flex; align-items: center; gap: 8px; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="{{favFill}}" stroke="#5B2BC4" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4z"></path></svg>{{favLabel}}</button>
-<button type="button" style="height: 48px; padding: 0 18px; border-radius: 12px; border: 1px solid #E4DDF3; background: #FFFFFF; font: inherit; font-size: 14px; font-weight: 600; color: #1A1033; display: flex; align-items: center; gap: 8px; cursor: pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V3h12v6"></path><rect x="3" y="9" width="18" height="8" rx="2"></rect><path d="M6 14h12v7H6z"></path></svg>Oefenfiche</button>
 </div>
 </div>
 </div>
@@ -106,9 +106,9 @@ button:focus-visible,a:focus-visible{outline:2px solid #5B2BC4;outline-offset:2p
 <section style="padding: 22px; border-radius: 18px; background: #2A1464; color: #FFFFFF; display: flex; flex-direction: column; gap: 16px">
 <span style="font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em">Toevoegen aan training</span>
 <div style="display: flex; flex-direction: column; gap: 8px">
-<span style="font-size: 13px; color: #DDD3F6">Training van dinsdag 29 september · U13 A</span>
-<div role="group" aria-label="Blok" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; padding: 4px; border-radius: 12px; background: rgba(255,255,255,0.08)">
-<sc-for list="{{blocks}}" as="b" hint-placeholder-count="4">
+<span style="font-size: 13px; color: #DDD3F6">Training van dinsdag 29 september · U11 Rangers</span>
+<div role="group" aria-label="Blok" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; padding: 4px; border-radius: 12px; background: rgba(255,255,255,0.08)">
+<sc-for list="{{blocks}}" as="b" hint-placeholder-count="3">
 <button type="button" aria-pressed="{{b.on}}" onClick="{{b.pick}}" style="height: 40px; border: 0; border-radius: 9px; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; {{b.st}}">{{b.label}}</button>
 </sc-for>
 </div>
@@ -182,7 +182,7 @@ button:focus-visible,a:focus-visible{outline:2px solid #5B2BC4;outline-offset:2p
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1640}}'>
-var BLOCKS = ['Warming-up', 'Kern 1', 'Kern 2', 'Partijvorm'];
+var BLOCKS = ['Warming-up', 'Kern', 'Partijvorm'];
 var PHASES = [
   ['Organisatie', 'Beginsituatie: trainer speelt in'],
   ['Balwinst', 'Paars wint de bal en kijkt vooruit'],
@@ -210,10 +210,10 @@ class Component extends DCLogic {
       favLabel: st.fav ? 'Bewaard' : 'Bewaren',
       toggleFav: function () { self.setState({ fav: !st.fav }); },
       related: [
-        { variant: 'rondo', fit: 'Als warming-up', title: 'Rondo 4 tegen 2', meta: '12 min · 6 spelers' },
+        { variant: 'rondo', fit: 'Als warming-up', title: 'Rondo 4 tegen 1', meta: '5 min · 5 spelers' },
         { variant: 'pressing', fit: 'Zelfde thema', title: 'Druk zetten in blok 6 tegen 4', meta: '18 min · 10 + K' },
-        { variant: 'finishing', fit: 'Kern 2', title: 'Afwerken na combinatie', meta: '15 min · 8–12 spelers' },
-        { variant: 'game', fit: 'Als afsluiter', title: 'Partijvorm 7 tegen 7 met zones', meta: '25 min · 14 spelers' }
+        { variant: 'finishing', fit: 'Kern', title: 'Afwerken na combinatie', meta: '15 min · 8–12 spelers' },
+        { variant: 'game', fit: 'Als afsluiter', title: 'Partijvorm 8 tegen 8 met zones', meta: '25 min · 16 spelers' }
       ]
     };
   }
