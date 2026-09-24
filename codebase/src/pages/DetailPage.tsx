@@ -19,19 +19,23 @@ export function DetailPage() {
   const e = EXERCISE_BY_ID[id];
   const { favs, toggleFav, addExercise } = useTraining();
 
-  const [step, setStep] = useState(1);
+  const diagramSteps = e?.diagramSteps ?? [];
+  const hasStepToggle = diagramSteps.length >= 2;
+  // Open on the second stage when there are three or more (the first one only shows the setup).
+  const defaultStep = Math.min(1, diagramSteps.length - 1);
+  const [step, setStep] = useState(defaultStep);
   const [block, setBlock] = useState(1);
   const [min, setMin] = useState(e?.min ?? 15);
   const [added, setAdded] = useState<string | null>(null);
 
   // Reset local state when navigating between exercises.
   useEffect(() => {
-    setStep(1);
+    setStep(defaultStep);
     setBlock(1);
     setMin(e?.min ?? 15);
     setAdded(null);
     window.scrollTo(0, 0);
-  }, [id, e?.min]);
+  }, [id, e?.min, defaultStep]);
 
   if (!e) {
     return (
@@ -45,6 +49,7 @@ export function DetailPage() {
   }
 
   const fav = favs.includes(e.id);
+  const hint = hasStepToggle ? diagramSteps[step]?.[1] : diagramSteps[0]?.[1];
 
   const add = () => {
     addExercise(BLOCKS[block].id, e.id, min);
@@ -91,14 +96,16 @@ export function DetailPage() {
         <div className="detail-col">
           <figure className="diagram">
             <div className="diagram-canvas">
-              <Pitch variant={e.variant} step={step} />
-              <div role="group" aria-label="Fase in de oefening" className="segmented diagram-steps">
-                {e.diagramSteps.map(([label], i) => (
-                  <button key={label} type="button" aria-pressed={step === i} onClick={() => setStep(i)}>
-                    {label}
-                  </button>
-                ))}
-              </div>
+              <Pitch variant={e.variant} step={hasStepToggle && step < diagramSteps.length - 1 ? step : undefined} />
+              {hasStepToggle && (
+                <div role="group" aria-label="Fase in de oefening" className="segmented diagram-steps">
+                  {diagramSteps.map(([label], i) => (
+                    <button key={label} type="button" aria-pressed={step === i} onClick={() => setStep(i)}>
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              )}
               <span className="diagram-size">
                 <FieldIcon size={14} />
                 {e.field}
@@ -131,7 +138,7 @@ export function DetailPage() {
                 <span style={{ width: 18, height: 10, border: '1.5px solid #1A1033', background: '#fff' }} />
                 Doeltje
               </span>
-              <span className="diagram-hint">{e.diagramSteps[step][1]}</span>
+              {hint && <span className="diagram-hint">{hint}</span>}
             </figcaption>
           </figure>
 

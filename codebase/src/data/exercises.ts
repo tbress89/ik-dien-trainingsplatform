@@ -7,7 +7,8 @@ export type Variant =
   | 'pressing'
   | 'game'
   | 'passing'
-  | 'duel';
+  | 'duel'
+  | 'smallgame';
 
 export type ExerciseType = 'Warming-up' | 'Technisch' | 'Tactisch' | 'Fysiek' | 'Partijvorm';
 
@@ -45,7 +46,12 @@ export interface Exercise {
   objectives: string[];
   coaching: string[];
   materials: { name: string; qty: string }[];
-  diagramSteps: [string, string][];
+  /**
+   * Optional `[label, hint]` stages for the detail-page diagram. With two or more, the page shows a
+   * button per stage and stage `i` reveals the arrows whose `at` is ≤ i (the last stage shows everything).
+   * With one, only its hint is shown; with none, just the full diagram.
+   */
+  diagramSteps?: [string, string][];
   related: { id: string; fit: string }[];
 }
 
@@ -72,45 +78,45 @@ export const INTENSITY = ['', 'Laag', 'Licht', 'Gemiddeld', 'Hoog', 'Maximaal'] 
 export const EXERCISES: Exercise[] = [
   {
     id: 'rondo',
-    title: 'Rondo 4 tegen 2',
+    title: 'Rondo 4 tegen 1',
     variant: 'rondo',
     type: 'Warming-up',
     phase: 'Aanvallen',
     ages: ['U10–11', 'U12–13'],
     ageLabel: 'U10 – U13',
     diff: 1,
-    pmin: 6,
-    players: '6',
-    playersDetail: '(4 + 2)',
-    min: 12,
+    pmin: 5,
+    players: '5',
+    playersDetail: '(4 + 1)',
+    min: 5,
     intensity: 2,
     field: '12 × 12 m',
     summary:
-      'Vier spelers houden de bal in een vierkant, twee spelers in het midden proberen hem te onderscheppen. Een ideale opwarming om balcirculatie en aanspeelbaarheid te trainen.',
+      'Vier spelers houden de bal in een vierkant, één speler in het midden probeert hem te onderscheppen. Een ideale opwarming om balcirculatie en aanspeelbaarheid te trainen.',
     steps: [
-      { title: 'Opstelling.', text: 'Zet een vierkant van 12 × 12 m uit. Vier spelers staan op de zijden, twee spelers in het midden.' },
-      { title: 'Spelen.', text: 'De buitenspelers spelen de bal rond met maximaal twee balcontacten. De middenspelers jagen op de bal.' },
-      { title: 'Wisselen.', text: 'Wie de bal verliest of buiten het vierkant speelt, wisselt met de middenspeler die het langst binnen staat.' },
-      { title: 'Ritme.', text: 'Speel 3 reeksen van 3 minuten met 1 minuut rust. Tel het aantal passes op rij als uitdaging.' },
+      { title: 'Opstelling.', text: 'Zet een vierkant van 12 × 12 m uit. Vier spelers staan op de zijden, één speler in het midden.' },
+      { title: 'Spelen.', text: 'De buitenspelers spelen de bal rond met maximaal twee balcontacten. De middenspeler jaagt op de bal.' },
+      { title: 'Wisselen.', text: 'Wie de bal verliest of buiten het vierkant speelt, wisselt met de middenspeler.' },
+      { title: 'Ritme.', text: 'Speel 2 reeksen van 2 minuten met 1 minuut rust. Tel het aantal passes op rij als uitdaging.' },
     ],
-    easier: 'Speel 5 tegen 2 of laat vrij aantal balcontacten toe. Vergroot het vierkant tot 15 × 15 m.',
+    easier: 'Speel 5 tegen 1 of laat vrij aantal balcontacten toe. Vergroot het vierkant tot 15 × 15 m.',
     harder: 'Speel met één balcontact. Tien passes op rij levert een punt op voor de buitenploeg.',
     objectives: ['Balcirculatie', 'Aanspeelbaar staan', 'Lichaamshouding', 'Snel beslissen'],
     coaching: [
       'Open lichaamshouding: ontvang de bal met de voet die het verst van de druk staat.',
       'Beweeg langs de lijn om een passlijn te openen.',
       'Speel de bal in de loop, niet in de voeten.',
-      'Middenspelers: werk samen en sluit de passlijn door het midden af.',
+      'Middenspeler: loop schuin in en sluit de passlijn door het midden af.',
     ],
     materials: [
       { name: 'Kegels', qty: '4' },
       { name: 'Ballen', qty: '3' },
-      { name: 'Hesjes', qty: '2' },
+      { name: 'Hesjes', qty: '1' },
     ],
     diagramSteps: [
-      ['Organisatie', 'Vier buitenspelers, twee in het midden'],
+      ['Organisatie', 'Vier buitenspelers, één in het midden'],
       ['Circulatie', 'De bal gaat rond langs de zijden'],
-      ['Onderscheppen', 'Middenspelers sluiten de passlijn af'],
+      ['Onderscheppen', 'De middenspeler sluit de passlijn af'],
     ],
     related: [
       { id: 'pass', fit: 'Zelfde thema' },
@@ -317,39 +323,38 @@ export const EXERCISES: Exercise[] = [
   },
   {
     id: 'game',
-    title: 'Partijvorm 7 tegen 7 met zones',
+    title: 'Partijvorm 8 tegen 8 met zones',
     variant: 'game',
     type: 'Partijvorm',
     phase: 'Omschakelen → verdediging',
-    ages: ['U12–13', 'U14–15', 'U16–19'],
-    ageLabel: 'U12 – U17',
+    ages: ['U14–15', 'U16–19'],
+    ageLabel: 'U14 – U19',
     diff: 2,
-    pmin: 14,
-    players: '14',
-    playersDetail: '(7 × 2)',
+    pmin: 16,
+    players: '16',
+    playersDetail: '(8 × 2)',
     min: 25,
     intensity: 5,
     field: '60 × 40 m',
     summary:
-      'Een wedstrijdvorm 7 tegen 7 op twee doelen, met drie zones. Na balverlies moet de ploeg zo snel mogelijk de middenzone dichtzetten.',
+      'Een wedstrijdvorm 8 tegen 8 op twee doelen, met drie zones. Na balverlies moet de ploeg zo snel en hoog mogelijk druk zetten.',
     steps: [
       { title: 'Opstelling.', text: 'Speel op 60 × 40 m met twee grote doelen en keepers. Verdeel het veld in drie zones met kegels.' },
-      { title: 'Spelen.', text: 'Vrij spel 7 tegen 7. Een doelpunt telt enkel als alle veldspelers van de scorende ploeg over de eerste zonelijn staan.' },
-      { title: 'Omschakelen.', text: 'Bij balverlies moeten binnen 5 seconden minstens vier spelers in de middenzone staan, anders krijgt de tegenstander een vrije trap.' },
+      { title: 'Spelen.', text: 'Vrij spel 8 tegen 8. Een doelpunt telt enkel als alle veldspelers van de scorende ploeg over de eerste zonelijn staan.' },
       { title: 'Ritme.', text: 'Speel 3 reeksen van 7 minuten met 2 minuten rust. Coach vooral tijdens de pauzes.' },
     ],
     easier: 'Schrap de zoneregel en speel vrij. Voeg eventueel een joker toe.',
-    harder: 'Beperk het aantal balcontacten tot drie. Een doelpunt na balwinst in de middenzone telt dubbel.',
+    harder: 'Beperk het aantal balcontacten tot drie. Een doelpunt na balwinst in de diepste zone telt dubbel.',
     objectives: ['Wedstrijdecht spelen', 'Compact omschakelen', 'Linies bewaken', 'Teamorganisatie'],
     coaching: [
-      'Na balverlies: eerst centraal dichtzetten, pas dan druk zetten.',
+      'Na balverlies: dichtsbijzijnde speler direct druk zetten op de baldrager.',
       'Spreek elkaar aan: “ik neem hem”, “druk”, “terug”.',
       'In balbezit: gebruik de volle breedte van het veld.',
       'Laat het spel vloeien en onderbreek alleen voor een sleutelmoment.',
     ],
     materials: [
       { name: 'Grote doelen', qty: '2' },
-      { name: 'Hesjes', qty: '2 × 7' },
+      { name: 'Hesjes', qty: '2 × 8' },
       { name: 'Kegels', qty: '10' },
       { name: 'Ballen', qty: '10' },
     ],
@@ -509,6 +514,56 @@ export const EXERCISES: Exercise[] = [
       { id: 'rondo', fit: 'Kern' },
       { id: 'fin', fit: 'Als vervolg' },
       { id: 'game', fit: 'Als afsluiter' },
+    ],
+  },
+  {
+    id: 'game5',
+    title: 'Partijvorm 5 tegen 5 op grote doelen',
+    variant: 'smallgame',
+    type: 'Partijvorm',
+    phase: 'Algemeen',
+    ages: ['U7–9', 'U10–11', 'U12–13'],
+    ageLabel: 'U8 – U13',
+    diff: 1,
+    pmin: 10,
+    players: '10',
+    playersDetail: '(2 × 4 + K)',
+    min: 20,
+    intensity: 4,
+    field: '35 × 25 m',
+    summary:
+      'Twee ploegen spelen in een ruit, met keeper, verdediger, linker- en rechterflankspeler en een spits, op grote doelen. Spelers leren hun positie in de ruit houden en samen opbouwen, met veel balcontacten en doelkansen.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet een veld van 35 × 25 m uit met een groot doel op elke korte zijde. Elke ploeg speelt in een ruit: een keeper, één verdediger, een linker- en rechterflankspeler en een spits.' },
+      { title: 'Spelen.', text: 'Vrij spel 5 tegen 5. Elke aanval start bij de keeper, die kort inspeelt: via de verdediger naar een flankspeler, die de spits zoekt. Geen lange trap.' },
+      { title: 'Regels.', text: 'Gaat de bal over de zijlijn, dan wordt hij ingedribbeld of ingepast. Na een doelpunt start de andere keeper meteen opnieuw.' },
+      { title: 'Ritme.', text: 'Speel 4 reeksen van 4 minuten met 1 minuut actieve rust. Wissel na elke reeks van keeper en draai de posities in de ruit door.' },
+    ],
+    easier: 'Voeg een joker toe die altijd met de balbezittende ploeg meespeelt (5 tegen 4 in het veld). Vergroot het veld tot 40 × 30 m.',
+    harder: 'Maximaal drie balcontacten per speler.',
+    objectives: ['Positie houden in de ruit', 'Opbouwen van achteruit', 'Spelen via de flanken', 'Afwerken op groot doel'],
+    coaching: [
+      'Keeper: speel kort in op de verdediger of een flankspeler.',
+      'Flankspelers: blijf breed tegen de zijlijn, zo maak je het veld groot.',
+      'Spits: bied je diep aan en loop in voor doel bij een voorzet.',
+      'Balverlies? Iedereen snel terug naar zijn plaats in de ruit.',
+    ],
+    materials: [
+      { name: 'Grote doelen', qty: '2' },
+      { name: 'Hesjes', qty: '2 × 5' },
+      { name: 'Kegels', qty: '8' },
+      { name: 'Ballen', qty: '6' },
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Twee ploegen in ruit: keeper, verdediger, twee flankspelers en spits'],
+      ['Opbouw', 'Keeper speelt via de verdediger naar de linkerflank'],
+      ['Aanval', 'Flankspeler gaat diep, spits loopt in voor doel'],
+    ],
+    related: [
+      { id: 'pass', fit: 'Als warming-up' },
+      { id: 'duel', fit: 'Kern' },
+      { id: 'fin', fit: 'Kern' },
+      { id: 'game', fit: 'Als vervolg' },
     ],
   },
 ];

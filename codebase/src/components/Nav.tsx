@@ -21,13 +21,6 @@ export function Nav() {
           <NavLink to="/trainingen">Trainingen</NavLink>
         </nav>
       </div>
-      <div className="nav-user">
-        <span className="nav-avatar">TR</span>
-        <span className="nav-user-text">
-          <span className="nav-user-name">[Naam trainer]</span>
-          <span className="nav-user-role">Trainer U13 A</span>
-        </span>
-      </div>
     </header>
   );
 }

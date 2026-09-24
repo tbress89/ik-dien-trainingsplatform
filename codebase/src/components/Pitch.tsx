@@ -10,14 +10,14 @@ const CONE = '#A98BE8';
 interface Props {
   variant: Variant;
   /**
-   * How much of the diagram to reveal: 0 = organisation only, 1 = + passes, 2 = + runs.
+   * Reveal only the arrows whose `at` step is ≤ this value (0 = organisation only).
    * Shows everything when omitted.
    */
   step?: number;
 }
 
 /** Tactical diagram on a striped pitch. Fills its parent; the parent sets the size. */
-export function Pitch({ variant, step = 2 }: Props) {
+export function Pitch({ variant, step = Infinity }: Props) {
   const id = useId().replace(/:/g, '');
   const arP = `arP${id}`;
   const arK = `arK${id}`;
@@ -48,8 +48,9 @@ export function Pitch({ variant, step = 2 }: Props) {
       strokeDasharray={dashed ? '5 4' : undefined}
     />
   );
-  const Pass = (x1: number, y1: number, x2: number, y2: number) =>
-    step >= 1 && (
+  // Arrows take an optional `at`: the diagram step from which they're shown (passes 1, runs 2 by default).
+  const Pass = (x1: number, y1: number, x2: number, y2: number, at = 1) =>
+    step >= at && (
       <line
         key={`pa${x1}-${y1}-${x2}-${y2}`}
         x1={x1}
@@ -62,8 +63,8 @@ export function Pitch({ variant, step = 2 }: Props) {
         markerEnd={`url(#${arK})`}
       />
     );
-  const Run = (d: string) =>
-    step >= 2 && (
+  const Run = (d: string, at = 2) =>
+    step >= at && (
       <path key={`ru${d}`} d={d} fill="none" stroke={PURPLE} strokeWidth={2} strokeLinecap="round" markerEnd={`url(#${arP})`} />
     );
 
@@ -73,7 +74,7 @@ export function Pitch({ variant, step = 2 }: Props) {
       Pass(160, 30, 230, 100),
       Pass(230, 100, 160, 170),
       P(160, 30), P(230, 100), P(160, 170), P(90, 100),
-      O(145, 88), O(180, 114),
+      O(155, 92),
       Ball(170, 36),
       Cone(90, 24), Cone(230, 24), Cone(230, 164), Cone(90, 164),
     ],
@@ -137,8 +138,8 @@ export function Pitch({ variant, step = 2 }: Props) {
       Goal(4, 84, 8, 32), Goal(308, 84, 8, 32),
       Line(108, 14, 108, 186, true),
       Line(212, 14, 212, 186, true),
-      P(24, 100), P(70, 50), P(70, 150), P(120, 80), P(125, 135), P(180, 60), P(190, 120),
-      O(296, 100), O(250, 50), O(250, 150), O(205, 90), O(150, 160), O(230, 125), O(145, 40),
+      P(24, 100), P(65, 100), P(70, 50), P(70, 150), P(120, 80), P(125, 135), P(180, 60), P(190, 120),
+      O(296, 100), O(255, 100), O(250, 50), O(250, 150), O(205, 90), O(150, 160), O(230, 125), O(145, 40),
       Ball(186, 114),
     ],
     passing: [
@@ -159,6 +160,19 @@ export function Pitch({ variant, step = 2 }: Props) {
       P(40, 90), P(40, 110), P(95, 75),
       O(280, 90), O(280, 110), O(225, 120),
       Ball(101, 80),
+    ],
+    smallgame: [
+      Line(160, 10, 160, 190),
+      <circle key="cc" cx={160} cy={100} r={18} fill="none" stroke="#fff" strokeWidth={2} />,
+      Box(10, 65, 30, 70), Box(280, 65, 30, 70),
+      Goal(4, 84, 8, 32), Goal(308, 84, 8, 32),
+      Pass(32, 100, 62, 100),
+      Pass(75, 95, 118, 58),
+      Run('M131 50 Q185 38 232 56'),
+      Run('M191 100 Q228 108 262 96'),
+      P(24, 100), P(70, 100), P(125, 50), P(125, 150), P(185, 100),
+      O(296, 100), O(250, 100), O(200, 64), O(200, 136), O(140, 100),
+      Ball(31, 104),
     ],
   };
 

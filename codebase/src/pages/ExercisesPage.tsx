@@ -187,7 +187,7 @@ export function ExercisesPage() {
 
         <div className="promo">
           <span className="promo-title">Training van 60 tot 90 minuten?</span>
-          <span className="promo-text">Stel je sessie samen in vier blokken en zie meteen of de tijd klopt.</span>
+          <span className="promo-text">Stel je sessie samen in drie blokken en zie meteen of de tijd klopt.</span>
           <Link to="/trainingen">
             Open trainingsbouwer
             <ArrowRightIcon />

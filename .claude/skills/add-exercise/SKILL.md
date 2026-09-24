@@ -1,6 +1,6 @@
 ---
 name: add-exercise
-description: Add a new football exercise (oefening) to the Kon. Ik Dien FC trainingsplatform — writes the full Dutch exercise entry in codebase/src/data/exercises.ts and, when no existing tactical diagram fits, draws a new pitch diagram in Pitch.tsx. Use this whenever the user wants to add, create, or put a new exercise/oefening/drill/rondo/partijvorm/warming-up into the platform or exercise database, even from a one-line idea like "3v1 rondo for U9" or a pasted description, and even if they don't say "/add-exercise".
+description: Add a new football exercise (oefening) to the Kon. Ik Dien FC trainingsplatform — writes the full Dutch exercise entry in codebase/src/data/exercises.ts and, when no existing tactical diagram fits, draws a new pitch diagram in Pitch.tsx. Use this whenever the user wants to add, create, or put a new exercise/oefening/drill/rondo/partijvorm/warming-up into the platform or exercise database, even from a one-line idea like "3v1 rondo for U9" or a pasted description, and even if they don't say "/add-exercise". To change or delete an exercise that already exists, use /edit-exercise instead.
 ---
 
 # Add an exercise
@@ -32,7 +32,7 @@ Append a new object to `EXERCISES` (before the closing `];`). Fields that are ea
 
 | Field | Guidance |
 |---|---|
-| `id` | Short, lowercase, unique (existing: `rondo`, `trans`, `pos`, `fin`, `press`, `game`, `pass`, `coord`). It becomes the URL. |
+| `id` | Short, lowercase, unique — check the ids already in `EXERCISES` (e.g. `rondo`, `trans`, `game`). It becomes the URL. |
 | `ages` / `ageLabel` | `ages` are the filter buckets from `AGES` and must cover the whole `ageLabel` range. `ageLabel` is the precise range with spaced en dash: `'U11 – U15'`, or `'Alle'`. E.g. `U11 – U15` → `['U10–11', 'U12–13', 'U14–15']`. |
 | `pmin` | Minimum players needed as a number — the dashboard's player slider filters on it. |
 | `players` / `playersDetail` | Display strings: `'8'`, `'8–12'`, `'10 + K'`; detail like `'(4 × 2)'` or `'(5 × 2 + 3)'`. Use `×` and `–`, not `x` and `-`. |
@@ -41,7 +41,7 @@ Append a new object to `EXERCISES` (before the closing `];`). Fields that are ea
 | `intensity` | 1–5 physical load, independent of difficulty (a simple sprint drill can be basis + hoog). |
 | `phase` | `'Algemeen'` exists for non-phase-specific work (coordination, fysiek) but has no dashboard filter checkbox — prefer a real phase when one fits. |
 | `materials` | Reuse the canonical names so the builder's material summary dedupes correctly: `Kegels`, `Ballen`, `Hesjes`, `Doeltjes`, `Groot doel`, `Grote doelen`, `Loopladder`. `qty` is a string (`'4'`, `'2 × 4'`). |
-| `diagramSteps` | Exactly three `[label, hint]` pairs. The detail page uses the index as the reveal level: 0 = setup only, 1 = + passes, 2 = + runs. So label them in that order (e.g. Organisatie → Circulatie/Balwinst → Afwerken/Doorbewegen), and the hint is one short sentence describing what that stage shows. |
+| `diagramSteps` | Optional `[label, hint]` stages for the detail-page diagram; the hint is one short sentence on what that stage shows. Two or more stages get a button each: stage `i` reveals the arrows whose `at` is ≤ i, and the last stage always shows the full diagram. With the default `at` values (passes 1, runs 2), three stages read setup → passes → runs, e.g. Organisatie → Balwinst → Afwerken. Use as many stages as the exercise naturally has; a single stage just shows its hint as a caption, and leaving the field out shows the plain diagram. |
 | `related` | Four existing ids that pair well in a session, each with a `fit` label. Reuse the existing labels: `Als warming-up`, `Kern`, `Als afsluiter`, `Zelfde thema`, `Als vervolg`, `Tegenhanger`. Don't point at the new exercise itself. |
 
 Leave other exercises' `related` lists alone unless the user asks — changing them silently alters pages they didn't touch.
@@ -66,7 +66,8 @@ Reuse an existing `Variant` when its drawing genuinely depicts the new exercise'
 Drawing rules (viewBox is 320 × 200; the pitch outline runs 10–310 × 10–190):
 
 - Build it only from the primitives defined at the top of `Pitch`: `P` (own team, purple), `O` (opponent, orange), `N` (neutral/kaatser), `Ball`, `Cone`, `Goal`, `Box` (white field lines, or pass `ZONE` for a lavender zone), `Line` (white, or dashed zone line with `true`), `Pass` (dashed dark arrow) and `Run` (solid purple arrow, SVG path string). Keeping to these keeps every diagram visually consistent.
-- Include at least one `Pass` and, where the exercise has movement, one `Run` — otherwise the detail page's step buttons appear to do nothing.
+- Include at least one `Pass` and, where the exercise has movement, one `Run`.
+- `Pass(x1, y1, x2, y2, at)` and `Run(d, at)` take an optional last argument: the diagram stage from which the arrow appears (defaults: passes 1, runs 2). Set it when the exercise has more than three stages, or when the arrows should appear in a different order than passes-then-runs, so each stage button reveals something new. When reusing an existing diagram, check its arrows fit the stages you wrote.
 - Order the array back to front: field lines and zones, then passes and runs, then players, then the ball last so it sits on top.
 - Keep the key action inside roughly x 30–290, y 45–155. The SVG is cropped to fill different boxes (the builder's plan cards are very wide and short, the library thumbnails narrow), so content near the edges gets cut off.
 - Each primitive derives its React key from its coordinates, so don't place two of the same primitive at identical coordinates.
@@ -81,7 +82,7 @@ cd codebase && source ~/.nvm/nvm.sh >/dev/null && nvm use >/dev/null && npm run 
 
 Fix any type errors, then delete the build output (`rm -rf dist tsconfig.tsbuildinfo`) so the working tree stays clean.
 
-If a dev server is already running (check with the browser preview tools), open `/oefeningen/<id>` and click through the three diagram steps to make sure the drawing looks right. Don't start a server just for this unless the user wants to see it.
+If a dev server is already running (check with the browser preview tools), open `/oefeningen/<id>` and click through the diagram steps to make sure the drawing looks right. Don't start a server just for this unless the user wants to see it.
 
 ## Step 5 — Report back
 

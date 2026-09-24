@@ -55,7 +55,7 @@ export interface PlanItem {
 export type Plan = Record<BlockId, PlanItem[]>;
 
 const INITIAL_PLAN: Plan = {
-  wu: [{ uid: 'a1', ex: 'rondo', min: 15 }],
+  wu: [{ uid: 'a1', ex: 'rondo', min: 5 }],
   kern: [{ uid: 'a2', ex: 'trans', min: 20 }],
   pv: [{ uid: 'a3', ex: 'game', min: 25 }],
 };
