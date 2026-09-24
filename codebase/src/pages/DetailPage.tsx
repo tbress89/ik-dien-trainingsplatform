@@ -12,12 +12,12 @@ import {
   PlusIcon,
 } from '../components/icons';
 import { DIFFICULTY, EXERCISE_BY_ID, INTENSITY, TYPE_COLOR } from '../data/exercises';
-import { BLOCKS, TRAINING_INFO, clampMinutes, useTraining } from '../data/training';
+import { BLOCKS, clampMinutes, formatTrainingDate, useTraining } from '../data/training';
 
 export function DetailPage() {
   const { id = '' } = useParams();
   const e = EXERCISE_BY_ID[id];
-  const { favs, toggleFav, addExercise } = useTraining();
+  const { favs, toggleFav, addExercise, date, team } = useTraining();
 
   const diagramSteps = e?.diagramSteps ?? [];
   const hasStepToggle = diagramSteps.length >= 2;
@@ -220,7 +220,7 @@ export function DetailPage() {
               Toevoegen aan training
             </span>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              <span className="add-panel-sub">Training van {TRAINING_INFO.label}</span>
+              <span className="add-panel-sub">Training van {formatTrainingDate(date)} · {team}</span>
               <div role="group" aria-label="Blok" className="segmented">
                 {BLOCKS.map((b, i) => (
                   <button

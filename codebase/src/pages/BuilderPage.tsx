@@ -1,16 +1,16 @@
 import { useEffect, useRef, useState, type DragEvent } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Pitch } from '../components/Pitch';
+import { TrainingHeader } from '../components/TrainingHeader';
 import {
   CheckIcon,
-  ClockIcon,
   CloseIcon,
   GripIcon,
   PlusIcon,
   SearchIcon,
 } from '../components/icons';
 import { EXERCISES, EXERCISE_BY_ID, TYPE_COLOR, materialNames, shortAgeLabel, type ExerciseType } from '../data/exercises';
-import { BLOCKS, BLOCK_TARGETS, DURATIONS, TRAINING_INFO, useTraining, type BlockId } from '../data/training';
+import { BLOCKS, BLOCK_TARGETS, DURATIONS, useTraining, type BlockId } from '../data/training';
 
 const TABS: ('Alle' | ExerciseType)[] = ['Alle', 'Warming-up', 'Technisch', 'Tactisch', 'Partijvorm'];
 
@@ -156,15 +156,7 @@ export function BuilderPage() {
 
       <main className="builder-main">
         <div className="page-head">
-          <div className="page-head-titles" style={{ gap: 8 }}>
-            <span className="crumbs">
-              <Link to="/trainingen">Trainingen</Link> <span aria-hidden="true">/</span> <strong>Nieuwe training</strong>
-            </span>
-            <h1 className="builder-title">{TRAINING_INFO.title}</h1>
-            <div className="pill-row">
-              <span className="pill pill-dark">{TRAINING_INFO.theme}</span>
-            </div>
-          </div>
+          <TrainingHeader />
           <div className="actions">
             <button type="button" className="btn btn-primary" onClick={() => setToast('Training opgeslagen')}>
               <CheckIcon />

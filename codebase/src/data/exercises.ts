@@ -19,6 +19,18 @@ export type Phase =
   | 'Omschakelen → verdediging'
   | 'Algemeen';
 
+export const THEMES = [
+  'Omschakelen',
+  'Positiespel',
+  'Opbouw van achteruit',
+  'Druk zetten',
+  'Afwerken',
+  'Dribbelen',
+  'Passing & aanname',
+] as const;
+
+export type Theme = (typeof THEMES)[number];
+
 export type AgeGroup = 'U6–9' | 'U10–13' | 'U14–15' | 'U16–21';
 
 export interface Exercise {
@@ -27,6 +39,8 @@ export interface Exercise {
   variant: Variant;
   type: ExerciseType;
   phase: Phase;
+  /** Training themes this exercise fits; drives the builder's theme picker. */
+  themes: Theme[];
   ages: AgeGroup[];
   ageLabel: string;
   /** 1 = Basis, 2 = Gemiddeld, 3 = Gevorderd */
@@ -82,6 +96,7 @@ export const EXERCISES: Exercise[] = [
     variant: 'rondo',
     type: 'Warming-up',
     phase: 'Aanvallen',
+    themes: ['Passing & aanname', 'Positiespel'],
     ages: ['U10–13', 'U14–15', 'U16–21'],
     ageLabel: 'U10 – U21',
     diff: 1,
@@ -131,6 +146,7 @@ export const EXERCISES: Exercise[] = [
     variant: 'transition',
     type: 'Tactisch',
     phase: 'Omschakelen → aanval',
+    themes: ['Omschakelen'],
     ages: ['U10–13', 'U14–15'],
     ageLabel: 'U11 – U15',
     diff: 2,
@@ -181,6 +197,7 @@ export const EXERCISES: Exercise[] = [
     variant: 'positional',
     type: 'Tactisch',
     phase: 'Aanvallen',
+    themes: ['Positiespel', 'Opbouw van achteruit'],
     ages: ['U14–15', 'U16–21'],
     ageLabel: 'U14 – U21',
     diff: 3,
@@ -230,6 +247,7 @@ export const EXERCISES: Exercise[] = [
     variant: 'finishing',
     type: 'Technisch',
     phase: 'Aanvallen',
+    themes: ['Afwerken'],
     ages: ['U10–13', 'U14–15'],
     ageLabel: 'U12 – U15',
     diff: 2,
@@ -278,6 +296,7 @@ export const EXERCISES: Exercise[] = [
     variant: 'pressing',
     type: 'Tactisch',
     phase: 'Verdedigen',
+    themes: ['Druk zetten'],
     ages: ['U14–15', 'U16–21'],
     ageLabel: 'U14 – U21',
     diff: 3,
@@ -327,6 +346,7 @@ export const EXERCISES: Exercise[] = [
     variant: 'game',
     type: 'Partijvorm',
     phase: 'Omschakelen → verdediging',
+    themes: ['Omschakelen', 'Opbouw van achteruit'],
     ages: ['U14–15', 'U16–21'],
     ageLabel: 'U14 – U21',
     diff: 2,
@@ -376,6 +396,7 @@ export const EXERCISES: Exercise[] = [
     variant: 'passing',
     type: 'Technisch',
     phase: 'Aanvallen',
+    themes: ['Passing & aanname'],
     ages: ['U6–9', 'U10–13'],
     ageLabel: 'U8 – U13',
     diff: 1,
@@ -424,6 +445,7 @@ export const EXERCISES: Exercise[] = [
     variant: 'coordination',
     type: 'Fysiek',
     phase: 'Algemeen',
+    themes: ['Dribbelen'],
     ages: ['U6–9', 'U10–13'],
     ageLabel: 'U7 – U11',
     diff: 1,
@@ -472,6 +494,7 @@ export const EXERCISES: Exercise[] = [
     variant: 'duel',
     type: 'Technisch',
     phase: 'Aanvallen',
+    themes: ['Dribbelen', 'Afwerken'],
     ages: ['U6–9', 'U10–13'],
     ageLabel: 'U8 – U11',
     diff: 1,
@@ -522,6 +545,7 @@ export const EXERCISES: Exercise[] = [
     variant: 'smallgame',
     type: 'Partijvorm',
     phase: 'Algemeen',
+    themes: ['Afwerken', 'Omschakelen'],
     ages: ['U6–9', 'U10–13'],
     ageLabel: 'U8 – U13',
     diff: 1,

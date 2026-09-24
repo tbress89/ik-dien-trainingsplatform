@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useMemo, useRef, useState, type ReactNode } from 'react';
-import { EXERCISE_BY_ID } from './exercises';
+import { EXERCISE_BY_ID, type Theme } from './exercises';
 
 export type BlockId = 'wu' | 'kern' | 'pv';
 
@@ -25,14 +25,31 @@ export const BLOCK_TARGETS: Record<Duration, Record<BlockId, number>> = {
   90: { wu: 15, kern: 50, pv: 25 },
 };
 
-const TRAINING_DATE = 'Ma 29 september';
-const TRAINING_TEAM = 'U11 Rangers';
+const DAY_NAMES = ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'];
+export const MONTH_NAMES = ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'];
 
-export const TRAINING_INFO = {
-  title: `${TRAINING_DATE[0].toUpperCase()}${TRAINING_DATE.slice(1)} · ${TRAINING_TEAM}`,
-  label: `${TRAINING_DATE} · ${TRAINING_TEAM}`,
-  theme: 'Thema: omschakelen',
+/** The team's regular training weekdays (0 = Sunday), highlighted in the date picker. */
+export const TRAINING_WEEKDAYS = [2, 4];
+
+/** Dates that already have a training planned; they can't be picked. */
+export const BUSY_DATES = ['2026-09-10', '2026-09-15', '2026-09-17', '2026-09-22', '2026-10-01', '2026-10-06', '2026-10-08'];
+
+export const DEFAULT_TEAM = 'U11 Rangers';
+
+/** "2026-09-29" → Date at local midnight. */
+export const parseISODate = (iso: string) => {
+  const [y, m, d] = iso.split('-').map(Number);
+  return new Date(y, m - 1, d);
 };
+
+export const toISODate = (date: Date) =>
+  `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+
+/** "2026-09-29" → "dinsdag 29 september". */
+export function formatTrainingDate(iso: string): string {
+  const date = parseISODate(iso);
+  return `${DAY_NAMES[date.getDay()]} ${date.getDate()} ${MONTH_NAMES[date.getMonth()]}`;
+}
 
 export interface PlanItem {
   uid: string;
@@ -51,6 +68,12 @@ const INITIAL_PLAN: Plan = {
 export const clampMinutes = (m: number) => Math.max(5, Math.min(45, m));
 
 interface TrainingContextValue {
+  date: string;
+  setDate: (iso: string) => void;
+  team: string;
+  setTeam: (team: string) => void;
+  theme: Theme;
+  setTheme: (theme: Theme) => void;
   plan: Plan;
   duration: Duration;
   setDuration: (d: Duration) => void;
@@ -67,6 +90,9 @@ interface TrainingContextValue {
 const TrainingContext = createContext<TrainingContextValue | null>(null);
 
 export function TrainingProvider({ children }: { children: ReactNode }) {
+  const [date, setDate] = useState('2026-09-29');
+  const [team, setTeam] = useState(DEFAULT_TEAM);
+  const [theme, setTheme] = useState<Theme>('Omschakelen');
   const [plan, setPlan] = useState<Plan>(INITIAL_PLAN);
   const [duration, setDuration] = useState<Duration>(90);
   const [activeBlock, setActiveBlock] = useState<BlockId>('kern');
@@ -106,8 +132,8 @@ export function TrainingProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const value = useMemo(
-    () => ({ plan, duration, setDuration, activeBlock, setActiveBlock, addExercise, removeItem, changeMinutes, moveItem, favs, toggleFav }),
-    [plan, duration, activeBlock, addExercise, removeItem, changeMinutes, moveItem, favs, toggleFav],
+    () => ({ date, setDate, team, setTeam, theme, setTheme, plan, duration, setDuration, activeBlock, setActiveBlock, addExercise, removeItem, changeMinutes, moveItem, favs, toggleFav }),
+    [date, team, theme, plan, duration, activeBlock, addExercise, removeItem, changeMinutes, moveItem, favs, toggleFav],
   );
 
   return <TrainingContext.Provider value={value}>{children}</TrainingContext.Provider>;

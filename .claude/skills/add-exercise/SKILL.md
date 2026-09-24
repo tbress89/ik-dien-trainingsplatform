@@ -34,6 +34,7 @@ Append a new object to `EXERCISES` (before the closing `];`). Fields that are ea
 |---|---|
 | `id` | Short, lowercase, unique — check the ids already in `EXERCISES` (e.g. `rondo`, `trans`, `game`). It becomes the URL. |
 | `ages` / `ageLabel` | `ages` are the filter buckets from `AGES` and must cover the whole `ageLabel` range. `ageLabel` is the precise range with spaced en dash: `'U11 – U15'`, or `'Alle'`. E.g. `U11 – U15` → `['U10–13', 'U14–15']`. |
+| `themes` | One or two training themes from `THEMES` that the exercise genuinely works on (e.g. a rondo → `'Passing & aanname'`, `'Positiespel'`). The builder's theme picker counts exercises per theme, so pick what a trainer choosing that theme would expect to find. Don't invent new themes; ask if nothing fits. |
 | `pmin` | Minimum players needed as a number — the dashboard's player slider filters on it. |
 | `players` / `playersDetail` | Display strings: `'8'`, `'8–12'`, `'10 + K'`; detail like `'(4 × 2)'` or `'(5 × 2 + 3)'`. Use `×` and `–`, not `x` and `-`. |
 | `min` | Duration in minutes; the `Ritme.` step's series + rest should roughly add up to it. |
