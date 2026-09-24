@@ -111,7 +111,7 @@ export function ExercisesPage() {
                 aria-pressed={ages.includes(a)}
                 onClick={() => setAges((s) => toggle(s, a))}
               >
-                {a.replace('–', '-')}
+                {a.replace('–', '-U')}
               </button>
             ))}
           </div>
