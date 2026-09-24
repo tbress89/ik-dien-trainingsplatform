@@ -25,24 +25,12 @@ export const BLOCK_TARGETS: Record<Duration, Record<BlockId, number>> = {
   90: { wu: 15, kern: 50, pv: 25 },
 };
 
-const TRAINING_START = '18:00';
-
-/** Time range label for a session starting at TRAINING_START, e.g. "18:00 – 19:30". */
-export function trainingTime(duration: Duration): string {
-  const [h, m] = TRAINING_START.split(':').map(Number);
-  const end = h * 60 + m + duration;
-  const pad = (n: number) => String(n).padStart(2, '0');
-  return `${TRAINING_START} – ${pad(Math.floor(end / 60))}:${pad(end % 60)}`;
-}
-
-const TRAINING_DATE = 'dinsdag 29 september';
-const TRAINING_TEAM = 'U13 A';
+const TRAINING_DATE = 'Ma 29 september';
+const TRAINING_TEAM = 'U11 Rangers';
 
 export const TRAINING_INFO = {
   title: `${TRAINING_DATE[0].toUpperCase()}${TRAINING_DATE.slice(1)} · ${TRAINING_TEAM}`,
   label: `${TRAINING_DATE} · ${TRAINING_TEAM}`,
-  field: 'Veld 2 · half veld',
-  squad: '14 spelers + 2 keepers',
   theme: 'Thema: omschakelen',
 };
 

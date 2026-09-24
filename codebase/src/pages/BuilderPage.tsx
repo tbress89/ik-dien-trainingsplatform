@@ -5,14 +5,12 @@ import {
   CheckIcon,
   ClockIcon,
   CloseIcon,
-  FieldIcon,
   GripIcon,
-  PlayersIcon,
   PlusIcon,
   SearchIcon,
 } from '../components/icons';
 import { EXERCISES, EXERCISE_BY_ID, TYPE_COLOR, materialNames, shortAgeLabel, type ExerciseType } from '../data/exercises';
-import { BLOCKS, BLOCK_TARGETS, DURATIONS, TRAINING_INFO, trainingTime, useTraining, type BlockId } from '../data/training';
+import { BLOCKS, BLOCK_TARGETS, DURATIONS, TRAINING_INFO, useTraining, type BlockId } from '../data/training';
 
 const TABS: ('Alle' | ExerciseType)[] = ['Alle', 'Warming-up', 'Technisch', 'Tactisch', 'Partijvorm'];
 
@@ -164,18 +162,6 @@ export function BuilderPage() {
             </span>
             <h1 className="builder-title">{TRAINING_INFO.title}</h1>
             <div className="pill-row">
-              <span className="pill">
-                <ClockIcon size={14} strokeWidth={2.2} />
-                {trainingTime(duration)}
-              </span>
-              <span className="pill">
-                <FieldIcon size={14} />
-                {TRAINING_INFO.field}
-              </span>
-              <span className="pill">
-                <PlayersIcon size={14} strokeWidth={2.2} />
-                {TRAINING_INFO.squad}
-              </span>
               <span className="pill pill-dark">{TRAINING_INFO.theme}</span>
             </div>
           </div>
