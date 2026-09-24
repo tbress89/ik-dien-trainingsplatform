@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<title>Trainingsbouwer</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Figtree:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FFFFFF}
+a{color:#5B2BC4}a:hover{color:#2A1464}
+input:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid #5B2BC4;outline-offset:2px}
+</style>
+</helmet>
+<div style="width: 1440px; height: 1024px; overflow: hidden; background: #FFFFFF; font-family: Figtree, system-ui, sans-serif; color: #1A1033; display: flex; flex-direction: column">
+<dc-import name="Nav" active="trainingen" hint-size="1440px,72px"></dc-import>
+<div style="display: flex; height: 952px">
+
+<aside aria-label="Oefeningenbibliotheek" style="width: 360px; flex-shrink: 0; box-sizing: border-box; background: #FBFAFE; border-right: 1px solid #ECE6F7; display: flex; flex-direction: column">
+<div style="padding: 28px 24px 16px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: baseline; justify-content: space-between">
+<h2 style="margin: 0; font-family: 'Barlow Condensed', sans-serif; font-size: 24px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em">Bibliotheek</h2>
+<a href="Main.dc.html" style="font-size: 14px; font-weight: 600; text-decoration: none">Alle filters</a>
+</div>
+<label style="position: relative; display: flex; align-items: center">
+<span style="position: absolute; left: 14px; display: flex; color: #625A78"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg></span>
+<input type="search" aria-label="Zoek in bibliotheek" placeholder="Zoek een oefening" value="{{query}}" onChange="{{setQuery}}" style="width: 100%; height: 44px; box-sizing: border-box; padding: 0 14px 0 42px; border: 1px solid #E4DDF3; border-radius: 12px; font: inherit; font-size: 14px; background: #FFFFFF; color: #1A1033">
+</label>
+<div style="display: flex; flex-wrap: wrap; gap: 6px">
+<sc-for list="{{tabs}}" as="t" hint-placeholder-count="5">
+<button type="button" aria-pressed="{{t.on}}" onClick="{{t.pick}}" style="height: 32px; padding: 0 12px; border-radius: 999px; font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; {{t.st}}">{{t.label}}</button>
+</sc-for>
+</div>
+<span style="font-size: 13px; color: #625A78">Sleep naar een blok, of druk op + om toe te voegen aan <strong style="color: #2A1464">{{activeName}}</strong>.</span>
+</div>
+<div style="flex-grow: 1; overflow-y: auto; padding: 0 16px 24px; display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{lib}}" as="e" hint-placeholder-count="8">
+<div draggable="true" onDragStart="{{e.dragStart}}" onDragEnd="{{dragEnd}}" style="display: flex; align-items: center; gap: 12px; padding: 8px 8px 8px 6px; background: #FFFFFF; border: 1px solid #ECE6F7; border-radius: 14px; cursor: grab">
+<span style="display: flex; color: #B3A6D1" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="6" r="1.6"></circle><circle cx="15" cy="6" r="1.6"></circle><circle cx="9" cy="12" r="1.6"></circle><circle cx="15" cy="12" r="1.6"></circle><circle cx="9" cy="18" r="1.6"></circle><circle cx="15" cy="18" r="1.6"></circle></svg></span>
+<div style="width: 84px; height: 56px; border-radius: 8px; overflow: hidden; flex-shrink: 0">
+<dc-import name="Pitch" variant="{{e.variant}}" w="84" h="56" hint-size="84px,56px"></dc-import>
+</div>
+<div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px">
+<span style="font-size: 14px; font-weight: 600; line-height: 1.25">{{e.title}}</span>
+<span style="font-size: 12px; color: #625A78; display: flex; align-items: center; gap: 6px"><span style="width: 7px; height: 7px; border-radius: 99px; background: {{e.dot}}"></span>{{e.type}} · {{e.min}} min · {{e.ageLabel}}</span>
+</div>
+<button type="button" onClick="{{e.add}}" aria-label="{{e.addLabel}}" style="width: 36px; height: 36px; flex-shrink: 0; border-radius: 10px; border: 0; background: #EFE9FB; color: #5B2BC4; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button>
+</div>
+</sc-for>
+</div>
+</aside>
+
+<main style="flex-grow: 1; box-sizing: border-box; padding: 28px 32px 28px; display: flex; flex-direction: column; gap: 20px; min-width: 0">
+<div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 24px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 13px; color: #625A78"><a href="#" style="text-decoration: none; color: #625A78">Trainingen</a> <span aria-hidden="true">/</span> <span style="color: #1A1033; font-weight: 600">Nieuwe training</span></span>
+<h1 style="margin: 0; font-family: 'Barlow Condensed', sans-serif; font-size: 44px; line-height: 1; font-weight: 700; text-transform: uppercase">Dinsdag 29 september · U13 A</h1>
+<div style="display: flex; gap: 8px; flex-wrap: wrap">
+<span style="height: 30px; padding: 0 12px; border-radius: 999px; background: #F5F2FC; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5B2BC4" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>18:00 – 19:30</span>
+<span style="height: 30px; padding: 0 12px; border-radius: 999px; background: #F5F2FC; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5B2BC4" stroke-width="2.2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"></rect><path d="M12 5v14"></path><circle cx="12" cy="12" r="2.5"></circle></svg>Veld 2 · half veld</span>
+<span style="height: 30px; padding: 0 12px; border-radius: 999px; background: #F5F2FC; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#5B2BC4" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20c.8-3.5 3.4-5.5 6.5-5.5s5.7 2 6.5 5.5"></path></svg>14 spelers + 2 keepers</span>
+<span style="height: 30px; padding: 0 12px; border-radius: 999px; background: #2A1464; color: #FFFFFF; font-size: 13px; font-weight: 600; display: flex; align-items: center">Thema: omschakelen</span>
+</div>
+</div>
+<div style="display: flex; gap: 10px">
+<button type="button" style="height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #E4DDF3; background: #FFFFFF; font: inherit; font-size: 14px; font-weight: 600; color: #1A1033; display: flex; align-items: center; gap: 8px; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 9V3h12v6"></path><rect x="3" y="9" width="18" height="8" rx="2"></rect><path d="M6 14h12v7H6z"></path></svg>Afdrukken</button>
+<button type="button" style="height: 44px; padding: 0 16px; border-radius: 12px; border: 1px solid #E4DDF3; background: #FFFFFF; font: inherit; font-size: 14px; font-weight: 600; color: #1A1033; display: flex; align-items: center; gap: 8px; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"></path></svg>Delen met staf</button>
+<button type="button" style="height: 44px; padding: 0 20px; border-radius: 12px; border: 0; background: #5B2BC4; font: inherit; font-size: 14px; font-weight: 700; color: #FFFFFF; display: flex; align-items: center; gap: 8px; cursor: pointer; box-shadow: 0 6px 16px rgba(91,43,196,0.28)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5L20 7"></path></svg>Training opslaan</button>
+</div>
+</div>
+
+<section aria-label="Tijdsverdeling" style="padding: 18px 22px; border: 1px solid #ECE6F7; border-radius: 16px; display: flex; align-items: center; gap: 28px">
+<div style="display: flex; flex-direction: column; gap: 2px; width: 150px; flex-shrink: 0">
+<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #625A78">Totale duur</span>
+<span style="font-family: 'Barlow Condensed', sans-serif; font-size: 40px; line-height: 1; font-weight: 700"><span style="color: {{totalColor}}">{{total}}</span><span style="color: #9D93B6"> / 90 min</span></span>
+</div>
+<div style="flex-grow: 1; display: flex; flex-direction: column; gap: 10px">
+<div style="height: 14px; border-radius: 999px; background: #F1EDF9; display: flex; overflow: hidden; gap: 2px">
+<sc-for list="{{segs}}" as="s" hint-placeholder-count="4"><span style="width: {{s.w}}%; background: {{s.c}}"></span></sc-for>
+</div>
+<div style="display: flex; align-items: center; gap: 18px; font-size: 13px">
+<sc-for list="{{segs}}" as="s" hint-placeholder-count="4">
+<span style="display: flex; align-items: center; gap: 6px; color: #3D3552"><span style="width: 10px; height: 10px; border-radius: 3px; background: {{s.c}}"></span>{{s.name}} <strong style="color: #1A1033">{{s.min}}′</strong></span>
+</sc-for>
+<span style="margin-left: auto; font-weight: 600; color: {{statusColor}}">{{status}}</span>
+</div>
+</div>
+<div style="width: 1px; align-self: stretch; background: #ECE6F7"></div>
+<div style="width: 210px; flex-shrink: 0; display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #625A78">Materiaal</span>
+<div style="display: flex; flex-wrap: wrap; gap: 6px">
+<sc-for list="{{mats}}" as="m" hint-placeholder-count="4"><span style="height: 26px; padding: 0 10px; border-radius: 8px; background: #F5F2FC; font-size: 12px; font-weight: 600; display: flex; align-items: center">{{m}}</span></sc-for>
+</div>
+</div>
+</section>
+
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; flex-grow: 1; min-height: 0">
+<sc-for list="{{zones}}" as="z" hint-placeholder-count="4">
+<section aria-label="{{z.name}}" onDragOver="{{z.over}}" onDrop="{{z.drop}}" style="border-radius: 18px; display: flex; flex-direction: column; min-height: 0; overflow: hidden; {{z.st}}">
+<button type="button" onClick="{{z.select}}" aria-pressed="{{z.active}}" style="border: 0; background: transparent; font: inherit; color: inherit; text-align: left; padding: 16px 16px 12px; cursor: pointer; display: flex; flex-direction: column; gap: 10px">
+<span style="display: flex; align-items: center; gap: 10px; width: 100%">
+<span style="width: 28px; height: 28px; border-radius: 8px; background: {{z.color}}; color: #FFFFFF; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 16px; display: flex; align-items: center; justify-content: center">{{z.num}}</span>
+<span style="font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.02em; flex-grow: 1">{{z.name}}</span>
+<span style="font-size: 13px; font-weight: 700; color: {{z.statColor}}">{{z.used}}/{{z.target}}′</span>
+</span>
+<span style="height: 4px; width: 100%; border-radius: 99px; background: #E9E3F6; display: flex; overflow: hidden"><span style="width: {{z.pct}}%; background: {{z.color}}; border-radius: 99px"></span></span>
+</button>
+<div style="flex-grow: 1; overflow-y: auto; padding: 0 12px 12px; display: flex; flex-direction: column; gap: 10px">
+<sc-for list="{{z.cards}}" as="c" hint-placeholder-count="1">
+<article draggable="true" onDragStart="{{c.dragStart}}" onDragEnd="{{dragEnd}}" style="background: #FFFFFF; border: 1px solid #ECE6F7; border-radius: 14px; overflow: hidden; box-shadow: 0 1px 2px rgba(42,20,100,0.05), 0 6px 16px rgba(42,20,100,0.06); cursor: grab; flex-shrink: 0">
+<div style="position: relative; height: 104px; overflow: hidden">
+<dc-import name="Pitch" variant="{{c.variant}}" w="214" h="104" hint-size="214px,104px"></dc-import>
+<button type="button" onClick="{{c.remove}}" aria-label="Verwijder {{c.title}}" style="position: absolute; top: 6px; right: 6px; width: 32px; height: 32px; border-radius: 9px; border: 0; background: #FFFFFF; color: #3D3552; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 1px 3px rgba(26,16,51,0.14)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button>
+</div>
+<div style="padding: 12px 12px 12px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; flex-direction: column; gap: 3px">
+<span style="font-size: 14px; font-weight: 700; line-height: 1.3">{{c.title}}</span>
+<span style="font-size: 12px; color: #625A78; display: flex; align-items: center; gap: 6px"><span style="width: 7px; height: 7px; border-radius: 99px; background: {{c.dot}}"></span>{{c.type}} · {{c.players}} spelers</span>
+</div>
+<div style="display: flex; align-items: center; justify-content: space-between; background: #F7F5FC; border-radius: 10px; padding: 3px">
+<button type="button" onClick="{{c.minus}}" aria-label="5 minuten korter" style="width: 34px; height: 30px; border: 0; border-radius: 8px; background: #FFFFFF; color: #2A1464; font: inherit; font-size: 18px; font-weight: 700; cursor: pointer; line-height: 1">−</button>
+<span style="font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 700">{{c.min}} min</span>
+<button type="button" onClick="{{c.plus}}" aria-label="5 minuten langer" style="width: 34px; height: 30px; border: 0; border-radius: 8px; background: #FFFFFF; color: #2A1464; font: inherit; font-size: 18px; font-weight: 700; cursor: pointer; line-height: 1">+</button>
+</div>
+</div>
+</article>
+</sc-for>
+<div style="flex-shrink: 0; border: 1.5px dashed {{z.dashColor}}; border-radius: 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; text-align: center; color: #625A78; font-size: 13px; padding: 16px; {{z.slotSt}}">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8B63E0" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+<span>{{z.slotText}}</span>
+</div>
+</div>
+</section>
+</sc-for>
+</div>
+</main>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1024}}'>
+var EX = [
+  { id: 'rondo', title: 'Rondo 4 tegen 2', variant: 'rondo', type: 'Warming-up', ageLabel: 'U10–13', players: '6', min: 12, mat: ['Kegels', 'Hesjes', 'Ballen'] },
+  { id: 'pass', title: 'Passvierkant met doorbewegen', variant: 'passing', type: 'Warming-up', ageLabel: 'U8–13', players: '8', min: 12, mat: ['Kegels', 'Ballen'] },
+  { id: 'coord', title: 'Coördinatieparcours met bal', variant: 'coordination', type: 'Fysiek', ageLabel: 'U7–11', players: '4–12', min: 10, mat: ['Ladder', 'Kegels', 'Ballen'] },
+  { id: 'trans', title: 'Omschakelen 4 tegen 4 op vier doeltjes', variant: 'transition', type: 'Tactisch', ageLabel: 'U11–15', players: '8', min: 20, mat: ['4 doeltjes', 'Hesjes', 'Ballen'] },
+  { id: 'fin', title: 'Afwerken na combinatie', variant: 'finishing', type: 'Technisch', ageLabel: 'U12–15', players: '8–12', min: 15, mat: ['Groot doel', 'Kegels', 'Ballen'] },
+  { id: 'pos', title: 'Positiespel 5 tegen 5 + 3', variant: 'positional', type: 'Tactisch', ageLabel: 'U14–19', players: '13', min: 20, mat: ['Kegels', 'Hesjes', 'Ballen'] },
+  { id: 'press', title: 'Druk zetten in blok 6 tegen 4', variant: 'pressing', type: 'Tactisch', ageLabel: 'U15–19', players: '10 + K', min: 18, mat: ['Groot doel', 'Hesjes', 'Kegels'] },
+  { id: 'game', title: 'Partijvorm 7 tegen 7 met zones', variant: 'game', type: 'Partijvorm', ageLabel: 'U12–17', players: '14', min: 25, mat: ['2 doelen', 'Hesjes', 'Kegels'] },
+  { id: 'gk', title: 'Keeper: duiken en opvolgen', variant: 'keeper', type: 'Keeper', ageLabel: 'Alle', players: '1 + 2', min: 15, mat: ['Groot doel', 'Ballen'] }
+];
+var BY = {}; EX.forEach(function (e) { BY[e.id] = e; });
+var DOT = { 'Warming-up': '#F2A541', 'Technisch': '#3B8FD9', 'Tactisch': '#5B2BC4', 'Fysiek': '#E0527A', 'Keeper': '#1FA37A', 'Partijvorm': '#1A1033' };
+var ZONES = [
+  { id: 'wu', name: 'Warming-up', target: 15, color: '#F2A541' },
+  { id: 'k1', name: 'Kern 1', target: 25, color: '#5B2BC4' },
+  { id: 'k2', name: 'Kern 2', target: 25, color: '#8B63E0' },
+  { id: 'pv', name: 'Partijvorm', target: 25, color: '#2A1464' }
+];
+var TABS = ['Alle', 'Warming-up', 'Technisch', 'Tactisch', 'Partijvorm', 'Keeper'];
+var uidN = 10;
+
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.drag = null;
+    this.state = {
+      plan: { wu: [{ uid: 'a1', ex: 'rondo', min: 15 }], k1: [{ uid: 'a2', ex: 'trans', min: 20 }], k2: [], pv: [{ uid: 'a3', ex: 'game', min: 25 }] },
+      active: 'k2', hover: null, tab: 'Alle', query: ''
+    };
+  }
+  clone() { var p = this.state.plan, o = {}; Object.keys(p).forEach(function (k) { o[k] = p[k].map(function (c) { return Object.assign({}, c); }); }); return o; }
+  addTo(zid, exId) {
+    var p = this.clone();
+    p[zid].push({ uid: 'n' + (uidN++), ex: exId, min: BY[exId].min });
+    this.setState({ plan: p, active: zid, hover: null });
+  }
+  renderVals() {
+    var self = this, st = this.state;
+    var q = (st.query || '').toLowerCase();
+    var activeName = ZONES.filter(function (z) { return z.id === st.active; })[0].name;
+    var lib = EX.filter(function (e) {
+      return (st.tab === 'Alle' || e.type === st.tab) && (!q || e.title.toLowerCase().indexOf(q) >= 0);
+    }).map(function (e) {
+      return Object.assign({}, e, {
+        dot: DOT[e.type],
+        addLabel: e.title + ' toevoegen aan ' + activeName,
+        add: function () { self.addTo(st.active, e.id); },
+        dragStart: function (ev) { self.drag = { src: 'lib', ex: e.id }; try { ev.dataTransfer.setData('text/plain', e.id); ev.dataTransfer.effectAllowed = 'copyMove'; } catch (x) {} }
+      });
+    });
+    var total = 0, mats = [];
+    var zones = ZONES.map(function (z, zi) {
+      var items = st.plan[z.id];
+      var used = 0;
+      var cards = items.map(function (c, ci) {
+        var e = BY[c.ex];
+        used += c.min;
+        e.mat.forEach(function (m) { if (mats.indexOf(m) < 0) mats.push(m); });
+        var setMin = function (d) { var p = self.clone(); p[z.id][ci].min = Math.max(5, Math.min(45, p[z.id][ci].min + d)); self.setState({ plan: p }); };
+        return {
+          title: e.title, variant: e.variant, type: e.type, dot: DOT[e.type], players: e.players, min: c.min,
+          minus: function () { setMin(-5); }, plus: function () { setMin(5); },
+          remove: function () { var p = self.clone(); p[z.id].splice(ci, 1); self.setState({ plan: p }); },
+          dragStart: function (ev) { self.drag = { src: 'card', from: z.id, idx: ci }; try { ev.dataTransfer.setData('text/plain', c.uid); ev.dataTransfer.effectAllowed = 'move'; } catch (x) {} }
+        };
+      });
+      total += used;
+      var isHover = st.hover === z.id, isActive = st.active === z.id;
+      var over = used > z.target;
+      var st1 = isHover ? 'background:#F3EEFD;border:2px dashed #5B2BC4' : (isActive ? 'background:#FBFAFE;border:2px solid #5B2BC4' : 'background:#FBFAFE;border:2px solid #ECE6F7');
+      var empty = cards.length === 0;
+      return {
+        name: z.name, num: zi + 1, target: z.target, used: used, color: z.color, cards: cards, active: isActive,
+        pct: Math.min(100, Math.round(used / z.target * 100)),
+        statColor: over ? '#9A5B00' : (used === z.target ? '#5B2BC4' : '#625A78'),
+        st: st1,
+        dashColor: isHover ? '#5B2BC4' : '#D9CEF3',
+        slotSt: empty ? 'flex-grow: 1; min-height: 160px' : 'min-height: 72px',
+        slotText: empty ? 'Sleep een oefening hierheen' : (used < z.target ? 'Nog ' + (z.target - used) + ' min · sleep om aan te vullen' : 'Sleep om te wisselen'),
+        select: function () { self.setState({ active: z.id }); },
+        over: function (ev) { ev.preventDefault(); if (self.state.hover !== z.id) self.setState({ hover: z.id }); },
+        drop: function (ev) {
+          ev.preventDefault();
+          var d = self.drag; self.drag = null;
+          if (!d) { self.setState({ hover: null }); return; }
+          if (d.src === 'lib') { self.addTo(z.id, d.ex); return; }
+          var p = self.clone();
+          var moved = p[d.from].splice(d.idx, 1)[0];
+          if (moved) p[z.id].push(moved);
+          self.setState({ plan: p, hover: null, active: z.id });
+        }
+      };
+    });
+    var denom = Math.max(90, total);
+    var segs = zones.map(function (z) { return { name: z.name, min: z.used, c: z.color, w: (z.used / denom * 100).toFixed(2) }; });
+    var rest = 90 - total;
+    return {
+      lib: lib, zones: zones, segs: segs, total: total, mats: mats.length ? mats : ['Nog geen materiaal'],
+      activeName: activeName,
+      totalColor: rest < 0 ? '#9A5B00' : '#1A1033',
+      status: rest > 0 ? 'Nog ' + rest + ' min te plannen' : (rest === 0 ? 'Precies 90 minuten' : Math.abs(rest) + ' min te veel'),
+      statusColor: rest < 0 ? '#9A5B00' : (rest === 0 ? '#1A7F5A' : '#5B2BC4'),
+      tabs: TABS.map(function (t) { var on = st.tab === t; return { label: t, on: on, st: on ? 'background:#5B2BC4;color:#FFFFFF;border:1px solid #5B2BC4' : 'background:#FFFFFF;color:#1A1033;border:1px solid #E4DDF3', pick: function () { self.setState({ tab: t }); } }; }),
+      query: st.query,
+      setQuery: function (ev) { self.setState({ query: ev.target.value }); },
+      dragEnd: function () { self.drag = null; if (self.state.hover) self.setState({ hover: null }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

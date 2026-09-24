@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<title>Navigatie</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&amp;family=Figtree:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#5B2BC4}a:hover{color:#2A1464}
+</style>
+</helmet>
+<header style="width: 1440px; height: 72px; box-sizing: border-box; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; background: #FFFFFF; border-bottom: 1px solid #ECE6F7; font-family: Figtree, system-ui, sans-serif; color: #1A1033">
+<div style="display: flex; align-items: center; gap: 48px">
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #1A1033">
+<svg width="36" height="40" viewBox="0 0 36 40" aria-hidden="true"><path d="M18 1 L34 6 V19 C34 29 27 35 18 39 C9 35 2 29 2 19 V6 Z" fill="#5B2BC4"></path><path d="M18 5 L30 9 V19 C30 27 25 32 18 35 C11 32 6 27 6 19 V9 Z" fill="none" stroke="#FFFFFF" stroke-width="1.5" opacity="0.5"></path><text x="18" y="25" text-anchor="middle" font-family="Barlow Condensed, sans-serif" font-weight="700" font-size="15" fill="#FFFFFF">ID</text></svg>
+<span style="display: flex; flex-direction: column; line-height: 1.1">
+<span style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 20px; letter-spacing: 0.02em; text-transform: uppercase">Kon. Ik Dien FC</span>
+<span style="font-size: 12px; font-weight: 500; color: #625A78; letter-spacing: 0.04em">Trainingsplatform</span>
+</span>
+</a>
+<nav aria-label="Hoofdnavigatie" style="display: flex; align-items: center; gap: 4px; height: 72px">
+<a href="Main.dc.html" style="{{l1}}">Oefeningen</a>
+<a href="Builder.dc.html" style="{{l2}}">Trainingen</a>
+
+
+</nav>
+</div>
+<div style="display: flex; align-items: center; gap: 12px">
+
+<div style="display: flex; align-items: center; gap: 10px; padding: 4px 12px 4px 4px; border-radius: 999px; border: 1px solid #ECE6F7">
+<span style="width: 36px; height: 36px; border-radius: 999px; background: #EFE9FB; color: #5B2BC4; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px">TR</span>
+<span style="display: flex; flex-direction: column; line-height: 1.2">
+<span style="font-size: 14px; font-weight: 600">[Naam trainer]</span>
+<span style="font-size: 12px; color: #625A78">Trainer U13 A</span>
+</span>
+</div>
+</div>
+</header>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"active":{"editor":"enum","options":["oefeningen","trainingen"],"default":"oefeningen"},"$preview":{"width":1440,"height":72}}'>
+class Component extends DCLogic {
+renderVals() {
+const a = this.props.active || 'oefeningen';
+const base = 'height: 72px; box-sizing: border-box; display: flex; align-items: center; padding: 0 16px; font-size: 15px; text-decoration: none; ';
+const on = base + 'font-weight: 600; color: #5B2BC4; border-bottom: 3px solid #5B2BC4; padding-top: 3px';
+const off = base + 'font-weight: 500; color: #3D3552; border-bottom: 3px solid transparent; padding-top: 3px';
+return { l1: a === 'oefeningen' ? on : off, l2: a === 'trainingen' ? on : off, l3: off };
+}
+}
+</script>
+</body>
+</html>
