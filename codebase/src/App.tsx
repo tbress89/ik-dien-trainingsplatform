@@ -8,7 +8,7 @@ import { TrainingsPage } from './pages/TrainingsPage';
 
 export function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <TrainingProvider>
         <div className="app">
           <Nav />
