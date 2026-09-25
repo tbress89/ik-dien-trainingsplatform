@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useMemo, useRef, useState, type ReactNode } from 'react';
 import { EXERCISE_BY_ID, type Theme } from './exercises';
+import { SESSIONS, type Session } from './sessions';
 
 export type BlockId = 'wu' | 'kern' | 'pv';
 
@@ -31,9 +32,6 @@ export const MONTH_NAMES = ['januari', 'februari', 'maart', 'april', 'mei', 'jun
 /** The team's regular training weekdays (0 = Sunday), highlighted in the date picker. */
 export const TRAINING_WEEKDAYS = [2, 4];
 
-/** Dates that already have a training planned; they can't be picked. */
-export const BUSY_DATES = ['2026-09-10', '2026-09-15', '2026-09-17', '2026-09-22', '2026-10-01', '2026-10-06', '2026-10-08'];
-
 export const DEFAULT_TEAM = 'U11 Rangers';
 
 /** "2026-09-29" → Date at local midnight. */
@@ -59,15 +57,47 @@ export interface PlanItem {
 
 export type Plan = Record<BlockId, PlanItem[]>;
 
-const INITIAL_PLAN: Plan = {
-  wu: [{ uid: 'a1', ex: 'rondo', min: 5 }],
-  kern: [{ uid: 'a2', ex: 'trans', min: 20 }],
-  pv: [{ uid: 'a3', ex: 'game', min: 25 }],
-};
-
 export const clampMinutes = (m: number) => Math.max(5, Math.min(45, m));
 
+export const todayISO = () => toISODate(new Date());
+
+/** A training being edited in the builder; `id` is null until it's saved for the first time. */
+export interface Training {
+  id: string | null;
+  date: string;
+  team: string;
+  theme: Theme;
+  duration: Duration;
+  plan: Plan;
+  attendance?: number;
+}
+
+/** Builder URL for a training: `/trainingen/nieuw` or `/trainingen/<id>`. */
+export const trainingPath = (id: string | null) => `/trainingen/${id ?? 'nieuw'}`;
+
+const copyPlan = (p: Plan): Plan => ({ wu: [...p.wu], kern: [...p.kern], pv: [...p.pv] });
+
+/** First regular training day from today on that doesn't have a training yet. */
+function nextFreeTrainingDay(busy: string[]): string {
+  const d = parseISODate(todayISO());
+  for (let i = 0; i < 366; i++, d.setDate(d.getDate() + 1)) {
+    const iso = toISODate(d);
+    if (TRAINING_WEEKDAYS.includes(d.getDay()) && !busy.includes(iso)) return iso;
+  }
+  return todayISO();
+}
+
 interface TrainingContextValue {
+  /** All planned and past trainings. */
+  sessions: Session[];
+  /** Id of the training open in the builder (null = new, unsaved). */
+  draftId: string | null;
+  /** Dates that already have another training; the date picker blocks them. */
+  busyDates: string[];
+  openTraining: (id: string) => void;
+  newTraining: (duration?: Duration) => void;
+  /** Writes the draft into `sessions` and returns its id. */
+  saveTraining: () => string;
   date: string;
   setDate: (iso: string) => void;
   team: string;
@@ -90,14 +120,54 @@ interface TrainingContextValue {
 const TrainingContext = createContext<TrainingContextValue | null>(null);
 
 export function TrainingProvider({ children }: { children: ReactNode }) {
-  const [date, setDate] = useState('2026-09-29');
-  const [team, setTeam] = useState(DEFAULT_TEAM);
-  const [theme, setTheme] = useState<Theme>('Omschakelen');
-  const [plan, setPlan] = useState<Plan>(INITIAL_PLAN);
-  const [duration, setDuration] = useState<Duration>(90);
+  const [sessions, setSessions] = useState<Session[]>(SESSIONS);
+  // The builder opens on the first training in the list until another one is chosen.
+  const [draft, setDraft] = useState<Training>(() => ({ ...SESSIONS[0], plan: copyPlan(SESSIONS[0].plan) }));
   const [activeBlock, setActiveBlock] = useState<BlockId>('kern');
   const [favs, setFavs] = useState<string[]>(['trans']);
   const uid = useRef(10);
+
+  const busyDates = useMemo(() => sessions.filter((s) => s.id !== draft.id).map((s) => s.date), [sessions, draft.id]);
+
+  const update = useCallback(<K extends keyof Training>(key: K) => (value: Training[K]) => setDraft((d) => ({ ...d, [key]: value })), []);
+  const setDate = useMemo(() => update('date'), [update]);
+  const setTeam = useMemo(() => update('team'), [update]);
+  const setTheme = useMemo(() => update('theme'), [update]);
+  const setDuration = useMemo(() => update('duration'), [update]);
+  const setPlan = useCallback((fn: (p: Plan) => Plan) => setDraft((d) => ({ ...d, plan: fn(d.plan) })), []);
+
+  const openTraining = useCallback(
+    (id: string) => {
+      const s = sessions.find((x) => x.id === id);
+      if (!s) return;
+      setDraft({ ...s, plan: copyPlan(s.plan) });
+      setActiveBlock('kern');
+    },
+    [sessions],
+  );
+
+  const newTraining = useCallback(
+    (duration: Duration = 90) => {
+      setDraft({
+        id: null,
+        date: nextFreeTrainingDay(sessions.map((s) => s.date)),
+        team: DEFAULT_TEAM,
+        theme: 'Omschakelen',
+        duration,
+        plan: { wu: [], kern: [], pv: [] },
+      });
+      setActiveBlock('wu');
+    },
+    [sessions],
+  );
+
+  const saveTraining = useCallback(() => {
+    const id = draft.id ?? `t${uid.current++}`;
+    const saved: Session = { ...draft, id, plan: copyPlan(draft.plan) };
+    setSessions((list) => (list.some((s) => s.id === id) ? list.map((s) => (s.id === id ? saved : s)) : [...list, saved]));
+    setDraft((d) => ({ ...d, id }));
+    return id;
+  }, [draft]);
 
   const addExercise = useCallback((block: BlockId, exId: string, min?: number) => {
     const item = { uid: `n${uid.current++}`, ex: exId, min: min ?? EXERCISE_BY_ID[exId].min };
@@ -132,8 +202,32 @@ export function TrainingProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const value = useMemo(
-    () => ({ date, setDate, team, setTeam, theme, setTheme, plan, duration, setDuration, activeBlock, setActiveBlock, addExercise, removeItem, changeMinutes, moveItem, favs, toggleFav }),
-    [date, team, theme, plan, duration, activeBlock, addExercise, removeItem, changeMinutes, moveItem, favs, toggleFav],
+    () => ({
+      sessions,
+      draftId: draft.id,
+      busyDates,
+      openTraining,
+      newTraining,
+      saveTraining,
+      date: draft.date,
+      setDate,
+      team: draft.team,
+      setTeam,
+      theme: draft.theme,
+      setTheme,
+      plan: draft.plan,
+      duration: draft.duration,
+      setDuration,
+      activeBlock,
+      setActiveBlock,
+      addExercise,
+      removeItem,
+      changeMinutes,
+      moveItem,
+      favs,
+      toggleFav,
+    }),
+    [sessions, draft, busyDates, openTraining, newTraining, saveTraining, setDate, setTeam, setTheme, setDuration, activeBlock, addExercise, removeItem, changeMinutes, moveItem, favs, toggleFav],
   );
 
   return <TrainingContext.Provider value={value}>{children}</TrainingContext.Provider>;

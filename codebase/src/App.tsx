@@ -4,6 +4,7 @@ import { TrainingProvider } from './data/training';
 import { BuilderPage } from './pages/BuilderPage';
 import { DetailPage } from './pages/DetailPage';
 import { ExercisesPage } from './pages/ExercisesPage';
+import { TrainingsPage } from './pages/TrainingsPage';
 
 export function App() {
   return (
@@ -14,7 +15,8 @@ export function App() {
           <Routes>
             <Route path="/" element={<ExercisesPage />} />
             <Route path="/oefeningen/:id" element={<DetailPage />} />
-            <Route path="/trainingen" element={<BuilderPage />} />
+            <Route path="/trainingen" element={<TrainingsPage />} />
+            <Route path="/trainingen/:id" element={<BuilderPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>

@@ -24,7 +24,7 @@ import {
   type ExerciseType,
   type Phase,
 } from '../data/exercises';
-import { BLOCKS, useTraining } from '../data/training';
+import { BLOCKS, trainingPath, useTraining } from '../data/training';
 
 type Sort = 'relevant' | 'duur' | 'moeilijkheid' | 'naam';
 
@@ -43,7 +43,7 @@ export function ExercisesPage() {
   const [query, setQuery] = useState('');
   const [sort, setSort] = useState<Sort>('relevant');
 
-  const { favs, toggleFav, addExercise, activeBlock } = useTraining();
+  const { favs, toggleFav, addExercise, activeBlock, draftId } = useTraining();
   const navigate = useNavigate();
 
   const reset = () => {
@@ -87,7 +87,7 @@ export function ExercisesPage() {
   const addToTraining = (e: Exercise) => {
     addExercise(activeBlock, e.id);
     const block = BLOCKS.find((b) => b.id === activeBlock)!;
-    navigate('/trainingen', { state: { toast: `${e.title} toegevoegd aan ${block.name}` } });
+    navigate(trainingPath(draftId), { state: { toast: `${e.title} toegevoegd aan ${block.name}` } });
   };
 
   return (
@@ -188,7 +188,7 @@ export function ExercisesPage() {
         <div className="promo">
           <span className="promo-title">Training van 60 tot 90 minuten?</span>
           <span className="promo-text">Stel je sessie samen in drie blokken en zie meteen of de tijd klopt.</span>
-          <Link to="/trainingen">
+          <Link to={trainingPath(draftId)}>
             Open trainingsbouwer
             <ArrowRightIcon />
           </Link>

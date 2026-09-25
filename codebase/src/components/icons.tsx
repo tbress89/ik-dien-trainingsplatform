@@ -139,6 +139,13 @@ export const ChevronRightIcon = (p: IconProps) => (
   </svg>
 );
 
+export const TagIcon = (p: IconProps) => (
+  <svg {...base({ size: 11, ...p }, 2.2)}>
+    <path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z" />
+    <circle cx="7.5" cy="7.5" r="1.5" />
+  </svg>
+);
+
 export const GripIcon = (p: IconProps) => (
   <svg width={16} height={16} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...p}>
     {[6, 12, 18].flatMap((y) => [<circle key={`a${y}`} cx="9" cy={y} r="1.6" />, <circle key={`b${y}`} cx="15" cy={y} r="1.6" />])}

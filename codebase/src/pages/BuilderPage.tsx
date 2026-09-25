@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type DragEvent } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Pitch } from '../components/Pitch';
 import { TrainingHeader } from '../components/TrainingHeader';
 import {
@@ -8,16 +8,17 @@ import {
   GripIcon,
   PlusIcon,
   SearchIcon,
+  TagIcon,
 } from '../components/icons';
-import { EXERCISES, EXERCISE_BY_ID, TYPE_COLOR, materialNames, shortAgeLabel, type ExerciseType } from '../data/exercises';
-import { BLOCKS, BLOCK_TARGETS, DURATIONS, useTraining, type BlockId } from '../data/training';
+import { EXERCISES, EXERCISE_BY_ID, TYPE_COLOR, materialNames, shortAgeLabel, type Exercise, type ExerciseType } from '../data/exercises';
+import { BLOCKS, BLOCK_TARGETS, DURATIONS, trainingPath, useTraining, type BlockId } from '../data/training';
 
 const TABS: ('Alle' | ExerciseType)[] = ['Alle', 'Warming-up', 'Technisch', 'Tactisch', 'Partijvorm'];
 
 type DragSource = { src: 'lib'; ex: string } | { src: 'card'; from: BlockId; idx: number };
 
 export function BuilderPage() {
-  const { plan, duration, setDuration, activeBlock, setActiveBlock, addExercise, removeItem, changeMinutes, moveItem } = useTraining();
+  const { sessions, draftId, openTraining, newTraining, saveTraining, plan, duration, setDuration, theme, activeBlock, setActiveBlock, addExercise, removeItem, changeMinutes, moveItem } = useTraining();
   const [tab, setTab] = useState<(typeof TABS)[number]>('Alle');
   const [query, setQuery] = useState('');
   const [hover, setHover] = useState<BlockId | null>(null);
@@ -27,6 +28,20 @@ export function BuilderPage() {
 
   const location = useLocation();
   const navigate = useNavigate();
+  const { id = 'nieuw' } = useParams();
+  const unknownId = id !== 'nieuw' && !sessions.some((s) => s.id === id);
+
+  // Load the training in the URL when it changes. Only reacts to the URL, so edits made elsewhere
+  // (e.g. "Aan training" on an exercise) are kept when coming back to the same training.
+  const draftIdRef = useRef(draftId);
+  draftIdRef.current = draftId;
+  useEffect(() => {
+    if (id === 'nieuw') {
+      if (draftIdRef.current !== null) newTraining();
+    } else if (id !== draftIdRef.current) {
+      openTraining(id);
+    }
+  }, [id]);
 
   // Pick up a toast passed along by "Aan training" on another page.
   useEffect(() => {
@@ -45,7 +60,11 @@ export function BuilderPage() {
 
   const activeName = BLOCKS.find((b) => b.id === activeBlock)!.name;
   const q = query.trim().toLowerCase();
-  const library = EXERCISES.filter((e) => (tab === 'Alle' || e.type === tab) && (!q || e.title.toLowerCase().includes(q)));
+  // Exercises that fit the training's theme come first (stable sort keeps the original order otherwise).
+  const fitsTheme = (e: Exercise) => e.themes.includes(theme);
+  const library = EXERCISES.filter((e) => (tab === 'Alle' || e.type === tab) && (!q || e.title.toLowerCase().includes(q))).sort(
+    (a, b) => Number(fitsTheme(b)) - Number(fitsTheme(a)),
+  );
 
   const startDrag = (ev: DragEvent, source: DragSource, effect: 'copyMove' | 'move') => {
     drag.current = source;
@@ -81,6 +100,8 @@ export function BuilderPage() {
   const status =
     rest > 0 ? `Nog ${rest} min te plannen` : rest === 0 ? `Precies ${duration} minuten` : `${Math.abs(rest)} min te veel`;
   const statusColor = rest < 0 ? 'var(--warn)' : rest === 0 ? 'var(--ok)' : 'var(--purple)';
+
+  if (unknownId) return <Navigate to="/trainingen" replace />;
 
   return (
     <div className="builder">
@@ -130,6 +151,12 @@ export function BuilderPage() {
                 <Pitch variant={e.variant} />
               </div>
               <div className="lib-info">
+                {fitsTheme(e) && (
+                  <span className="theme-badge">
+                    <TagIcon />
+                    {theme}
+                  </span>
+                )}
                 <Link to={`/oefeningen/${e.id}`} className="lib-title" draggable={false}>
                   {e.title}
                 </Link>
@@ -158,7 +185,15 @@ export function BuilderPage() {
         <div className="page-head">
           <TrainingHeader />
           <div className="actions">
-            <button type="button" className="btn btn-primary" onClick={() => setToast('Training opgeslagen')}>
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={() => {
+                const savedId = saveTraining();
+                setToast('Training opgeslagen');
+                if (id !== savedId) navigate(trainingPath(savedId), { replace: true });
+              }}
+            >
               <CheckIcon />
               Training opslaan
             </button>

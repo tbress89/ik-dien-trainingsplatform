@@ -1,8 +1,7 @@
-import { useEffect, useRef, useState, type RefObject } from 'react';
+import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { EXERCISES, THEMES } from '../data/exercises';
 import {
-  BUSY_DATES,
   DEFAULT_TEAM,
   MONTH_NAMES,
   TRAINING_WEEKDAYS,
@@ -12,40 +11,19 @@ import {
   useTraining,
 } from '../data/training';
 import { CalendarIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, PencilIcon } from './icons';
+import { useDismiss } from './useDismiss';
 
 const WEEKDAYS = ['ma', 'di', 'wo', 'do', 'vr', 'za', 'zo'];
 
-/** Closes a popover on Escape or a click outside `ref`, returning focus to its trigger on Escape. */
-function useDismiss(open: boolean, close: () => void, ref: RefObject<HTMLElement | null>, trigger: RefObject<HTMLElement | null>) {
-  useEffect(() => {
-    if (!open) return;
-    const onPointer = (ev: MouseEvent) => {
-      if (!ref.current?.contains(ev.target as Node)) close();
-    };
-    const onKey = (ev: KeyboardEvent) => {
-      if (ev.key === 'Escape') {
-        close();
-        trigger.current?.focus();
-      }
-    };
-    document.addEventListener('mousedown', onPointer);
-    document.addEventListener('keydown', onKey);
-    return () => {
-      document.removeEventListener('mousedown', onPointer);
-      document.removeEventListener('keydown', onKey);
-    };
-  }, [open, close, ref, trigger]);
-}
-
 /** Breadcrumb, date + team title and theme picker at the top of the training builder. */
 export function TrainingHeader() {
-  const { date, team, setTeam } = useTraining();
+  const { date, team, setTeam, draftId } = useTraining();
   const title = formatTrainingDate(date);
 
   return (
     <div className="page-head-titles" style={{ gap: 8 }}>
       <span className="crumbs">
-        <Link to="/trainingen">Trainingen</Link> <span aria-hidden="true">/</span> <strong>Nieuwe training</strong>
+        <Link to="/trainingen">Trainingen</Link> <span aria-hidden="true">/</span> <strong>{draftId ? 'Training bewerken' : 'Nieuwe training'}</strong>
       </span>
       <h1 className="builder-title">
         <DatePicker label={title[0].toUpperCase() + title.slice(1)} />
@@ -73,7 +51,7 @@ export function TrainingHeader() {
 }
 
 function DatePicker({ label }: { label: string }) {
-  const { date, setDate } = useTraining();
+  const { date, setDate, busyDates } = useTraining();
   const [open, setOpen] = useState(false);
   const selected = parseISODate(date);
   const [view, setView] = useState({ y: selected.getFullYear(), m: selected.getMonth() });
@@ -139,7 +117,7 @@ function DatePicker({ label }: { label: string }) {
               const iso = toISODate(day);
               const isSelected = iso === date;
               const isPast = iso < today;
-              const isBusy = BUSY_DATES.includes(iso) && !isSelected;
+              const isBusy = busyDates.includes(iso) && !isSelected;
               const isTrainingDay = TRAINING_WEEKDAYS.includes(day.getDay());
               const disabled = isPast || isBusy;
               const name = formatTrainingDate(iso);

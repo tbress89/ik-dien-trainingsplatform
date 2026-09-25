@@ -12,12 +12,12 @@ import {
   PlusIcon,
 } from '../components/icons';
 import { DIFFICULTY, EXERCISE_BY_ID, INTENSITY, TYPE_COLOR } from '../data/exercises';
-import { BLOCKS, clampMinutes, formatTrainingDate, useTraining } from '../data/training';
+import { BLOCKS, clampMinutes, formatTrainingDate, trainingPath, useTraining } from '../data/training';
 
 export function DetailPage() {
   const { id = '' } = useParams();
   const e = EXERCISE_BY_ID[id];
-  const { favs, toggleFav, addExercise, date, team } = useTraining();
+  const { favs, toggleFav, addExercise, date, team, draftId } = useTraining();
 
   const diagramSteps = e?.diagramSteps ?? [];
   const hasStepToggle = diagramSteps.length >= 2;
@@ -272,7 +272,7 @@ export function DetailPage() {
                   <CheckIcon size={18} />
                   {added}
                 </span>
-                <Link to="/trainingen">Bekijk training</Link>
+                <Link to={trainingPath(draftId)}>Bekijk training</Link>
               </div>
             )}
           </section>
