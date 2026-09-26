@@ -3359,4 +3359,308 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'game5', fit: 'Als afsluiter' },
     ],
   },
+  cladder: {
+    summary:
+      'Spelers lopen telkens een ander voetpatroon door de loopladder en krijgen aan het einde een bal van een kaatser, die ze in één keer terugspelen. Traint snelle voeten, ritme en de overgang van looptechniek naar een zuiver balcontact.',
+    steps: [
+      { title: 'Opstelling.', text: 'Leg twee loopladders naast elkaar, met 5 meter na elke ladder een kaatser met ballen. Spelers staan in een rij achter elke ladder.' },
+      { title: 'Ladder.', text: 'Wissel na elke twee beurten het patroon: één voet per vak, twee voeten per vak, zijwaarts in-in-uit-uit, hinken op links en op rechts.' },
+      { title: 'Kaatsen.', text: 'Na de ladder speelt de kaatser de bal in. De speler kaatst in één keer terug en sluit achteraan aan.' },
+      { title: 'Ritme.', text: 'Laat elke speler 10 tot 12 keer door de ladder gaan, verdeeld over 3 reeksen met 1 minuut rust.' },
+    ],
+    easier: 'Laat de kaatsbal weg en geef jongere spelers maar twee eenvoudige patronen.',
+    harder: 'Laat de kaatser links of rechts naast de speler spelen, zodat hij moet bijsturen, of kaats met de zwakke voet.',
+    objectives: ['Snelle voeten', 'Ritme', 'Looptechniek', 'Zuiver balcontact na belasting'],
+    coaching: [
+      'Op de voorvoeten, niet op de hielen.',
+      'Armen actief mee in het ritme van de benen.',
+      'Kwaliteit vóór snelheid: geen sporten raken.',
+      'Na de ladder: kijk naar de bal en sta klaar met je voet.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Ladder met een kaatser aan het einde'],
+      ['Ladder', 'Voetpatroon door de vakken'],
+      ['Inspelen', 'De kaatser speelt de bal in'],
+      ['Kaatsen', 'In één keer terugspelen'],
+    ],
+    related: [
+      { id: 'wprev', fit: 'Als warming-up' },
+      { id: 'coord', fit: 'Zelfde thema' },
+      { id: 'pwall', fit: 'Als vervolg' },
+      { id: 'game5', fit: 'Als afsluiter' },
+    ],
+  },
+  cagility: {
+    summary:
+      'Spelers sprinten vooruit, schuiven zijwaarts naar links en rechts en lopen achterwaarts terug in een T van kegels. Een bekende oefening voor wendbaarheid: snel afremmen, van richting veranderen en opnieuw versnellen.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet vier kegels in een T: een startkegel, 10 meter verder een middelste kegel en 5 meter links en rechts daarvan een kegel. Zet twee parcours naast elkaar.' },
+      { title: 'Parcours.', text: 'Sprint naar de middelste kegel, schuif zijwaarts naar de linkerkegel, dan naar de rechterkegel en terug naar het midden. Loop achterwaarts terug naar de start.' },
+      { title: 'Aantikken.', text: 'Tik elke kegel aan met de hand, zo moet je laag gaan en goed afremmen.' },
+      { title: 'Ritme.', text: 'Laat elke speler 6 keer het parcours lopen met minstens 45 seconden rust tussen twee beurten. Houd de tijd bij voor wat wedstrijdspanning.' },
+    ],
+    easier: 'Verkort de afstanden tot 6 en 3 meter en laat het aantikken weg.',
+    harder: 'Laat de trainer bij de middelste kegel “links” of “rechts” roepen, of eindig met een bal die de speler moet aannemen.',
+    objectives: ['Afremmen', 'Richtingsveranderingen', 'Zijwaarts en achterwaarts bewegen', 'Versnellen'],
+    coaching: [
+      'Laag zwaartepunt bij het afremmen, knieën gebogen.',
+      'Zijwaarts: voeten niet kruisen.',
+      'Kijk al naar de volgende kegel voor je er bent.',
+      'Achterwaarts: op de voorvoeten, bovenlichaam licht naar voren.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Vier kegels in een T'],
+      ['Sprint', 'Vooruit naar de middelste kegel'],
+      ['Links', 'Zijwaarts naar links'],
+      ['Rechts', 'Zijwaarts naar rechts'],
+      ['Terug', 'Achterwaarts naar de start'],
+    ],
+    related: [
+      { id: 'wprev', fit: 'Als warming-up' },
+      { id: 'wreact', fit: 'Zelfde thema' },
+      { id: 'pr1v1', fit: 'Als vervolg' },
+      { id: 'sg2v2', fit: 'Als afsluiter' },
+    ],
+  },
+  cjump: {
+    summary:
+      'Spelers springen met telkens een andere sprongvorm over een rij lage hordetjes of liggende kegels en versnellen daarna tot aan een eindkegel. Traint sprongkracht, evenwicht en vooral een veilige landing, wat blessures helpt voorkomen.',
+    steps: [
+      { title: 'Opstelling.', text: 'Leg per rij vijf lage hordetjes of liggende kegels op 1 meter van elkaar, met 5 meter verder een eindkegel.' },
+      { title: 'Springen.', text: 'Wissel de sprongvorm na elke twee beurten: tweebenig, op één been links, op één been rechts, zijwaarts tweebenig.' },
+      { title: 'Versnellen.', text: 'Na de laatste sprong sprint je tot aan de eindkegel en wandel je terug.' },
+      { title: 'Ritme.', text: 'Laat elke speler 8 tot 10 keer gaan, verdeeld over 2 reeksen met 2 minuten rust.' },
+    ],
+    easier: 'Laat jonge spelers over lijnen of liggende kegels springen en begin tweebenig.',
+    harder: 'Laat na elke landing even stilstaan op één been, of speel na de sprongen een bal in die de speler moet aannemen.',
+    objectives: ['Veilig landen', 'Sprongkracht', 'Evenwicht', 'Versnellen na een sprong'],
+    coaching: [
+      'Zacht landen op de voorvoet, knieën licht gebogen.',
+      'Knieën recht boven de voeten, niet naar binnen.',
+      'Armen helpen mee omhoog.',
+      'Korte grondcontacten: meteen weer weg.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Rij hordetjes met een eindkegel'],
+      ['Springen', 'Over de hordetjes'],
+      ['Versnellen', 'Sprint tot aan de eindkegel'],
+    ],
+    related: [
+      { id: 'wprev', fit: 'Als warming-up' },
+      { id: 'cladder', fit: 'Zelfde thema' },
+      { id: 'fshot', fit: 'Als vervolg' },
+      { id: 'game5', fit: 'Als afsluiter' },
+    ],
+  },
+  cstar: {
+    summary:
+      'Een speler staat in het midden van een ster van gekleurde kegels. Zijn partner roept een kleur, waarna hij zo snel mogelijk die kegel aantikt en terugkeert: kijken, beslissen en snel van richting veranderen.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet vijf kegels in verschillende kleuren in een cirkel van ongeveer 3 meter rond een middelpunt. Een speler staat in het midden, zijn partner net buiten de ster.' },
+      { title: 'Spelen.', text: 'De partner roept een kleur. De speler tikt die kegel aan met de hand en keert meteen terug naar het midden. Zodra hij in het midden is, volgt de volgende kleur.' },
+      { title: 'Wisselen.', text: 'Na elke reeks wisselen de spelers van rol.' },
+      { title: 'Ritme.', text: 'Speel 6 reeksen van 20 seconden per speler. De partner rust terwijl de ander werkt.' },
+    ],
+    easier: 'Wijs de kegel aan in plaats van de kleur te roepen.',
+    harder: 'Roep twee kleuren na elkaar, of laat de partner na het aantikken een bal inspelen die de speler terugspeelt.',
+    objectives: ['Reactiesnelheid', 'Richtingsveranderingen', 'Afremmen en versnellen', 'Concentratie'],
+    coaching: [
+      'Blijf in het midden laag en op je voorvoeten.',
+      'Draai je heupen meteen naar de kegel.',
+      'Kleine passen bij het afremmen.',
+      'Partner: roep duidelijk en wacht tot hij terug in het midden is.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Speler in het midden, partner roept'],
+      ['Eerste kleur', 'Tik de geroepen kegel aan'],
+      ['Tweede kleur', 'Terug naar het midden en naar de volgende kleur'],
+    ],
+    related: [
+      { id: 'wreact', fit: 'Als warming-up' },
+      { id: 'cagility', fit: 'Zelfde thema' },
+      { id: 'dturns', fit: 'Als vervolg' },
+      { id: 'sgnum', fit: 'Als afsluiter' },
+    ],
+  },
+  cbalance: {
+    summary:
+      'Twee spelers van ongeveer dezelfde lengte spelen korte evenwichtsspelletjes tegen elkaar, meestal op één been. Speels werken aan evenwicht, lichaamscontrole en een stevige romp, de basis voor elk duel in de wedstrijd.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet een vak van 15 × 15 m uit en maak duo’s van ongeveer dezelfde lengte en kracht.' },
+      { title: 'Spelletjes.', text: 'Speel drie spelletjes: hand tegen hand op één been (wie zet eerst een voet neer?), knietikkertje (wie tikt eerst de knie van de ander?) en flamingo met bal (op één been zo vaak mogelijk met de zool op de bal tikken).' },
+      { title: 'Wisselen.', text: 'Wissel na elk spelletje van standbeen en na twee spelletjes van partner.' },
+      { title: 'Ritme.', text: 'Speel elk spelletje 3 keer 30 seconden met 30 seconden rust.' },
+    ],
+    easier: 'Laat jonge kinderen eerst op twee voeten spelen en daarna pas op één been.',
+    harder: 'Laat de spelers bij de flamingo de ogen sluiten, of wissel sneller van standbeen.',
+    objectives: ['Evenwicht', 'Lichaamscontrole', 'Rompstabiliteit', 'Duelkracht'],
+    coaching: [
+      'Zak licht door je standbeen, niet op een gestrekt been staan.',
+      'Houd je romp rechtop en je buik aangespannen.',
+      'Armen breed voor je evenwicht.',
+      'Fair spelen: duw tegen de handen, niet tegen het lichaam.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Duo’s verspreid in een vak'],
+      ['Hand tegen hand', 'Uit evenwicht duwen op één been'],
+      ['Knietikkertje', 'Wie tikt eerst de knie?'],
+    ],
+    related: [
+      { id: 'wchain', fit: 'Als warming-up' },
+      { id: 'coord', fit: 'Zelfde thema' },
+      { id: 'dshield', fit: 'Als vervolg' },
+      { id: 'funino', fit: 'Als afsluiter' },
+    ],
+  },
+  crelay: {
+    summary:
+      'Ploegen dribbelen om beurten door een parcours met slalom en liggende kegels en komen rechtdoor terug naar hun rij. Een speelse wedstrijdvorm waarin jonge spelers werken aan coördinatie, snelheid en dribbelen onder tijdsdruk.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet per ploeg een baan uit: drie kegels voor een slalom, twee liggende kegels en op 25 meter een keerkegel. De eerste speler van elke rij heeft een bal.' },
+      { title: 'Heen.', text: 'Dribbel door de slalom. Tik de bal langs elke liggende kegel en spring er zelf over. Dribbel rond de keerkegel.' },
+      { title: 'Terug.', text: 'Dribbel in een rechte lijn terug en speel de bal naar de volgende speler van je rij. De ploeg die eerst klaar is, wint.' },
+      { title: 'Ritme.', text: 'Speel 4 tot 5 wedstrijdjes, telkens met een andere opdracht: alleen links, alleen de buitenkant, zoolrollen in de slalom.' },
+    ],
+    easier: 'Laat de bal weg op de heenweg en dribbel alleen terug.',
+    harder: 'Dribbel alleen met de zwakke voet, of zet halverwege een kaatser waarmee je een één-twee speelt.',
+    objectives: ['Coördinatie in beweging', 'Dribbelen onder tijdsdruk', 'Springen en landen', 'Plezier en wedstrijdgevoel'],
+    coaching: [
+      'Kleine tikjes in de slalom, grotere op de rechte lijn.',
+      'Spring en neem de bal meteen weer mee.',
+      'Wacht achter de lijn tot je de bal krijgt.',
+      'Moedig je ploegmaats aan!',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Twee ploegen, elk op een eigen baan'],
+      ['Heen', 'Slalom, springen en rond de keerkegel'],
+      ['Terug', 'Rechtdoor terug dribbelen'],
+      ['Doorgeven', 'Pass naar de volgende speler'],
+    ],
+    related: [
+      { id: 'coord', fit: 'Als warming-up' },
+      { id: 'prelay', fit: 'Zelfde thema' },
+      { id: 'dbox', fit: 'Als vervolg' },
+      { id: 'funino', fit: 'Als afsluiter' },
+    ],
+  },
+  cmastery: {
+    summary:
+      'Elke speler heeft een bal en voert ter plaatse korte bewegingen uit: tikjes tussen de voeten, zoolrollen en V-bewegingen. Veel balcontacten in weinig tijd, voor balgevoel, tweevoetigheid en coördinatie van de voeten.',
+    steps: [
+      { title: 'Opstelling.', text: 'Spelers staan verspreid in een vak van 20 × 20 m, elk met een bal en met zicht op de trainer.' },
+      { title: 'Bewegingen.', text: 'Tikjes: tik de bal snel tussen de binnenkant van beide voeten. Zoolrol: rol de bal met de zool zijwaarts en wissel van voet. V-beweging: trek de bal met de zool terug en speel hem met de binnenkant schuin vooruit.' },
+      { title: 'Opbouw.', text: 'Doe elke beweging eerst traag voor, laat de spelers ze rustig oefenen en voer dan het tempo op.' },
+      { title: 'Ritme.', text: 'Werk 30 seconden per beweging met 15 seconden rust, en herhaal de reeks bewegingen 3 keer.' },
+    ],
+    easier: 'Begin met één beweging en laat de bal eerst stilliggen tussen twee tikjes.',
+    harder: 'Voeg bewegingen toe (Cruijff-draai, schaar) of laat de trainer met een nummer roepen welke beweging volgt.',
+    objectives: ['Balgevoel', 'Tweevoetigheid', 'Voetcoördinatie', 'Veel balcontacten'],
+    coaching: [
+      'Op de voorvoeten, knieën licht gebogen.',
+      'Kleine, zachte balcontacten.',
+      'Kijk op tussen de bewegingen door.',
+      'Evenveel met links als met rechts.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Spelers verspreid, elk met een bal'],
+      ['Zoolrol', 'Bal zijwaarts rollen met de zool'],
+      ['V-beweging', 'Terugtrekken en schuin vooruit spelen'],
+    ],
+    related: [
+      { id: 'wjuggle', fit: 'Zelfde thema' },
+      { id: 'dbox', fit: 'Als vervolg' },
+      { id: 'dturns', fit: 'Kern' },
+      { id: 'funino', fit: 'Als afsluiter' },
+    ],
+  },
+  ctwoball: {
+    summary:
+      'Spelers dribbelen vrij door een vak en gooien ondertussen een tweede bal met de handen naar hun partner. Een dubbele taak die voeten en handen tegelijk laat werken en spelers dwingt op te kijken tijdens het dribbelen.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet een vak van 25 × 20 m uit. Elke speler heeft een bal aan de voet, elk duo heeft daarnaast één bal in de handen.' },
+      { title: 'Alleen.', text: 'Dribbel en gooi de handbal voor jezelf op en vang hem, zonder de voetbal te verliezen.' },
+      { title: 'Samen.', text: 'Dribbel door het vak en gooi de handbal naar je partner, die hem vangt terwijl hij verder dribbelt.' },
+      { title: 'Ritme.', text: 'Speel 4 reeksen van 90 seconden met 45 seconden rust. Wissel de werpvorm: onderhands, bovenhands, met een stuit.' },
+    ],
+    easier: 'Laat de spelers stappen in plaats van dribbelen, of gebruik een grotere, zachte handbal.',
+    harder: 'Vang alleen met je minder goede hand, of kop de handbal terug naar je partner.',
+    objectives: ['Oog-hand-voetcoördinatie', 'Opkijken tijdens het dribbelen', 'Dubbeltaak', 'Balcontrole'],
+    coaching: [
+      'Bal dicht aan de voet, ogen omhoog.',
+      'Gooi pas als je partner je aankijkt.',
+      'Kleine dribbeltikjes terwijl je vangt.',
+      'Blijf bewegen: niet stilstaan om te vangen.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Duo’s dribbelen in een vak'],
+      ['Dribbelen', 'Vrij dribbelen door het vak'],
+      ['Werpen', 'Gooi de handbal naar je partner'],
+    ],
+    related: [
+      { id: 'wthrow', fit: 'Als warming-up' },
+      { id: 'dbox', fit: 'Zelfde thema' },
+      { id: 'dfeint', fit: 'Als vervolg' },
+      { id: 'dline', fit: 'Als afsluiter' },
+    ],
+  },
+  ccircuit: {
+    summary:
+      'Vier groepjes werken tegelijk op vier posten: loopladder, slalom met bal, hordetjes en passen in duo. Na elke reeks schuift iedereen door, zodat een grote groep veel herhalingen krijgt zonder te wachten.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet vier posten uit in de hoeken van een vak van 30 × 30 m: een loopladder, een slalom van vier kegels, drie liggende kegels om over te springen en twee kegels op 10 meter voor een passduo.' },
+      { title: 'Posten.', text: 'Ladder: telkens een ander voetpatroon. Slalom: dribbel met links en rechts. Hordetjes: tweebenig en op één been. Passen: in duo met één of twee balcontacten.' },
+      { title: 'Doorschuiven.', text: 'Op het fluitsignaal schuift elke groep door naar de volgende post, in de richting van de wijzers van de klok.' },
+      { title: 'Ritme.', text: 'Werk 3 minuten per post, met 1 minuut om door te schuiven en de volgende post uit te leggen.' },
+    ],
+    easier: 'Laat de bal weg op de slalompost en verkort de ladder.',
+    harder: 'Geef elke post een extra opdracht (zwakke voet, achterwaarts), of verkort de werktijd en verhoog het tempo.',
+    objectives: ['Veelzijdige coördinatie', 'Veel herhalingen', 'Voetenwerk', 'Balcontrole'],
+    coaching: [
+      'Kwaliteit vóór snelheid.',
+      'Kijk goed hoe de eerste speler het doet voor je begint.',
+      'Op elke post: op de voorvoeten.',
+      'Snel doorschuiven: geen tijd verliezen tussen de posten.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Vier posten in de hoeken'],
+      ['Werken', 'Elke groep werkt op zijn post'],
+      ['Doorschuiven', 'Op het signaal naar de volgende post'],
+    ],
+    related: [
+      { id: 'wprev', fit: 'Als warming-up' },
+      { id: 'coord', fit: 'Zelfde thema' },
+      { id: 'pass', fit: 'Als vervolg' },
+      { id: 'game5', fit: 'Als afsluiter' },
+    ],
+  },
+  cdrop: {
+    summary:
+      'Een speler houdt de bal op schouderhoogte en laat hem onverwacht vallen. Zijn partner staat enkele meters verder, sprint weg en neemt de bal aan voor hij een tweede keer stuit: reactie, eerste passen en balcontrole in één.',
+    steps: [
+      { title: 'Opstelling.', text: 'Duo’s staan tegenover elkaar op 3 meter. De ene houdt de bal met gestrekte arm op schouderhoogte, de andere staat klaar in een lage startpositie.' },
+      { title: 'Spelen.', text: 'De bal wordt zonder aankondiging losgelaten. De partner sprint, neemt de bal met de voet aan voor hij een tweede keer de grond raakt en speelt hem terug.' },
+      { title: 'Opbouwen.', text: 'Lukt het, dan neemt de speler een halve meter extra afstand. Lukt het niet, dan komt hij een halve meter dichter.' },
+      { title: 'Ritme.', text: 'Doe 3 reeksen van 8 pogingen per speler en wissel van rol na elke reeks.' },
+    ],
+    easier: 'Laat de bal vallen op een teken (“nu!”) of laat de bal twee keer stuiten.',
+    harder: 'Start ruggelings of zittend, of houd twee ballen vast en laat er één vallen.',
+    objectives: ['Reactiesnelheid', 'Snelle eerste passen', 'Balcontrole', 'Concentratie'],
+    coaching: [
+      'Kijk naar de bal, niet naar het gezicht van je partner.',
+      'Laag starten, gewicht op de voorvoeten.',
+      'Kleine, snelle eerste passen.',
+      'Neem de bal zacht aan: voet ontspannen.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Duo’s tegenover elkaar'],
+      ['Reageren', 'Sprint naar de vallende bal'],
+      ['Terug', 'Terug naar de startpositie'],
+    ],
+    related: [
+      { id: 'wreact', fit: 'Als warming-up' },
+      { id: 'cstar', fit: 'Zelfde thema' },
+      { id: 'fshot', fit: 'Als vervolg' },
+      { id: 'wduel', fit: 'Tegenhanger' },
+    ],
+  },
 };

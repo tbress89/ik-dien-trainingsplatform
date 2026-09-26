@@ -288,7 +288,17 @@ var EX = [
   { id: 'sgbuild', title: 'Partijvorm 6 tegen 6 met opbouwzone', variant: 'sgbuild', type: 'Partijvorm', ageLabel: 'U10–21', themes: ['Opbouw van achteruit', 'Positiespel'], players: '10 + 2 K', min: 24, mat: ['2 doelen', 'Kegels', 'Ballen', 'Hesjes'] },
   { id: 'sgavv', title: 'Aanval tegen verdediging: 6 tegen 4 + K', variant: 'sgavv', type: 'Partijvorm', ageLabel: 'U12–21', themes: ['Afwerken', 'Positiespel'], players: '10 + K', min: 20, mat: ['Groot doel', '2 doeltjes', 'Kegels', 'Ballen', 'Hesjes'] },
   { id: 'sgblock', title: 'Partijvorm 5 tegen 5: doorschuiven als blok', variant: 'sgblock', type: 'Partijvorm', ageLabel: 'U12–21', themes: ['Positiespel', 'Omschakelen'], players: '10 + 2 K', min: 20, mat: ['2 doelen', 'Kegels', 'Ballen', 'Hesjes'] },
-  { id: 'sg2v2', title: 'Intervalpartijtjes 2 tegen 2', variant: 'sg2v2', type: 'Partijvorm', ageLabel: 'U10–21', themes: ['Fysiek', 'Dribbelen'], players: '4–12', min: 15, mat: ['2 doeltjes', 'Kegels', 'Ballen', 'Hesjes'] }
+  { id: 'sg2v2', title: 'Intervalpartijtjes 2 tegen 2', variant: 'sg2v2', type: 'Partijvorm', ageLabel: 'U10–21', themes: ['Fysiek', 'Dribbelen'], players: '4–12', min: 15, mat: ['2 doeltjes', 'Kegels', 'Ballen', 'Hesjes'] },
+  { id: 'cladder', title: 'Loopladder: voetpatronen met kaatsbal', variant: 'cladder', type: 'Fysiek', ageLabel: 'U8–21', themes: ['Fysiek'], players: '2–12', min: 12, mat: ['Loopladder', 'Kegels', 'Ballen'] },
+  { id: 'cagility', title: 'Wendbaarheid: T-parcours', variant: 'cagility', type: 'Fysiek', ageLabel: 'U10–21', themes: ['Fysiek'], players: '2–16', min: 12, mat: ['Kegels'] },
+  { id: 'cjump', title: 'Springen en landen over hordetjes', variant: 'cjump', type: 'Fysiek', ageLabel: 'U8–21', themes: ['Fysiek'], players: '2–12', min: 10, mat: ['Kegels'] },
+  { id: 'cstar', title: 'Sterloop met kleurkegels', variant: 'cstar', type: 'Fysiek', ageLabel: 'U8–21', themes: ['Fysiek'], players: '2–12', min: 10, mat: ['Kegels'] },
+  { id: 'cbalance', title: 'Evenwichtsduels in duo’s', variant: 'cbalance', type: 'Fysiek', ageLabel: 'U6–13', themes: ['Fysiek'], players: '4–16', min: 10, mat: ['Kegels', 'Ballen'] },
+  { id: 'crelay', title: 'Hindernisestafette met bal', variant: 'crelay', type: 'Warming-up', ageLabel: 'U6–11', themes: ['Fysiek', 'Dribbelen'], players: '6–16', min: 12, mat: ['Kegels', 'Ballen', 'Hesjes'] },
+  { id: 'cmastery', title: 'Balbeheersing: tikjes, zoolrol en V-beweging', variant: 'cmastery', type: 'Warming-up', ageLabel: 'Alle', themes: ['Dribbelen'], players: '1–20', min: 10, mat: ['Ballen', 'Kegels'] },
+  { id: 'ctwoball', title: 'Dribbelen met een bal in de handen', variant: 'ctwoball', type: 'Fysiek', ageLabel: 'U8–15', themes: ['Dribbelen', 'Fysiek'], players: '4–16', min: 10, mat: ['Ballen', 'Kegels'] },
+  { id: 'ccircuit', title: 'Coördinatiecircuit in vier posten', variant: 'ccircuit', type: 'Fysiek', ageLabel: 'U8–15', themes: ['Fysiek', 'Passing & aanname'], players: '8–16', min: 16, mat: ['Loopladder', 'Kegels', 'Ballen'] },
+  { id: 'cdrop', title: 'Vallende bal: reageren voor de tweede stuit', variant: 'cdrop', type: 'Fysiek', ageLabel: 'U8–21', themes: ['Fysiek'], players: '2–16', min: 10, mat: ['Ballen'] }
 ];
 var BY = {}; EX.forEach(function (e) { BY[e.id] = e; });
 var DOT = { 'Warming-up': '#F2A541', 'Technisch': '#3B8FD9', 'Tactisch': '#5B2BC4', 'Fysiek': '#E0527A', 'Partijvorm': '#1A1033' };
