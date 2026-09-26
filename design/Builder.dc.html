@@ -258,7 +258,17 @@ var EX = [
   { id: 'whand', title: 'Handbalvoetbal', variant: 'whand', type: 'Warming-up', ageLabel: 'U7–15', themes: ['Positiespel'], players: '8–14', min: 10, mat: ['2 doeltjes', 'Kegels', 'Ballen', 'Hesjes'] },
   { id: 'wtennis', title: 'Voetbaltennis', variant: 'wtennis', type: 'Warming-up', ageLabel: 'U10–21', themes: ['Passing & aanname'], players: '4–8', min: 12, mat: ['Kegels', 'Ballen'] },
   { id: 'wduel', title: 'Wie is eerst aan de bal?', variant: 'wduel', type: 'Warming-up', ageLabel: 'U8–21', themes: ['Dribbelen'], players: '2–12', min: 10, mat: ['2 doeltjes', 'Kegels', 'Ballen'] },
-  { id: 'wmatch', title: 'Wedstrijdopwarming in vier delen', variant: 'wmatch', type: 'Warming-up', ageLabel: 'U10–21', themes: ['Passing & aanname'], players: '8–20', min: 20, mat: ['Kegels', 'Ballen', 'Hesjes'] }
+  { id: 'wmatch', title: 'Wedstrijdopwarming in vier delen', variant: 'wmatch', type: 'Warming-up', ageLabel: 'U10–21', themes: ['Passing & aanname'], players: '8–20', min: 20, mat: ['Kegels', 'Ballen', 'Hesjes'] },
+  { id: 'ps43', title: 'Positiespel 4 tegen 4 + 3 jokers', variant: 'ps43', type: 'Tactisch', ageLabel: 'U12–21', themes: ['Positiespel', 'Passing & aanname'], players: '11', min: 15, mat: ['Kegels', 'Ballen', 'Hesjes'] },
+  { id: 'ps3z', title: 'Overspelen in drie vakken', variant: 'ps3z', type: 'Tactisch', ageLabel: 'U12–21', themes: ['Positiespel', 'Passing & aanname'], players: '10', min: 15, mat: ['Kegels', 'Ballen', 'Hesjes'] },
+  { id: 'psshape', title: 'Positiespel 6 tegen 4 met vaste posities', variant: 'psshape', type: 'Tactisch', ageLabel: 'U12–21', themes: ['Positiespel', 'Opbouw van achteruit'], players: '10 + K', min: 20, mat: ['Groot doel', 'Kegels', 'Ballen', 'Hesjes'] },
+  { id: 'psswitch', title: 'Van kant wisselen: 4 tegen 4 + 2 op vier doeltjes', variant: 'psswitch', type: 'Tactisch', ageLabel: 'U10–21', themes: ['Positiespel', 'Passing & aanname'], players: '10', min: 15, mat: ['4 doeltjes', 'Kegels', 'Ballen', 'Hesjes'] },
+  { id: 'psquad', title: 'Kwadrantenspel: maximaal twee per vak', variant: 'psquad', type: 'Tactisch', ageLabel: 'U10–21', themes: ['Positiespel'], players: '10', min: 15, mat: ['4 doeltjes', 'Kegels', 'Ballen', 'Hesjes'] },
+  { id: 'psbuild', title: 'Opbouwen tegen druk: 4 + K tegen 2', variant: 'psbuild', type: 'Tactisch', ageLabel: 'U10–21', themes: ['Opbouw van achteruit', 'Positiespel'], players: '6 + K', min: 15, mat: ['Groot doel', 'Kegels', 'Ballen', 'Hesjes'] },
+  { id: 'psshadow', title: 'Schaduwopbouw: patronen zonder tegenstander', variant: 'psshadow', type: 'Tactisch', ageLabel: 'U12–21', themes: ['Positiespel', 'Opbouw van achteruit'], players: '8–11', min: 15, mat: ['2 doelen', 'Kegels', 'Ballen'] },
+  { id: 'psline', title: 'Spelen tussen de linies: middenzone', variant: 'psline', type: 'Tactisch', ageLabel: 'U12–21', themes: ['Positiespel'], players: '10', min: 15, mat: ['Kegels', 'Ballen', 'Hesjes'] },
+  { id: 'psflank', title: 'Driehoek op de flank: back, flankspeler en middenvelder', variant: 'psflank', type: 'Tactisch', ageLabel: 'U12–21', themes: ['Positiespel', 'Afwerken'], players: '6 + K', min: 15, mat: ['Groot doel', 'Kegels', 'Ballen', 'Hesjes'] },
+  { id: 'psgame', title: 'Partijvorm 7 tegen 7 met vijf corridors', variant: 'psgame', type: 'Partijvorm', ageLabel: 'U12–21', themes: ['Positiespel'], players: '14', min: 20, mat: ['2 doelen', 'Kegels', 'Ballen', 'Hesjes'] }
 ];
 var BY = {}; EX.forEach(function (e) { BY[e.id] = e; });
 var DOT = { 'Warming-up': '#F2A541', 'Technisch': '#3B8FD9', 'Tactisch': '#5B2BC4', 'Fysiek': '#E0527A', 'Partijvorm': '#1A1033' };
