@@ -17,7 +17,7 @@ input[type=range],input[type=checkbox]{accent-color:#5B2BC4}
 input:focus-visible,button:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid #5B2BC4;outline-offset:2px}
 </style>
 </helmet>
-<div style="width: 1440px; height: 16800px; overflow: hidden; background: #FFFFFF; font-family: Figtree, system-ui, sans-serif; color: #1A1033; display: flex; flex-direction: column">
+<div style="width: 1440px; height: 18400px; overflow: hidden; background: #FFFFFF; font-family: Figtree, system-ui, sans-serif; color: #1A1033; display: flex; flex-direction: column">
 <dc-import name="Nav" active="oefeningen" hint-size="1440px,72px"></dc-import>
 <div style="display: flex; flex-grow: 1">
 
@@ -172,7 +172,7 @@ input:focus-visible,button:focus-visible,select:focus-visible,a:focus-visible{ou
 </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":16800}}'>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":18400}}'>
 var EX = [
   { id: 'rondo', title: 'Rondo 4 tegen 1', variant: 'rondo', type: 'Warming-up', phase: 'Aanvallen', themes: ['Passing & aanname', 'Positiespel'], ages: ['U10–13', 'U14–15', 'U16–21'], ageLabel: 'U10 – U21', diff: 1, pmin: 5, players: '5', min: 5 },
   { id: 'trans', title: 'Omschakelen 4 tegen 4 op vier doeltjes', variant: 'transition', type: 'Tactisch', phase: 'Omschakelen → aanval', themes: ['Omschakelen'], ages: ['U10–13', 'U14–15'], ageLabel: 'U11 – U15', diff: 2, pmin: 8, players: '8', min: 20 },
@@ -293,7 +293,17 @@ var EX = [
   { id: 'cmastery', title: 'Balbeheersing: tikjes, zoolrol en V-beweging', variant: 'cmastery', type: 'Warming-up', phase: 'Algemeen', themes: ['Dribbelen'], ages: ['U6–9', 'U10–13', 'U14–15', 'U16–21'], ageLabel: 'Alle', diff: 1, pmin: 1, players: '1–20', min: 10 },
   { id: 'ctwoball', title: 'Dribbelen met een bal in de handen', variant: 'ctwoball', type: 'Fysiek', phase: 'Algemeen', themes: ['Dribbelen', 'Fysiek'], ages: ['U6–9', 'U10–13', 'U14–15'], ageLabel: 'U8 – U15', diff: 2, pmin: 4, players: '4–16', min: 10 },
   { id: 'ccircuit', title: 'Coördinatiecircuit in vier posten', variant: 'ccircuit', type: 'Fysiek', phase: 'Algemeen', themes: ['Fysiek', 'Passing & aanname'], ages: ['U6–9', 'U10–13', 'U14–15'], ageLabel: 'U8 – U15', diff: 1, pmin: 8, players: '8–16', min: 16 },
-  { id: 'cdrop', title: 'Vallende bal: reageren voor de tweede stuit', variant: 'cdrop', type: 'Fysiek', phase: 'Algemeen', themes: ['Fysiek'], ages: ['U6–9', 'U10–13', 'U14–15', 'U16–21'], ageLabel: 'U8 – U21', diff: 1, pmin: 2, players: '2–16', min: 10 }
+  { id: 'cdrop', title: 'Vallende bal: reageren voor de tweede stuit', variant: 'cdrop', type: 'Fysiek', phase: 'Algemeen', themes: ['Fysiek'], ages: ['U6–9', 'U10–13', 'U14–15', 'U16–21'], ageLabel: 'U8 – U21', diff: 1, pmin: 2, players: '2–16', min: 10 },
+  { id: 'obsplit', title: 'Doeltrap: splitsen en uitspelen 2 + K tegen 1', variant: 'obsplit', type: 'Tactisch', phase: 'Aanvallen', themes: ['Opbouw van achteruit', 'Keeper'], ages: ['U6–9', 'U10–13', 'U14–15'], ageLabel: 'U8 – U15', diff: 1, pmin: 4, players: '3 + K', min: 15 },
+  { id: 'obsix', title: 'Vrijlopen van de zes: opbouw 3 + K tegen 2', variant: 'obsix', type: 'Tactisch', phase: 'Aanvallen', themes: ['Opbouw van achteruit', 'Positiespel'], ages: ['U10–13', 'U14–15', 'U16–21'], ageLabel: 'U10 – U21', diff: 2, pmin: 7, players: '6 + K', min: 16 },
+  { id: 'obdrop', title: 'Uitzakkende zes: opbouwen met drie achteraan', variant: 'obdrop', type: 'Tactisch', phase: 'Aanvallen', themes: ['Opbouw van achteruit', 'Positiespel'], ages: ['U14–15', 'U16–21'], ageLabel: 'U14 – U21', diff: 3, pmin: 9, players: '8 + K', min: 20 },
+  { id: 'obdrive', title: 'Indribbelen door de centrale verdediger', variant: 'obdrive', type: 'Tactisch', phase: 'Aanvallen', themes: ['Opbouw van achteruit', 'Dribbelen'], ages: ['U10–13', 'U14–15', 'U16–21'], ageLabel: 'U12 – U21', diff: 2, pmin: 6, players: '6', min: 15 },
+  { id: 'oblong', title: 'Lange bal op de spits en de tweede bal', variant: 'oblong', type: 'Tactisch', phase: 'Aanvallen', themes: ['Opbouw van achteruit', 'Omschakelen'], ages: ['U10–13', 'U14–15', 'U16–21'], ageLabel: 'U12 – U21', diff: 2, pmin: 7, players: '6 + K', min: 16 },
+  { id: 'obswitch', title: 'Van kant wisselen via de keeper: 4 + K tegen 3', variant: 'obswitch', type: 'Tactisch', phase: 'Aanvallen', themes: ['Opbouw van achteruit', 'Positiespel'], ages: ['U10–13', 'U14–15', 'U16–21'], ageLabel: 'U10 – U21', diff: 2, pmin: 8, players: '7 + K', min: 16 },
+  { id: 'obgame', title: 'Opbouwspel 6 + K tegen 6 op drie doeltjes', variant: 'obgame', type: 'Partijvorm', phase: 'Aanvallen', themes: ['Opbouw van achteruit', 'Druk zetten'], ages: ['U10–13', 'U14–15', 'U16–21'], ageLabel: 'U12 – U21', diff: 3, pmin: 13, players: '12 + K', min: 24 },
+  { id: 'obline', title: 'Rustig uitspelen: 3 + K tegen 2 met terugtreklijn', variant: 'obline', type: 'Partijvorm', phase: 'Aanvallen', themes: ['Opbouw van achteruit', 'Passing & aanname'], ages: ['U6–9', 'U10–13'], ageLabel: 'U8 – U11', diff: 1, pmin: 6, players: '5 + K', min: 15 },
+  { id: 'obwall', title: 'Verticale pass op de spits en de kaatsbal', variant: 'obwall', type: 'Tactisch', phase: 'Aanvallen', themes: ['Opbouw van achteruit', 'Passing & aanname'], ages: ['U10–13', 'U14–15', 'U16–21'], ageLabel: 'U12 – U21', diff: 2, pmin: 6, players: '6–9', min: 15 },
+  { id: 'obkeeper', title: 'Kort of lang: de keeper beslist', variant: 'obkeeper', type: 'Tactisch', phase: 'Aanvallen', themes: ['Opbouw van achteruit', 'Keeper'], ages: ['U10–13', 'U14–15', 'U16–21'], ageLabel: 'U12 – U21', diff: 2, pmin: 8, players: '7 + K', min: 16 }
 ];
 var AGES = ['U6–9', 'U10–13', 'U14–15', 'U16–21'];
 var TYPES = [['Warming-up', '#F2A541'], ['Technisch', '#3B8FD9'], ['Tactisch', '#5B2BC4'], ['Fysiek', '#E0527A'], ['Partijvorm', '#1A1033']];
