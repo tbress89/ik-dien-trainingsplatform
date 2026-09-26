@@ -17,7 +17,7 @@ input[type=range],input[type=checkbox]{accent-color:#5B2BC4}
 input:focus-visible,button:focus-visible,select:focus-visible,a:focus-visible{outline:2px solid #5B2BC4;outline-offset:2px}
 </style>
 </helmet>
-<div style="width: 1440px; height: 14300px; overflow: hidden; background: #FFFFFF; font-family: Figtree, system-ui, sans-serif; color: #1A1033; display: flex; flex-direction: column">
+<div style="width: 1440px; height: 15500px; overflow: hidden; background: #FFFFFF; font-family: Figtree, system-ui, sans-serif; color: #1A1033; display: flex; flex-direction: column">
 <dc-import name="Nav" active="oefeningen" hint-size="1440px,72px"></dc-import>
 <div style="display: flex; flex-grow: 1">
 
@@ -172,7 +172,7 @@ input:focus-visible,button:focus-visible,select:focus-visible,a:focus-visible{ou
 </div>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":14300}}'>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":15500}}'>
 var EX = [
   { id: 'rondo', title: 'Rondo 4 tegen 1', variant: 'rondo', type: 'Warming-up', phase: 'Aanvallen', themes: ['Passing & aanname', 'Positiespel'], ages: ['U10–13', 'U14–15', 'U16–21'], ageLabel: 'U10 – U21', diff: 1, pmin: 5, players: '5', min: 5 },
   { id: 'trans', title: 'Omschakelen 4 tegen 4 op vier doeltjes', variant: 'transition', type: 'Tactisch', phase: 'Omschakelen → aanval', themes: ['Omschakelen'], ages: ['U10–13', 'U14–15'], ageLabel: 'U11 – U15', diff: 2, pmin: 8, players: '8', min: 20 },
@@ -273,7 +273,17 @@ var EX = [
   { id: 'omcounter', title: 'Balwinst op eigen helft en counteren: 6 tegen 6', variant: 'omcounter', type: 'Partijvorm', phase: 'Omschakelen → aanval', themes: ['Omschakelen', 'Afwerken'], ages: ['U10–13', 'U14–15', 'U16–21'], ageLabel: 'U12 – U21', diff: 2, pmin: 12, players: '12', min: 20 },
   { id: 'omkeeper', title: 'Snelle counter via de keeper', variant: 'omkeeper', type: 'Tactisch', phase: 'Omschakelen → aanval', themes: ['Omschakelen', 'Keeper'], ages: ['U10–13', 'U14–15', 'U16–21'], ageLabel: 'U10 – U21', diff: 2, pmin: 5, players: '4 + K', min: 15 },
   { id: 'omback', title: 'Na balverlies achter de bal: 5 tegen 5', variant: 'omback', type: 'Partijvorm', phase: 'Omschakelen → verdediging', themes: ['Omschakelen', 'Druk zetten'], ages: ['U10–13', 'U14–15', 'U16–21'], ageLabel: 'U12 – U21', diff: 2, pmin: 12, players: '10 + 2 K', min: 20 },
-  { id: 'omrondo', title: 'Van rondo naar counter', variant: 'omrondo', type: 'Tactisch', phase: 'Omschakelen → aanval', themes: ['Omschakelen', 'Positiespel'], ages: ['U10–13', 'U14–15', 'U16–21'], ageLabel: 'U12 – U21', diff: 3, pmin: 8, players: '7 + K', min: 15 }
+  { id: 'omrondo', title: 'Van rondo naar counter', variant: 'omrondo', type: 'Tactisch', phase: 'Omschakelen → aanval', themes: ['Omschakelen', 'Positiespel'], ages: ['U10–13', 'U14–15', 'U16–21'], ageLabel: 'U12 – U21', diff: 3, pmin: 8, players: '7 + K', min: 15 },
+  { id: 'funino', title: 'Funino: 3 tegen 3 op vier doeltjes', variant: 'sgfunino', type: 'Partijvorm', phase: 'Aanvallen', themes: ['Dribbelen', 'Afwerken'], ages: ['U6–9', 'U10–13'], ageLabel: 'U6 – U11', diff: 1, pmin: 6, players: '6–8', min: 20 },
+  { id: 'sgnum', title: 'Nummerspel: 1 tegen 1 tot 3 tegen 3', variant: 'sgnum', type: 'Partijvorm', phase: 'Aanvallen', themes: ['Dribbelen', 'Afwerken'], ages: ['U6–9', 'U10–13'], ageLabel: 'U6 – U13', diff: 1, pmin: 6, players: '6–12', min: 15 },
+  { id: 'sggates', title: 'Poortjesspel 4 tegen 4', variant: 'sggates', type: 'Partijvorm', phase: 'Aanvallen', themes: ['Passing & aanname', 'Positiespel'], ages: ['U6–9', 'U10–13', 'U14–15'], ageLabel: 'U8 – U15', diff: 1, pmin: 8, players: '8–10', min: 15 },
+  { id: 'sgend', title: 'Eindzonespel 4 tegen 4', variant: 'sgend', type: 'Partijvorm', phase: 'Aanvallen', themes: ['Positiespel', 'Passing & aanname'], ages: ['U10–13', 'U14–15', 'U16–21'], ageLabel: 'U10 – U21', diff: 2, pmin: 8, players: '8–10', min: 20 },
+  { id: 'sgwing', title: 'Partijvorm 4 tegen 4 + 2 flankjokers', variant: 'sgwing', type: 'Partijvorm', phase: 'Aanvallen', themes: ['Afwerken', 'Positiespel'], ages: ['U10–13', 'U14–15', 'U16–21'], ageLabel: 'U10 – U21', diff: 2, pmin: 12, players: '10 + 2 K', min: 20 },
+  { id: 'sgman', title: 'Mandekking 4 tegen 4', variant: 'sgman', type: 'Partijvorm', phase: 'Verdedigen', themes: ['Druk zetten'], ages: ['U10–13', 'U14–15', 'U16–21'], ageLabel: 'U10 – U21', diff: 2, pmin: 8, players: '8', min: 16 },
+  { id: 'sgbuild', title: 'Partijvorm 6 tegen 6 met opbouwzone', variant: 'sgbuild', type: 'Partijvorm', phase: 'Aanvallen', themes: ['Opbouw van achteruit', 'Positiespel'], ages: ['U10–13', 'U14–15', 'U16–21'], ageLabel: 'U10 – U21', diff: 2, pmin: 12, players: '10 + 2 K', min: 24 },
+  { id: 'sgavv', title: 'Aanval tegen verdediging: 6 tegen 4 + K', variant: 'sgavv', type: 'Partijvorm', phase: 'Aanvallen', themes: ['Afwerken', 'Positiespel'], ages: ['U10–13', 'U14–15', 'U16–21'], ageLabel: 'U12 – U21', diff: 3, pmin: 11, players: '10 + K', min: 20 },
+  { id: 'sgblock', title: 'Partijvorm 5 tegen 5: doorschuiven als blok', variant: 'sgblock', type: 'Partijvorm', phase: 'Aanvallen', themes: ['Positiespel', 'Omschakelen'], ages: ['U10–13', 'U14–15', 'U16–21'], ageLabel: 'U12 – U21', diff: 2, pmin: 12, players: '10 + 2 K', min: 20 },
+  { id: 'sg2v2', title: 'Intervalpartijtjes 2 tegen 2', variant: 'sg2v2', type: 'Partijvorm', phase: 'Algemeen', themes: ['Fysiek', 'Dribbelen'], ages: ['U10–13', 'U14–15', 'U16–21'], ageLabel: 'U10 – U21', diff: 1, pmin: 4, players: '4–12', min: 15 }
 ];
 var AGES = ['U6–9', 'U10–13', 'U14–15', 'U16–21'];
 var TYPES = [['Warming-up', '#F2A541'], ['Technisch', '#3B8FD9'], ['Tactisch', '#5B2BC4'], ['Fysiek', '#E0527A'], ['Partijvorm', '#1A1033']];

@@ -278,7 +278,17 @@ var EX = [
   { id: 'omcounter', title: 'Balwinst op eigen helft en counteren: 6 tegen 6', variant: 'omcounter', type: 'Partijvorm', ageLabel: 'U12–21', themes: ['Omschakelen', 'Afwerken'], players: '12', min: 20, mat: ['2 doelen', 'Kegels', 'Ballen', 'Hesjes'] },
   { id: 'omkeeper', title: 'Snelle counter via de keeper', variant: 'omkeeper', type: 'Tactisch', ageLabel: 'U10–21', themes: ['Omschakelen', 'Keeper'], players: '4 + K', min: 15, mat: ['Groot doel', '2 doeltjes', 'Kegels', 'Ballen'] },
   { id: 'omback', title: 'Na balverlies achter de bal: 5 tegen 5', variant: 'omback', type: 'Partijvorm', ageLabel: 'U12–21', themes: ['Omschakelen', 'Druk zetten'], players: '10 + 2 K', min: 20, mat: ['2 doelen', 'Kegels', 'Ballen', 'Hesjes'] },
-  { id: 'omrondo', title: 'Van rondo naar counter', variant: 'omrondo', type: 'Tactisch', ageLabel: 'U12–21', themes: ['Omschakelen', 'Positiespel'], players: '7 + K', min: 15, mat: ['Groot doel', 'Kegels', 'Ballen', 'Hesjes'] }
+  { id: 'omrondo', title: 'Van rondo naar counter', variant: 'omrondo', type: 'Tactisch', ageLabel: 'U12–21', themes: ['Omschakelen', 'Positiespel'], players: '7 + K', min: 15, mat: ['Groot doel', 'Kegels', 'Ballen', 'Hesjes'] },
+  { id: 'funino', title: 'Funino: 3 tegen 3 op vier doeltjes', variant: 'sgfunino', type: 'Partijvorm', ageLabel: 'U6–11', themes: ['Dribbelen', 'Afwerken'], players: '6–8', min: 20, mat: ['4 doeltjes', 'Kegels', 'Ballen', 'Hesjes'] },
+  { id: 'sgnum', title: 'Nummerspel: 1 tegen 1 tot 3 tegen 3', variant: 'sgnum', type: 'Partijvorm', ageLabel: 'U6–13', themes: ['Dribbelen', 'Afwerken'], players: '6–12', min: 15, mat: ['2 doeltjes', 'Kegels', 'Ballen', 'Hesjes'] },
+  { id: 'sggates', title: 'Poortjesspel 4 tegen 4', variant: 'sggates', type: 'Partijvorm', ageLabel: 'U8–15', themes: ['Passing & aanname', 'Positiespel'], players: '8–10', min: 15, mat: ['Kegels', 'Ballen', 'Hesjes'] },
+  { id: 'sgend', title: 'Eindzonespel 4 tegen 4', variant: 'sgend', type: 'Partijvorm', ageLabel: 'U10–21', themes: ['Positiespel', 'Passing & aanname'], players: '8–10', min: 20, mat: ['Kegels', 'Ballen', 'Hesjes'] },
+  { id: 'sgwing', title: 'Partijvorm 4 tegen 4 + 2 flankjokers', variant: 'sgwing', type: 'Partijvorm', ageLabel: 'U10–21', themes: ['Afwerken', 'Positiespel'], players: '10 + 2 K', min: 20, mat: ['2 doelen', 'Kegels', 'Ballen', 'Hesjes'] },
+  { id: 'sgman', title: 'Mandekking 4 tegen 4', variant: 'sgman', type: 'Partijvorm', ageLabel: 'U10–21', themes: ['Druk zetten'], players: '8', min: 16, mat: ['2 doeltjes', 'Kegels', 'Ballen', 'Hesjes'] },
+  { id: 'sgbuild', title: 'Partijvorm 6 tegen 6 met opbouwzone', variant: 'sgbuild', type: 'Partijvorm', ageLabel: 'U10–21', themes: ['Opbouw van achteruit', 'Positiespel'], players: '10 + 2 K', min: 24, mat: ['2 doelen', 'Kegels', 'Ballen', 'Hesjes'] },
+  { id: 'sgavv', title: 'Aanval tegen verdediging: 6 tegen 4 + K', variant: 'sgavv', type: 'Partijvorm', ageLabel: 'U12–21', themes: ['Afwerken', 'Positiespel'], players: '10 + K', min: 20, mat: ['Groot doel', '2 doeltjes', 'Kegels', 'Ballen', 'Hesjes'] },
+  { id: 'sgblock', title: 'Partijvorm 5 tegen 5: doorschuiven als blok', variant: 'sgblock', type: 'Partijvorm', ageLabel: 'U12–21', themes: ['Positiespel', 'Omschakelen'], players: '10 + 2 K', min: 20, mat: ['2 doelen', 'Kegels', 'Ballen', 'Hesjes'] },
+  { id: 'sg2v2', title: 'Intervalpartijtjes 2 tegen 2', variant: 'sg2v2', type: 'Partijvorm', ageLabel: 'U10–21', themes: ['Fysiek', 'Dribbelen'], players: '4–12', min: 15, mat: ['2 doeltjes', 'Kegels', 'Ballen', 'Hesjes'] }
 ];
 var BY = {}; EX.forEach(function (e) { BY[e.id] = e; });
 var DOT = { 'Warming-up': '#F2A541', 'Technisch': '#3B8FD9', 'Tactisch': '#5B2BC4', 'Fysiek': '#E0527A', 'Partijvorm': '#1A1033' };

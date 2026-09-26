@@ -3054,4 +3054,309 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'omcounter', fit: 'Als afsluiter' },
     ],
   },
+  funino: {
+    summary:
+      'Twee ploegen van drie spelen op een veldje met twee doeltjes aan elke kant. Scoren mag alleen vanuit de scoringszone, zodat kinderen leren kijken, kiezen en naar de vrije kant spelen.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet een veld van 25 × 20 m uit met aan elke doellijn twee doeltjes op de hoeken. Markeer met kegels op 6 meter van elke doellijn een scoringszone.' },
+      { title: 'Spelen.', text: 'Drie tegen drie zonder keepers. Een doelpunt telt alleen als je schiet vanuit de scoringszone, op een van de twee doeltjes.' },
+      { title: 'Herstarten.', text: 'Na een doelpunt of een uitbal herstart de andere ploeg met een indribbel vanaf de eigen doellijn. Is er een wisselspeler, dan komt die erin na elk doelpunt.' },
+      { title: 'Ritme.', text: 'Speel 4 reeksen van 4 minuten met 1 minuut rust.' },
+    ],
+    easier: 'Laat scoren van overal toe, of speel met een joker die altijd bij de balbezittende ploeg hoort.',
+    harder: 'Speel met maximaal drie balcontacten, of laat een doelpunt na een kantwissel dubbel tellen.',
+    objectives: ['Kiezen tussen twee doelen', 'Dribbelen naar de vrije ruimte', 'Scoren van dichtbij', 'Veel balcontacten'],
+    coaching: [
+      'Kijk op: welk doeltje is vrij?',
+      'Staat de verdediger voor het ene doeltje? Ga naar het andere.',
+      'Dribbel met korte tikjes als de verdediger dichtbij is.',
+      'Maak het veld breed: niet alle drie rond de bal.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Drie tegen drie op vier doeltjes'],
+      ['Combineren', 'Pass naar een vrije ploegmaat'],
+      ['Naar de zone', 'Dribbel naar het vrije doeltje'],
+      ['Scoren', 'Afwerken vanuit de scoringszone'],
+    ],
+    related: [
+      { id: 'dbox', fit: 'Als warming-up' },
+      { id: 'duel', fit: 'Zelfde thema' },
+      { id: 'dline', fit: 'Kern' },
+      { id: 'game5', fit: 'Als vervolg' },
+    ],
+  },
+  sgnum: {
+    summary:
+      'Twee ploegen staan langs de zijlijnen en elke speler krijgt een nummer. De trainer roept nummers af en speelt een bal in, waarna de geroepen spelers meteen tegen elkaar op doeltjes spelen: snel reageren, duels en veel scoorkansen.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet een veld van 20 × 15 m uit met een doeltje in het midden van elke doellijn. Elke ploeg staat langs een zijlijn en de spelers krijgen een nummer, in beide ploegen dezelfde nummers.' },
+      { title: 'Afroepen.', text: 'Roep één nummer (1 tegen 1), twee nummers (2 tegen 2) of drie nummers (3 tegen 3) en speel meteen een bal in het veld.' },
+      { title: 'Spelen.', text: 'De geroepen spelers spelen tot er een doelpunt valt of de bal uit is, en gaan dan terug naar hun zijlijn. Elke ploeg valt aan op een vast doeltje.' },
+      { title: 'Ritme.', text: 'Speel 15 minuten doorlopend. Houd de duels kort, maximaal 45 seconden, en zorg dat elk nummer even vaak aan de beurt komt.' },
+    ],
+    easier: 'Roep vooral 1 tegen 1 en speel de bal rustig in, midden in het veld.',
+    harder: 'Roep ongelijke aantallen (2 tegen 1) of een rekensom (“2 + 1”), zodat de spelers eerst moeten denken.',
+    objectives: ['Snel reageren', 'Duels winnen', 'Afwerken', 'Omschakelen'],
+    coaching: [
+      'Luister en vertrek meteen: de eerste aan de bal heeft voordeel.',
+      'Neem de bal mee in de richting van het doeltje.',
+      'Verdedig tussen de bal en je doeltje.',
+      'Ben je met twee? Roep je ploegmaat en speel samen.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Twee ploegen langs de zijlijnen, een duel in het veld'],
+      ['Inspelen', 'De trainer speelt de bal in'],
+      ['Duel', 'Dribbel naar het doeltje'],
+    ],
+    related: [
+      { id: 'dking', fit: 'Als warming-up' },
+      { id: 'wduel', fit: 'Zelfde thema' },
+      { id: 'duel', fit: 'Kern' },
+      { id: 'funino', fit: 'Als afsluiter' },
+    ],
+  },
+  sggates: {
+    summary:
+      'Twee ploegen van vier spelen in een veld met verspreide poortjes van kegels. Je scoort door de bal door een poortje naar een ploegmaat te spelen: spelers leren vrijlopen, kijken en de pass op het juiste moment geven.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet een veld van 30 × 25 m uit en zet er vijf of zes poortjes van 2 meter breed in, verspreid over het veld.' },
+      { title: 'Scoren.', text: 'Een pass door een poortje die een ploegmaat aan de andere kant controleert, is een punt. Je mag niet twee keer na elkaar door hetzelfde poortje scoren.' },
+      { title: 'Verdedigen.', text: 'Verdedigers mogen niet in een poortje blijven staan. Na balwinst mag de andere ploeg meteen scoren.' },
+      { title: 'Ritme.', text: 'Speel 3 reeksen van 4 minuten met 1 minuut rust. Welke ploeg scoort de meeste punten?' },
+    ],
+    easier: 'Zet meer of bredere poortjes, of speel met een joker die altijd bij de balbezitter hoort.',
+    harder: 'Speel met maximaal twee balcontacten en maak de poortjes 1 meter breed.',
+    objectives: ['Vrijlopen achter een poortje', 'Timing van de pass', 'Kijken voor je aanneemt', 'Snel van kant veranderen'],
+    coaching: [
+      'Loop vrij aan de andere kant van een vrij poortje.',
+      'Is het poortje bezet? Zoek meteen een ander.',
+      'Pass hard en over de grond, in de voet van je ploegmaat.',
+      'Neem de bal aan in de richting van het volgende poortje.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Vier tegen vier tussen verspreide poortjes'],
+      ['Scoren', 'Pass door een poortje naar een ploegmaat'],
+      ['Doorbewegen', 'De passer zoekt het volgende poortje'],
+    ],
+    related: [
+      { id: 'pgates', fit: 'Als warming-up' },
+      { id: 'pten', fit: 'Zelfde thema' },
+      { id: 'psswitch', fit: 'Als vervolg' },
+      { id: 'game5', fit: 'Als afsluiter' },
+    ],
+  },
+  sgend: {
+    summary:
+      'Twee ploegen van vier spelen op een veld met aan elke kant een eindzone van 5 meter. Je scoort door een pass in de eindzone te ontvangen, dus het spel draait om diepgang, de timing van de loopactie en de juiste pass.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet een veld van 35 × 25 m uit met aan beide kopse kanten een eindzone van 5 meter diep.' },
+      { title: 'Scoren.', text: 'Een punt is een pass die een ploegmaat in de eindzone van de tegenstander controleert. Niemand mag in de eindzone wachten: je loopt er pas in als de pass vertrekt.' },
+      { title: 'Doorspelen.', text: 'Na een punt blijft de scorende ploeg in balbezit en valt ze aan op de andere eindzone.' },
+      { title: 'Ritme.', text: 'Speel 4 reeksen van 4 minuten met 1 minuut rust.' },
+    ],
+    easier: 'Laat ook indribbelen in de eindzone tellen, of maak de zones 8 meter diep.',
+    harder: 'Speel met maximaal twee balcontacten, of laat een punt alleen tellen als de ontvanger de bal in één keer terugkaatst naar een ploegmaat.',
+    objectives: ['Diepgang zoeken', 'Timing van de loopactie', 'Steekpass', 'Breedte en diepte'],
+    coaching: [
+      'Loop pas in de zone als de balbezitter kan passen.',
+      'Balbezitter: kijk eerst diep, dan pas breed.',
+      'Maak het veld groot: één speler diep, twee breed.',
+      'Geen diepte? Speel terug en probeer opnieuw.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Vier tegen vier met twee eindzones'],
+      ['Diepe loop', 'Een aanvaller loopt de eindzone in'],
+      ['Steekpass', 'Pass in de loop, in de eindzone'],
+    ],
+    related: [
+      { id: 'pthrough', fit: 'Als warming-up' },
+      { id: 'dline', fit: 'Zelfde thema' },
+      { id: 'rdeep', fit: 'Kern' },
+      { id: 'psgame', fit: 'Als afsluiter' },
+    ],
+  },
+  sgwing: {
+    summary:
+      'Vier tegen vier met keepers op grote doelen, met in elke flankzone een joker die altijd voor de balbezittende ploeg speelt. De ploegen leren het spel breed maken, de flank gebruiken en afwerken na een voorzet.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet een veld van 40 × 30 m uit met twee grote doelen en keepers. Markeer langs beide zijlijnen met kegels een flankzone van 5 meter breed, met in elke zone een joker.' },
+      { title: 'Jokers.', text: 'De jokers spelen altijd mee met de ploeg in balbezit en blijven in hun flankzone. Ze spelen met maximaal twee balcontacten en verdedigers mogen de flankzones niet in.' },
+      { title: 'Scoren.', text: 'Een doelpunt telt gewoon, een doelpunt na een voorzet van een joker telt dubbel.' },
+      { title: 'Ritme.', text: 'Speel 4 reeksen van 4 minuten met 1 minuut rust. Wissel de jokers na elke reeks.' },
+    ],
+    easier: 'Laat de jokers vrij opdribbelen tot aan de achterlijn en geef ze drie balcontacten.',
+    harder: 'De jokers spelen met één balcontact, of een doelpunt telt alleen na een pass van een joker.',
+    objectives: ['Het spel breed maken', 'Flankspel', 'Afwerken na voorzet', 'Inlopen in de zestien'],
+    coaching: [
+      'Krijg je de bal niet door het midden? Speel de joker aan.',
+      'Na de pass naar de flank meteen de zestien in lopen.',
+      'Eerste paal, tweede paal: verdeel de ruimte bij een voorzet.',
+      'Joker: kijk op voor je voorzet en speel tussen keeper en verdediging.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Vier tegen vier met een joker op elke flank'],
+      ['Naar de flank', 'Pass naar de joker'],
+      ['Opdribbelen', 'De joker dribbelt op langs de zijlijn'],
+      ['Voorzet', 'Voorzet naar de inlopende spits'],
+    ],
+    related: [
+      { id: 'psflank', fit: 'Als warming-up' },
+      { id: 'fcross', fit: 'Zelfde thema' },
+      { id: 'fcutback', fit: 'Kern' },
+      { id: 'game', fit: 'Als afsluiter' },
+    ],
+  },
+  sgman: {
+    summary:
+      'Vier tegen vier op twee doeltjes, waarbij elke speler één vaste tegenstander heeft die hij als enige verdedigt. De verdedigers leren kort op de man zitten en duels aangaan, de aanvallers leren zich vrijlopen van hun directe tegenstander.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet een veld van 30 × 25 m uit met een doeltje in het midden van elke doellijn. Maak duo’s van gelijke sterkte: elke speler krijgt één vaste tegenstander.' },
+      { title: 'Spelen.', text: 'Je verdedigt alleen je eigen tegenstander. Overnemen of met twee op de bal gaan mag niet.' },
+      { title: 'Scoren.', text: 'Scoren mag op het doeltje van de tegenstander. Na een doelpunt of uitbal herstart de andere ploeg vanaf de eigen doellijn.' },
+      { title: 'Ritme.', text: 'Speel 4 reeksen van 2 minuten met 2 minuten actieve rust. Het is zwaar: houd de reeksen kort.' },
+    ],
+    easier: 'Speel 3 tegen 3 op een smaller veld, zodat de verdedigers minder ruimte moeten afdekken.',
+    harder: 'Maak het veld groter, of voeg een vrije joker toe die voor de balbezitter speelt.',
+    objectives: ['Kort dekken', 'Duels winnen', 'Vrijlopen van je tegenstander', 'Conditie'],
+    coaching: [
+      'Sta tussen je man en je eigen doel, met de bal in beeld.',
+      'Zit kort in de rug als hij de bal krijgt: laat hem niet draaien.',
+      'Aanvallers: eerst weg, dan kort komen om je man af te schudden.',
+      'Houd vol: wie zijn man loslaat, laat een vrije speler achter.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Elke speler heeft een vaste tegenstander'],
+      ['Vrijlopen', 'Een aanvaller schudt zijn man af'],
+      ['Aanspelen', 'Pass naar de vrijgelopen speler'],
+    ],
+    related: [
+      { id: 'pr1v1', fit: 'Als warming-up' },
+      { id: 'pr2v2', fit: 'Zelfde thema' },
+      { id: 'dshield', fit: 'Tegenhanger' },
+      { id: 'przone', fit: 'Als afsluiter' },
+    ],
+  },
+  sgbuild: {
+    summary:
+      'Zes tegen zes met keepers, waarbij elke aanval begint bij de eigen keeper in een opbouwzone waar de tegenstander pas in mag na de eerste pass. Spelers leren rustig opbouwen van achteruit en de vrije man vinden onder druk.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet een veld van 50 × 35 m uit met twee grote doelen en keepers. Markeer met kegels aan beide kanten een opbouwzone van 15 meter diep.' },
+      { title: 'Opbouw.', text: 'Elk balbezit begint bij de keeper. Twee verdedigers gaan breed staan in de opbouwzone. De tegenstander mag pas in de zone komen als de keeper de eerste pass gegeven heeft.' },
+      { title: 'Spelen.', text: 'Daarna wordt gewoon gespeeld. Een doelpunt na een opbouw zonder balverlies vanaf de keeper telt dubbel.' },
+      { title: 'Ritme.', text: 'Speel 3 reeksen van 6 minuten met 2 minuten rust.' },
+    ],
+    easier: 'De tegenstander mag de opbouwzone helemaal niet in, tot de bal eruit gespeeld is.',
+    harder: 'Eén tegenstander mag meteen in de zone druk zetten, of de keeper moet binnen 5 seconden spelen.',
+    objectives: ['Opbouwen via de keeper', 'Breed staan', 'De vrije man vinden', 'Rustig blijven aan de bal'],
+    coaching: [
+      'Verdedigers: ga breed tot aan de zijlijn, zo trek je het veld open.',
+      'Keeper: kijk wie vrij staat voor je de bal krijgt.',
+      'Middenvelder: zak af tussen de spitsen om aanspeelbaar te zijn.',
+      'Geen opening? Terug naar de keeper en begin opnieuw.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Opbouwzone voor het eigen doel'],
+      ['Eerste pass', 'De keeper speelt een brede verdediger aan'],
+      ['In het midden', 'Pass naar de afzakkende middenvelder'],
+      ['Doorspelen', 'De bal gaat naar de vrije man'],
+    ],
+    related: [
+      { id: 'psbuild', fit: 'Als warming-up' },
+      { id: 'gkback', fit: 'Zelfde thema' },
+      { id: 'psshape', fit: 'Kern' },
+      { id: 'game', fit: 'Als afsluiter' },
+    ],
+  },
+  sgavv: {
+    summary:
+      'Zes aanvallers vallen aan op een groot doel met keeper tegen vier verdedigers. Winnen de verdedigers de bal, dan scoren ze op twee doeltjes aan de middellijn: de aanvallers leren een verdediging openspelen, de verdedigers blijven compact en schakelen om.',
+    steps: [
+      { title: 'Opstelling.', text: 'Speel op een halve veld met een groot doel en keeper. Zet aan de middellijn twee doeltjes op de zijkanten. Zes aanvallers starten aan de middellijn, vier verdedigers voor hun doel.' },
+      { title: 'Aanvallen.', text: 'De aanvallers vertrekken met de bal vanaf de middellijn en proberen binnen 20 seconden te scoren.' },
+      { title: 'Omschakelen.', text: 'Winnen de verdedigers of de keeper de bal, dan mogen ze scoren op een van de twee doeltjes. Na elke actie start een nieuwe aanval vanaf de middellijn.' },
+      { title: 'Ritme.', text: 'Speel 3 reeksen van 6 minuten met 1 minuut rust. Wissel na elke reeks twee aanvallers met twee verdedigers.' },
+    ],
+    easier: 'Speel 6 tegen 3, of geef de aanvallers 30 seconden per aanval.',
+    harder: 'Speel 6 tegen 5, of de aanvallers moeten binnen 12 seconden afwerken.',
+    objectives: ['Een blok openspelen', 'Afwerken', 'Compact verdedigen', 'Omschakelen na balwinst'],
+    coaching: [
+      'Maak het veld breed: flankspelers tot aan de zijlijn.',
+      'Speel snel van kant als de verdediging verschuift.',
+      'Loop in de rug van de verdediger als de balbezitter kan passen.',
+      'Verdedigers: blijf compact en stap samen uit.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Zes aanvallers tegen vier verdedigers en de keeper'],
+      ['Opbouw', 'De bal naar de centrale middenvelder'],
+      ['Diepe loop', 'De flankspeler loopt achter de verdediging'],
+      ['Steekpass', 'Pass in de loop naar de flankspeler'],
+    ],
+    related: [
+      { id: 'rdeep', fit: 'Als warming-up' },
+      { id: 'fcounter', fit: 'Zelfde thema' },
+      { id: 'prunder', fit: 'Tegenhanger' },
+      { id: 'game', fit: 'Als afsluiter' },
+    ],
+  },
+  sgblock: {
+    summary:
+      'Vijf tegen vijf met keepers, waarbij een doelpunt alleen telt als alle veldspelers van de scorende ploeg over de middellijn staan. De ploeg leert als blok mee opschuiven in balbezit en compact blijven, zodat er bij balverlies meteen druk kan komen.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet een veld van 50 × 35 m uit met een middellijn en twee grote doelen met keepers.' },
+      { title: 'Scoren.', text: 'Een doelpunt telt alleen als alle veldspelers van de scorende ploeg op de helft van de tegenstander staan.' },
+      { title: 'Dubbel.', text: 'Een doelpunt telt dubbel als er op dat moment nog een tegenstander op jouw helft staat: hij is niet mee teruggekeerd.' },
+      { title: 'Ritme.', text: 'Speel 4 reeksen van 4 minuten met 1 minuut rust.' },
+    ],
+    easier: 'Laat een doelpunt ook tellen als er nog één speler op de eigen helft staat.',
+    harder: 'Speel met maximaal drie balcontacten, zodat het blok sneller moet opschuiven.',
+    objectives: ['Opschuiven als blok', 'Compact spelen', 'Meteen druk na balverlies', 'Terugkeren achter de bal'],
+    coaching: [
+      'Laatste man: schuif mee op zodra de bal vooruit gaat.',
+      'Kleine afstanden tussen de linies: maximaal 10 meter.',
+      'Bal kwijt? Meteen terug achter de bal.',
+      'Roep “opschuiven!” als de bal over de middellijn gaat.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Vijf tegen vijf met een middellijn'],
+      ['Opschuiven', 'De laatste man schuift mee over de middellijn'],
+      ['Combineren', 'Pass naar de vrije aanvaller'],
+      ['Afwerken', 'Schot op doel'],
+    ],
+    related: [
+      { id: 'prshift', fit: 'Als warming-up' },
+      { id: 'omback', fit: 'Zelfde thema' },
+      { id: 'game', fit: 'Als vervolg' },
+      { id: 'omrestart', fit: 'Als afsluiter' },
+    ],
+  },
+  sg2v2: {
+    summary:
+      'Duo’s spelen korte partijtjes 2 tegen 2 op doeltjes aan maximale snelheid, afgewisseld met evenveel rust. Door de kleine ruimte en de korte reeksen is dit tegelijk voetbal en een stevige intervaltraining.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet veldjes van 20 × 15 m uit met een doeltje op elke doellijn en een voorraad ballen naast elk doeltje. Twee duo’s per veld.' },
+      { title: 'Spelen.', text: 'Twee tegen twee zonder keepers, zo hard mogelijk. Gaat de bal uit of valt een doelpunt, dan herstart de andere ploeg meteen met een nieuwe bal aan het eigen doeltje.' },
+      { title: 'Rust.', text: 'Rust is echte rust: wandelen en drinken. Wissel na elke twee reeksen van tegenstander.' },
+      { title: 'Ritme.', text: 'Speel 6 reeksen van 1 minuut met 1 minuut rust. Houd de reeksen kort, zodat de intensiteit maximaal blijft.' },
+    ],
+    easier: 'Speel reeksen van 45 seconden, of met een joker die bij de balbezitter hoort.',
+    harder: 'Speel 8 reeksen, of maak het veld groter zodat er meer gelopen moet worden.',
+    objectives: ['Uithouding met bal', 'Duels', 'Snel omschakelen', 'Samenwerken in duo'],
+    coaching: [
+      'Volle inzet tijdens de reeks, echte rust daarna.',
+      'Na balverlies meteen met twee druk zetten.',
+      'Speel je ploegmaat aan en ga zelf mee.',
+      'Herstart snel: de tegenstander mag niet uitrusten.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Twee tegen twee op doeltjes'],
+      ['Samenspel', 'Pass naar de ploegmaat'],
+      ['Doorbreken', 'Dribbel naar het doeltje'],
+    ],
+    related: [
+      { id: 'wprev', fit: 'Als warming-up' },
+      { id: 'omwinner', fit: 'Zelfde thema' },
+      { id: 'dgates', fit: 'Kern' },
+      { id: 'game5', fit: 'Als afsluiter' },
+    ],
+  },
 };
