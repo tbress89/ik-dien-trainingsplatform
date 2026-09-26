@@ -268,7 +268,17 @@ var EX = [
   { id: 'psshadow', title: 'Schaduwopbouw: patronen zonder tegenstander', variant: 'psshadow', type: 'Tactisch', ageLabel: 'U12–21', themes: ['Positiespel', 'Opbouw van achteruit'], players: '8–11', min: 15, mat: ['2 doelen', 'Kegels', 'Ballen'] },
   { id: 'psline', title: 'Spelen tussen de linies: middenzone', variant: 'psline', type: 'Tactisch', ageLabel: 'U12–21', themes: ['Positiespel'], players: '10', min: 15, mat: ['Kegels', 'Ballen', 'Hesjes'] },
   { id: 'psflank', title: 'Driehoek op de flank: back, flankspeler en middenvelder', variant: 'psflank', type: 'Tactisch', ageLabel: 'U12–21', themes: ['Positiespel', 'Afwerken'], players: '6 + K', min: 15, mat: ['Groot doel', 'Kegels', 'Ballen', 'Hesjes'] },
-  { id: 'psgame', title: 'Partijvorm 7 tegen 7 met vijf corridors', variant: 'psgame', type: 'Partijvorm', ageLabel: 'U12–21', themes: ['Positiespel'], players: '14', min: 20, mat: ['2 doelen', 'Kegels', 'Ballen', 'Hesjes'] }
+  { id: 'psgame', title: 'Partijvorm 7 tegen 7 met vijf corridors', variant: 'psgame', type: 'Partijvorm', ageLabel: 'U12–21', themes: ['Positiespel'], players: '14', min: 20, mat: ['2 doelen', 'Kegels', 'Ballen', 'Hesjes'] },
+  { id: 'omduel', title: 'Omschakelduel 1 tegen 1', variant: 'omduel', type: 'Technisch', ageLabel: 'U8–15', themes: ['Omschakelen', 'Dribbelen'], players: '2–12', min: 8, mat: ['2 doeltjes', 'Kegels', 'Ballen'] },
+  { id: 'omwaves', title: 'Golfaanvallen 2 tegen 1', variant: 'omwaves', type: 'Tactisch', ageLabel: 'U10–21', themes: ['Omschakelen', 'Afwerken'], players: '6–12', min: 15, mat: ['4 doeltjes', 'Kegels', 'Ballen', 'Hesjes'] },
+  { id: 'om32', title: 'Overtal heen, ondertal terug: 3 tegen 2 en 2 tegen 1', variant: 'om32', type: 'Tactisch', ageLabel: 'U12–21', themes: ['Omschakelen'], players: '5 + 2 K', min: 15, mat: ['2 doelen', 'Kegels', 'Ballen', 'Hesjes'] },
+  { id: 'omwinner', title: 'Winnaar blijft: 2 tegen 2 met wisselende duo’s', variant: 'omwinner', type: 'Tactisch', ageLabel: 'U8–21', themes: ['Omschakelen'], players: '6–10', min: 15, mat: ['4 doeltjes', 'Kegels', 'Ballen', 'Hesjes'] },
+  { id: 'omrestart', title: 'Doorlopend 4 tegen 4 op grote doelen', variant: 'omrestart', type: 'Partijvorm', ageLabel: 'U10–21', themes: ['Omschakelen', 'Afwerken'], players: '8 + 2 K', min: 15, mat: ['2 doelen', 'Kegels', 'Ballen', 'Hesjes'] },
+  { id: 'omrecover', title: 'Terugsprinten achter de bal: 3 tegen 2 + 1', variant: 'omrecover', type: 'Tactisch', ageLabel: 'U12–21', themes: ['Omschakelen', 'Druk zetten'], players: '6 + K', min: 15, mat: ['Groot doel', 'Kegels', 'Ballen', 'Hesjes'] },
+  { id: 'omcounter', title: 'Balwinst op eigen helft en counteren: 6 tegen 6', variant: 'omcounter', type: 'Partijvorm', ageLabel: 'U12–21', themes: ['Omschakelen', 'Afwerken'], players: '12', min: 20, mat: ['2 doelen', 'Kegels', 'Ballen', 'Hesjes'] },
+  { id: 'omkeeper', title: 'Snelle counter via de keeper', variant: 'omkeeper', type: 'Tactisch', ageLabel: 'U10–21', themes: ['Omschakelen', 'Keeper'], players: '4 + K', min: 15, mat: ['Groot doel', '2 doeltjes', 'Kegels', 'Ballen'] },
+  { id: 'omback', title: 'Na balverlies achter de bal: 5 tegen 5', variant: 'omback', type: 'Partijvorm', ageLabel: 'U12–21', themes: ['Omschakelen', 'Druk zetten'], players: '10 + 2 K', min: 20, mat: ['2 doelen', 'Kegels', 'Ballen', 'Hesjes'] },
+  { id: 'omrondo', title: 'Van rondo naar counter', variant: 'omrondo', type: 'Tactisch', ageLabel: 'U12–21', themes: ['Omschakelen', 'Positiespel'], players: '7 + K', min: 15, mat: ['Groot doel', 'Kegels', 'Ballen', 'Hesjes'] }
 ];
 var BY = {}; EX.forEach(function (e) { BY[e.id] = e; });
 var DOT = { 'Warming-up': '#F2A541', 'Technisch': '#3B8FD9', 'Tactisch': '#5B2BC4', 'Fysiek': '#E0527A', 'Partijvorm': '#1A1033' };
