@@ -14,6 +14,8 @@ What it updates:
                             boards below it move along so they keep the same distance.
 
 The source of truth is codebase/src/data/exercises.ts and Pitch.tsx; nothing in codebase/ is changed.
+It also checks that every exercise has its detail-page text in exerciseDetails.ts (and nothing is left
+over there), since a missing entry would only show up as an empty detail page.
 Running it twice in a row changes nothing the second time.
 """
 import ast
@@ -24,6 +26,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 EXERCISES_TS = ROOT / 'codebase/src/data/exercises.ts'
+EXERCISE_DETAILS_TS = ROOT / 'codebase/src/data/exerciseDetails.ts'
 PITCH_TSX = ROOT / 'codebase/src/components/Pitch.tsx'
 DESIGN = ROOT / 'design'
 
@@ -61,6 +64,19 @@ def read_exercises():
     if len(exercises) != expected or any(x['id'] is None for x in exercises):
         raise SystemExit(f'Could not parse exercises.ts: found {len(exercises)} of {expected} entries')
     return exercises
+
+
+def check_details(exercises):
+    """Every exercise needs a detail entry in exerciseDetails.ts under the same id, and vice versa."""
+    detail_ids = set(re.findall(r'^  ([A-Za-z0-9_]+): \{$', EXERCISE_DETAILS_TS.read_text(), re.M))
+    ids = {x['id'] for x in exercises}
+    problems = []
+    if ids - detail_ids:
+        problems.append('no detail text in exerciseDetails.ts for: ' + ', '.join(sorted(ids - detail_ids)))
+    if detail_ids - ids:
+        problems.append('detail text without an exercise in exercises.ts: ' + ', '.join(sorted(detail_ids - ids)))
+    if problems:
+        raise SystemExit('Exercise data is out of step:\n  ' + '\n  '.join(problems))
 
 
 def material_names(ex):
@@ -274,6 +290,7 @@ return {{ is: is, w: this.props.w || 320, h: this.props.h || 200 }};
 
 def main():
     exercises = read_exercises()
+    check_details(exercises)
     diagrams = read_diagrams()
     missing = sorted({x['variant'] for x in exercises} - set(diagrams))
     if missing:

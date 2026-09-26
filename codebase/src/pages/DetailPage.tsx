@@ -11,15 +11,44 @@ import {
   FieldIcon,
   PlusIcon,
 } from '../components/icons';
-import { DIFFICULTY, EXERCISE_BY_ID, INTENSITY, TYPE_COLOR } from '../data/exercises';
+import {
+  DIFFICULTY,
+  EXERCISE_BY_ID,
+  INTENSITY,
+  TYPE_COLOR,
+  getLoadedExerciseDetails,
+  loadExerciseDetails,
+  type ExerciseDetail,
+} from '../data/exercises';
 import { BLOCKS, clampMinutes, formatTrainingDate, trainingPath, useTraining } from '../data/training';
+
+/** The detail text for all exercises; loads its chunk on first use and re-renders when it arrives. */
+function useExerciseDetails() {
+  const [details, setDetails] = useState(getLoadedExerciseDetails);
+  const [failed, setFailed] = useState(false);
+
+  useEffect(() => {
+    if (details) return;
+    let cancelled = false;
+    loadExerciseDetails()
+      .then((d) => !cancelled && setDetails(d))
+      .catch(() => !cancelled && setFailed(true));
+    return () => {
+      cancelled = true;
+    };
+  }, [details]);
+
+  return { details, failed };
+}
 
 export function DetailPage() {
   const { id = '' } = useParams();
   const e = EXERCISE_BY_ID[id];
   const { favs, toggleFav, addExercise, date, team, draftId } = useTraining();
+  const { details, failed } = useExerciseDetails();
+  const d: ExerciseDetail | undefined = details?.[id];
 
-  const diagramSteps = e?.diagramSteps ?? [];
+  const diagramSteps = d?.diagramSteps ?? [];
   const hasStepToggle = diagramSteps.length >= 2;
   // Open on the second stage when there are three or more (the first one only shows the setup).
   const defaultStep = Math.min(1, diagramSteps.length - 1);
@@ -81,7 +110,22 @@ export function DetailPage() {
               <span className="tag tag-outline">Ik Dien-methode · Bouwfase</span>
             </div>
             <h1 className="detail-title">{e.title}</h1>
-            <p className="detail-summary">{e.summary}</p>
+            {d ? (
+              <p className="detail-summary">{d.summary}</p>
+            ) : failed ? (
+              <p className="detail-summary detail-load-error" role="alert">
+                De beschrijving kon niet geladen worden.{' '}
+                {/* A failed module import stays failed until the page reloads (usually a new deploy replaced the file). */}
+                <button type="button" className="btn-link" onClick={() => window.location.reload()}>
+                  Pagina herladen
+                </button>
+              </p>
+            ) : (
+              <div className="detail-summary" aria-busy="true" aria-label="Beschrijving laden">
+                <span className="skeleton" style={{ width: '92%' }} />
+                <span className="skeleton" style={{ width: '64%' }} />
+              </div>
+            )}
           </div>
           <div className="actions" style={{ flexShrink: 0 }}>
             <button type="button" className="btn" onClick={() => toggleFav(e.id)} aria-pressed={fav}>
@@ -142,39 +186,52 @@ export function DetailPage() {
             </figcaption>
           </figure>
 
-          <section style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-            <h2 className="section-title">Verloop</h2>
-            <ol className="steps">
-              {e.steps.map((s, i) => (
-                <li key={s.title}>
-                  <span className="step-num">{i + 1}</span>
-                  <span>
-                    <strong>{s.title}</strong> {s.text}
-                  </span>
-                </li>
-              ))}
-            </ol>
-          </section>
+          {d ? (
+            <>
+              <section style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                <h2 className="section-title">Verloop</h2>
+                <ol className="steps">
+                  {d.steps.map((s, i) => (
+                    <li key={s.title}>
+                      <span className="step-num">{i + 1}</span>
+                      <span>
+                        <strong>{s.title}</strong> {s.text}
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+              </section>
 
-          <section style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-            <h2 className="section-title">Variaties</h2>
-            <div className="variations">
-              <div className="variation easier">
-                <span className="variation-label">
-                  <ArrowDownIcon />
-                  Makkelijker
-                </span>
-                <span className="variation-text">{e.easier}</span>
-              </div>
-              <div className="variation harder">
-                <span className="variation-label">
-                  <ArrowUpIcon />
-                  Moeilijker
-                </span>
-                <span className="variation-text">{e.harder}</span>
-              </div>
-            </div>
-          </section>
+              <section style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                <h2 className="section-title">Variaties</h2>
+                <div className="variations">
+                  <div className="variation easier">
+                    <span className="variation-label">
+                      <ArrowDownIcon />
+                      Makkelijker
+                    </span>
+                    <span className="variation-text">{d.easier}</span>
+                  </div>
+                  <div className="variation harder">
+                    <span className="variation-label">
+                      <ArrowUpIcon />
+                      Moeilijker
+                    </span>
+                    <span className="variation-text">{d.harder}</span>
+                  </div>
+                </div>
+              </section>
+            </>
+          ) : (
+            !failed && (
+              <section style={{ display: 'flex', flexDirection: 'column', gap: 16 }} aria-busy="true" aria-label="Verloop laden">
+                <h2 className="section-title">Verloop</h2>
+                {[88, 95, 80, 70].map((w) => (
+                  <span key={w} className="skeleton skeleton-row" style={{ width: `${w}%` }} />
+                ))}
+              </section>
+            )
+          )}
         </div>
 
         <aside className="detail-aside">
@@ -277,30 +334,34 @@ export function DetailPage() {
             )}
           </section>
 
-          <section className="card-section">
-            <h2 className="panel-title" style={{ letterSpacing: '0.02em' }}>
-              Doelstellingen
-            </h2>
-            <div className="objectives">
-              {e.objectives.map((o) => (
-                <span key={o}>{o}</span>
-              ))}
-            </div>
-          </section>
+          {d && (
+            <>
+              <section className="card-section">
+                <h2 className="panel-title" style={{ letterSpacing: '0.02em' }}>
+                  Doelstellingen
+                </h2>
+                <div className="objectives">
+                  {d.objectives.map((o) => (
+                    <span key={o}>{o}</span>
+                  ))}
+                </div>
+              </section>
 
-          <section className="card-section">
-            <h2 className="panel-title" style={{ letterSpacing: '0.02em' }}>
-              Coachingpunten
-            </h2>
-            <ul className="coaching">
-              {e.coaching.map((c) => (
-                <li key={c}>
-                  <CheckIcon size={20} strokeWidth={2.4} />
-                  <span>{c}</span>
-                </li>
-              ))}
-            </ul>
-          </section>
+              <section className="card-section">
+                <h2 className="panel-title" style={{ letterSpacing: '0.02em' }}>
+                  Coachingpunten
+                </h2>
+                <ul className="coaching">
+                  {d.coaching.map((c) => (
+                    <li key={c}>
+                      <CheckIcon size={20} strokeWidth={2.4} />
+                      <span>{c}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            </>
+          )}
 
           <section className="card-section" style={{ gap: 12 }}>
             <h2 className="panel-title" style={{ letterSpacing: '0.02em' }}>
@@ -318,32 +379,34 @@ export function DetailPage() {
         </aside>
       </div>
 
-      <section className="detail-related">
-        <div className="related-head">
-          <h2 className="section-title">Past goed bij</h2>
-          <Link to="/">Alle oefeningen</Link>
-        </div>
-        <div className="related-grid">
-          {e.related.map(({ id: rid, fit }) => {
-            const r = EXERCISE_BY_ID[rid];
-            return (
-              <Link key={rid} to={`/oefeningen/${rid}`} className="related-card">
-                <div className="related-media">
-                  <Pitch variant={r.variant} />
-                </div>
-                <span className="related-body">
-                  <span className="related-fit">{fit}</span>
-                  <span className="related-title">{r.title}</span>
-                  <span className="related-meta">
-                    {r.min} min · {r.players}
-                    {/^\d+$/.test(r.players) || /^\d+–\d+$/.test(r.players) ? ' spelers' : ''}
+      {d && (
+        <section className="detail-related">
+          <div className="related-head">
+            <h2 className="section-title">Past goed bij</h2>
+            <Link to="/">Alle oefeningen</Link>
+          </div>
+          <div className="related-grid">
+            {d.related.map(({ id: rid, fit }) => {
+              const r = EXERCISE_BY_ID[rid];
+              return (
+                <Link key={rid} to={`/oefeningen/${rid}`} className="related-card">
+                  <div className="related-media">
+                    <Pitch variant={r.variant} />
+                  </div>
+                  <span className="related-body">
+                    <span className="related-fit">{fit}</span>
+                    <span className="related-title">{r.title}</span>
+                    <span className="related-meta">
+                      {r.min} min · {r.players}
+                      {/^\d+$/.test(r.players) || /^\d+–\d+$/.test(r.players) ? ' spelers' : ''}
+                    </span>
                   </span>
-                </span>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+      )}
     </div>
   );
 }

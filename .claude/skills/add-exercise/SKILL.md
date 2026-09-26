@@ -11,10 +11,11 @@ The user gives a rough idea (sometimes just a name and an age group). Turn it in
 
 All paths are relative to `codebase/`:
 
-- `src/data/exercises.ts` — the `Exercise` type, the allowed values (`TYPES`, `PHASES`, `AGES`, `Variant`) and the `EXERCISES` array. This is the source of truth; read it first, both for the current field list and as a style reference for the Dutch text.
+- `src/data/exercises.ts` — the `Exercise` type (list data), the allowed values (`TYPES`, `PHASES`, `AGES`, `THEMES`, `Variant`) and the `EXERCISES` array. Read it first, both for the current field list and as a style reference.
+- `src/data/exerciseDetails.ts` — the detail-page text for each exercise (`EXERCISE_DETAILS`, keyed by exercise id): `summary`, `steps`, `easier`, `harder`, `objectives`, `coaching`, `diagramSteps` and `related`. It is split from `EXERCISES` so this text loads as a separate chunk only when a detail page opens, which keeps the app's main bundle small. Every exercise needs an entry in both files, with the same id.
 - `src/components/Pitch.tsx` — the tactical diagrams, one entry per `Variant` in the `content` record.
 
-Nothing else needs to change: the dashboard, builder library, and detail page (`/oefeningen/<id>`) all read from `EXERCISES`.
+Nothing else needs to change: the dashboard, builder library, and detail page (`/oefeningen/<id>`) all read from these two files.
 
 ## Step 1 — Pin down the facts
 
@@ -28,7 +29,7 @@ Only stop and ask when the request conflicts with what the app supports, because
 
 ## Step 2 — Write the entry
 
-Append a new object to `EXERCISES` (before the closing `];`). Fields that are easy to get subtly wrong:
+Append the list data as a new object to `EXERCISES` in `exercises.ts` (before the closing `];`), and the detail text as a new `<id>: { … }` entry at the end of `EXERCISE_DETAILS` in `exerciseDetails.ts`. The `ExerciseDetail` fields are `summary`, `steps`, `easier`, `harder`, `objectives`, `coaching`, `diagramSteps` and `related`; everything else belongs in `EXERCISES`. Fields that are easy to get subtly wrong:
 
 | Field | Guidance |
 |---|---|

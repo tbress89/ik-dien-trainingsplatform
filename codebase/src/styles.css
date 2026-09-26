@@ -1599,6 +1599,40 @@ a:focus-visible,
   color: var(--purple);
 }
 
+.skeleton {
+  display: block;
+  height: 14px;
+  margin: 6px 0;
+  border-radius: 7px;
+  background: linear-gradient(90deg, var(--line-soft), var(--line), var(--line-soft));
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.2s ease-in-out infinite;
+}
+.skeleton-row {
+  height: 44px;
+  margin: 0;
+  border-radius: 10px;
+}
+@keyframes skeleton-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+}
+.detail-load-error {
+  color: var(--warn);
+}
+.detail-load-error .btn-link {
+  padding: 0;
+}
+
 .detail-grid {
   display: grid;
   grid-template-columns: minmax(0, 820px) minmax(0, 1fr);

@@ -1,6 +1,6 @@
 ---
 name: edit-exercise
-description: Edit or delete existing football exercises (oefeningen) in the Kon. Ik Dien FC trainingsplatform — change any field in codebase/src/data/exercises.ts (duration, players, ages, phase, text, variations, materials, related exercises), adjust or redraw its pitch diagram in Pitch.tsx, rename it, or remove it entirely, keeping every reference consistent. Use this whenever the user wants to change, fix, update, tweak, rename, correct, shorten, or delete an exercise that already exists on the platform, even if they only name it loosely ("the rondo", "that 5v5 game") or just describe the change ("make the passing square 15 minutes"), and even if they don't say "/edit-exercise". For adding a brand-new exercise, use /add-exercise instead.
+description: Edit or delete existing football exercises (oefeningen) in the Kon. Ik Dien FC trainingsplatform — change any field in codebase/src/data/exercises.ts or exerciseDetails.ts (duration, players, ages, phase, text, variations, materials, related exercises), adjust or redraw its pitch diagram in Pitch.tsx, rename it, or remove it entirely, keeping every reference consistent. Use this whenever the user wants to change, fix, update, tweak, rename, correct, shorten, or delete an exercise that already exists on the platform, even if they only name it loosely ("the rondo", "that 5v5 game") or just describe the change ("make the passing square 15 minutes"), and even if they don't say "/edit-exercise". For adding a brand-new exercise, use /add-exercise instead.
 ---
 
 # Edit an exercise
@@ -11,7 +11,8 @@ The user names an existing exercise (often loosely) and describes a change in a 
 
 All paths are relative to `codebase/`:
 
-- `src/data/exercises.ts` — the `Exercise` type, allowed values, and the `EXERCISES` array.
+- `src/data/exercises.ts` — the `Exercise` type (list data: title, type, ages, players, duration, materials, …), allowed values, and the `EXERCISES` array.
+- `src/data/exerciseDetails.ts` — the detail-page text per exercise id (`summary`, `steps`, `easier`, `harder`, `objectives`, `coaching`, `diagramSteps`, `related`). It loads as a separate chunk; an exercise's fields are split across both files under the same id.
 - `src/components/Pitch.tsx` — one diagram per `Variant`.
 - `src/data/sessions.ts` — the example trainings; each plan item refers to an exercise id.
 - `src/data/training.tsx` — the initially bookmarked exercises (`favs`) refer to exercise ids.
@@ -46,13 +47,13 @@ Before changing a drawing, check how many exercises use that `variant`. If other
 
 ### Renaming the id
 
-Only change an `id` when the user explicitly asks, since it's the page URL. When you do, update every reference: other exercises' `related` lists, the training plans in `sessions.ts`, and `favs` in `training.tsx`. Grep for the old id in quotes to be sure nothing is missed.
+Only change an `id` when the user explicitly asks, since it's the page URL. When you do, update every reference: its key in `EXERCISE_DETAILS`, other exercises' `related` lists, the training plans in `sessions.ts`, and `favs` in `training.tsx`. Grep for the old id in quotes to be sure nothing is missed.
 
 ## Deleting an exercise
 
 Deleting touches other pages, so confirm before doing it. First list what will happen, then wait for a clear yes:
 
-- the exercise entry is removed;
+- the exercise entry is removed from `EXERCISES` and its text from `EXERCISE_DETAILS`;
 - its diagram variant is removed too, if no other exercise uses it (union member in `exercises.ts` and entry in `Pitch.tsx`);
 - the exercises that list it under "Past goed bij" (name them), plus the replacement you'd put in each of those slots, so their pages still show four related exercises;
 - any training in `sessions.ts` that uses it: its plan item is dropped (the overview and builder would crash on an unknown id). Name the affected trainings, since their minutes change;
