@@ -22,7 +22,7 @@ From the user's message, work out: type, game phase, age groups, number of playe
 
 Only stop and ask when the request conflicts with what the app supports, because silently bending it would produce something they didn't ask for:
 
-- a **type** outside `TYPES` (e.g. keeper training — the Keeper theme was deliberately removed from the platform),
+- a **type** outside `TYPES`. Goalkeeper exercises don't get their own type (Keeper was removed as a type): use the fitting type, usually `Technisch`, and give them the `Keeper` theme,
 - a new **phase** that isn't in the `Phase` union,
 - an exercise that clearly duplicates an existing one (same format and purpose) — ask whether they want a variant or a new entry.
 
@@ -83,6 +83,14 @@ cd codebase && source ~/.nvm/nvm.sh >/dev/null && nvm use >/dev/null && npm run 
 
 Fix any type errors, then delete the build output (`rm -rf dist tsconfig.tsbuildinfo`) so the working tree stays clean.
 
+Then sync the designs from the repo root, so `design/` shows the same exercises and diagrams as the app:
+
+```bash
+python3 scripts/sync-design.py
+```
+
+It regenerates the diagram design (`Pitch.dc.html`) and the exercise lists in `Main.dc.html` and `Builder.dc.html`, and resizes the Main board. Don't edit those parts of the design files by hand; they are overwritten on every sync. If the script stops with an error (for example an exercise whose `variant` has no diagram in `Pitch.tsx`), fix the cause in `codebase/` and run it again.
+
 If a dev server is already running (check with the browser preview tools), open `/oefeningen/<id>` and click through the diagram steps to make sure the drawing looks right. Don't start a server just for this unless the user wants to see it.
 
 ## Step 5 — Report back
@@ -98,6 +106,7 @@ Added **<title>** (`/oefeningen/<id>`).
 
 Diagram: reused `<variant>` / new `<variant>` diagram (one line on what it shows).
 Related: <4 titles>.
+Designs synced (<N> exercises, <N> diagrams).
 
 I filled in <list what you assumed rather than got from the user, e.g. duration, player count, variations>. Tell me what to change.
 ```

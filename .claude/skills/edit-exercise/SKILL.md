@@ -70,6 +70,16 @@ cd codebase && source ~/.nvm/nvm.sh >/dev/null && nvm use >/dev/null && npm run 
 
 Fix any type errors, then `rm -rf dist tsconfig.tsbuildinfo`.
 
+Then sync the designs from the repo root, so `design/` shows the same exercises and diagrams as the app:
+
+```bash
+python3 scripts/sync-design.py
+```
+
+It regenerates the diagram design (`Pitch.dc.html`) and the exercise lists in `Main.dc.html` and `Builder.dc.html`, and resizes the Main board. Don't edit those parts of the design files by hand; they are overwritten on every sync. If the script stops with an error (for example an exercise whose `variant` has no diagram in `Pitch.tsx`), fix the cause in `codebase/` and run it again.
+
+The script doesn't touch the hand-made example content in `Detail.dc.html` (one example exercise and its related cards) and `Trainingen.dc.html` (example trainings that name exercises and diagrams). After renaming a title or diagram, or deleting an exercise, search `design/` for the old title and variant and update any hits by hand.
+
 If a dev server is already running, open `/oefeningen/<id>` (or the builder, after a delete) and click through the diagram steps if the diagram changed. Don't start a server just for this.
 
 ## Step 4 — Report back
@@ -83,6 +93,7 @@ Updated **<title>** (`/oefeningen/<id>`):
 - Spelers: 6 → 8 (pmin 6 → 8)
 
 Also adjusted: <e.g. the Ritme step (now 3 × 4 min), the diagram (two extra players)>.
+Designs synced.
 <Anything you assumed or noticed but didn't change, e.g. "The coaching points still mention the old field size. Want me to update them?">
 ```
 

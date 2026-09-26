@@ -11,7 +11,7 @@
       "y": 0
     },
     "Main.dc.html": {
-      "h": 2100,
+      "h": 11400,
       "is_interactive": true,
       "title": "1 · Oefeningen-dashboard",
       "w": 1440,
@@ -31,14 +31,14 @@
       "title": "Component · Navigatie",
       "w": 1440,
       "x": 0,
-      "y": 2440
+      "y": 11740
     },
     "Pitch.dc.html": {
       "h": 200,
       "title": "Component · Tactisch diagram",
       "w": 320,
       "x": 1520,
-      "y": 2440
+      "y": 11740
     },
     "Trainingen.dc.html": {
       "h": 1480,
@@ -72,7 +72,7 @@
       "text": "Bouwstenen",
       "w": 240,
       "x": 0,
-      "y": 2200
+      "y": 11500
     }
   },
   "order": [
