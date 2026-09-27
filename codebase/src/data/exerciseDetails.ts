@@ -4074,4 +4074,243 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'obwave', fit: 'Als afsluiter' },
     ],
   },
+  gs11: {
+    summary:
+      'Een vaste opwarming van 15 minuten in drie delen: looprondes, kracht- en evenwichtsoefeningen, en sprongen met een zachte landing. Gebaseerd op het FIFA 11+-programma, dat bij regelmatig gebruik aantoonbaar minder blessures geeft, en afgestemd op spelers in de groeispurt.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet twee rijen van zes kegels uit, op 5 meter van elkaar, met 6 meter tussen de rijen. De spelers werken in duo’s en lopen naast elkaar tussen de rijen.' },
+      { title: 'Looprondes.', text: 'Jog heen tot de laatste kegel en terug, telkens met een andere opdracht: heupen open en dicht draaien, zijwaarts met schoudercontact, kort versnellen en gecontroleerd afremmen.' },
+      { title: 'Kracht en sprongen.', text: 'Plank en zijplank (3 × 20 seconden), op één been staan en een bal overgooien met je partner, kniebuigingen op één been met de knie boven de voet, en sprongjes op de plaats met een zachte landing. Kies bij spelers in de groeispurt het lichtste niveau en ga pas verder als de techniek goed zit.' },
+      { title: 'Ritme.', text: 'Looprondes en kracht samen ongeveer 12 minuten, sluit af met 3 minuten lopen op 70 à 80 % met korte versnellingen. Doe dit bij elke training, minstens twee keer per week.' },
+    ],
+    easier: 'Kies bij elke oefening het eerste niveau: plank op de knieën, kniebuigingen op twee benen, sprongen zonder draai.',
+    harder: 'Geef spelers die de techniek beheersen het volgende niveau: plank met beenheffen, zijwaartse sprongen van links naar rechts met een stabiele landing.',
+    objectives: ['Blessurepreventie', 'Romp- en beenkracht', 'Kniecontrole', 'Vaste opwarmroutine'],
+    coaching: [
+      'Knie boven de voet: laat de knie nooit naar binnen vallen.',
+      'Land zacht en veerkrachtig op de voorvoet.',
+      'Pijn aan knie of hiel? Stoppen en melden, niet doorbijten.',
+      'Kwaliteit vóór snelheid: liever een makkelijker niveau goed dan een moeilijk slecht.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Twee rijen kegels, duo’s tussen de rijen'],
+      ['Heen', 'Looprondes met een opdracht tot de laatste kegel'],
+      ['Terug', 'Terug met een nieuwe opdracht, daarna kracht en sprongen'],
+    ],
+    related: [
+      { id: 'gsland', fit: 'Als vervolg' },
+      { id: 'wprev', fit: 'Zelfde thema' },
+      { id: 'rondo', fit: 'Kern' },
+      { id: 'gscool', fit: 'Als afsluiter' },
+    ],
+  },
+  gsnordic: {
+    summary:
+      'In duo’s doen de spelers twee bewezen krachtoefeningen: de Nordic hamstring curl en de Copenhagen-oefening voor de liezen. Ze versterken de spieren die bij voetballers het vaakst overbelast raken of scheuren, zeker in de groeispurt, met een dosis die langzaam opbouwt.',
+    steps: [
+      { title: 'Opstelling.', text: 'De spelers werken in duo’s op een zachte ondergrond, bijvoorbeeld gras. Eén speler oefent, de ander houdt vast.' },
+      { title: 'Nordic.', text: 'De speler zit rechtop op de knieën, de partner houdt beide enkels vast. Laat je met een rechte romp zo traag mogelijk naar voren zakken en vang je op met de handen. Duw je terug op en herhaal.' },
+      { title: 'Copenhagen.', text: 'De speler ligt in zijsteun op de elleboog, de partner houdt het bovenste been ter hoogte van de knie vast. Til de heup op tot het lichaam een rechte lijn vormt, houd kort vast en zak gecontroleerd. Wissel van kant.' },
+      { title: 'Ritme.', text: 'Begin met 2 reeksen van 4 herhalingen per oefening en bouw over enkele weken op naar 3 × 6; vanaf U17 kan dat verder tot 3 × 8. Doe dit twee keer per week, niet de dag voor een wedstrijd.' },
+    ],
+    easier: 'Nordic: zak maar een klein stuk en duw je meteen terug. Copenhagen: houd de heup 10 seconden omhoog in plaats van herhalingen.',
+    harder: 'Copenhagen: laat de partner het been bij de enkel vasthouden (langere hefboom). Nordic: zak trager en verder, tot vlak boven de grond.',
+    objectives: ['Hamstringkracht', 'Adductorkracht', 'Blessurepreventie', 'Rompstabiliteit'],
+    coaching: [
+      'Nordic: romp en heupen blijven één rechte lijn, niet in de heup knikken.',
+      'Zo traag mogelijk zakken: het afremmen maakt je sterker.',
+      'Copenhagen: heup hoog en recht, niet naar achteren draaien.',
+      'Stijf de dag erna is normaal, pijn in de lies of achter de knie niet: verlaag dan de dosis.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Duo’s: één speler oefent, de ander houdt vast'],
+      ['Nordic', 'Zo traag mogelijk naar voren zakken'],
+      ['Copenhagen', 'In zijsteun de heup optillen'],
+    ],
+    related: [
+      { id: 'gs11', fit: 'Als warming-up' },
+      { id: 'gsland', fit: 'Zelfde thema' },
+      { id: 'wprev', fit: 'Zelfde thema' },
+      { id: 'gscool', fit: 'Als afsluiter' },
+    ],
+  },
+  gsland: {
+    summary:
+      'Spelers sprinten naar een remzone, remmen in drie passen af, draaien en nemen een bal aan van hun partner. Traint een veilige remtechniek en kniecontrole bij richtingsveranderingen, waar spelers in de groeispurt het kwetsbaarst zijn.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet een startkegel en op 10 meter een remzone van 3 × 3 m met vier kegels. De partner staat met een bal schuin naast de remzone.' },
+      { title: 'Afremmen.', text: 'Sprint naar de remzone en rem binnen de zone af in drie korte passen: laag zwaartepunt, knie boven de voet.' },
+      { title: 'Draaien.', text: 'Draai op het teken van de partner naar links of rechts, neem de pass aan en speel terug. Wandel terug naar de start en wissel van rol.' },
+      { title: 'Ritme.', text: 'Doe 3 reeksen van 5 herhalingen per speler met 1 minuut rust. Houd het aantal herhalingen laag: kwaliteit gaat voor.' },
+    ],
+    easier: 'Loop op halve snelheid naar de zone en rem af in vijf passen.',
+    harder: 'Laat de partner pas bij het binnenkomen van de zone de richting aangeven, of voeg een schijnbeweging toe na het draaien.',
+    objectives: ['Remtechniek', 'Kniecontrole', 'Richtingsveranderingen', 'Aanname na een draai'],
+    coaching: [
+      'Rem af met korte, snelle passen, niet met één grote stap.',
+      'Knie boven de voet, niet naar binnen laten vallen.',
+      'Laag zwaartepunt en romp rechtop tijdens het afremmen.',
+      'Draai op de voorvoet, niet op een gestrekt been.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Sprintbaan met remzone en een partner'],
+      ['Sprint', 'Versnellen naar de remzone'],
+      ['Afremmen en draaien', 'Afremmen in drie passen en draaien'],
+      ['Aannemen', 'De partner speelt in, de speler speelt terug'],
+    ],
+    related: [
+      { id: 'gs11', fit: 'Als warming-up' },
+      { id: 'cjump', fit: 'Zelfde thema' },
+      { id: 'cagility', fit: 'Als vervolg' },
+      { id: 'dturns', fit: 'Kern' },
+    ],
+  },
+  gscool: {
+    summary:
+      'Na de training doen de spelers rustige mobiliteits- en rompoefeningen voor de spieren die in de groeispurt stijf worden: voorkant dijbeen, heupbuigers, hamstrings en kuiten. Zo helpen ze typische groeiklachten aan knie, hiel en onderrug voorkomen.',
+    steps: [
+      { title: 'Opstelling.', text: 'De spelers staan in een kring, de trainer staat in het midden en doet elke oefening voor.' },
+      { title: 'Mobiliteit.', text: 'Houd elke rekoefening 30 seconden aan per kant, zonder verende bewegingen: voorkant dijbeen (hiel naar de bil), heupbuiger (uitvalspas met rechte romp), hamstring (been gestrekt voor je) en kuit (voet naar achteren tegen de grond gedrukt).' },
+      { title: 'Romp.', text: 'Werk af met rustige rompoefeningen: in vierpotige stand afwisselend arm en been strekken, en in ruglig afwisselend arm en been laten zakken met de onderrug tegen de grond. 2 × 8 per kant.' },
+      { title: 'Ritme.', text: 'Ongeveer 10 minuten in een rustig tempo. Doe dit na elke training en vraag de spelers het thuis ook te doen.' },
+    ],
+    easier: 'Houd de rekoefeningen 20 seconden aan en laat de rompoefeningen weg bij veel vermoeidheid.',
+    harder: 'Voeg zijplanken en een brug op één been toe (2 × 20 seconden per kant).',
+    objectives: ['Mobiliteit', 'Rompstabiliteit', 'Herstel', 'Groeiklachten voorkomen'],
+    coaching: [
+      'Rek rustig en houd vast, niet verend bewegen.',
+      'Rekken mag trekken, maar nooit pijn doen.',
+      'Adem rustig door tijdens elke oefening.',
+      'Pijn onder de knieschijf of aan de hiel? Meld het aan de trainer.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Spelers in een kring, de trainer doet elke oefening voor'],
+    ],
+    related: [
+      { id: 'gs11', fit: 'Zelfde thema' },
+      { id: 'gsnordic', fit: 'Zelfde thema' },
+      { id: 'game', fit: 'Kern' },
+      { id: 'wprev', fit: 'Als warming-up' },
+    ],
+  },
+  kcircuit: {
+    summary:
+      'In duo’s werken de spelers zes posten af met oefeningen op eigen lichaamsgewicht: benen op één been, heupen, romp en bovenlichaam. Bouwt de basiskracht op die spelers nodig hebben om de belasting van trainingen en wedstrijden aan te kunnen.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet zes posten uit met een kegel en laat de spelers per twee op een post starten.' },
+      { title: 'Posten.', text: '1. Split squat (uitvalspositie op de plaats), 2. Roemeense deadlift op één been, 3. push-ups, 4. zijplank met heupheffen, 5. achterwaartse uitvalspassen, 6. kuitheffen op één been.' },
+      { title: 'Uitvoering.', text: 'Werk 40 seconden en schuif in 20 seconden door naar de volgende post. De partner telt mee en let op de uitvoering.' },
+      { title: 'Ritme.', text: 'Doe 3 rondes van 6 posten (6 minuten per ronde) met 1 minuut rust tussen de rondes. Plan het twee keer per week, niet in de twee dagen voor een wedstrijd.' },
+    ],
+    easier: 'Werk 30 seconden per post en doe de push-ups op de knieën.',
+    harder: 'Werk 45 seconden per post, of houd in de laagste positie van elke kniebuiging 3 seconden stil.',
+    objectives: ['Beenkracht op één been', 'Rompstabiliteit', 'Belastbaarheid', 'Blessurepreventie'],
+    coaching: [
+      'Knie boven de voet bij elke kniebuiging.',
+      'Traag naar beneden, krachtig omhoog.',
+      'Romp stevig: geen holle rug bij push-ups en plank.',
+      'Techniek vóór tempo: verlies je de vorm, rust dan even.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Zes posten, duo’s werken tegelijk'],
+      ['Doorschuiven', 'Na elke post door naar de volgende'],
+    ],
+    related: [
+      { id: 'gs11', fit: 'Als warming-up' },
+      { id: 'gsnordic', fit: 'Zelfde thema' },
+      { id: 'ksprint', fit: 'Als vervolg' },
+      { id: 'gscool', fit: 'Als afsluiter' },
+    ],
+  },
+  kplyo: {
+    summary:
+      'Spelers doen korte reeksen explosieve sprongen: verspringen met een stabiele landing, bounds en sprongen op één been, telkens gevolgd door een korte sprint. Traint explosiviteit en de belastbaarheid van pezen en gewrichten, met een beperkt aantal sprongen per training.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet per rij een baan van 20 meter uit met een startkegel en een eindkegel. Spelers staan in rijen van 3 à 4.' },
+      { title: 'Sprongen.', text: 'Wissel de sprongvorm per reeks: verspringen met twee voeten en 2 seconden stil landen, drie bounds (lange passen met veel zweeftijd), drie sprongen op één been. Sprint na de laatste sprong tot aan de eindkegel.' },
+      { title: 'Volume.', text: 'Tel de grondcontacten: blijf onder de 60 à 80 sprongen per training en bouw pas op als de landing goed zit.' },
+      { title: 'Ritme.', text: 'Doe 4 reeksen van 4 herhalingen met volledige rust: wandel terug en start pas als je weer fris bent. Plan dit vroeg in de training, na de opwarming, en niet in de twee dagen voor een wedstrijd.' },
+    ],
+    easier: 'Doe alleen verspringen met twee voeten en een stabiele landing, zonder sprint.',
+    harder: 'Voeg zijwaartse sprongen op één been toe, of verander na de landing meteen van richting.',
+    objectives: ['Explosiviteit', 'Belastbaarheid van pezen', 'Landingstechniek', 'Versnellen'],
+    coaching: [
+      'Kort grondcontact: spring alsof de grond heet is.',
+      'Armen actief mee naar voren en omhoog.',
+      'Land stabiel: knie boven de voet, heup naar achteren.',
+      'Volledige rust tussen herhalingen: explosief, niet vermoeid.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Rijen met een sprongbaan en een eindkegel'],
+      ['Sprongen', 'Explosieve sprongen en bounds'],
+      ['Sprint', 'Meteen doorsprinten tot de eindkegel'],
+    ],
+    related: [
+      { id: 'gs11', fit: 'Als warming-up' },
+      { id: 'cjump', fit: 'Zelfde thema' },
+      { id: 'ksprint', fit: 'Als vervolg' },
+      { id: 'game', fit: 'Kern' },
+    ],
+  },
+  ksprint: {
+    summary:
+      'Spelers lopen korte vliegende sprints aan maximale snelheid, met een aanloopzone en volledige rust ertussen. Regelmatig maximaal sprinten maakt de hamstrings belastbaarder en verlaagt het risico op scheuren in de wedstrijd.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet met kegels een aanloopzone van 20 meter uit, met daarna een sprintzone van 20 meter. Spelers starten in rijen van 3 à 4.' },
+      { title: 'Sprint.', text: 'Loop rustig op in de aanloopzone, bereik je topsnelheid bij het begin van de sprintzone en houd die vast tot de laatste kegel. Loop daarna rustig uit.' },
+      { title: 'Rust.', text: 'Wandel terug en neem 90 tot 120 seconden rust per sprint. Maximaal sprinten werkt alleen als je volledig fris bent.' },
+      { title: 'Ritme.', text: 'Loop 6 tot 8 sprints, één keer per week, vroeg in de training na de opwarming en minstens twee dagen voor een wedstrijd.' },
+    ],
+    easier: 'Begin met 4 sprints en een sprintzone van 15 meter.',
+    harder: 'Laat de spelers in duo’s tegen elkaar lopen, of meet de tijd over de sprintzone.',
+    objectives: ['Topsnelheid', 'Belastbare hamstrings', 'Looptechniek', 'Versnellen'],
+    coaching: [
+      'Hoog op de voorvoeten, knieën omhoog.',
+      'Armen actief en ontspannen, niet voor het lichaam kruisen.',
+      'Ontspannen gezicht en schouders: snelheid komt uit ontspanning.',
+      'Voel je iets trekken achter in het been? Meteen stoppen.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Aanloopzone en sprintzone'],
+      ['Aanloop', 'Rustig oplopen tot aan de sprintzone'],
+      ['Sprint', 'Topsnelheid vasthouden door de sprintzone'],
+    ],
+    related: [
+      { id: 'gs11', fit: 'Als warming-up' },
+      { id: 'kplyo', fit: 'Zelfde thema' },
+      { id: 'krepeat', fit: 'Als vervolg' },
+      { id: 'game', fit: 'Kern' },
+    ],
+  },
+  krepeat: {
+    summary:
+      'Spelers sprinten 20 meter, krijgen een bal en werken af op doel, met maar 20 seconden rust tussen de herhalingen. Traint het vermogen om in de wedstrijd herhaald te sprinten en toch nog zuiver af te werken.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet op 35 meter van een groot doel met keeper een startkegel en 20 meter verder een kegel waar de trainer de bal inspeelt. Spelers staan in twee rijen.' },
+      { title: 'Sprint en afwerking.', text: 'Sprint naar de kegel, neem de pass van de trainer aan en werk binnen twee balcontacten af op doel. Loop meteen rustig terug naar de start.' },
+      { title: 'Herhalen.', text: 'Elke speler doet 6 herhalingen na elkaar, met 20 seconden rust. Tel de doelpunten per reeks.' },
+      { title: 'Ritme.', text: 'Doe 2 reeksen van 6 herhalingen met 4 minuten actieve rust ertussen. Plan dit hoogstens één keer per week en niet in de twee dagen voor een wedstrijd.' },
+    ],
+    easier: 'Neem 30 seconden rust tussen de herhalingen, of doe 4 herhalingen per reeks.',
+    harder: 'Laat een verdediger van achteren meesprinten, of verkort de rust tot 15 seconden.',
+    objectives: ['Herhaald sprintvermogen', 'Afwerken onder vermoeidheid', 'Belastbaarheid', 'Mentale weerbaarheid'],
+    coaching: [
+      'Elke sprint voluit, ook de laatste.',
+      'Kijk tijdens de sprint al naar de bal en het doel.',
+      'Adem rustig door in de korte rust.',
+      'Vermoeid? Dan juist zuiver afwerken: kies je hoek.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Startkegel, trainer met ballen en een groot doel'],
+      ['Sprint', 'Sprint naar de kegel'],
+      ['Inspelen', 'De trainer speelt de bal in'],
+      ['Afwerken', 'Binnen twee balcontacten op doel'],
+    ],
+    related: [
+      { id: 'ksprint', fit: 'Als warming-up' },
+      { id: 'fshot', fit: 'Zelfde thema' },
+      { id: 'sg2v2', fit: 'Tegenhanger' },
+      { id: 'gscool', fit: 'Als afsluiter' },
+    ],
+  },
 };
