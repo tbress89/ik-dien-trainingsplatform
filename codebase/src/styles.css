@@ -482,6 +482,22 @@ a:focus-visible,
   font-size: 13px;
   color: var(--muted);
 }
+.saved-filter {
+  padding: 10px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  background: #fff;
+  font-weight: 600;
+  gap: 10px;
+}
+.saved-filter svg {
+  flex-shrink: 0;
+  color: var(--purple);
+}
+.saved-filter:has(input:checked) {
+  border-color: var(--purple);
+  background: var(--purple-soft);
+}
 .filters .segmented {
   background: #fff;
   border: 1px solid var(--line-strong);

@@ -40,6 +40,7 @@ export function ExercisesPage() {
   const [ages, setAges] = useState<AgeGroup[]>([]);
   const [types, setTypes] = useState<ExerciseType[]>([]);
   const [themes, setThemes] = useState<Theme[]>([]);
+  const [savedOnly, setSavedOnly] = useState(false);
   const [diff, setDiff] = useState(0);
   const [maxPlayers, setMaxPlayers] = useState(MAX_PLAYERS);
   const [query, setQuery] = useState('');
@@ -52,6 +53,7 @@ export function ExercisesPage() {
     setAges([]);
     setTypes([]);
     setThemes([]);
+    setSavedOnly(false);
     setDiff(0);
     setMaxPlayers(MAX_PLAYERS);
     setQuery('');
@@ -59,16 +61,18 @@ export function ExercisesPage() {
 
   const matches = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return (e: Exercise, skipTheme = false) => {
+    /** `skip` leaves one filter out, for the counts shown next to that filter's options. */
+    return (e: Exercise, skip?: 'theme' | 'saved') => {
+      if (skip !== 'saved' && savedOnly && !favs.includes(e.id)) return false;
       if (ages.length && !e.ages.some((a) => ages.includes(a))) return false;
       if (types.length && !types.includes(e.type)) return false;
-      if (!skipTheme && themes.length && !e.themes.some((t) => themes.includes(t))) return false;
+      if (skip !== 'theme' && themes.length && !e.themes.some((t) => themes.includes(t))) return false;
       if (diff && e.diff !== diff) return false;
       if (e.pmin > maxPlayers) return false;
       if (q && !e.title.toLowerCase().includes(q)) return false;
       return true;
     };
-  }, [ages, types, themes, diff, maxPlayers, query]);
+  }, [savedOnly, favs, ages, types, themes, diff, maxPlayers, query]);
 
   const list = useMemo(() => {
     const l = EXERCISES.filter((e) => matches(e));
@@ -80,6 +84,7 @@ export function ExercisesPage() {
   }, [matches, sort]);
 
   const active: { label: string; remove: () => void }[] = [
+    ...(savedOnly ? [{ label: 'Bewaard', remove: () => setSavedOnly(false) }] : []),
     ...ages.map((a) => ({ label: a.replace('–', ' – U'), remove: () => setAges((s) => toggle(s, a)) })),
     ...types.map((t) => ({ label: t, remove: () => setTypes((s) => toggle(s, t)) })),
     ...themes.map((t) => ({ label: t, remove: () => setThemes((s) => toggle(s, t)) })),
@@ -102,6 +107,13 @@ export function ExercisesPage() {
             Alles wissen
           </button>
         </div>
+
+        <label className="check-row saved-filter">
+          <input type="checkbox" checked={savedOnly} onChange={() => setSavedOnly((v) => !v)} />
+          <BookmarkIcon filled={savedOnly} />
+          <span className="grow">Bewaard</span>
+          <span className="count">{EXERCISES.filter((e) => favs.includes(e.id) && matches(e, 'saved')).length}</span>
+        </label>
 
         <section className="filter-group">
           <h3 className="eyebrow">Leeftijdscategorie</h3>
@@ -128,7 +140,7 @@ export function ExercisesPage() {
             <label key={t} className="check-row">
               <input type="checkbox" checked={themes.includes(t)} onChange={() => setThemes((s) => toggle(s, t))} />
               <span className="grow">{t}</span>
-              <span className="count">{EXERCISES.filter((e) => e.themes.includes(t) && matches(e, true)).length}</span>
+              <span className="count">{EXERCISES.filter((e) => e.themes.includes(t) && matches(e, 'theme')).length}</span>
             </label>
           ))}
         </fieldset>
@@ -251,7 +263,17 @@ export function ExercisesPage() {
           )}
         </div>
 
-        {list.length === 0 ? (
+        {list.length === 0 && savedOnly && favs.length === 0 ? (
+          <div className="empty">
+            <span className="empty-title">Nog geen bewaarde oefeningen</span>
+            <span className="empty-text">
+              Tik op het bladwijzer-icoon bij een oefening om ze hier te verzamelen. Ze blijven bewaard in deze browser.
+            </span>
+            <button type="button" className="btn btn-primary" onClick={() => setSavedOnly(false)}>
+              Alle oefeningen tonen
+            </button>
+          </div>
+        ) : list.length === 0 ? (
           <div className="empty">
             <span className="empty-title">Geen oefeningen gevonden</span>
             <span className="empty-text">Probeer een andere zoekterm of pas de filters aan.</span>

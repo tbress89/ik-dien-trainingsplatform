@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useMemo, useRef, useState, type ReactNode } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { EXERCISE_BY_ID, type Theme } from './exercises';
 import { SESSIONS, type Session } from './sessions';
 
@@ -119,12 +119,33 @@ interface TrainingContextValue {
 
 const TrainingContext = createContext<TrainingContextValue | null>(null);
 
+/** Saved ("bewaarde") exercises are remembered in this browser only; there are no accounts yet. */
+const FAVS_KEY = 'ikdien:bewaard';
+
+function loadFavs(): string[] {
+  try {
+    const stored: unknown = JSON.parse(localStorage.getItem(FAVS_KEY) ?? '[]');
+    // Drop ids of exercises that no longer exist.
+    return Array.isArray(stored) ? stored.filter((id): id is string => typeof id === 'string' && id in EXERCISE_BY_ID) : [];
+  } catch {
+    return [];
+  }
+}
+
+function storeFavs(favs: string[]) {
+  try {
+    localStorage.setItem(FAVS_KEY, JSON.stringify(favs));
+  } catch {
+    // Storage unavailable (private mode, blocked site data): saving still works until the page is closed.
+  }
+}
+
 export function TrainingProvider({ children }: { children: ReactNode }) {
   const [sessions, setSessions] = useState<Session[]>(SESSIONS);
   // The builder opens on the first training in the list until another one is chosen.
   const [draft, setDraft] = useState<Training>(() => ({ ...SESSIONS[0], plan: copyPlan(SESSIONS[0].plan) }));
   const [activeBlock, setActiveBlock] = useState<BlockId>('kern');
-  const [favs, setFavs] = useState<string[]>(['trans']);
+  const [favs, setFavs] = useState<string[]>(loadFavs);
   const uid = useRef(10);
 
   const busyDates = useMemo(() => sessions.filter((s) => s.id !== draft.id).map((s) => s.date), [sessions, draft.id]);
@@ -196,6 +217,8 @@ export function TrainingProvider({ children }: { children: ReactNode }) {
     });
     setActiveBlock(to);
   }, []);
+
+  useEffect(() => storeFavs(favs), [favs]);
 
   const toggleFav = useCallback((exId: string) => {
     setFavs((f) => (f.includes(exId) ? f.filter((x) => x !== exId) : [...f, exId]));

@@ -27,6 +27,13 @@ input:focus-visible,button:focus-visible,select:focus-visible,a:focus-visible{ou
 <button type="button" onClick="{{reset}}" style="border: 0; background: transparent; color: #5B2BC4; font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; padding: 10px 0">Alles wissen</button>
 </div>
 
+<label style="display: flex; align-items: center; gap: 10px; min-height: 40px; box-sizing: border-box; padding: 10px 14px; border: 1px solid; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; {{savedSt}}">
+<input type="checkbox" checked="{{savedOnly}}" onChange="{{toggleSaved}}" style="width: 18px; height: 18px; margin: 0">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="{{savedFill}}" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true" style="color: #5B2BC4; flex-shrink: 0"><path d="M6 3h12v18l-6-4-6 4z"></path></svg>
+<span style="flex-grow: 1">Bewaard</span>
+<span style="font-size: 13px; font-weight: 400; color: #625A78">{{savedCount}}</span>
+</label>
+
 <section style="display: flex; flex-direction: column; gap: 12px">
 <h3 style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #625A78">Leeftijdscategorie</h3>
 <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
@@ -304,7 +311,7 @@ var OFF = 'background:#FFFFFF;color:#1A1033;border:1px solid #E4DDF3';
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { ages: [], types: [], themes: [], diff: 0, maxPlayers: 22, query: '', sort: 'relevant', favs: ['trans'] };
+    this.state = { savedOnly: false, ages: [], types: [], themes: [], diff: 0, maxPlayers: 22, query: '', sort: 'relevant', favs: ['trans'] };
   }
   tog(key, v) {
     var cur = this.state[key].slice();
@@ -316,6 +323,7 @@ class Component extends DCLogic {
     var self = this, st = this.state;
     var q = (st.query || '').toLowerCase();
     var match = function (e, skip) {
+      if (skip !== 'saved' && st.savedOnly && st.favs.indexOf(e.id) < 0) return false;
       if (skip !== 'theme' && st.themes.length && !e.themes.some(function (t) { return st.themes.indexOf(t) >= 0; })) return false;
       if (st.ages.length && !e.ages.some(function (a) { return st.ages.indexOf(a) >= 0; })) return false;
       if (st.types.length && st.types.indexOf(e.type) < 0) return false;
@@ -342,6 +350,7 @@ class Component extends DCLogic {
       });
     });
     var active = [];
+    if (st.savedOnly) active.push({ label: 'Bewaard', remove: function () { self.setState({ savedOnly: false }); } });
     st.ages.forEach(function (a) { active.push({ label: a.replace('U', 'U').replace('–', ' – U'), remove: function () { self.tog('ages', a); } }); });
     st.themes.forEach(function (t) { active.push({ label: t, remove: function () { self.tog('themes', t); } }); });
     st.types.forEach(function (t) { active.push({ label: t, remove: function () { self.tog('types', t); } }); });
@@ -353,6 +362,11 @@ class Component extends DCLogic {
       countLabel: cards.length + (cards.length === 1 ? ' oefening' : ' oefeningen') + ' · afgestemd op jeugdvoetbal',
       activeList: active,
       noActive: active.length === 0,
+      savedOnly: st.savedOnly,
+      savedFill: st.savedOnly ? 'currentColor' : 'none',
+      savedSt: st.savedOnly ? 'border-color:#5B2BC4;background:#EFE9FB' : 'border-color:#E4DDF3;background:#FFFFFF',
+      savedCount: EX.filter(function (e) { return st.favs.indexOf(e.id) >= 0 && match(e, 'saved'); }).length,
+      toggleSaved: function () { self.setState({ savedOnly: !st.savedOnly }); },
       ageChips: AGES.map(function (a) { var on = st.ages.indexOf(a) >= 0; return { label: a.replace('–', '-U'), on: on, st: on ? ON : OFF, toggle: function () { self.tog('ages', a); } }; }),
       typeChips: TYPES.map(function (t) { var on = st.types.indexOf(t[0]) >= 0; return { label: t[0], dot: on ? '#FFFFFF' : t[1], on: on, st: on ? ON : OFF, toggle: function () { self.tog('types', t[0]); } }; }),
       themeChecks: THEMES.map(function (t) { return { label: t, on: st.themes.indexOf(t) >= 0, count: EX.filter(function (e) { return e.themes.indexOf(t) >= 0 && match(e, 'theme'); }).length, toggle: function () { self.tog('themes', t); } }; }),
@@ -363,7 +377,7 @@ class Component extends DCLogic {
       setQuery: function (ev) { self.setState({ query: ev.target.value }); },
       sort: st.sort,
       setSort: function (ev) { self.setState({ sort: ev.target.value }); },
-      reset: function () { self.setState({ ages: [], types: [], themes: [], diff: 0, maxPlayers: 22, query: '' }); }
+      reset: function () { self.setState({ savedOnly: false, ages: [], types: [], themes: [], diff: 0, maxPlayers: 22, query: '' }); }
     };
   }
 }
