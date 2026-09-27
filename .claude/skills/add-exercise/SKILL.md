@@ -14,8 +14,9 @@ All paths are relative to `codebase/`:
 - `src/data/exercises.ts` — the `Exercise` type (list data), the allowed values (`TYPES`, `PHASES`, `AGES`, `THEMES`, `Variant`) and the `EXERCISES` array. Read it first, both for the current field list and as a style reference.
 - `src/data/exerciseDetails.ts` — the detail-page text for each exercise (`EXERCISE_DETAILS`, keyed by exercise id): `summary`, `steps`, `easier`, `harder`, `objectives`, `coaching`, `diagramSteps` and `related`. It is split from `EXERCISES` so this text loads as a separate chunk only when a detail page opens, which keeps the app's main bundle small. Every exercise needs an entry in both files, with the same id.
 - `src/components/Pitch.tsx` — the tactical diagrams, one entry per `Variant` in the `content` record.
+- `src/data/recommended.ts` — `RECOMMENDED`, every exercise id ranked from most to least valuable, in four commented tiers. It drives the dashboard's default "Aanbevolen" sort, so every exercise needs a place in it.
 
-Nothing else needs to change: the dashboard, builder library, and detail page (`/oefeningen/<id>`) all read from these two files.
+Nothing else needs to change: the dashboard, builder library, and detail page (`/oefeningen/<id>`) all read from these files.
 
 ## Step 1 — Pin down the facts
 
@@ -29,7 +30,7 @@ Only stop and ask when the request conflicts with what the app supports, because
 
 ## Step 2 — Write the entry
 
-Append the list data as a new object to `EXERCISES` in `exercises.ts` (before the closing `];`), and the detail text as a new `<id>: { … }` entry at the end of `EXERCISE_DETAILS` in `exerciseDetails.ts`. The `ExerciseDetail` fields are `summary`, `steps`, `easier`, `harder`, `objectives`, `coaching`, `diagramSteps` and `related`; everything else belongs in `EXERCISES`. Fields that are easy to get subtly wrong:
+Append the list data as a new object to `EXERCISES` in `exercises.ts` (before the closing `];`), and the detail text as a new `<id>: { … }` entry at the end of `EXERCISE_DETAILS` in `exerciseDetails.ts`. The `ExerciseDetail` fields are `summary`, `steps`, `easier`, `harder`, `objectives`, `coaching`, `diagramSteps` and `related`; everything else belongs in `EXERCISES`. Then add the id to `RECOMMENDED` in `recommended.ts`, in the tier that matches its value (how game-realistic, broadly usable and proven it is, and how many ball contacts it gives), next to comparable exercises, with a `// Title` comment. Fields that are easy to get subtly wrong:
 
 | Field | Guidance |
 |---|---|

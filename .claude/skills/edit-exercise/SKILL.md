@@ -16,6 +16,7 @@ All paths are relative to `codebase/`:
 - `src/components/Pitch.tsx` — one diagram per `Variant`.
 - `src/data/sessions.ts` — the example trainings; each plan item refers to an exercise id.
 - `src/data/training.tsx` — the initially bookmarked exercises (`favs`) refer to exercise ids.
+- `src/data/recommended.ts` — `RECOMMENDED`, the ranked id list behind the dashboard's "Aanbevolen" sort. Move an exercise within it only when the user asks to change its ranking; keep its `// Title` comment in step with a renamed title.
 
 The field rules, Dutch writing style, and diagram drawing rules are the same as for adding an exercise; they live in `.claude/skills/add-exercise/SKILL.md` (sections "Write the entry", "Writing the Dutch text" and "Pick or draw the diagram"). Read the relevant section before touching those parts, so edits follow the same conventions as new entries.
 
@@ -47,13 +48,13 @@ Before changing a drawing, check how many exercises use that `variant`. If other
 
 ### Renaming the id
 
-Only change an `id` when the user explicitly asks, since it's the page URL. When you do, update every reference: its key in `EXERCISE_DETAILS`, other exercises' `related` lists, the training plans in `sessions.ts`, and `favs` in `training.tsx`. Grep for the old id in quotes to be sure nothing is missed.
+Only change an `id` when the user explicitly asks, since it's the page URL. When you do, update every reference: its key in `EXERCISE_DETAILS`, other exercises' `related` lists, the training plans in `sessions.ts`, `favs` in `training.tsx`, and its entry in `RECOMMENDED`. Grep for the old id in quotes to be sure nothing is missed.
 
 ## Deleting an exercise
 
 Deleting touches other pages, so confirm before doing it. First list what will happen, then wait for a clear yes:
 
-- the exercise entry is removed from `EXERCISES` and its text from `EXERCISE_DETAILS`;
+- the exercise entry is removed from `EXERCISES`, its text from `EXERCISE_DETAILS` and its id from `RECOMMENDED`;
 - its diagram variant is removed too, if no other exercise uses it (union member in `exercises.ts` and entry in `Pitch.tsx`);
 - the exercises that list it under "Past goed bij" (name them), plus the replacement you'd put in each of those slots, so their pages still show four related exercises;
 - any training in `sessions.ts` that uses it: its plan item is dropped (the overview and builder would crash on an unknown id). Name the affected trainings, since their minutes change;

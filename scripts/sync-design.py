@@ -27,6 +27,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 EXERCISES_TS = ROOT / 'codebase/src/data/exercises.ts'
 EXERCISE_DETAILS_TS = ROOT / 'codebase/src/data/exerciseDetails.ts'
+RECOMMENDED_TS = ROOT / 'codebase/src/data/recommended.ts'
 PITCH_TSX = ROOT / 'codebase/src/components/Pitch.tsx'
 DESIGN = ROOT / 'design'
 
@@ -66,9 +67,14 @@ def read_exercises():
     return exercises
 
 
+def read_recommended():
+    """The ids in RECOMMENDED (recommended.ts), in "Aanbevolen" order."""
+    return re.findall(r"^  '([a-z0-9]+)',", RECOMMENDED_TS.read_text(), re.M)
+
+
 def check_details(exercises):
-    """Every exercise needs a detail entry in exerciseDetails.ts under the same id (and vice versa), and a
-    duration that is a multiple of 5 minutes."""
+    """Every exercise needs a detail entry in exerciseDetails.ts under the same id (and vice versa), a place
+    in RECOMMENDED (exactly once), and a duration that is a multiple of 5 minutes."""
     detail_ids = set(re.findall(r'^  ([A-Za-z0-9_]+): \{$', EXERCISE_DETAILS_TS.read_text(), re.M))
     ids = {x['id'] for x in exercises}
     problems = []
@@ -76,6 +82,13 @@ def check_details(exercises):
         problems.append('no detail text in exerciseDetails.ts for: ' + ', '.join(sorted(ids - detail_ids)))
     if detail_ids - ids:
         problems.append('detail text without an exercise in exercises.ts: ' + ', '.join(sorted(detail_ids - ids)))
+    recommended = read_recommended()
+    if set(recommended) != ids or len(recommended) != len(ids):
+        dupes = sorted({i for i in recommended if recommended.count(i) > 1})
+        for label, bad in (('missing from RECOMMENDED in recommended.ts', ids - set(recommended)),
+                           ('in RECOMMENDED but not an exercise', set(recommended) - ids), ('listed twice in RECOMMENDED', dupes)):
+            if bad:
+                problems.append(f'{label}: ' + ', '.join(sorted(bad)))
     odd = [f"{x['id']} ({x['min']} min)" for x in exercises if x['min'] % 5]
     if odd:
         problems.append('duration is not a multiple of 5 minutes: ' + ', '.join(odd))
@@ -129,11 +142,13 @@ def main_board_height(card_count):
 
 def sync_exercise_lists(exercises):
     main_path = DESIGN / 'Main.dc.html'
+    # The dashboard design's default "Aanbevolen" sort shows EX in list order, so write it in RECOMMENDED order.
+    rank = {i: n for n, i in enumerate(read_recommended())}
     main = replace_ex_list(main_path.read_text(), [js_object([
         ('id', x['id']), ('title', x['title']), ('variant', x['variant']), ('type', x['type']), ('phase', x['phase']),
         ('themes', x['themes']), ('ages', x['ages']), ('ageLabel', x['ageLabel']), ('diff', x['diff']),
         ('pmin', x['pmin']), ('players', x['players']), ('min', x['min']),
-    ]) for x in exercises])
+    ]) for x in sorted(exercises, key=lambda x: rank[x['id']])])
 
     height = main_board_height(len(exercises))
     board = re.search(r'<div style="width: 1440px; height: (\d+)px; overflow: hidden;', main)
