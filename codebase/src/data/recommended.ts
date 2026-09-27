@@ -71,6 +71,7 @@ export const RECOMMENDED: string[] = [
   'psquad', // Kwadrantenspel: maximaal twee per vak
   'fcircuit', // Schietcarrousel rond de zestien
   'obgame', // Opbouwspel 6 + K tegen 6 op drie doeltjes
+  'obzones', // Positiespel in twee vakken: opbouw via de keeper
   'wmatch', // Wedstrijdopwarming in vier delen
   'pthrough', // Steekpass in de loop
   'gklow', // Lage ballen opscheppen
