@@ -4041,4 +4041,36 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'game', fit: 'Als afsluiter' },
     ],
   },
+  obfree: {
+    summary:
+      'De keeper bouwt op met enkel de 3 en de 10, elk gedekt door een eigen verdediger. Door diagonaal van elkaar weg te bewegen komen ze los, waarna de keeper kort of diep kiest: het loskomen uit Positiespel in twee vakken, maar dan in isolatie.',
+    steps: [
+      { title: 'Opstelling.', text: 'Speel op een half 8-tegen-8-veld met een groot doel en keeper, verdeeld in twee vakken. De 3 staat met een verdediger in het vak bij het doel, de 10 met een verdediger in het vak ervoor. Zet aan de overkant twee doeltjes.' },
+      { title: 'Loskomen.', text: 'De keeper heeft de bal. De 3 en de 10 bewegen diagonaal van elkaar weg, richting keeper, en proberen los te komen van hun verdediger. Elke speler blijft in zijn eigen vak.' },
+      { title: 'Afwerken.', text: 'De keeper speelt de vrije speler aan: kort op de 3 of diep op de 10. Die draait open en werkt samen met de ander af op een van de doeltjes. Wint een verdediger de bal, dan mag hij afwerken op het grote doel.' },
+      { title: 'Ritme.', text: 'Speel 3 reeksen van 4 minuten met 1 minuut rust. Wissel na elke reeks aanvallers en verdedigers.' },
+    ],
+    easier: 'Laat de verdedigers eerst passief meelopen, dan half en pas daarna volledig verdedigen.',
+    harder: 'Voeg een derde verdediger toe die de passlijn naar de 10 afschermt, zoals de 9 in Positiespel in twee vakken.',
+    objectives: ['Loskomen van je tegenstander', 'Timing van de loopactie', 'Opendraaien', 'Keuze van de keeper'],
+    coaching: [
+      '3 en 10: kom op het juiste moment los, niet te vroeg.',
+      'Beweeg diagonaal van elkaar weg, zo maak je ruimte voor elkaar.',
+      'Draai open zodra je de bal ontvangt en kijk naar voren.',
+      'Keeper: scan en speel de speler die het meest vrij staat, op tempo.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'De 3 en de 10, elk met een eigen verdediger'],
+      ['Loskomen', 'Diagonaal van elkaar weg, richting keeper'],
+      ['Kort', 'De keeper speelt de 3 aan'],
+      ['Diep', 'Of meteen de 10'],
+      ['Opendraaien', 'De 10 draait open en werkt af op een doeltje'],
+    ],
+    related: [
+      { id: 'pscan', fit: 'Als warming-up' },
+      { id: 'obsix', fit: 'Zelfde thema' },
+      { id: 'obzones', fit: 'Als vervolg' },
+      { id: 'obwave', fit: 'Als afsluiter' },
+    ],
+  },
 };
