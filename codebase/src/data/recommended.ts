@@ -87,6 +87,8 @@ export const RECOMMENDED: string[] = [
   'sgbuild', // Partijvorm 6 tegen 6 met opbouwzone
   'cagility', // Wendbaarheid: T-parcours
   'gsnordic', // Hamstrings en liezen: Nordic en Copenhagen in duo’s
+  'kcircuit', // Krachtcircuit met eigen lichaamsgewicht
+  'ksprint', // Maximale sprintsnelheid: vliegende sprints
   'rcolor', // Kleurenrondo 6 tegen 3
   'dback', // 1 tegen 1 met de rug naar doel
   'sgman', // Mandekking 4 tegen 4
@@ -107,6 +109,7 @@ export const RECOMMENDED: string[] = [
   'gkdist', // Uitworp en uittrap naar doeltjes
   'obline', // Rustig uitspelen: 3 + K tegen 2 met terugtreklijn
   'sg2v2', // Intervalpartijtjes 2 tegen 2
+  'krepeat', // Herhaalde sprints met afwerking
   'omback', // Na balverlies achter de bal: 5 tegen 5
   'fgame', // Schietspel 2 tegen 2 met kaatsers
   'rpress', // Rondo 4 tegen 2 met uitweg voor de verdedigers
@@ -148,6 +151,7 @@ export const RECOMMENDED: string[] = [
   'oblong', // Lange bal op de spits en de tweede bal
   'wduel', // Wie is eerst aan de bal?
   'cjump', // Springen en landen over hordetjes
+  'kplyo', // Explosiviteit: sprongen en bounds
   'omrondo', // Van rondo naar counter
   'gkrebound', // Dubbele redding: opstaan en opnieuw
   'obkeeper', // Kort of lang: de keeper beslist

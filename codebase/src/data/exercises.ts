@@ -134,7 +134,11 @@ export type Variant =
   | 'gs11'
   | 'gsnordic'
   | 'gsland'
-  | 'gscool';
+  | 'gscool'
+  | 'kcircuit'
+  | 'kplyo'
+  | 'ksprint'
+  | 'krepeat';
 
 export type ExerciseType = 'Warming-up' | 'Technisch' | 'Tactisch' | 'Fysiek' | 'Partijvorm';
 
@@ -3198,7 +3202,7 @@ export const EXERCISES: Exercise[] = [
     phase: 'Algemeen',
     themes: ['Fysiek'],
     ages: ['U14–15', 'U16–21'],
-    ageLabel: 'U14 – U16',
+    ageLabel: 'U14 – U21',
     diff: 2,
     pmin: 2,
     players: '2–20',
@@ -3247,6 +3251,88 @@ export const EXERCISES: Exercise[] = [
     intensity: 1,
     field: 'Kring',
     materials: [
+    ],
+  },
+  {
+    id: 'kcircuit',
+    title: 'Krachtcircuit met eigen lichaamsgewicht',
+    variant: 'kcircuit',
+    type: 'Fysiek',
+    phase: 'Algemeen',
+    themes: ['Fysiek'],
+    ages: ['U16–21'],
+    ageLabel: 'U17 – U21',
+    diff: 2,
+    pmin: 2,
+    players: '2–24',
+    playersDetail: '(duo’s per post)',
+    min: 20,
+    intensity: 3,
+    field: '20 × 20 m',
+    materials: [
+      { name: 'Kegels', qty: '6' },
+    ],
+  },
+  {
+    id: 'kplyo',
+    title: 'Explosiviteit: sprongen en bounds',
+    variant: 'kplyo',
+    type: 'Fysiek',
+    phase: 'Algemeen',
+    themes: ['Fysiek'],
+    ages: ['U16–21'],
+    ageLabel: 'U17 – U21',
+    diff: 2,
+    pmin: 2,
+    players: '2–20',
+    playersDetail: '(rijen van 3 à 4)',
+    min: 15,
+    intensity: 4,
+    field: '25 × 10 m per rij',
+    materials: [
+      { name: 'Kegels', qty: '10' },
+    ],
+  },
+  {
+    id: 'ksprint',
+    title: 'Maximale sprintsnelheid: vliegende sprints',
+    variant: 'ksprint',
+    type: 'Fysiek',
+    phase: 'Algemeen',
+    themes: ['Fysiek'],
+    ages: ['U16–21'],
+    ageLabel: 'U17 – U21',
+    diff: 1,
+    pmin: 2,
+    players: '2–20',
+    playersDetail: '(rijen van 3 à 4)',
+    min: 15,
+    intensity: 5,
+    field: '50 × 10 m',
+    materials: [
+      { name: 'Kegels', qty: '8' },
+    ],
+  },
+  {
+    id: 'krepeat',
+    title: 'Herhaalde sprints met afwerking',
+    variant: 'krepeat',
+    type: 'Fysiek',
+    phase: 'Algemeen',
+    themes: ['Fysiek', 'Afwerken'],
+    ages: ['U16–21'],
+    ageLabel: 'U17 – U21',
+    diff: 2,
+    pmin: 3,
+    players: '3–12',
+    playersDetail: '(rijen + K)',
+    min: 15,
+    intensity: 5,
+    field: '35 m voor een groot doel',
+    materials: [
+      { name: 'Groot doel', qty: '1' },
+      { name: 'Kegels', qty: '6' },
+      { name: 'Ballen', qty: '15' },
     ],
   },
 ];
