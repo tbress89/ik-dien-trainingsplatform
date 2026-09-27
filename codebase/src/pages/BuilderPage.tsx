@@ -3,6 +3,7 @@ import { Link, Navigate, useLocation, useNavigate, useParams } from 'react-route
 import { Pitch } from '../components/Pitch';
 import { TrainingHeader } from '../components/TrainingHeader';
 import {
+  BookmarkIcon,
   CheckIcon,
   CloseIcon,
   GripIcon,
@@ -13,12 +14,13 @@ import {
 import { EXERCISES, EXERCISE_BY_ID, TYPE_COLOR, materialNames, shortAgeLabel, type Exercise, type ExerciseType } from '../data/exercises';
 import { BLOCKS, BLOCK_TARGETS, DURATIONS, trainingPath, useTraining, type BlockId } from '../data/training';
 
-const TABS: ('Alle' | ExerciseType)[] = ['Alle', 'Warming-up', 'Technisch', 'Tactisch', 'Partijvorm'];
+/** "Bewaard" shows the exercises saved with the bookmark on the dashboard or an exercise page. */
+const TABS: ('Alle' | 'Bewaard' | ExerciseType)[] = ['Alle', 'Bewaard', 'Warming-up', 'Technisch', 'Tactisch', 'Partijvorm'];
 
 type DragSource = { src: 'lib'; ex: string } | { src: 'card'; from: BlockId; idx: number };
 
 export function BuilderPage() {
-  const { sessions, draftId, openTraining, newTraining, saveTraining, plan, duration, setDuration, theme, activeBlock, setActiveBlock, addExercise, removeItem, changeMinutes, moveItem } = useTraining();
+  const { sessions, draftId, openTraining, newTraining, saveTraining, plan, duration, setDuration, theme, activeBlock, setActiveBlock, addExercise, removeItem, changeMinutes, moveItem, favs } = useTraining();
   const [tab, setTab] = useState<(typeof TABS)[number]>('Alle');
   const [query, setQuery] = useState('');
   const [hover, setHover] = useState<BlockId | null>(null);
@@ -62,7 +64,8 @@ export function BuilderPage() {
   const q = query.trim().toLowerCase();
   // Exercises that fit the training's theme come first (stable sort keeps the original order otherwise).
   const fitsTheme = (e: Exercise) => e.themes.includes(theme);
-  const library = EXERCISES.filter((e) => (tab === 'Alle' || e.type === tab) && (!q || e.title.toLowerCase().includes(q))).sort(
+  const inTab = (e: Exercise) => (tab === 'Alle' ? true : tab === 'Bewaard' ? favs.includes(e.id) : e.type === tab);
+  const library = EXERCISES.filter((e) => inTab(e) && (!q || e.title.toLowerCase().includes(q))).sort(
     (a, b) => Number(fitsTheme(b)) - Number(fitsTheme(a)),
   );
 
@@ -126,7 +129,9 @@ export function BuilderPage() {
           <div className="library-tabs">
             {TABS.map((t) => (
               <button key={t} type="button" className="chip" aria-pressed={tab === t} onClick={() => setTab(t)}>
+                {t === 'Bewaard' && <BookmarkIcon size={14} filled={tab === t} />}
                 {t}
+                {t === 'Bewaard' && <span className="tab-count">{favs.length}</span>}
               </button>
             ))}
           </div>
@@ -135,7 +140,15 @@ export function BuilderPage() {
           </span>
         </div>
         <div className="library-list">
-          {library.length === 0 && <div className="library-empty">Geen oefeningen gevonden.</div>}
+          {library.length === 0 &&
+            (tab === 'Bewaard' && favs.length === 0 ? (
+              <div className="library-empty">
+                Nog geen bewaarde oefeningen. Bewaar oefeningen met het bladwijzer-icoon in de{' '}
+                <Link to="/">oefeningendatabank</Link> om ze hier terug te vinden.
+              </div>
+            ) : (
+              <div className="library-empty">Geen oefeningen gevonden.</div>
+            ))}
           {library.map((e) => (
             <div
               key={e.id}
