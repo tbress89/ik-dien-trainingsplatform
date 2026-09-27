@@ -130,7 +130,11 @@ export type Variant =
   | 'obkeeper'
   | 'obzones'
   | 'obwave'
-  | 'obfree';
+  | 'obfree'
+  | 'gs11'
+  | 'gsnordic'
+  | 'gsland'
+  | 'gscool';
 
 export type ExerciseType = 'Warming-up' | 'Technisch' | 'Tactisch' | 'Fysiek' | 'Partijvorm';
 
@@ -3164,6 +3168,85 @@ export const EXERCISES: Exercise[] = [
       { name: 'Kegels', qty: '8' },
       { name: 'Ballen', qty: '10' },
       { name: 'Hesjes', qty: '2' },
+    ],
+  },
+  {
+    id: 'gs11',
+    title: 'Preventie-opwarming voor groeiende spelers',
+    variant: 'gs11',
+    type: 'Fysiek',
+    phase: 'Algemeen',
+    themes: ['Fysiek'],
+    ages: ['U14–15', 'U16–21'],
+    ageLabel: 'U14 – U16',
+    diff: 1,
+    pmin: 2,
+    players: '2–20',
+    playersDetail: '(duo’s)',
+    min: 15,
+    intensity: 3,
+    field: '20 × 10 m',
+    materials: [
+      { name: 'Kegels', qty: '12' },
+    ],
+  },
+  {
+    id: 'gsnordic',
+    title: 'Hamstrings en liezen: Nordic en Copenhagen in duo’s',
+    variant: 'gsnordic',
+    type: 'Fysiek',
+    phase: 'Algemeen',
+    themes: ['Fysiek'],
+    ages: ['U14–15', 'U16–21'],
+    ageLabel: 'U14 – U16',
+    diff: 2,
+    pmin: 2,
+    players: '2–20',
+    playersDetail: '(duo’s)',
+    min: 10,
+    intensity: 2,
+    field: 'Klein vak op gras',
+    materials: [
+    ],
+  },
+  {
+    id: 'gsland',
+    title: 'Afremmen en draaien met kniecontrole',
+    variant: 'gsland',
+    type: 'Fysiek',
+    phase: 'Algemeen',
+    themes: ['Fysiek'],
+    ages: ['U14–15', 'U16–21'],
+    ageLabel: 'U14 – U16',
+    diff: 1,
+    pmin: 2,
+    players: '2–16',
+    playersDetail: '(duo’s)',
+    min: 10,
+    intensity: 3,
+    field: '15 × 5 m per duo',
+    materials: [
+      { name: 'Kegels', qty: '5 per duo' },
+      { name: 'Ballen', qty: '1 per duo' },
+    ],
+  },
+  {
+    id: 'gscool',
+    title: 'Cooling-down: mobiliteit en romp voor groeiende spelers',
+    variant: 'gscool',
+    type: 'Fysiek',
+    phase: 'Algemeen',
+    themes: ['Fysiek'],
+    ages: ['U14–15', 'U16–21'],
+    ageLabel: 'U14 – U16',
+    diff: 1,
+    pmin: 1,
+    players: '1–25',
+    playersDetail: '(hele groep)',
+    min: 10,
+    intensity: 1,
+    field: 'Kring',
+    materials: [
     ],
   },
 ];

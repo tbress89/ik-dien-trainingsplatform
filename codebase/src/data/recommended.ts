@@ -61,6 +61,7 @@ export const RECOMMENDED: string[] = [
   'fcutback', // Terugleggen vanaf de achterlijn
   'wchain', // Kettingtikkertje
   'cladder', // Loopladder: voetpatronen met kaatsbal
+  'gs11', // Preventie-opwarming voor groeiende spelers
   'gk1v1', // 1 tegen 1: uitkomen en blokken
   'pdiamond', // Ruitpassen met derde man
   'om32', // Overtal heen, ondertal terug
@@ -85,6 +86,7 @@ export const RECOMMENDED: string[] = [
   'psgame', // Partijvorm 7 tegen 7 met vijf corridors
   'sgbuild', // Partijvorm 6 tegen 6 met opbouwzone
   'cagility', // Wendbaarheid: T-parcours
+  'gsnordic', // Hamstrings en liezen: Nordic en Copenhagen in duo’s
   'rcolor', // Kleurenrondo 6 tegen 3
   'dback', // 1 tegen 1 met de rug naar doel
   'sgman', // Mandekking 4 tegen 4
@@ -112,6 +114,7 @@ export const RECOMMENDED: string[] = [
   'obwall', // Verticale pass op de spits en de kaatsbal
   'sgavv', // Aanval tegen verdediging: 6 tegen 4 + K
   'cstar', // Sterloop met kleurkegels
+  'gsland', // Afremmen en draaien met kniecontrole
   'gkdive', // Leren vallen: van knielend naar staand
   'prhunt', // Jagers en dribbelaars
   'rdeep', // Rondo 5 tegen 2 met diepe pass naar de spits
@@ -139,6 +142,7 @@ export const RECOMMENDED: string[] = [
   'rtrans', // Omschakelrondo in twee vakken
   'omkeeper', // Snelle counter via de keeper
   'cbalance', // Evenwichtsduels in duo's
+  'gscool', // Cooling-down: mobiliteit en romp voor groeiende spelers
   'fheader', // Koppen op doel
   'obdrop', // Uitzakkende zes: opbouwen met drie achteraan
   'oblong', // Lange bal op de spits en de tweede bal
