@@ -34,7 +34,7 @@ Typical knock-on effects to check:
 | If this changes… | …also check |
 |---|---|
 | Players or formation | `pmin`, `players`, `playersDetail`, the setup step, coaching points that name positions, and the diagram (right number of `P`/`O`, positions matching the formation) |
-| Duration (`min`) | The `Ritme.` step: series × minutes + rest should roughly add up |
+| Duration (`min`) | It must stay a multiple of 5 (round to the nearest 5 if asked for e.g. 12). The `Ritme.` step: series × minutes + rest should roughly add up |
 | Age range | `ages` must cover the whole new `ageLabel` range |
 | Phase | Tags follow automatically. `'Algemeen'` has no filter checkbox on the dashboard. Mention that if you switch to it |
 | Setup, rules, or how it's played | `steps`, `summary`, `easier`/`harder`, and the diagram and its `diagramSteps` hints if they describe the old version |

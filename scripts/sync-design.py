@@ -67,7 +67,8 @@ def read_exercises():
 
 
 def check_details(exercises):
-    """Every exercise needs a detail entry in exerciseDetails.ts under the same id, and vice versa."""
+    """Every exercise needs a detail entry in exerciseDetails.ts under the same id (and vice versa), and a
+    duration that is a multiple of 5 minutes."""
     detail_ids = set(re.findall(r'^  ([A-Za-z0-9_]+): \{$', EXERCISE_DETAILS_TS.read_text(), re.M))
     ids = {x['id'] for x in exercises}
     problems = []
@@ -75,6 +76,9 @@ def check_details(exercises):
         problems.append('no detail text in exerciseDetails.ts for: ' + ', '.join(sorted(ids - detail_ids)))
     if detail_ids - ids:
         problems.append('detail text without an exercise in exercises.ts: ' + ', '.join(sorted(detail_ids - ids)))
+    odd = [f"{x['id']} ({x['min']} min)" for x in exercises if x['min'] % 5]
+    if odd:
+        problems.append('duration is not a multiple of 5 minutes: ' + ', '.join(odd))
     if problems:
         raise SystemExit('Exercise data is out of step:\n  ' + '\n  '.join(problems))
 

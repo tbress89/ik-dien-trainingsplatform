@@ -38,7 +38,7 @@ Append the list data as a new object to `EXERCISES` in `exercises.ts` (before th
 | `themes` | One or two training themes from `THEMES` that the exercise genuinely works on (e.g. a rondo → `'Passing & aanname'`, `'Positiespel'`). The builder's theme picker counts exercises per theme, so pick what a trainer choosing that theme would expect to find. Don't invent new themes; ask if nothing fits. |
 | `pmin` | Minimum players needed as a number — the dashboard's player slider filters on it. |
 | `players` / `playersDetail` | Display strings: `'8'`, `'8–12'`, `'10 + K'`; detail like `'(4 × 2)'` or `'(5 × 2 + 3)'`. Use `×` and `–`, not `x` and `-`. |
-| `min` | Duration in minutes; the `Ritme.` step's series + rest should roughly add up to it. |
+| `min` | Duration in minutes, always a multiple of 5 (5, 10, 15, …): the builder plans in 5-minute steps. The `Ritme.` step's series + rest should roughly add up to it. |
 | `diff` | 1 Basis, 2 Gemiddeld, 3 Gevorderd. |
 | `intensity` | 1–5 physical load, independent of difficulty (a simple sprint drill can be basis + hoog). |
 | `phase` | `'Algemeen'` exists for non-phase-specific work (coordination, fysiek) but has no dashboard filter checkbox — prefer a real phase when one fits. |
