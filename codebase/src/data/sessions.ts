@@ -29,7 +29,7 @@ export const SESSIONS: Session[] = [
   },
   {
     id: 's2', date: '2026-10-01', team: 'U17 Lazio', theme: 'Opbouw van achteruit', duration: 75,
-    plan: plan('s2', [['wu', 'pass', 12], ['kern', 'pos', 20], ['pv', 'game5', 20]]),
+    plan: plan('s2', [['wu', 'pass', 10], ['kern', 'pos', 20], ['pv', 'game5', 20]]),
   },
   {
     id: 's3', date: '2026-10-06', team: 'U11 Rangers', theme: 'Afwerken', duration: 90,
@@ -37,19 +37,19 @@ export const SESSIONS: Session[] = [
   },
   {
     id: 's4', date: '2026-10-08', team: 'U17 Lazio', theme: 'Druk zetten', duration: 60,
-    plan: plan('s4', [['wu', 'rondo', 5], ['kern', 'press', 18]]),
+    plan: plan('s4', [['wu', 'rondo', 5], ['kern', 'press', 20]]),
   },
   {
     id: 'p1', date: '2026-09-22', team: 'U11 Rangers', theme: 'Druk zetten', duration: 90, attendance: 15,
-    plan: plan('p1', [['wu', 'rondo', 5], ['kern', 'press', 18], ['kern', 'pos', 20], ['pv', 'game', 25]]),
+    plan: plan('p1', [['wu', 'rondo', 5], ['kern', 'press', 20], ['kern', 'pos', 20], ['pv', 'game', 25]]),
   },
   {
     id: 'p2', date: '2026-09-17', team: 'U17 Lazio', theme: 'Omschakelen', duration: 75, attendance: 14,
-    plan: plan('p2', [['wu', 'pass', 12], ['kern', 'trans', 20], ['pv', 'game5', 20]]),
+    plan: plan('p2', [['wu', 'pass', 10], ['kern', 'trans', 20], ['pv', 'game5', 20]]),
   },
   {
     id: 'p3', date: '2026-09-15', team: 'U11 Rangers', theme: 'Dribbelen', duration: 90, attendance: 16,
-    plan: plan('p3', [['wu', 'coord', 10], ['kern', 'fin', 15], ['kern', 'duel', 12], ['pv', 'game', 25]]),
+    plan: plan('p3', [['wu', 'coord', 10], ['kern', 'fin', 15], ['kern', 'duel', 10], ['pv', 'game', 25]]),
   },
   {
     id: 'p4', date: '2026-09-10', team: 'U17 Lazio', theme: 'Positiespel', duration: 60, attendance: 13,

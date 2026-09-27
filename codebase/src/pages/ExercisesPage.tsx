@@ -24,6 +24,7 @@ import {
   type ExerciseType,
   type Phase,
 } from '../data/exercises';
+import { recommendedRank } from '../data/recommended';
 import { BLOCKS, trainingPath, useTraining } from '../data/training';
 import { TRAINING_BUILDER } from '../features';
 
@@ -71,6 +72,7 @@ export function ExercisesPage() {
 
   const list = useMemo(() => {
     const l = EXERCISES.filter((e) => matches(e));
+    if (sort === 'relevant') l.sort((a, b) => recommendedRank(a.id) - recommendedRank(b.id));
     if (sort === 'duur') l.sort((a, b) => a.min - b.min);
     if (sort === 'moeilijkheid') l.sort((a, b) => a.diff - b.diff);
     if (sort === 'naam') l.sort((a, b) => a.title.localeCompare(b.title, 'nl'));

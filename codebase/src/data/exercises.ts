@@ -325,7 +325,7 @@ export const EXERCISES: Exercise[] = [
     diff: 3,
     pmin: 11,
     players: '10 + K',
-    min: 18,
+    min: 20,
     intensity: 4,
     field: '45 × 40 m',
     materials: [
@@ -371,7 +371,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 8,
     players: '8',
     playersDetail: '(2 per kegel)',
-    min: 12,
+    min: 10,
     intensity: 2,
     field: '15 × 15 m',
     materials: [
@@ -413,7 +413,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 4,
     players: '4–12',
     playersDetail: '(2 rijen)',
-    min: 12,
+    min: 10,
     intensity: 4,
     field: '20 × 12 m',
     materials: [
@@ -501,7 +501,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 1,
     players: '1–3',
     playersDetail: '(keepers + trainer)',
-    min: 12,
+    min: 10,
     intensity: 3,
     field: 'Doelgebied',
     materials: [
@@ -544,7 +544,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 3,
     players: '1 + 2',
     playersDetail: '(K + 2 aanvallers)',
-    min: 12,
+    min: 10,
     intensity: 2,
     field: 'Strafschopgebied',
     materials: [
@@ -609,7 +609,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 1,
     players: '1–3',
     playersDetail: '(keepers)',
-    min: 12,
+    min: 10,
     intensity: 2,
     field: 'Halve veld',
     materials: [
@@ -631,7 +631,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 4,
     players: '1 + 3',
     playersDetail: '(K + 3)',
-    min: 12,
+    min: 10,
     intensity: 3,
     field: 'Strafschopgebied',
     materials: [
@@ -654,7 +654,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 3,
     players: '1 + 2',
     playersDetail: '(K + 2 schutters)',
-    min: 12,
+    min: 10,
     intensity: 4,
     field: 'Strafschopgebied',
     materials: [
@@ -720,7 +720,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 7,
     players: '7',
     playersDetail: '(5 + 2)',
-    min: 12,
+    min: 10,
     intensity: 2,
     field: '12 × 12 m',
     materials: [
@@ -742,7 +742,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 7,
     players: '7',
     playersDetail: '(4 + 1 + 2)',
-    min: 12,
+    min: 10,
     intensity: 3,
     field: '12 × 12 m',
     materials: [
@@ -764,7 +764,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 8,
     players: '8',
     playersDetail: '(2 × 2 + 4)',
-    min: 12,
+    min: 10,
     intensity: 4,
     field: '10 × 10 m',
     materials: [
@@ -786,7 +786,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 6,
     players: '6',
     playersDetail: '(3 × 2)',
-    min: 12,
+    min: 10,
     intensity: 3,
     field: '10 × 10 m',
     materials: [
@@ -830,7 +830,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 6,
     players: '6',
     playersDetail: '(4 + 2)',
-    min: 12,
+    min: 10,
     intensity: 4,
     field: '12 × 12 m',
     materials: [
@@ -918,7 +918,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 2,
     players: '2–12',
     playersDetail: '(in rijen)',
-    min: 12,
+    min: 10,
     intensity: 3,
     field: '15 × 20 m',
     materials: [
@@ -939,7 +939,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 2,
     players: '2–12',
     playersDetail: '(in rijen)',
-    min: 12,
+    min: 10,
     intensity: 3,
     field: '10 × 25 m',
     materials: [
@@ -1003,7 +1003,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 3,
     players: '2 + K',
     playersDetail: '(2 rijen + keeper)',
-    min: 12,
+    min: 10,
     intensity: 5,
     field: '30 × 20 m',
     materials: [
@@ -1070,7 +1070,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 4,
     players: '3 + K',
     playersDetail: '(aanvaller, verdediger, aangever + K)',
-    min: 12,
+    min: 10,
     intensity: 4,
     field: 'Strafschopgebied + 10 m',
     materials: [
@@ -1199,7 +1199,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 2,
     players: '2–12',
     playersDetail: '(rij + kaatser)',
-    min: 12,
+    min: 10,
     intensity: 3,
     field: '10 × 20 m',
     materials: [
@@ -1220,7 +1220,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 3,
     players: '3–5',
     playersDetail: '(middenspeler + 2 buitenspelers)',
-    min: 12,
+    min: 10,
     intensity: 2,
     field: '20 × 10 m',
     materials: [
@@ -1241,7 +1241,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 2,
     players: '2–12',
     playersDetail: '(duo’s)',
-    min: 12,
+    min: 10,
     intensity: 2,
     field: '35 × 30 m',
     materials: [
@@ -1327,7 +1327,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 3,
     players: '3–10',
     playersDetail: '(schutters + aangever + K)',
-    min: 12,
+    min: 10,
     intensity: 3,
     field: 'Strafschopgebied + 10 m',
     materials: [
@@ -1349,7 +1349,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 2,
     players: '2–8',
     playersDetail: '(schutters + trainer + K)',
-    min: 12,
+    min: 10,
     intensity: 2,
     field: 'Strafschopgebied',
     materials: [
@@ -1414,7 +1414,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 3,
     players: '3–8',
     playersDetail: '(schutters + trainer + K)',
-    min: 12,
+    min: 10,
     intensity: 4,
     field: 'Strafschopgebied + 10 m',
     materials: [
@@ -1502,7 +1502,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 10,
     players: '8 + 2 K',
     playersDetail: '(2 × 2 + 4 kaatsers + 2 K)',
-    min: 12,
+    min: 10,
     intensity: 5,
     field: '25 × 20 m',
     materials: [
@@ -1525,7 +1525,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 2,
     players: '2–10',
     playersDetail: '(schutters + K)',
-    min: 12,
+    min: 10,
     intensity: 2,
     field: 'Strafschopgebied',
     materials: [
@@ -1547,7 +1547,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 2,
     players: '2–12',
     playersDetail: '(duo’s)',
-    min: 12,
+    min: 10,
     intensity: 4,
     field: '10 × 15 m per duo',
     materials: [
@@ -1590,7 +1590,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 4,
     players: '4–12',
     playersDetail: '(2 × 2)',
-    min: 12,
+    min: 10,
     intensity: 4,
     field: '20 × 15 m',
     materials: [
@@ -1658,7 +1658,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 8,
     players: '8–10',
     playersDetail: '(4 verdedigers + 4 à 6 kaatsers)',
-    min: 12,
+    min: 10,
     intensity: 3,
     field: '40 × 20 m',
     materials: [
@@ -1794,7 +1794,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 6,
     players: '6–20',
     playersDetail: '(hele groep)',
-    min: 8,
+    min: 10,
     intensity: 4,
     field: '20 × 20 m',
     materials: [
@@ -1815,7 +1815,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 2,
     players: '2–16',
     playersDetail: '(duo’s)',
-    min: 8,
+    min: 10,
     intensity: 4,
     field: '10 × 10 m',
     materials: [
@@ -1835,7 +1835,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 2,
     players: '2–20',
     playersDetail: '(duo’s)',
-    min: 8,
+    min: 10,
     intensity: 3,
     field: '10 × 5 m per duo',
     materials: [
@@ -1918,7 +1918,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 4,
     players: '4–8',
     playersDetail: '(2 × 2)',
-    min: 12,
+    min: 10,
     intensity: 2,
     field: '12 × 8 m',
     materials: [
@@ -2209,7 +2209,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 2,
     players: '2–12',
     playersDetail: '(duo’s)',
-    min: 8,
+    min: 10,
     intensity: 5,
     field: '15 × 10 m per duo',
     materials: [
@@ -2551,7 +2551,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 8,
     players: '8',
     playersDetail: '(4 × 2)',
-    min: 16,
+    min: 15,
     intensity: 5,
     field: '30 × 25 m',
     materials: [
@@ -2574,7 +2574,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 12,
     players: '10 + 2 K',
     playersDetail: '(5 × 2 + 2 K)',
-    min: 24,
+    min: 25,
     intensity: 4,
     field: '50 × 35 m',
     materials: [
@@ -2667,7 +2667,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 2,
     players: '2–12',
     playersDetail: '(2 rijen)',
-    min: 12,
+    min: 10,
     intensity: 3,
     field: '20 × 5 m per rij',
     materials: [
@@ -2689,7 +2689,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 2,
     players: '2–16',
     playersDetail: '(2 parcours)',
-    min: 12,
+    min: 10,
     intensity: 4,
     field: '10 × 10 m per parcours',
     materials: [
@@ -2770,7 +2770,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 6,
     players: '6–16',
     playersDetail: '(2–4 ploegen)',
-    min: 12,
+    min: 10,
     intensity: 4,
     field: '25 × 5 m per ploeg',
     materials: [
@@ -2834,7 +2834,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 8,
     players: '8–16',
     playersDetail: '(4 groepen)',
-    min: 16,
+    min: 15,
     intensity: 3,
     field: '30 × 30 m',
     materials: [
@@ -2899,7 +2899,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 7,
     players: '6 + K',
     playersDetail: '(K + 3 + kaatser tegen 2)',
-    min: 16,
+    min: 15,
     intensity: 3,
     field: '40 × 35 m',
     materials: [
@@ -2967,7 +2967,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 7,
     players: '6 + K',
     playersDetail: '(K + 3 tegen 3)',
-    min: 16,
+    min: 15,
     intensity: 4,
     field: 'Halve veld',
     materials: [
@@ -2990,7 +2990,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 8,
     players: '7 + K',
     playersDetail: '(K + 4 tegen 3)',
-    min: 16,
+    min: 15,
     intensity: 3,
     field: '40 × 40 m',
     materials: [
@@ -3013,7 +3013,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 13,
     players: '12 + K',
     playersDetail: '(K + 6 tegen 6)',
-    min: 24,
+    min: 25,
     intensity: 4,
     field: 'Halve veld',
     materials: [
@@ -3083,7 +3083,7 @@ export const EXERCISES: Exercise[] = [
     pmin: 8,
     players: '7 + K',
     playersDetail: '(K + 4 tegen 3)',
-    min: 16,
+    min: 15,
     intensity: 3,
     field: 'Halve veld',
     materials: [
