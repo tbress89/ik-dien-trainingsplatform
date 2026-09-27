@@ -3156,11 +3156,11 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       'Vier tegen vier met keepers op grote doelen, met in elke flankzone een joker die altijd voor de balbezittende ploeg speelt. De ploegen leren het spel breed maken, de flank gebruiken en afwerken na een voorzet.',
     steps: [
       { title: 'Opstelling.', text: 'Zet een veld van 40 × 30 m uit met twee grote doelen en keepers. Markeer langs beide zijlijnen met kegels een flankzone van 5 meter breed, met in elke zone een joker.' },
-      { title: 'Jokers.', text: 'De jokers spelen altijd mee met de ploeg in balbezit en blijven in hun flankzone. Ze spelen met maximaal twee balcontacten en verdedigers mogen de flankzones niet in.' },
+      { title: 'Jokers.', text: 'De jokers spelen altijd mee met de ploeg in balbezit en blijven in hun flankzone. Ze spelen met maximaal twee balcontacten. Krijgt een joker de bal, dan mag één verdediger de flankzone in om druk te zetten, zodat de joker niet ongehinderd kan opdribbelen.' },
       { title: 'Scoren.', text: 'Een doelpunt telt gewoon, een doelpunt na een voorzet van een joker telt dubbel.' },
       { title: 'Ritme.', text: 'Speel 4 reeksen van 4 minuten met 1 minuut rust. Wissel de jokers na elke reeks.' },
     ],
-    easier: 'Laat de jokers vrij opdribbelen tot aan de achterlijn en geef ze drie balcontacten.',
+    easier: 'Verdedigers mogen de flankzones niet in, zodat de joker vrij kan voorzetten, en geef de jokers drie balcontacten.',
     harder: 'De jokers spelen met één balcontact, of een doelpunt telt alleen na een pass van een joker.',
     objectives: ['Het spel breed maken', 'Flankspel', 'Afwerken na voorzet', 'Inlopen in de zestien'],
     coaching: [
@@ -3172,7 +3172,7 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
     diagramSteps: [
       ['Organisatie', 'Vier tegen vier met een joker op elke flank'],
       ['Naar de flank', 'Pass naar de joker'],
-      ['Opdribbelen', 'De joker dribbelt op langs de zijlijn'],
+      ['Druk op de flank', 'Een verdediger stapt de flankzone in, de joker moet snel beslissen'],
       ['Voorzet', 'Voorzet naar de inlopende spits'],
     ],
     related: [
