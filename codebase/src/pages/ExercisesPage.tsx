@@ -16,13 +16,13 @@ import {
   AGES,
   DIFFICULTY,
   EXERCISES,
-  PHASES,
+  THEMES,
   TYPES,
   TYPE_COLOR,
   type AgeGroup,
   type Exercise,
   type ExerciseType,
-  type Phase,
+  type Theme,
 } from '../data/exercises';
 import { recommendedRank } from '../data/recommended';
 import { BLOCKS, trainingPath, useTraining } from '../data/training';
@@ -39,7 +39,7 @@ function toggle<T>(list: T[], v: T): T[] {
 export function ExercisesPage() {
   const [ages, setAges] = useState<AgeGroup[]>([]);
   const [types, setTypes] = useState<ExerciseType[]>([]);
-  const [phases, setPhases] = useState<Phase[]>([]);
+  const [themes, setThemes] = useState<Theme[]>([]);
   const [diff, setDiff] = useState(0);
   const [maxPlayers, setMaxPlayers] = useState(MAX_PLAYERS);
   const [query, setQuery] = useState('');
@@ -51,7 +51,7 @@ export function ExercisesPage() {
   const reset = () => {
     setAges([]);
     setTypes([]);
-    setPhases([]);
+    setThemes([]);
     setDiff(0);
     setMaxPlayers(MAX_PLAYERS);
     setQuery('');
@@ -59,16 +59,16 @@ export function ExercisesPage() {
 
   const matches = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return (e: Exercise, skipPhase = false) => {
+    return (e: Exercise, skipTheme = false) => {
       if (ages.length && !e.ages.some((a) => ages.includes(a))) return false;
       if (types.length && !types.includes(e.type)) return false;
-      if (!skipPhase && phases.length && !phases.includes(e.phase)) return false;
+      if (!skipTheme && themes.length && !e.themes.some((t) => themes.includes(t))) return false;
       if (diff && e.diff !== diff) return false;
       if (e.pmin > maxPlayers) return false;
       if (q && !e.title.toLowerCase().includes(q)) return false;
       return true;
     };
-  }, [ages, types, phases, diff, maxPlayers, query]);
+  }, [ages, types, themes, diff, maxPlayers, query]);
 
   const list = useMemo(() => {
     const l = EXERCISES.filter((e) => matches(e));
@@ -82,7 +82,7 @@ export function ExercisesPage() {
   const active: { label: string; remove: () => void }[] = [
     ...ages.map((a) => ({ label: a.replace('–', ' – U'), remove: () => setAges((s) => toggle(s, a)) })),
     ...types.map((t) => ({ label: t, remove: () => setTypes((s) => toggle(s, t)) })),
-    ...phases.map((p) => ({ label: p, remove: () => setPhases((s) => toggle(s, p)) })),
+    ...themes.map((t) => ({ label: t, remove: () => setThemes((s) => toggle(s, t)) })),
     ...(diff ? [{ label: DIFFICULTY[diff], remove: () => setDiff(0) }] : []),
     ...(maxPlayers < MAX_PLAYERS ? [{ label: `Tot ${maxPlayers} spelers`, remove: () => setMaxPlayers(MAX_PLAYERS) }] : []),
   ];
@@ -120,8 +120,21 @@ export function ExercisesPage() {
           </div>
         </section>
 
+        <fieldset className="filter-group" style={{ gap: 10 }}>
+          <legend className="eyebrow" style={{ marginBottom: 12 }}>
+            Thema
+          </legend>
+          {THEMES.map((t) => (
+            <label key={t} className="check-row">
+              <input type="checkbox" checked={themes.includes(t)} onChange={() => setThemes((s) => toggle(s, t))} />
+              <span className="grow">{t}</span>
+              <span className="count">{EXERCISES.filter((e) => e.themes.includes(t) && matches(e, true)).length}</span>
+            </label>
+          ))}
+        </fieldset>
+
         <section className="filter-group">
-          <h3 className="eyebrow">Thema · type oefening</h3>
+          <h3 className="eyebrow">Type oefening</h3>
           <div className="chip-wrap">
             {TYPES.map((t) => {
               const on = types.includes(t.name);
@@ -140,19 +153,6 @@ export function ExercisesPage() {
             })}
           </div>
         </section>
-
-        <fieldset className="filter-group" style={{ gap: 10 }}>
-          <legend className="eyebrow" style={{ marginBottom: 12 }}>
-            Speelfase
-          </legend>
-          {PHASES.map((p) => (
-            <label key={p} className="check-row">
-              <input type="checkbox" checked={phases.includes(p)} onChange={() => setPhases((s) => toggle(s, p))} />
-              <span className="grow">{p}</span>
-              <span className="count">{EXERCISES.filter((e) => e.phase === p && matches(e, true)).length}</span>
-            </label>
-          ))}
-        </fieldset>
 
         <section className="filter-group">
           <h3 className="eyebrow">Moeilijkheid</h3>

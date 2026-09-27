@@ -38,7 +38,7 @@ input:focus-visible,button:focus-visible,select:focus-visible,a:focus-visible{ou
 
 <section style="display: flex; flex-direction: column; gap: 10px">
 <h3 style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #625A78">Thema</h3>
-<sc-for list="{{themeChecks}}" as="p" hint-placeholder-count="7">
+<sc-for list="{{themeChecks}}" as="p" hint-placeholder-count="9">
 <label style="display: flex; align-items: center; gap: 12px; min-height: 32px; font-size: 15px; cursor: pointer">
 <input type="checkbox" checked="{{p.on}}" onChange="{{p.toggle}}" style="width: 18px; height: 18px; margin: 0">
 <span style="flex-grow: 1">{{p.label}}</span>
@@ -54,17 +54,6 @@ input:focus-visible,button:focus-visible,select:focus-visible,a:focus-visible{ou
 <button type="button" aria-pressed="{{c.on}}" onClick="{{c.toggle}}" style="height: 36px; padding: 0 14px 0 12px; border-radius: 999px; font: inherit; font-size: 14px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 8px; {{c.st}}"><span style="width: 8px; height: 8px; border-radius: 99px; background: {{c.dot}}"></span>{{c.label}}</button>
 </sc-for>
 </div>
-</section>
-
-<section style="display: flex; flex-direction: column; gap: 10px">
-<h3 style="margin: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #625A78">Speelfase</h3>
-<sc-for list="{{phaseChecks}}" as="p" hint-placeholder-count="4">
-<label style="display: flex; align-items: center; gap: 12px; min-height: 32px; font-size: 15px; cursor: pointer">
-<input type="checkbox" checked="{{p.on}}" onChange="{{p.toggle}}" style="width: 18px; height: 18px; margin: 0">
-<span style="flex-grow: 1">{{p.label}}</span>
-<span style="font-size: 13px; color: #625A78">{{p.count}}</span>
-</label>
-</sc-for>
 </section>
 
 <section style="display: flex; flex-direction: column; gap: 12px">
@@ -308,7 +297,6 @@ var EX = [
 var AGES = ['U6–9', 'U10–13', 'U14–15', 'U16–21'];
 var TYPES = [['Warming-up', '#F2A541'], ['Technisch', '#3B8FD9'], ['Tactisch', '#5B2BC4'], ['Fysiek', '#E0527A'], ['Partijvorm', '#1A1033']];
 var THEMES = ['Omschakelen', 'Positiespel', 'Opbouw van achteruit', 'Druk zetten', 'Afwerken', 'Dribbelen', 'Passing & aanname', 'Keeper', 'Fysiek'];
-var PHASES = ['Aanvallen', 'Verdedigen', 'Omschakelen → aanval', 'Omschakelen → verdediging'];
 var DIFF = ['Alle', 'Basis', 'Gemiddeld', 'Gevorderd'];
 var ON = 'background:#5B2BC4;color:#FFFFFF;border:1px solid #5B2BC4';
 var OFF = 'background:#FFFFFF;color:#1A1033;border:1px solid #E4DDF3';
@@ -316,7 +304,7 @@ var OFF = 'background:#FFFFFF;color:#1A1033;border:1px solid #E4DDF3';
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { ages: [], types: [], phases: [], themes: [], diff: 0, maxPlayers: 22, query: '', sort: 'relevant', favs: ['trans'] };
+    this.state = { ages: [], types: [], themes: [], diff: 0, maxPlayers: 22, query: '', sort: 'relevant', favs: ['trans'] };
   }
   tog(key, v) {
     var cur = this.state[key].slice();
@@ -331,7 +319,6 @@ class Component extends DCLogic {
       if (skip !== 'theme' && st.themes.length && !e.themes.some(function (t) { return st.themes.indexOf(t) >= 0; })) return false;
       if (st.ages.length && !e.ages.some(function (a) { return st.ages.indexOf(a) >= 0; })) return false;
       if (st.types.length && st.types.indexOf(e.type) < 0) return false;
-      if (skip !== 'phase' && st.phases.length && st.phases.indexOf(e.phase) < 0) return false;
       if (st.diff && e.diff !== st.diff) return false;
       if (e.pmin > st.maxPlayers) return false;
       if (q && e.title.toLowerCase().indexOf(q) < 0) return false;
@@ -358,7 +345,6 @@ class Component extends DCLogic {
     st.ages.forEach(function (a) { active.push({ label: a.replace('U', 'U').replace('–', ' – U'), remove: function () { self.tog('ages', a); } }); });
     st.themes.forEach(function (t) { active.push({ label: t, remove: function () { self.tog('themes', t); } }); });
     st.types.forEach(function (t) { active.push({ label: t, remove: function () { self.tog('types', t); } }); });
-    st.phases.forEach(function (p) { active.push({ label: p, remove: function () { self.tog('phases', p); } }); });
     if (st.diff) active.push({ label: DIFF[st.diff], remove: function () { self.setState({ diff: 0 }); } });
     if (st.maxPlayers < 22) active.push({ label: 'Tot ' + st.maxPlayers + ' spelers', remove: function () { self.setState({ maxPlayers: 22 }); } });
     return {
@@ -370,7 +356,6 @@ class Component extends DCLogic {
       ageChips: AGES.map(function (a) { var on = st.ages.indexOf(a) >= 0; return { label: a.replace('–', '-U'), on: on, st: on ? ON : OFF, toggle: function () { self.tog('ages', a); } }; }),
       typeChips: TYPES.map(function (t) { var on = st.types.indexOf(t[0]) >= 0; return { label: t[0], dot: on ? '#FFFFFF' : t[1], on: on, st: on ? ON : OFF, toggle: function () { self.tog('types', t[0]); } }; }),
       themeChecks: THEMES.map(function (t) { return { label: t, on: st.themes.indexOf(t) >= 0, count: EX.filter(function (e) { return e.themes.indexOf(t) >= 0 && match(e, 'theme'); }).length, toggle: function () { self.tog('themes', t); } }; }),
-      phaseChecks: PHASES.map(function (p) { return { label: p, on: st.phases.indexOf(p) >= 0, count: EX.filter(function (e) { return e.phase === p && match(e, 'phase'); }).length, toggle: function () { self.tog('phases', p); } }; }),
       diffSeg: DIFF.map(function (d, i) { var on = st.diff === i; return { label: d, on: on, st: on ? 'background:#5B2BC4;color:#FFFFFF' : 'background:transparent;color:#3D3552', pick: function () { self.setState({ diff: i }); } }; }),
       maxPlayers: st.maxPlayers,
       setPlayers: function (ev) { self.setState({ maxPlayers: parseInt(ev.target.value, 10) }); },
@@ -378,7 +363,7 @@ class Component extends DCLogic {
       setQuery: function (ev) { self.setState({ query: ev.target.value }); },
       sort: st.sort,
       setSort: function (ev) { self.setState({ sort: ev.target.value }); },
-      reset: function () { self.setState({ ages: [], types: [], phases: [], themes: [], diff: 0, maxPlayers: 22, query: '' }); }
+      reset: function () { self.setState({ ages: [], types: [], themes: [], diff: 0, maxPlayers: 22, query: '' }); }
     };
   }
 }
