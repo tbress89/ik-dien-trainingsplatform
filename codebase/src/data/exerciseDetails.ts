@@ -1492,26 +1492,28 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
   },
   prelay: {
     summary:
-      'Ploegjes staan op een lijn met telkens 5 meter tussen de spelers en passen de bal zo snel mogelijk naar het einde en terug. Een wedstrijdvorm die snel én zuiver passen beloont.',
+      'Ploegjes staan op een lijn met vóór elke speler een poortje van twee kegels en een keerkegel achter de laatste. De bal gaat door elk poortje naar de volgende speler, die aanneemt, draait en door het volgende poortje past: een wedstrijdvorm die snel én zuiver passen beloont.',
     steps: [
-      { title: 'Opstelling.', text: 'Maak ploegen van 3 tot 4 spelers. Elke ploeg staat op een lijn, met 5 meter tussen de spelers.' },
-      { title: 'Estafette.', text: 'De eerste speler past naar de tweede, die aanneemt, draait en doorpast, tot de bal bij de laatste is. Daarna gaat de bal terug naar de eerste.' },
-      { title: 'Wedstrijd.', text: 'Welke ploeg is eerst drie keer heen en terug? Een bal die van de lijn gaat, moet opnieuw vanaf de vorige speler.' },
+      { title: 'Opstelling.', text: 'Maak ploegen van 3 tot 4 spelers. Elke ploeg staat op een lijn, met 6 meter tussen de spelers. Zet vóór elke speler, halverwege naar de volgende, een poortje van twee kegels van 1 meter breed. Zet 3 meter achter de laatste speler een keerkegel.' },
+      { title: 'Estafette.', text: 'De eerste speler past de bal door het poortje naar de tweede. Die neemt aan, draait en past door het volgende poortje, tot de bal bij de laatste is. Die dribbelt rond de keerkegel, en daarna gaat de bal op dezelfde manier door de poortjes terug naar de eerste.' },
+      { title: 'Wedstrijd.', text: 'Welke ploeg is eerst drie keer heen en terug? Gaat de bal niet door het poortje, dan pas je opnieuw vanaf je plaats.' },
       { title: 'Ritme.', text: 'Speel 5 races met 1 minuut rust, en wissel telkens de volgorde in de rij.' },
     ],
-    easier: 'Verklein de afstand tot 3 meter en laat de spelers de bal eerst stilleggen.',
-    harder: 'Speel alleen met de zwakste voet, of neem aan en draai in één beweging.',
+    easier: 'Maak de poortjes 2 meter breed, verklein de afstand tot 4 meter en laat de spelers de bal eerst stilleggen.',
+    harder: 'Maak de poortjes smaller, speel alleen met de zwakste voet, of neem aan en draai in één beweging.',
     objectives: ['Snel en zuiver passen', 'Aannemen en draaien', 'Samenwerken', 'Plezier in het spel'],
     coaching: [
       'Sta open: neem aan en draai in één beweging.',
-      'Liever een zuivere pass dan een harde die mis gaat.',
+      'Mik door het midden van het poortje: liever zuiver dan hard.',
       'Roep om de bal, zodat je ploegmaat weet waar je staat.',
       'Standbeen naast de bal bij elke pass.',
     ],
     diagramSteps: [
-      ['Organisatie', 'Twee ploegen op een lijn'],
-      ['Eerste pass', 'De race begint'],
-      ['Doorpassen', 'Aannemen, draaien en doorpassen'],
+      ['Organisatie', 'Twee ploegen op een lijn, met een poortje vóór elke speler'],
+      ['Eerste pass', 'De race begint: door het eerste poortje'],
+      ['Doorpassen', 'Aannemen, draaien en door het volgende poortje'],
+      ['Keerpunt', 'De laatste speler dribbelt rond de keerkegel'],
+      ['Terug', 'De bal gaat door de poortjes terug'],
     ],
     related: [
       { id: 'pline', fit: 'Zelfde thema' },

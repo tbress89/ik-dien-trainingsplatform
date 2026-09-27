@@ -1310,7 +1310,7 @@ export const EXERCISES: Exercise[] = [
     intensity: 3,
     field: '20 × 15 m',
     materials: [
-      { name: 'Kegels', qty: '8' },
+      { name: 'Kegels', qty: '7 per ploeg' },
       { name: 'Ballen', qty: '1 per ploeg' },
     ],
   },
