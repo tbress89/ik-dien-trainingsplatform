@@ -3995,11 +3995,12 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       '2 en 5: ga hoger om ruimte te maken, en loop je in tweede instantie vrij.',
     ],
     diagramSteps: [
-      ['Organisatie', 'Opbouwzone en aanvalszone, drie verdedigers'],
+      ['Organisatie', 'Opbouwzone en aanvalszone, drie verdedigers; de 7 en de 11 wachten langs de kant'],
       ['Loskomen', '3 en 10 bewegen diagonaal van elkaar weg, richting keeper'],
       ['Kort', 'De keeper speelt de 3 aan'],
       ['Diep', 'Of meteen de pass op de 10 in de aanvalszone'],
       ['Infiltreren', 'De 3 mag de aanvalszone in'],
+      ['Balverlies', 'Na een onderschepping komen de 7 en de 11 erbij'],
     ],
     related: [
       { id: 'psbuild', fit: 'Als warming-up' },

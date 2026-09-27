@@ -21,6 +21,7 @@ export function Pitch({ variant, step = Infinity }: Props) {
   const id = useId().replace(/:/g, '');
   const arP = `arP${id}`;
   const arK = `arK${id}`;
+  const arO = `arO${id}`;
 
   // Primitives
   // Players take an optional label, e.g. a shirt number or 'K', drawn inside the dot.
@@ -39,16 +40,36 @@ export function Pitch({ variant, step = Infinity }: Props) {
         {label}
       </text>
     );
-  const P = (x: number, y: number, label?: string) => (
+  // P and O also take an optional `joinsAt`: the diagram step from which the player takes part. Before
+  // that step they are drawn as a waiting player (hollow, dashed outline), e.g. a substitute on the side.
+  const Waiting = (x: number, y: number, label: string | undefined, color: string) => (
+    <>
+      <circle cx={x} cy={y} r={8} fill="#fff" stroke={color} strokeWidth={1.5} strokeDasharray="2.5 2" />
+      {Label(x, y, label, color)}
+    </>
+  );
+  const P = (x: number, y: number, label?: string, joinsAt?: number) => (
     <g key={`p${x}-${y}`}>
-      <circle cx={x} cy={y} r={8} fill={PURPLE} stroke="#fff" strokeWidth={2} />
-      {Label(x, y, label, '#fff')}
+      {joinsAt !== undefined && step < joinsAt ? (
+        Waiting(x, y, label, PURPLE)
+      ) : (
+        <>
+          <circle cx={x} cy={y} r={8} fill={PURPLE} stroke="#fff" strokeWidth={2} />
+          {Label(x, y, label, '#fff')}
+        </>
+      )}
     </g>
   );
-  const O = (x: number, y: number, label?: string) => (
+  const O = (x: number, y: number, label?: string, joinsAt?: number) => (
     <g key={`o${x}-${y}`}>
-      <circle cx={x} cy={y} r={8} fill={ORANGE} stroke="#fff" strokeWidth={2} />
-      {Label(x, y, label, INK)}
+      {joinsAt !== undefined && step < joinsAt ? (
+        Waiting(x, y, label, ORANGE)
+      ) : (
+        <>
+          <circle cx={x} cy={y} r={8} fill={ORANGE} stroke="#fff" strokeWidth={2} />
+          {Label(x, y, label, INK)}
+        </>
+      )}
     </g>
   );
   const N = (x: number, y: number, label?: string) => (
@@ -97,6 +118,11 @@ export function Pitch({ variant, step = Infinity }: Props) {
   const Run = (d: string, at = 2) =>
     step >= at && (
       <path key={`ru${d}`} d={d} fill="none" stroke={PURPLE} strokeWidth={2} strokeLinecap="round" markerEnd={`url(#${arP})`} />
+    );
+  // An opponent's run: the same solid arrow in orange (no default step; always pass `at`).
+  const ORun = (d: string, at: number) =>
+    step >= at && (
+      <path key={`or${d}`} d={d} fill="none" stroke={ORANGE} strokeWidth={2} strokeLinecap="round" markerEnd={`url(#${arO})`} />
     );
 
   const content: Record<Variant, ReactNode[]> = {
@@ -1348,8 +1374,10 @@ export function Pitch({ variant, step = Infinity }: Props) {
       Pass(30, 106, 64, 134, 2),
       Pass(32, 96, 154, 82, 3),
       Run('M78 144 Q130 156 196 138', 4),
+      ORun('M100 22 Q106 40 104 58', 5),
+      ORun('M100 178 Q106 160 104 142', 5),
       P(24, 100, 'K'), P(130, 18, '5'), P(130, 182, '2'), P(98, 124, '3'), P(172, 100, '10'),
-      O(296, 100, 'K'), O(116, 114, '9'), O(180, 36, '2'), O(180, 164, '5'),
+      O(296, 100, 'K'), O(116, 114, '9'), O(180, 36, '2'), O(180, 164, '5'), O(96, 14, '7', 5), O(96, 186, '11', 5),
       Ball(31, 104),
     ],
   };
@@ -1374,6 +1402,9 @@ export function Pitch({ variant, step = Infinity }: Props) {
         </marker>
         <marker id={arK} viewBox="0 0 10 10" refX={8} refY={5} markerWidth={6} markerHeight={6} orient="auto">
           <path d="M0 0L10 5L0 10z" fill={INK} />
+        </marker>
+        <marker id={arO} viewBox="0 0 10 10" refX={8} refY={5} markerWidth={6} markerHeight={6} orient="auto">
+          <path d="M0 0L10 5L0 10z" fill={ORANGE} />
         </marker>
       </defs>
       {content[variant]}
