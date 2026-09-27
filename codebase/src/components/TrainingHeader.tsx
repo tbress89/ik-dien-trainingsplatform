@@ -2,7 +2,6 @@ import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { EXERCISES, THEMES } from '../data/exercises';
 import {
-  DEFAULT_TEAM,
   MONTH_NAMES,
   TRAINING_WEEKDAYS,
   formatTrainingDate,
@@ -36,7 +35,7 @@ export function TrainingHeader() {
             size={Math.max(4, team.length + 1)}
             placeholder="Team"
             onChange={(ev) => setTeam(ev.target.value)}
-            onBlur={() => setTeam(team.trim() || DEFAULT_TEAM)}
+            onBlur={() => setTeam(team.trim())}
           />
           <span className="title-icon">
             <PencilIcon size={18} />

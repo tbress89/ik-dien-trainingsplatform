@@ -15,6 +15,7 @@
   --surface: #fbfafe;
   --surface-2: #f7f5fc;
   --warn: #9a5b00;
+  --danger: #b42318;
   --ok: #1a7f5a;
   --lavender: #ddd3f6;
 
@@ -885,8 +886,10 @@ a:focus-visible,
 }
 .theme-badge {
   align-self: flex-start;
+  max-width: 100%;
   height: 20px;
   padding: 0 7px;
+  white-space: nowrap;
   border-radius: 5px;
   background: var(--purple-dark);
   color: #fff;
@@ -895,6 +898,15 @@ a:focus-visible,
   display: flex;
   align-items: center;
   gap: 4px;
+}
+.theme-badge svg {
+  flex-shrink: 0;
+}
+/* Long themes stay on one line and are cut off with an ellipsis; the full theme is in the title tooltip. */
+.theme-badge-text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .lib-title {
   font-size: 14px;
@@ -1244,6 +1256,60 @@ a:focus-visible,
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+}
+.btn-danger {
+  border: 0;
+  background: var(--danger);
+  color: #fff;
+  font-weight: 700;
+}
+.btn-danger:hover {
+  background: #912018;
+  color: #fff;
+}
+.btn-danger-ghost {
+  color: var(--danger);
+}
+.btn-danger-ghost:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.confirm-dialog {
+  width: min(440px, calc(100vw - 32px));
+  padding: 0;
+  border: 0;
+  border-radius: 18px;
+  box-shadow: 0 24px 64px rgba(26, 16, 51, 0.28);
+  color: var(--ink);
+}
+.confirm-dialog::backdrop {
+  background: rgba(26, 16, 51, 0.45);
+}
+.confirm-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.confirm-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.confirm-text {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+.confirm-actions {
+  margin-top: 8px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
 }
 
 .timeline {

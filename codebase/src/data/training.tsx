@@ -1,6 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
-import { EXERCISE_BY_ID, type Theme } from './exercises';
-import { SESSIONS, type Session } from './sessions';
+import { EXERCISE_BY_ID, THEMES, type Theme } from './exercises';
 
 export type BlockId = 'wu' | 'kern' | 'pv';
 
@@ -32,8 +31,6 @@ export const MONTH_NAMES = ['januari', 'februari', 'maart', 'april', 'mei', 'jun
 /** The team's regular training weekdays (0 = Sunday), highlighted in the date picker. */
 export const TRAINING_WEEKDAYS = [2, 4];
 
-export const DEFAULT_TEAM = 'U11 Rangers';
-
 /** "2026-09-29" → Date at local midnight. */
 export const parseISODate = (iso: string) => {
   const [y, m, d] = iso.split('-').map(Number);
@@ -61,21 +58,36 @@ export const clampMinutes = (m: number) => Math.max(5, Math.min(45, m));
 
 export const todayISO = () => toISODate(new Date());
 
-/** A training being edited in the builder; `id` is null until it's saved for the first time. */
-export interface Training {
-  id: string | null;
+/** A saved training. */
+export interface Session {
+  id: string;
+  /** ISO date, e.g. "2026-09-29". */
   date: string;
   team: string;
   theme: Theme;
   duration: Duration;
   plan: Plan;
-  attendance?: number;
+  /** When the training was last saved (ms since epoch); a new training takes the team of the latest one. */
+  savedAt: number;
+}
+
+/** A training being edited in the builder; `id` is null until it's saved for the first time. */
+export type Training = Omit<Session, 'id' | 'savedAt'> & { id: string | null };
+
+/** The team of the most recently saved training, or '' when there are no saved trainings yet. */
+export function lastTeam(trainings: Session[]): string {
+  let latest: Session | undefined;
+  for (const t of trainings) if (!latest || t.savedAt >= latest.savedAt) latest = t;
+  return latest?.team ?? '';
 }
 
 /** Builder URL for a training: `/trainingen/nieuw` or `/trainingen/<id>`. */
 export const trainingPath = (id: string | null) => `/trainingen/${id ?? 'nieuw'}`;
 
 const copyPlan = (p: Plan): Plan => ({ wu: [...p.wu], kern: [...p.kern], pv: [...p.pv] });
+
+/** Unique id that stays unique across page loads (trainings and plan items are stored). */
+const newId = (prefix: string) => `${prefix}${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
 
 /** First regular training day from today on that doesn't have a training yet. */
 function nextFreeTrainingDay(busy: string[]): string {
@@ -98,6 +110,8 @@ interface TrainingContextValue {
   newTraining: (duration?: Duration) => void;
   /** Writes the draft into `sessions` and returns its id. */
   saveTraining: () => string;
+  /** Removes a saved training; if it's open in the builder, the builder starts a new one. */
+  deleteTraining: (id: string) => void;
   date: string;
   setDate: (iso: string) => void;
   team: string;
@@ -140,13 +154,94 @@ function storeFavs(favs: string[]) {
   }
 }
 
+/**
+ * Saved trainings are kept in this browser only (there are no accounts yet), like the saved exercises.
+ * Stored data is validated on load, so a malformed entry or an exercise that no longer exists can't break the pages.
+ */
+const TRAININGS_KEY = 'ikdien:trainingen';
+
+const isRecord = (v: unknown): v is Record<string, unknown> => typeof v === 'object' && v !== null;
+
+function readPlan(raw: unknown): Plan {
+  const plan: Plan = { wu: [], kern: [], pv: [] };
+  if (!isRecord(raw)) return plan;
+  for (const b of BLOCKS) {
+    const items = raw[b.id];
+    if (!Array.isArray(items)) continue;
+    for (const it of items) {
+      if (!isRecord(it) || typeof it.ex !== 'string' || !(it.ex in EXERCISE_BY_ID)) continue;
+      const min = typeof it.min === 'number' && Number.isFinite(it.min) ? clampMinutes(Math.round(it.min / 5) * 5) : EXERCISE_BY_ID[it.ex].min;
+      plan[b.id].push({ uid: typeof it.uid === 'string' ? it.uid : newId('i'), ex: it.ex, min });
+    }
+  }
+  return plan;
+}
+
+function loadTrainings(): Session[] {
+  try {
+    const stored: unknown = JSON.parse(localStorage.getItem(TRAININGS_KEY) ?? '[]');
+    if (!Array.isArray(stored)) return [];
+    const trainings: Session[] = [];
+    for (const t of stored) {
+      if (!isRecord(t) || typeof t.id !== 'string' || typeof t.date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(t.date)) continue;
+      if (trainings.some((x) => x.id === t.id)) continue;
+      trainings.push({
+        id: t.id,
+        date: t.date,
+        team: typeof t.team === 'string' ? t.team.trim() : '',
+        theme: (THEMES as readonly unknown[]).includes(t.theme) ? (t.theme as Theme) : THEMES[0],
+        duration: (DURATIONS as readonly unknown[]).includes(t.duration) ? (t.duration as Duration) : 90,
+        plan: readPlan(t.plan),
+        savedAt: typeof t.savedAt === 'number' && Number.isFinite(t.savedAt) ? t.savedAt : 0,
+      });
+    }
+    return trainings;
+  } catch {
+    return [];
+  }
+}
+
+function storeTrainings(trainings: Session[]) {
+  try {
+    localStorage.setItem(TRAININGS_KEY, JSON.stringify(trainings));
+  } catch {
+    // Storage unavailable (private mode, blocked site data): trainings still work until the page is closed.
+  }
+}
+
+const emptyTraining = (trainings: Session[], duration: Duration = 90): Training => ({
+  id: null,
+  date: nextFreeTrainingDay(trainings.map((s) => s.date)),
+  team: lastTeam(trainings),
+  theme: 'Omschakelen',
+  duration,
+  plan: { wu: [], kern: [], pv: [] },
+});
+
 export function TrainingProvider({ children }: { children: ReactNode }) {
-  const [sessions, setSessions] = useState<Session[]>(SESSIONS);
-  // The builder opens on the first training in the list until another one is chosen.
-  const [draft, setDraft] = useState<Training>(() => ({ ...SESSIONS[0], plan: copyPlan(SESSIONS[0].plan) }));
-  const [activeBlock, setActiveBlock] = useState<BlockId>('kern');
+  const [sessions, setSessions] = useState<Session[]>(loadTrainings);
+  // The builder opens on a new, empty training until an existing one is chosen.
+  const [draft, setDraft] = useState<Training>(() => emptyTraining(sessions));
+  const [activeBlock, setActiveBlock] = useState<BlockId>('wu');
   const [favs, setFavs] = useState<string[]>(loadFavs);
-  const uid = useRef(10);
+
+  // Persist every change, and pick up changes made in another tab.
+  const skipStore = useRef(true);
+  useEffect(() => {
+    if (skipStore.current) {
+      skipStore.current = false;
+      return;
+    }
+    storeTrainings(sessions);
+  }, [sessions]);
+  useEffect(() => {
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === TRAININGS_KEY) setSessions(loadTrainings());
+      if (e.key === FAVS_KEY) setFavs(loadFavs());
+    };
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
+  }, []);
 
   const busyDates = useMemo(() => sessions.filter((s) => s.id !== draft.id).map((s) => s.date), [sessions, draft.id]);
 
@@ -169,29 +264,31 @@ export function TrainingProvider({ children }: { children: ReactNode }) {
 
   const newTraining = useCallback(
     (duration: Duration = 90) => {
-      setDraft({
-        id: null,
-        date: nextFreeTrainingDay(sessions.map((s) => s.date)),
-        team: DEFAULT_TEAM,
-        theme: 'Omschakelen',
-        duration,
-        plan: { wu: [], kern: [], pv: [] },
-      });
+      setDraft(emptyTraining(sessions, duration));
       setActiveBlock('wu');
     },
     [sessions],
   );
 
   const saveTraining = useCallback(() => {
-    const id = draft.id ?? `t${uid.current++}`;
-    const saved: Session = { ...draft, id, plan: copyPlan(draft.plan) };
+    const id = draft.id ?? newId('t');
+    const saved: Session = { ...draft, id, team: draft.team.trim(), plan: copyPlan(draft.plan), savedAt: Date.now() };
     setSessions((list) => (list.some((s) => s.id === id) ? list.map((s) => (s.id === id ? saved : s)) : [...list, saved]));
     setDraft((d) => ({ ...d, id }));
     return id;
   }, [draft]);
 
+  const deleteTraining = useCallback(
+    (id: string) => {
+      const rest = sessions.filter((s) => s.id !== id);
+      setSessions(rest);
+      setDraft((d) => (d.id === id ? emptyTraining(rest) : d));
+    },
+    [sessions],
+  );
+
   const addExercise = useCallback((block: BlockId, exId: string, min?: number) => {
-    const item = { uid: `n${uid.current++}`, ex: exId, min: min ?? EXERCISE_BY_ID[exId].min };
+    const item = { uid: newId('i'), ex: exId, min: min ?? EXERCISE_BY_ID[exId].min };
     setPlan((p) => ({ ...p, [block]: [...p[block], item] }));
     setActiveBlock(block);
   }, []);
@@ -232,6 +329,7 @@ export function TrainingProvider({ children }: { children: ReactNode }) {
       openTraining,
       newTraining,
       saveTraining,
+      deleteTraining,
       date: draft.date,
       setDate,
       team: draft.team,
@@ -250,7 +348,7 @@ export function TrainingProvider({ children }: { children: ReactNode }) {
       favs,
       toggleFav,
     }),
-    [sessions, draft, busyDates, openTraining, newTraining, saveTraining, setDate, setTeam, setTheme, setDuration, activeBlock, addExercise, removeItem, changeMinutes, moveItem, favs, toggleFav],
+    [sessions, draft, busyDates, openTraining, newTraining, saveTraining, deleteTraining, setDate, setTeam, setTheme, setDuration, activeBlock, addExercise, removeItem, changeMinutes, moveItem, favs, toggleFav],
   );
 
   return <TrainingContext.Provider value={value}>{children}</TrainingContext.Provider>;

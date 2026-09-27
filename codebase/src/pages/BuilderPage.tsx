@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type DragEvent } from 'react';
 import { Link, Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Pitch } from '../components/Pitch';
+import { ConfirmDialog } from '../components/ConfirmDialog';
 import { TrainingHeader } from '../components/TrainingHeader';
 import {
   BookmarkIcon,
@@ -10,9 +11,10 @@ import {
   PlusIcon,
   SearchIcon,
   TagIcon,
+  TrashIcon,
 } from '../components/icons';
 import { EXERCISES, EXERCISE_BY_ID, TYPE_COLOR, materialNames, shortAgeLabel, type Exercise, type ExerciseType } from '../data/exercises';
-import { BLOCKS, BLOCK_TARGETS, DURATIONS, trainingPath, useTraining, type BlockId } from '../data/training';
+import { BLOCKS, BLOCK_TARGETS, DURATIONS, formatTrainingDate, trainingPath, useTraining, type BlockId } from '../data/training';
 
 /** "Bewaard" shows the exercises saved with the bookmark on the dashboard or an exercise page. */
 const TABS: ('Alle' | 'Bewaard' | ExerciseType)[] = ['Alle', 'Bewaard', 'Warming-up', 'Technisch', 'Tactisch', 'Partijvorm'];
@@ -20,13 +22,14 @@ const TABS: ('Alle' | 'Bewaard' | ExerciseType)[] = ['Alle', 'Bewaard', 'Warming
 type DragSource = { src: 'lib'; ex: string } | { src: 'card'; from: BlockId; idx: number };
 
 export function BuilderPage() {
-  const { sessions, draftId, openTraining, newTraining, saveTraining, plan, duration, setDuration, theme, activeBlock, setActiveBlock, addExercise, removeItem, changeMinutes, moveItem, favs } = useTraining();
+  const { sessions, draftId, openTraining, newTraining, saveTraining, deleteTraining, date, team, plan, duration, setDuration, theme, activeBlock, setActiveBlock, addExercise, removeItem, changeMinutes, moveItem, favs } = useTraining();
   const [tab, setTab] = useState<(typeof TABS)[number]>('Alle');
   const [query, setQuery] = useState('');
   const [hover, setHover] = useState<BlockId | null>(null);
   const [dragging, setDragging] = useState<DragSource | null>(null);
   const drag = useRef<DragSource | null>(null);
   const [toast, setToast] = useState<string | null>(null);
+  const [confirmDelete, setConfirmDelete] = useState(false);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -165,9 +168,9 @@ export function BuilderPage() {
               </div>
               <div className="lib-info">
                 {fitsTheme(e) && (
-                  <span className="theme-badge">
+                  <span className="theme-badge" title={theme}>
                     <TagIcon />
-                    {theme}
+                    <span className="theme-badge-text">{theme}</span>
                   </span>
                 )}
                 <Link to={`/oefeningen/${e.id}`} className="lib-title" draggable={false}>
@@ -198,6 +201,12 @@ export function BuilderPage() {
         <div className="page-head">
           <TrainingHeader />
           <div className="actions">
+            {draftId && (
+              <button type="button" className="btn btn-danger-ghost" onClick={() => setConfirmDelete(true)}>
+                <TrashIcon />
+                Verwijderen
+              </button>
+            )}
             <button
               type="button"
               className="btn btn-primary"
@@ -372,6 +381,18 @@ export function BuilderPage() {
           {toast}
         </div>
       )}
+      <ConfirmDialog
+        open={confirmDelete}
+        title="Training verwijderen?"
+        text={`De training van ${formatTrainingDate(date)}${team ? ` (${team})` : ''} wordt verwijderd. Dit kan je niet ongedaan maken.`}
+        confirmLabel="Verwijderen"
+        onCancel={() => setConfirmDelete(false)}
+        onConfirm={() => {
+          if (draftId) deleteTraining(draftId);
+          setConfirmDelete(false);
+          navigate('/trainingen', { replace: true });
+        }}
+      />
     </div>
   );
 }
