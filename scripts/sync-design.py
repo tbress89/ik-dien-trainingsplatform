@@ -19,6 +19,7 @@ over there), since a missing entry would only show up as an empty detail page.
 Running it twice in a row changes nothing the second time.
 """
 import ast
+import html
 import json
 import math
 import re
@@ -184,13 +185,21 @@ PURPLE, ORANGE, INK, ZONE, CONE, WHITE = '#5B2BC4', '#F2A541', '#1A1033', '#C7B6
 
 def svg_primitive(name, args):
     """SVG markup for one Pitch.tsx primitive call, matching what the React component renders."""
-    if name in ('P', 'O'):
-        x, y = args
-        fill = PURPLE if name == 'P' else ORANGE
-        return f'<circle cx="{x}" cy="{y}" r="8" fill="{fill}" stroke="{WHITE}" stroke-width="2"></circle>'
-    if name == 'N':
-        x, y = args
-        return f'<circle cx="{x}" cy="{y}" r="7" fill="{WHITE}" stroke="{PURPLE}" stroke-width="2.5"></circle>'
+    if name in ('P', 'O', 'N'):  # players, with an optional label (shirt number or 'K') inside the dot
+        # A 4th argument (the step a waiting player joins at) only matters for the step buttons in the app;
+        # the design shows the full diagram, where every player takes part.
+        x, y = args[:2]
+        if name == 'N':
+            dot = f'<circle cx="{x}" cy="{y}" r="7" fill="{WHITE}" stroke="{PURPLE}" stroke-width="2.5"></circle>'
+        else:
+            dot = f'<circle cx="{x}" cy="{y}" r="8" fill="{PURPLE if name == "P" else ORANGE}" stroke="{WHITE}" stroke-width="2"></circle>'
+        if len(args) < 3:
+            return dot
+        label = html.escape(str(args[2]))
+        color = {'P': WHITE, 'O': INK, 'N': PURPLE}[name]
+        size = 7.5 if len(label) > 1 else 9
+        return (f'<g>{dot}<text x="{x}" y="{y}" dy="0.35em" text-anchor="middle" font-size="{size}" font-weight="700" '
+                f'fill="{color}" font-family="Figtree, system-ui, sans-serif">{label}</text></g>')
     if name == 'Ball':
         x, y = args
         return f'<circle cx="{x}" cy="{y}" r="4" fill="{WHITE}" stroke="{INK}" stroke-width="1.5"></circle>'
@@ -214,6 +223,9 @@ def svg_primitive(name, args):
         x1, y1, x2, y2 = args[:4]
         return (f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{INK}" stroke-width="1.5" '
                 f'stroke-dasharray="4 4" marker-end="url(#arK)"></line>')
+    if name == 'ORun':  # an opponent's run, in orange
+        return (f'<path d="{args[0]}" fill="none" stroke="{ORANGE}" stroke-width="2" stroke-linecap="round" '
+                f'marker-end="url(#arO)"></path>')
     if name == 'Run':
         return (f'<path d="{args[0]}" fill="none" stroke="{PURPLE}" stroke-width="2" stroke-linecap="round" '
                 f'marker-end="url(#arP)"></path>')
@@ -261,7 +273,9 @@ PITCH_BACKGROUND = (
     '<defs><marker id="arP" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">'
     '<path d="M0 0L10 5L0 10z" fill="#5B2BC4"></path></marker>'
     '<marker id="arK" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">'
-    '<path d="M0 0L10 5L0 10z" fill="#1A1033"></path></marker></defs>'
+    '<path d="M0 0L10 5L0 10z" fill="#1A1033"></path></marker>'
+    '<marker id="arO" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">'
+    '<path d="M0 0L10 5L0 10z" fill="#F2A541"></path></marker></defs>'
 )
 
 

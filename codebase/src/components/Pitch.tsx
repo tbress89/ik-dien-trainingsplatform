@@ -21,11 +21,63 @@ export function Pitch({ variant, step = Infinity }: Props) {
   const id = useId().replace(/:/g, '');
   const arP = `arP${id}`;
   const arK = `arK${id}`;
+  const arO = `arO${id}`;
 
   // Primitives
-  const P = (x: number, y: number) => <circle key={`p${x}-${y}`} cx={x} cy={y} r={8} fill={PURPLE} stroke="#fff" strokeWidth={2} />;
-  const O = (x: number, y: number) => <circle key={`o${x}-${y}`} cx={x} cy={y} r={8} fill={ORANGE} stroke="#fff" strokeWidth={2} />;
-  const N = (x: number, y: number) => <circle key={`n${x}-${y}`} cx={x} cy={y} r={7} fill="#fff" stroke={PURPLE} strokeWidth={2.5} />;
+  // Players take an optional label, e.g. a shirt number or 'K', drawn inside the dot.
+  const Label = (x: number, y: number, label: string | undefined, color: string) =>
+    label && (
+      <text
+        x={x}
+        y={y}
+        dy="0.35em"
+        textAnchor="middle"
+        fontSize={label.length > 1 ? 7.5 : 9}
+        fontWeight={700}
+        fill={color}
+        fontFamily="Figtree, system-ui, sans-serif"
+      >
+        {label}
+      </text>
+    );
+  // P and O also take an optional `joinsAt`: the diagram step from which the player takes part. Before
+  // that step they are drawn as a waiting player (hollow, dashed outline), e.g. a substitute on the side.
+  const Waiting = (x: number, y: number, label: string | undefined, color: string) => (
+    <>
+      <circle cx={x} cy={y} r={8} fill="#fff" stroke={color} strokeWidth={1.5} strokeDasharray="2.5 2" />
+      {Label(x, y, label, color)}
+    </>
+  );
+  const P = (x: number, y: number, label?: string, joinsAt?: number) => (
+    <g key={`p${x}-${y}`}>
+      {joinsAt !== undefined && step < joinsAt ? (
+        Waiting(x, y, label, PURPLE)
+      ) : (
+        <>
+          <circle cx={x} cy={y} r={8} fill={PURPLE} stroke="#fff" strokeWidth={2} />
+          {Label(x, y, label, '#fff')}
+        </>
+      )}
+    </g>
+  );
+  const O = (x: number, y: number, label?: string, joinsAt?: number) => (
+    <g key={`o${x}-${y}`}>
+      {joinsAt !== undefined && step < joinsAt ? (
+        Waiting(x, y, label, ORANGE)
+      ) : (
+        <>
+          <circle cx={x} cy={y} r={8} fill={ORANGE} stroke="#fff" strokeWidth={2} />
+          {Label(x, y, label, INK)}
+        </>
+      )}
+    </g>
+  );
+  const N = (x: number, y: number, label?: string) => (
+    <g key={`n${x}-${y}`}>
+      <circle cx={x} cy={y} r={7} fill="#fff" stroke={PURPLE} strokeWidth={2.5} />
+      {Label(x, y, label, PURPLE)}
+    </g>
+  );
   const Ball = (x: number, y: number) => <circle key={`b${x}-${y}`} cx={x} cy={y} r={4} fill="#fff" stroke={INK} strokeWidth={1.5} />;
   const Cone = (x: number, y: number) => (
     <polygon key={`c${x}-${y}`} points={`${x},${y} ${x + 5},${y + 10} ${x - 5},${y + 10}`} fill={CONE} />
@@ -66,6 +118,11 @@ export function Pitch({ variant, step = Infinity }: Props) {
   const Run = (d: string, at = 2) =>
     step >= at && (
       <path key={`ru${d}`} d={d} fill="none" stroke={PURPLE} strokeWidth={2} strokeLinecap="round" markerEnd={`url(#${arP})`} />
+    );
+  // An opponent's run: the same solid arrow in orange (no default step; always pass `at`).
+  const ORun = (d: string, at: number) =>
+    step >= at && (
+      <path key={`or${d}`} d={d} fill="none" stroke={ORANGE} strokeWidth={2} strokeLinecap="round" markerEnd={`url(#${arO})`} />
     );
 
   const content: Record<Variant, ReactNode[]> = {
@@ -1317,8 +1374,39 @@ export function Pitch({ variant, step = Infinity }: Props) {
       Pass(30, 106, 64, 134, 2),
       Pass(32, 96, 154, 82, 3),
       Run('M78 144 Q130 156 196 138', 4),
-      P(24, 100), P(140, 36), P(140, 164), P(98, 124), P(172, 100),
-      O(296, 100), O(116, 114), O(186, 48), O(186, 152), O(110, 18), O(110, 182),
+      ORun('M100 22 Q106 40 104 58', 5),
+      ORun('M100 178 Q106 160 104 142', 5),
+      P(24, 100, 'K'), P(130, 18, '5'), P(130, 182, '2'), P(98, 124, '3'), P(172, 100, '10'),
+      O(296, 100, 'K'), O(116, 114, '9'), O(180, 36, '2'), O(180, 164, '5'), O(96, 14, '7', 5), O(96, 186, '11', 5),
+      Ball(31, 104),
+    ],
+    obwave: [
+      Line(160, 10, 160, 190),
+      Goal(4, 84, 8, 32), Goal(308, 84, 8, 32),
+      Run('M90 106 Q80 98 76 88', 1),
+      Run('M142 102 Q138 116 128 126', 1),
+      Run('M108 22 L144 22', 2),
+      Run('M108 178 L144 178', 2),
+      Run('M184 94 Q176 82 170 74', 2),
+      Pass(30, 96, 70, 88, 3),
+      Pass(82, 82, 138, 28, 4),
+      P(24, 100, 'K'), P(100, 22, '5'), P(100, 178, '2'), P(96, 112, '3'), P(140, 94, '10'), P(190, 100, '9'),
+      O(296, 100, 'K'), O(116, 36, '7'), O(116, 164, '11'), O(118, 106, '9'), O(162, 108, '10'),
+      Ball(31, 104),
+    ],
+    obfree: [
+      Line(150, 10, 150, 190, true),
+      Goal(4, 84, 8, 32), Goal(280, 56, 8, 20), Goal(280, 124, 8, 20),
+      Run('M90 126 Q80 134 70 138', 1),
+      Run('M170 88 Q162 76 152 70', 1),
+      Pass(30, 106, 62, 134, 2),
+      Pass(32, 96, 144, 72, 3),
+      Pass(158, 76, 272, 98, 4),
+      Run('M166 70 Q210 56 240 60', 5),
+      Pass(278, 90, 248, 66, 5),
+      Pass(254, 62, 278, 64, 5),
+      P(24, 100, 'K'), P(96, 122, '3'), P(176, 92, '10'), P(284, 100, '9'),
+      O(116, 112), O(196, 100),
       Ball(31, 104),
     ],
   };
@@ -1343,6 +1431,9 @@ export function Pitch({ variant, step = Infinity }: Props) {
         </marker>
         <marker id={arK} viewBox="0 0 10 10" refX={8} refY={5} markerWidth={6} markerHeight={6} orient="auto">
           <path d="M0 0L10 5L0 10z" fill={INK} />
+        </marker>
+        <marker id={arO} viewBox="0 0 10 10" refX={8} refY={5} markerWidth={6} markerHeight={6} orient="auto">
+          <path d="M0 0L10 5L0 10z" fill={ORANGE} />
         </marker>
       </defs>
       {content[variant]}

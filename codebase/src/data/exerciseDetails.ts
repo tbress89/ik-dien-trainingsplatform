@@ -3980,7 +3980,7 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
     summary:
       'Vanuit de keeper bouwt een ploeg op in twee vakken: drie spelers in de opbouwzone en een aanspeelpunt in de aanvalszone, tegen drie actieve verdedigers. Onderscheppen de verdedigers de bal, dan vallen de vakken weg en komen er twee extra spelers bij: opbouwen, loskomen van je man en omschakelen.',
     steps: [
-      { title: 'Opstelling.', text: 'Speel op drie kwart van een 8-tegen-8-veld met twee grote doelen en keepers, verdeeld in een opbouwzone en een aanvalszone. De opbouwende ploeg (K + 4) heeft een centrale middenvelder (3) en twee flankspelers (2 en 5) in de opbouwzone en een spits (10) in de aanvalszone. De tegenstander verdedigt met één speler in de opbouwzone (9) en twee in de aanvalszone. Twee extra spelers (7 en 11) wachten langs de zijlijn.' },
+      { title: 'Opstelling.', text: 'Speel op drie kwart van een 8-tegen-8-veld met twee grote doelen en keepers, verdeeld in een opbouwzone en een aanvalszone. De opbouwende ploeg (K + 4) heeft een centrale verdediger (3) en twee flankspelers (2 en 5) in de opbouwzone en een middenvelder (10) in de aanvalszone. De tegenstander verdedigt met één speler in de opbouwzone (9) en twee in de aanvalszone. Twee extra spelers (7 en 11) wachten langs de zijlijn.' },
       { title: 'Opbouw.', text: 'De keeper start en heeft twee opties: de 3 aanspelen of meteen de 10. De 2 en de 5 mogen in eerste instantie niet aangespeeld worden: zij houden het centrum vrij door hoog en breed te gaan. De 3 mag de aanvalszone in. De 9 zet druk op de 3 en schermt tegelijk de passlijn naar de 10 af: de moeilijkste taak.' },
       { title: 'Omschakelen.', text: 'Onderschept de tegenstander de bal, dan vallen de vakken weg en wordt er vrij gespeeld. De 7 en de 11 komen erbij, zodat de verdedigende ploeg in overtal speelt. Elk doelpunt is 1 punt.' },
       { title: 'Ritme.', text: 'Speel 5 minuten met de ene ploeg in opbouw en wissel dan de rollen voor 5 minuten.' },
@@ -3995,17 +3995,83 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       '2 en 5: ga hoger om ruimte te maken, en loop je in tweede instantie vrij.',
     ],
     diagramSteps: [
-      ['Organisatie', 'Opbouwzone en aanvalszone, drie verdedigers'],
+      ['Organisatie', 'Opbouwzone en aanvalszone, drie verdedigers; de 7 en de 11 wachten langs de kant'],
       ['Loskomen', '3 en 10 bewegen diagonaal van elkaar weg, richting keeper'],
       ['Kort', 'De keeper speelt de 3 aan'],
       ['Diep', 'Of meteen de pass op de 10 in de aanvalszone'],
       ['Infiltreren', 'De 3 mag de aanvalszone in'],
+      ['Balverlies', 'Na een onderschepping komen de 7 en de 11 erbij'],
     ],
     related: [
       { id: 'psbuild', fit: 'Als warming-up' },
       { id: 'obsix', fit: 'Zelfde thema' },
       { id: 'obgame', fit: 'Als vervolg' },
       { id: 'sgbuild', fit: 'Als afsluiter' },
+    ],
+  },
+  obwave: {
+    summary:
+      'Een ploeg van K + 5 bouwt in golven op tegen K + 4: elke aanval start bij de eigen keeper. Zonder vakken passen de spelers de opbouw toe in een wedstrijdvorm: loskomen, ruimte maken en de vrije man vinden.',
+    steps: [
+      { title: 'Opstelling.', text: 'Speel op drie kwart van een 8-tegen-8-veld met twee grote doelen en keepers. De opbouwende ploeg (K + 5) speelt met een centrale verdediger (3), twee flankspelers (2 en 5), een middenvelder (10) en een spits (9). De tegenstander speelt met K + 4 en heeft één wisselspeler.' },
+      { title: 'Opbouw.', text: 'Elke aanval start bij de keeper. De 3 en de 10 bewegen diagonaal van elkaar weg, de 2 en de 5 schuiven hoger om ruimte te maken en de 9 probeert zich aanspeelbaar te maken. Na een doelpunt of een bal over de lijn start de volgende golf opnieuw bij de keeper.' },
+      { title: 'Punten.', text: 'Een doelpunt van de opbouwende ploeg is 1 punt, een doelpunt van de tegenstander 2 punten. Zo loont rustig en verzorgd opbouwen.' },
+      { title: 'Ritme.', text: 'Speel 5 minuten met de ene ploeg in opbouw en wissel dan de rollen voor 5 minuten.' },
+    ],
+    easier: 'Laat de tegenstander pas druk zetten na de eerste pass van de keeper.',
+    harder: 'Laat de wisselspeler meedoen (K + 5 tegen K + 5), of geef de opbouwende ploeg maximaal twee balcontacten.',
+    objectives: ['Opbouwen via de keeper', 'Vrijlopen en loskomen', 'Ruimte maken', 'Passen op tempo'],
+    coaching: [
+      'Speel in op de verste voet en op tempo; kan het, speel dan in de ruimte vóór je ploegmaat.',
+      'Loop weg van je tegenstander met een tempowissel om de bal te krijgen.',
+      'Sta ingedraaid naar het doel van de tegenstander, zodat je naar voren kunt aannemen.',
+      'Keeper: scan eerst en kies dan de vrije speler.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'K + 5 tegen K + 4, de bal start bij de keeper'],
+      ['Loskomen', 'De 3 en de 10 bewegen diagonaal van elkaar weg'],
+      ['Ruimte maken', 'De 2 en de 5 schuiven hoger, de 9 biedt zich aan'],
+      ['Opbouw', 'De keeper speelt de 3 aan'],
+      ['Doorspelen', 'De 3 speelt de hoge 5 aan'],
+    ],
+    related: [
+      { id: 'obzones', fit: 'Als warming-up' },
+      { id: 'psbuild', fit: 'Zelfde thema' },
+      { id: 'obgame', fit: 'Als vervolg' },
+      { id: 'game', fit: 'Als afsluiter' },
+    ],
+  },
+  obfree: {
+    summary:
+      'De keeper bouwt op met enkel de 3 en de 10, elk gedekt door een eigen verdediger. Door diagonaal van elkaar weg te bewegen komen ze los, waarna de keeper kort of diep kiest: het loskomen uit Positiespel in twee vakken, maar dan in isolatie.',
+    steps: [
+      { title: 'Opstelling.', text: 'Speel op een half 8-tegen-8-veld met een groot doel en keeper, verdeeld in twee vakken. De 3 staat met een verdediger in het vak bij het doel, de 10 met een verdediger in het vak ervoor. Zet aan de overkant twee doeltjes, met tussen de doeltjes de spits (9) van de opbouwende ploeg als kaatser.' },
+      { title: 'Loskomen.', text: 'De keeper heeft de bal. De 3 en de 10 bewegen diagonaal van elkaar weg, richting keeper, en proberen los te komen van hun verdediger. Elke speler blijft in zijn eigen vak.' },
+      { title: 'Afwerken.', text: 'De keeper speelt de vrije speler aan: kort op de 3 of diep op de 10. Die draait open en werkt samen met de ander af op een van de doeltjes. De 9 scoort niet zelf, maar is een kaatser: speel hem door het midden aan en hij kaatst terug, zodat de 3 of de 10 kan scoren. Zo moeten de verdedigers ook de passlijn door het midden bewaken. Wint een verdediger de bal, dan mag hij afwerken op het grote doel.' },
+      { title: 'Ritme.', text: 'Speel 3 reeksen van 4 minuten met 1 minuut rust. Wissel na elke reeks aanvallers en verdedigers.' },
+    ],
+    easier: 'Laat de verdedigers eerst passief meelopen, dan half en pas daarna volledig verdedigen.',
+    harder: 'Voeg een derde verdediger toe die de passlijn naar de 10 afschermt, zoals de 9 in Positiespel in twee vakken.',
+    objectives: ['Loskomen van je tegenstander', 'Timing van de loopactie', 'Opendraaien', 'Keuze van de keeper'],
+    coaching: [
+      '3 en 10: kom op het juiste moment los, niet te vroeg.',
+      'Beweeg diagonaal van elkaar weg, zo maak je ruimte voor elkaar.',
+      'Draai open zodra je de bal ontvangt en kijk naar voren.',
+      'Keeper: scan en speel de speler die het meest vrij staat, op tempo.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'De 3 en de 10, elk met een eigen verdediger'],
+      ['Loskomen', 'Diagonaal van elkaar weg, richting keeper'],
+      ['Kort', 'De keeper speelt de 3 aan'],
+      ['Diep', 'Of meteen de 10'],
+      ['Via de 9', 'De 10 draait open en speelt door het midden de 9 aan'],
+      ['Kaatsen en scoren', 'De 9 kaatst in de loop van de 10, die scoort op een doeltje'],
+    ],
+    related: [
+      { id: 'pscan', fit: 'Als warming-up' },
+      { id: 'obsix', fit: 'Zelfde thema' },
+      { id: 'obzones', fit: 'Als vervolg' },
+      { id: 'obwave', fit: 'Als afsluiter' },
     ],
   },
 };
