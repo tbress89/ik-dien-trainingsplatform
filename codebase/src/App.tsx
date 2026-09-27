@@ -3,7 +3,9 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Nav } from './components/Nav';
 import { loadExerciseDetails } from './data/exercises';
 import { TrainingProvider } from './data/training';
+import { TRAINING_BUILDER } from './features';
 import { BuilderPage } from './pages/BuilderPage';
+import { ComingSoonPage } from './pages/ComingSoonPage';
 import { DetailPage } from './pages/DetailPage';
 import { ExercisesPage } from './pages/ExercisesPage';
 import { TrainingsPage } from './pages/TrainingsPage';
@@ -25,8 +27,8 @@ export function App() {
           <Routes>
             <Route path="/" element={<ExercisesPage />} />
             <Route path="/oefeningen/:id" element={<DetailPage />} />
-            <Route path="/trainingen" element={<TrainingsPage />} />
-            <Route path="/trainingen/:id" element={<BuilderPage />} />
+            <Route path="/trainingen" element={TRAINING_BUILDER ? <TrainingsPage /> : <ComingSoonPage />} />
+            <Route path="/trainingen/:id" element={TRAINING_BUILDER ? <BuilderPage /> : <ComingSoonPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>

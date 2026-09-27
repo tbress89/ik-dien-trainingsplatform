@@ -25,6 +25,7 @@ import {
   type Phase,
 } from '../data/exercises';
 import { BLOCKS, trainingPath, useTraining } from '../data/training';
+import { TRAINING_BUILDER } from '../features';
 
 type Sort = 'relevant' | 'duur' | 'moeilijkheid' | 'naam';
 
@@ -185,14 +186,22 @@ export function ExercisesPage() {
           </div>
         </section>
 
-        <div className="promo">
-          <span className="promo-title">Training van 60 tot 90 minuten?</span>
-          <span className="promo-text">Stel je sessie samen in drie blokken en zie meteen of de tijd klopt.</span>
-          <Link to={trainingPath(draftId)}>
-            Open trainingsbouwer
-            <ArrowRightIcon />
-          </Link>
-        </div>
+        {TRAINING_BUILDER ? (
+          <div className="promo">
+            <span className="promo-title">Training van 60 tot 90 minuten?</span>
+            <span className="promo-text">Stel je sessie samen in drie blokken en zie meteen of de tijd klopt.</span>
+            <Link to={trainingPath(draftId)}>
+              Open trainingsbouwer
+              <ArrowRightIcon />
+            </Link>
+          </div>
+        ) : (
+          <div className="promo">
+            <span className="soon-badge">Binnenkort</span>
+            <span className="promo-title">De trainingsbouwer</span>
+            <span className="promo-text">Stel straks je sessie samen in drie blokken en zie meteen of de tijd klopt.</span>
+          </div>
+        )}
       </aside>
 
       <main className="dash-main">
@@ -256,7 +265,7 @@ export function ExercisesPage() {
                 exercise={e}
                 isFav={favs.includes(e.id)}
                 onFav={() => toggleFav(e.id)}
-                onAdd={() => addToTraining(e)}
+                onAdd={TRAINING_BUILDER ? () => addToTraining(e) : undefined}
               />
             ))}
           </div>
@@ -275,7 +284,8 @@ function ExerciseCard({
   exercise: Exercise;
   isFav: boolean;
   onFav: () => void;
-  onAdd: () => void;
+  /** Left out while the training builder is switched off, which hides the "Aan training" button. */
+  onAdd?: () => void;
 }) {
   return (
     <article className="ex-card">
@@ -315,10 +325,12 @@ function ExerciseCard({
             <DifficultyBars level={e.diff} />
             {DIFFICULTY[e.diff]}
           </span>
-          <button type="button" className="btn-soft" onClick={onAdd}>
-            <PlusIcon />
-            Aan training
-          </button>
+          {onAdd && (
+            <button type="button" className="btn-soft" onClick={onAdd}>
+              <PlusIcon />
+              Aan training
+            </button>
+          )}
         </div>
       </div>
     </article>

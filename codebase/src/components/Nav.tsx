@@ -1,4 +1,5 @@
 import { Link, NavLink, useLocation } from 'react-router-dom';
+import { TRAINING_BUILDER } from '../features';
 
 export function Nav() {
   const { pathname } = useLocation();
@@ -18,7 +19,10 @@ export function Nav() {
           <NavLink to="/" className={onExercises ? 'active' : ''}>
             Oefeningen
           </NavLink>
-          <NavLink to="/trainingen">Trainingen</NavLink>
+          <NavLink to="/trainingen">
+            Trainingen
+            {!TRAINING_BUILDER && <span className="soon-badge">Binnenkort</span>}
+          </NavLink>
         </nav>
       </div>
     </header>

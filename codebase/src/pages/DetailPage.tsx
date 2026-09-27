@@ -21,6 +21,7 @@ import {
   type ExerciseDetail,
 } from '../data/exercises';
 import { BLOCKS, clampMinutes, formatTrainingDate, trainingPath, useTraining } from '../data/training';
+import { TRAINING_BUILDER } from '../features';
 
 /** The detail text for all exercises; loads its chunk on first use and re-renders when it arrives. */
 function useExerciseDetails() {
@@ -272,67 +273,78 @@ export function DetailPage() {
             </div>
           </section>
 
-          <section className="add-panel">
-            <span className="panel-title" style={{ letterSpacing: '0.02em' }}>
-              Toevoegen aan training
-            </span>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-              <span className="add-panel-sub">Training van {formatTrainingDate(date)} · {team}</span>
-              <div role="group" aria-label="Blok" className="segmented">
-                {BLOCKS.map((b, i) => (
+          {TRAINING_BUILDER ? (
+            <section className="add-panel">
+              <span className="panel-title" style={{ letterSpacing: '0.02em' }}>
+                Toevoegen aan training
+              </span>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                <span className="add-panel-sub">Training van {formatTrainingDate(date)} · {team}</span>
+                <div role="group" aria-label="Blok" className="segmented">
+                  {BLOCKS.map((b, i) => (
+                    <button
+                      key={b.id}
+                      type="button"
+                      aria-pressed={block === i}
+                      onClick={() => {
+                        setBlock(i);
+                        setAdded(null);
+                      }}
+                    >
+                      {b.name}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="add-panel-row">
+                <div className="dark-stepper">
                   <button
-                    key={b.id}
                     type="button"
-                    aria-pressed={block === i}
+                    aria-label="5 minuten korter"
                     onClick={() => {
-                      setBlock(i);
+                      setMin((m) => clampMinutes(m - 5));
                       setAdded(null);
                     }}
                   >
-                    {b.name}
+                    −
                   </button>
-                ))}
-              </div>
-            </div>
-            <div className="add-panel-row">
-              <div className="dark-stepper">
-                <button
-                  type="button"
-                  aria-label="5 minuten korter"
-                  onClick={() => {
-                    setMin((m) => clampMinutes(m - 5));
-                    setAdded(null);
-                  }}
-                >
-                  −
-                </button>
-                <span>{min} min</span>
-                <button
-                  type="button"
-                  aria-label="5 minuten langer"
-                  onClick={() => {
-                    setMin((m) => clampMinutes(m + 5));
-                    setAdded(null);
-                  }}
-                >
-                  +
+                  <span>{min} min</span>
+                  <button
+                    type="button"
+                    aria-label="5 minuten langer"
+                    onClick={() => {
+                      setMin((m) => clampMinutes(m + 5));
+                      setAdded(null);
+                    }}
+                  >
+                    +
+                  </button>
+                </div>
+                <button type="button" className="add-panel-submit" onClick={add}>
+                  <PlusIcon size={16} />
+                  Toevoegen
                 </button>
               </div>
-              <button type="button" className="add-panel-submit" onClick={add}>
-                <PlusIcon size={16} />
-                Toevoegen
-              </button>
-            </div>
-            {added && (
-              <div role="status" className="add-panel-status">
-                <span>
-                  <CheckIcon size={18} />
-                  {added}
-                </span>
-                <Link to={trainingPath(draftId)}>Bekijk training</Link>
-              </div>
-            )}
-          </section>
+              {added && (
+                <div role="status" className="add-panel-status">
+                  <span>
+                    <CheckIcon size={18} />
+                    {added}
+                  </span>
+                  <Link to={trainingPath(draftId)}>Bekijk training</Link>
+                </div>
+              )}
+            </section>
+          ) : (
+            <section className="add-panel">
+              <span className="panel-title" style={{ letterSpacing: '0.02em' }}>
+                Toevoegen aan training
+              </span>
+              <span className="add-panel-sub">
+                <span className="soon-badge">Binnenkort</span> Met de trainingsbouwer zet je deze oefening straks meteen in je training.
+              </span>
+            </section>
+          )}
 
           {d && (
             <>

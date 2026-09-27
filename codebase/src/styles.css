@@ -374,6 +374,44 @@ a:focus-visible,
   border-bottom-color: var(--purple);
 }
 
+/* "Coming soon" label for the training builder while it is switched off (see features.ts). */
+.soon-badge {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  height: 20px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: var(--purple-soft);
+  color: var(--purple-dark);
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.nav-links .soon-badge {
+  margin-left: 8px;
+  align-self: center;
+}
+.empty .soon-badge {
+  align-self: center;
+}
+.add-panel-sub .soon-badge {
+  margin-right: 6px;
+  vertical-align: 1px;
+}
+.coming-soon-body {
+  display: block;
+}
+@media (max-width: 640px) {
+  /* No room next to the nav link on phones; the Trainingen page itself says it's coming soon. */
+  .nav-links .soon-badge {
+    display: none;
+  }
+}
+
 /* ---------- Exercises dashboard ---------- */
 
 .dashboard {
