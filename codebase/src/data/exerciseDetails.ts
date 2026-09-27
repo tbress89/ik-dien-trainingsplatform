@@ -4045,9 +4045,9 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
     summary:
       'De keeper bouwt op met enkel de 3 en de 10, elk gedekt door een eigen verdediger. Door diagonaal van elkaar weg te bewegen komen ze los, waarna de keeper kort of diep kiest: het loskomen uit Positiespel in twee vakken, maar dan in isolatie.',
     steps: [
-      { title: 'Opstelling.', text: 'Speel op een half 8-tegen-8-veld met een groot doel en keeper, verdeeld in twee vakken. De 3 staat met een verdediger in het vak bij het doel, de 10 met een verdediger in het vak ervoor. Zet aan de overkant twee doeltjes.' },
+      { title: 'Opstelling.', text: 'Speel op een half 8-tegen-8-veld met een groot doel en keeper, verdeeld in twee vakken. De 3 staat met een verdediger in het vak bij het doel, de 10 met een verdediger in het vak ervoor. Zet aan de overkant twee doeltjes, met tussen de doeltjes de spits (9) van de opbouwende ploeg als kaatser.' },
       { title: 'Loskomen.', text: 'De keeper heeft de bal. De 3 en de 10 bewegen diagonaal van elkaar weg, richting keeper, en proberen los te komen van hun verdediger. Elke speler blijft in zijn eigen vak.' },
-      { title: 'Afwerken.', text: 'De keeper speelt de vrije speler aan: kort op de 3 of diep op de 10. Die draait open en werkt samen met de ander af op een van de doeltjes. Wint een verdediger de bal, dan mag hij afwerken op het grote doel.' },
+      { title: 'Afwerken.', text: 'De keeper speelt de vrije speler aan: kort op de 3 of diep op de 10. Die draait open en werkt samen met de ander af op een van de doeltjes. De 9 scoort niet zelf, maar is een kaatser: speel hem door het midden aan en hij kaatst terug, zodat de 3 of de 10 kan scoren. Zo moeten de verdedigers ook de passlijn door het midden bewaken. Wint een verdediger de bal, dan mag hij afwerken op het grote doel.' },
       { title: 'Ritme.', text: 'Speel 3 reeksen van 4 minuten met 1 minuut rust. Wissel na elke reeks aanvallers en verdedigers.' },
     ],
     easier: 'Laat de verdedigers eerst passief meelopen, dan half en pas daarna volledig verdedigen.',
@@ -4064,7 +4064,8 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       ['Loskomen', 'Diagonaal van elkaar weg, richting keeper'],
       ['Kort', 'De keeper speelt de 3 aan'],
       ['Diep', 'Of meteen de 10'],
-      ['Opendraaien', 'De 10 draait open en werkt af op een doeltje'],
+      ['Via de 9', 'De 10 draait open en speelt door het midden de 9 aan'],
+      ['Kaatsen en scoren', 'De 9 kaatst in de loop van de 10, die scoort op een doeltje'],
     ],
     related: [
       { id: 'pscan', fit: 'Als warming-up' },
