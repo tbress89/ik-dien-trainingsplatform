@@ -29,6 +29,9 @@ ROOT = Path(__file__).resolve().parent.parent
 EXERCISES_TS = ROOT / 'codebase/src/data/exercises.ts'
 EXERCISE_DETAILS_TS = ROOT / 'codebase/src/data/exerciseDetails.ts'
 RECOMMENDED_TS = ROOT / 'codebase/src/data/recommended.ts'
+REFERENCE_TS = ROOT / 'codebase/src/data/referenceTrainings.ts'
+# Minutes per block for each training duration; mirrors BLOCK_TARGETS in training.tsx.
+BLOCK_TARGETS = {60: {'wu': 10, 'kern': 30, 'pv': 20}, 75: {'wu': 15, 'kern': 40, 'pv': 20}, 90: {'wu': 15, 'kern': 50, 'pv': 25}}
 PITCH_TSX = ROOT / 'codebase/src/components/Pitch.tsx'
 DESIGN = ROOT / 'design'
 
@@ -73,9 +76,20 @@ def read_recommended():
     return re.findall(r"^  '([a-z0-9]+)',", RECOMMENDED_TS.read_text(), re.M)
 
 
+def read_reference_trainings():
+    """(id, duration, [(block, exercise id, minutes)]) for each training in referenceTrainings.ts."""
+    src = REFERENCE_TS.read_text()
+    out = []
+    for m in re.finditer(r"id: '([^']+)',.*?duration: (\d+),.*?items: \[(.*?)\n    \],", src, re.S):
+        items = [(b, ex, int(n)) for b, ex, n in re.findall(r"\['(wu|kern|pv)', '([a-z0-9]+)', (\d+)\]", m.group(3))]
+        out.append((m.group(1), int(m.group(2)), items))
+    return out
+
+
 def check_details(exercises):
     """Every exercise needs a detail entry in exerciseDetails.ts under the same id (and vice versa), a place
-    in RECOMMENDED (exactly once), and a duration that is a multiple of 5 minutes."""
+    in RECOMMENDED (exactly once), and a duration that is a multiple of 5 minutes. Reference trainings may only
+    use existing exercises, and their blocks must add up to the block targets."""
     detail_ids = set(re.findall(r'^  ([A-Za-z0-9_]+): \{$', EXERCISE_DETAILS_TS.read_text(), re.M))
     ids = {x['id'] for x in exercises}
     problems = []
@@ -90,6 +104,13 @@ def check_details(exercises):
                            ('in RECOMMENDED but not an exercise', set(recommended) - ids), ('listed twice in RECOMMENDED', dupes)):
             if bad:
                 problems.append(f'{label}: ' + ', '.join(sorted(bad)))
+    for ref_id, duration, items in read_reference_trainings():
+        unknown = sorted({ex for _, ex, _ in items} - ids)
+        if unknown:
+            problems.append(f'reference training {ref_id} uses unknown exercises: ' + ', '.join(unknown))
+        sums = {b: sum(m for bb, _, m in items if bb == b) for b in ('wu', 'kern', 'pv')}
+        if sums != BLOCK_TARGETS.get(duration):
+            problems.append(f'reference training {ref_id} ({duration} min) has block minutes {sums}, expected {BLOCK_TARGETS.get(duration)}')
     odd = [f"{x['id']} ({x['min']} min)" for x in exercises if x['min'] % 5]
     if odd:
         problems.append('duration is not a multiple of 5 minutes: ' + ', '.join(odd))

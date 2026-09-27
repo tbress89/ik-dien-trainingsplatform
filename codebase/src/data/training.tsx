@@ -1,5 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { EXERCISE_BY_ID, THEMES, type Theme } from './exercises';
+import type { ReferenceTraining } from './referenceTrainings';
 
 export type BlockId = 'wu' | 'kern' | 'pv';
 
@@ -108,6 +109,8 @@ interface TrainingContextValue {
   busyDates: string[];
   openTraining: (id: string) => void;
   newTraining: (duration?: Duration) => void;
+  /** Starts a new, unsaved training with the plan, theme and duration of a reference training. */
+  newTrainingFrom: (ref: ReferenceTraining) => void;
   /** Writes the draft into `sessions` and returns its id. */
   saveTraining: () => string;
   /** Removes a saved training; if it's open in the builder, the builder starts a new one. */
@@ -270,6 +273,18 @@ export function TrainingProvider({ children }: { children: ReactNode }) {
     [sessions],
   );
 
+  const newTrainingFrom = useCallback(
+    (ref: ReferenceTraining) => {
+      const plan: Plan = { wu: [], kern: [], pv: [] };
+      ref.items.forEach(([block, ex, min]) => {
+        if (ex in EXERCISE_BY_ID) plan[block].push({ uid: newId('i'), ex, min });
+      });
+      setDraft({ ...emptyTraining(sessions, ref.duration), theme: ref.theme, plan });
+      setActiveBlock('wu');
+    },
+    [sessions],
+  );
+
   const saveTraining = useCallback(() => {
     const id = draft.id ?? newId('t');
     const saved: Session = { ...draft, id, team: draft.team.trim(), plan: copyPlan(draft.plan), savedAt: Date.now() };
@@ -328,6 +343,7 @@ export function TrainingProvider({ children }: { children: ReactNode }) {
       busyDates,
       openTraining,
       newTraining,
+      newTrainingFrom,
       saveTraining,
       deleteTraining,
       date: draft.date,
@@ -348,7 +364,7 @@ export function TrainingProvider({ children }: { children: ReactNode }) {
       favs,
       toggleFav,
     }),
-    [sessions, draft, busyDates, openTraining, newTraining, saveTraining, deleteTraining, setDate, setTeam, setTheme, setDuration, activeBlock, addExercise, removeItem, changeMinutes, moveItem, favs, toggleFav],
+    [sessions, draft, busyDates, openTraining, newTraining, newTrainingFrom, saveTraining, deleteTraining, setDate, setTeam, setTheme, setDuration, activeBlock, addExercise, removeItem, changeMinutes, moveItem, favs, toggleFav],
   );
 
   return <TrainingContext.Provider value={value}>{children}</TrainingContext.Provider>;

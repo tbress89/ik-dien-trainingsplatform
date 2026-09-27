@@ -1339,16 +1339,16 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
   },
   pwall: {
     summary:
-      'Een speler dribbelt op een kegel af, speelt een één-twee met een ploegmaat en neemt de bal voorbij de kegel weer mee. De muurpass is de eenvoudigste combinatie om een tegenstander uit te spelen.',
+      'Twee ploegen racen tegen elkaar: dribbel op een kegel af, speel een één-twee met je kaatser en werk af in het doeltje. Wie eerst scoort, pakt het punt: zo oefenen spelers de muurpass op snelheid en met echte wedstrijdspanning.',
     steps: [
-      { title: 'Opstelling.', text: 'Zet een kegel als “tegenstander” op 10 meter van de start. Een kaatser staat 5 meter naast de kegel.' },
-      { title: 'Één-twee.', text: 'De speler dribbelt op de kegel af, speelt vlak ervoor in op de kaatser en sprint langs de andere kant van de kegel. De kaatser speelt in één keer terug in zijn loop.' },
-      { title: 'Doorwisselen.', text: 'De dribbelaar wordt kaatser, de kaatser sluit achteraan in de rij aan. Wissel na elke reeks van kant, zodat links en rechts aan bod komen.' },
-      { title: 'Ritme.', text: 'Speel 4 reeksen van 2 minuten met 1 minuut rust.' },
+      { title: 'Opstelling.', text: 'Zet twee gelijke banen naast elkaar. Per baan: een startkegel, op 10 meter een kegel als “tegenstander”, een kaatser 5 meter naast die kegel en 8 meter verder een doeltje. Elke ploeg staat aan een startkegel.' },
+      { title: 'Één-twee.', text: 'Op het fluitsignaal dribbelt de eerste speler van elke ploeg op de kegel af, speelt vlak ervoor in op de kaatser en sprint langs de andere kant van de kegel. De kaatser speelt in één keer terug in zijn loop.' },
+      { title: 'Scoren.', text: 'Werk af in het doeltje. Wie eerst scoort, wint een punt voor zijn ploeg, en een doelpunt met je zwakke voet telt dubbel. Daarna word je kaatser en sluit de kaatser achteraan in de rij aan.' },
+      { title: 'Ritme.', text: 'Speel 4 reeksen van 2 minuten met 1 minuut rust en wissel na elke reeks van baan, zodat links en rechts aan bod komen. Welke ploeg heeft na vier reeksen de meeste punten?' },
     ],
-    easier: 'Laat de kaatser de bal eerst aannemen en dan pas terugspelen.',
-    harder: 'Vervang de kegel door een verdediger die mag ingrijpen.',
-    objectives: ['Muurpass', 'Timing', 'Kaatsen in één keer', 'Versnellen na de pass'],
+    easier: 'Laat de kaatser de bal eerst aannemen en dan pas terugspelen, en geef voor elk doelpunt een punt, niet alleen voor het eerste.',
+    harder: 'Vervang de kegel door een verdediger die mag ingrijpen, of laat de speler in één keer afwerken op de teruggekaatste bal.',
+    objectives: ['Muurpass', 'Timing', 'Kaatsen in één keer', 'Afwerken op snelheid'],
     coaching: [
       'Speel in op de kaatser vóór de kegel, niet ernaast.',
       'Na je pass: versnel meteen langs de andere kant.',
@@ -1356,10 +1356,11 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       'Kijk elkaar aan: oogcontact vóór de pass.',
     ],
     diagramSteps: [
-      ['Organisatie', 'Dribbelaar, kegel en kaatser'],
-      ['Aandribbelen', 'Dribbel op de kegel af'],
+      ['Organisatie', 'Twee ploegen, elk met een eigen baan en kaatser'],
+      ['Aandribbelen', 'Op het signaal: dribbel op de kegel af'],
       ['Inspelen', 'Pass naar de kaatser vóór de kegel'],
       ['Terugkaatsen', 'Sprint langs de kegel, bal terug in de loop'],
+      ['Scoren', 'Afwerken in het doeltje: wie eerst scoort, wint het punt'],
     ],
     related: [
       { id: 'pline', fit: 'Als warming-up' },
@@ -1986,26 +1987,28 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
   },
   prshift: {
     summary:
-      'Vier verdedigers staan in een lijn, kaatsers spelen de bal rond aan de overkant. Bij elke pass verschuift de lijn samen naar de bal: één speler zet druk, de rest sluit aan.',
+      'Vier verdedigers staan in het middelste vak, de rivier, met aan beide kanten een groep aanvallers. De aanvallers proberen de bal langs de verdedigers naar de overkant te spelen; de verdedigers schuiven als blok mee met de bal, zetten druk met één speler en sluiten de passlijnen af.',
     steps: [
-      { title: 'Opstelling.', text: 'Zet een veld van 40 × 20 m uit met twee doeltjes achter de verdedigers. Vier verdedigers staan in een lijn in het midden, vier tot zes kaatsers verspreid op de zijde ertegenover.' },
-      { title: 'Verschuiven.', text: 'De kaatsers spelen de bal naar elkaar. De verdediger het dichtst bij de bal zet druk, de anderen schuiven mee en houden de ruimte tussen elkaar klein.' },
-      { title: 'Doorspelen.', text: 'Speelt een kaatser een pass door de lijn in een doeltje, dan is het een punt voor de kaatsers.' },
-      { title: 'Ritme.', text: 'Speel 4 reeksen van 2 minuten met 1 minuut rust.' },
+      { title: 'Opstelling.', text: 'Zet een veld van 30 × 52 m uit in drie vakken: twee buitenste vakken van 30 × 20 m en daartussen de rivier van 30 × 12 m. In de rivier staan vier verdedigers. In beide buitenste vakken staan drie à vier aanvallers, in een ruit over hun vak verspreid, zodat ze ook in de diepte naar elkaar kunnen passen. De bal start bij een van de groepen aanvallers.' },
+      { title: 'Over de rivier.', text: 'De aanvallers laten de bal rondgaan in hun vak, zoals in een rondo tegen de verdediger die druk zet, en proberen hem langs de verdedigers naar een ploegmaat aan de overkant te spelen: dat is een punt. Hoge ballen over de rivier tellen niet. Daarna probeert die groep de bal terug te spelen.' },
+      { title: 'Verdedigen.', text: 'Eén verdediger mag het vak van de bal in om druk te zetten, de andere drie blijven in de rivier en schuiven mee met de bal. Onderscheppen de verdedigers de bal of gaat hij uit, dan is het een punt voor de verdedigers en speelt de trainer een nieuwe bal in bij de andere groep.' },
+      { title: 'Ritme.', text: 'Speel 4 reeksen van 3 minuten met 1 minuut rust. Wissel na elke reeks de verdedigers met een groep aanvallers.' },
     ],
-    easier: 'Laat de kaatsers traag en alleen naar hun buur passen.',
-    harder: 'Kaatsers spelen in één keer en mogen ook een lange pass naar de andere kant geven.',
-    objectives: ['Verschuiven naar de bal', 'Onderlinge afstand', 'Druk op de bal', 'Gaten dichthouden'],
+    easier: 'Maak het veld smaller (25 m breed), zodat de verdedigers minder ruimte moeten afsluiten.',
+    harder: 'Laat twee verdedigers druk zetten in het vak van de bal, zodat er maar twee in de rivier overblijven, of speel met vijf aanvallers per kant op een breder veld.',
+    objectives: ['Verschuiven naar de bal', 'Onderlinge afstand', 'Druk op de bal', 'Passlijnen afsluiten'],
     coaching: [
       'Maximaal 8 à 10 meter tussen twee verdedigers.',
       'Eén zet druk, de anderen schuiven mee en dekken af.',
       'Verschuif terwijl de bal onderweg is, niet erna.',
-      'Blijf op één lijn: niemand laat een gat achter.',
+      'Verste verdediger: schuif mee naar binnen, de flank aan de andere kant mag even vrij.',
     ],
     diagramSteps: [
-      ['Organisatie', 'Vier verdedigers tegenover de kaatsers'],
-      ['Pass', 'De bal gaat naar een andere kaatser'],
-      ['Verschuiven', 'Eén speler zet druk, de lijn schuift mee'],
+      ['Organisatie', 'Vier verdedigers in de rivier, aanvallers aan beide kanten'],
+      ['Rondspelen', 'De aanvallers spelen de bal breed'],
+      ['Verschuiven', 'Eén verdediger zet druk, de rest schuift mee in de rivier'],
+      ['Van kant wisselen', 'De bal gaat snel naar de andere kant'],
+      ['Over de rivier', 'Pass door het gat naar de overkant: een punt'],
     ],
     related: [
       { id: 'prcurve', fit: 'Als warming-up' },
@@ -2496,7 +2499,7 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'r412', fit: 'Als warming-up' },
       { id: 'psline', fit: 'Zelfde thema' },
       { id: 'pos', fit: 'Kern' },
-      { id: 'psgame', fit: 'Als afsluiter' },
+      { id: 'sgblock', fit: 'Als afsluiter' },
     ],
   },
   psshape: {
@@ -2558,7 +2561,7 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
     related: [
       { id: 'plong', fit: 'Als warming-up' },
       { id: 'psquad', fit: 'Zelfde thema' },
-      { id: 'psgame', fit: 'Als vervolg' },
+      { id: 'sgend', fit: 'Als vervolg' },
       { id: 'pten', fit: 'Kern' },
     ],
   },
@@ -2588,7 +2591,7 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
     related: [
       { id: 'pten', fit: 'Als warming-up' },
       { id: 'psswitch', fit: 'Zelfde thema' },
-      { id: 'psgame', fit: 'Als vervolg' },
+      { id: 'sgend', fit: 'Als vervolg' },
       { id: 'ps43', fit: 'Kern' },
     ],
   },
@@ -2683,7 +2686,7 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'pscan', fit: 'Als warming-up' },
       { id: 'r412', fit: 'Zelfde thema' },
       { id: 'ps3z', fit: 'Kern' },
-      { id: 'psgame', fit: 'Als afsluiter' },
+      { id: 'sgblock', fit: 'Als afsluiter' },
     ],
   },
   psflank: {
@@ -2716,36 +2719,6 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'pdiamond', fit: 'Zelfde thema' },
       { id: 'fcross', fit: 'Als vervolg' },
       { id: 'game5', fit: 'Als afsluiter' },
-    ],
-  },
-  psgame: {
-    summary:
-      'Het veld is in de lengte verdeeld in vijf corridors. Bij balbezit mogen maximaal twee spelers van dezelfde ploeg in één corridor staan en moeten beide buitenste corridors bezet zijn, zodat de ploeg vanzelf breed speelt.',
-    steps: [
-      { title: 'Opstelling.', text: 'Speel op 55 × 40 m met twee grote doelen en keepers. Markeer met kegels vijf corridors in de lengte van het veld.' },
-      { title: 'Spelen.', text: 'Vrij spel 7 tegen 7, keepers inbegrepen.' },
-      { title: 'Positieregels.', text: 'Bij balbezit staan er maximaal twee spelers van dezelfde ploeg in één corridor, en beide buitenste corridors zijn bezet. Wordt de regel overtreden, dan krijgt de tegenstander een vrije trap.' },
-      { title: 'Ritme.', text: 'Speel 3 reeksen van 6 minuten met 1 minuut rust.' },
-    ],
-    easier: 'Gebruik alleen de regel dat beide flanken bezet moeten zijn.',
-    harder: 'Een doelpunt telt pas als de bal eerst in beide buitenste corridors is geweest.',
-    objectives: ['Breedte houden', 'Corridors bezetten', 'Afstanden bewaren', 'Positiespel in de wedstrijd'],
-    coaching: [
-      'Flankspelers: blijf breed, ook als de bal ver weg is.',
-      'Nooit met drie in dezelfde corridor.',
-      'Speel de bal naar de vrije corridor, niet door de drukte.',
-      'Na balverlies gelden de regels niet meer: verdedig compact.',
-    ],
-    diagramSteps: [
-      ['Organisatie', 'Vijf corridors in de lengte van het veld'],
-      ['Naar de flank', 'Pass naar de vrije buitenste corridor'],
-      ['Doordringen', 'De flankspeler gaat diep'],
-    ],
-    related: [
-      { id: 'psquad', fit: 'Als warming-up' },
-      { id: 'psswitch', fit: 'Zelfde thema' },
-      { id: 'ps43', fit: 'Kern' },
-      { id: 'game', fit: 'Als vervolg' },
     ],
   },
   omduel: {
@@ -3175,7 +3148,7 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'pthrough', fit: 'Als warming-up' },
       { id: 'dline', fit: 'Zelfde thema' },
       { id: 'rdeep', fit: 'Kern' },
-      { id: 'psgame', fit: 'Als afsluiter' },
+      { id: 'sgblock', fit: 'Als afsluiter' },
     ],
   },
   sgwing: {
@@ -3943,7 +3916,7 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'pwall', fit: 'Als warming-up' },
       { id: 'pdiamond', fit: 'Zelfde thema' },
       { id: 'rdeep', fit: 'Kern' },
-      { id: 'psgame', fit: 'Als afsluiter' },
+      { id: 'sgbuild', fit: 'Als afsluiter' },
     ],
   },
   obkeeper: {

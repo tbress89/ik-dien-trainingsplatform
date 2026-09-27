@@ -87,7 +87,6 @@ export type Variant =
   | 'psshadow'
   | 'psline'
   | 'psflank'
-  | 'psgame'
   | 'omduel'
   | 'omwaves'
   | 'om32'
@@ -1199,7 +1198,7 @@ export const EXERCISES: Exercise[] = [
   },
   {
     id: 'pwall',
-    title: 'Kaatsen: één-twee langs een kegel',
+    title: 'Kaatsen: één-twee-race naar het doeltje',
     variant: 'wallpass',
     type: 'Technisch',
     phase: 'Aanvallen',
@@ -1207,15 +1206,16 @@ export const EXERCISES: Exercise[] = [
     ages: ['U6–9', 'U10–13', 'U14–15'],
     ageLabel: 'U8 – U15',
     diff: 1,
-    pmin: 2,
-    players: '2–12',
-    playersDetail: '(rij + kaatser)',
+    pmin: 4,
+    players: '4–12',
+    playersDetail: '(2 ploegen, elk met een kaatser)',
     min: 10,
-    intensity: 3,
-    field: '10 × 20 m',
+    intensity: 4,
+    field: '20 × 20 m',
     materials: [
+      { name: 'Doeltjes', qty: '2' },
       { name: 'Kegels', qty: '4' },
-      { name: 'Ballen', qty: '6' },
+      { name: 'Ballen', qty: '10' },
     ],
   },
   {
@@ -1658,7 +1658,7 @@ export const EXERCISES: Exercise[] = [
   },
   {
     id: 'prshift',
-    title: 'Verschuiven als blok',
+    title: 'Verschuiven als blok: over de rivier',
     variant: 'prshift',
     type: 'Tactisch',
     phase: 'Verdedigen',
@@ -1666,16 +1666,15 @@ export const EXERCISES: Exercise[] = [
     ages: ['U10–13', 'U14–15', 'U16–21'],
     ageLabel: 'U12 – U21',
     diff: 2,
-    pmin: 8,
-    players: '8–10',
-    playersDetail: '(4 verdedigers + 4 à 6 kaatsers)',
-    min: 10,
-    intensity: 3,
-    field: '40 × 20 m',
+    pmin: 10,
+    players: '10–12',
+    playersDetail: '(4 verdedigers tegen 2 × 3 à 4 aanvallers)',
+    min: 15,
+    intensity: 4,
+    field: '30 × 52 m (3 vakken)',
     materials: [
-      { name: 'Doeltjes', qty: '2' },
-      { name: 'Kegels', qty: '6' },
-      { name: 'Ballen', qty: '8' },
+      { name: 'Kegels', qty: '8' },
+      { name: 'Ballen', qty: '10' },
       { name: 'Hesjes', qty: '4' },
     ],
   },
@@ -2182,29 +2181,6 @@ export const EXERCISES: Exercise[] = [
       { name: 'Kegels', qty: '8' },
       { name: 'Ballen', qty: '10' },
       { name: 'Hesjes', qty: '2' },
-    ],
-  },
-  {
-    id: 'psgame',
-    title: 'Partijvorm 7 tegen 7 met vijf corridors',
-    variant: 'psgame',
-    type: 'Partijvorm',
-    phase: 'Aanvallen',
-    themes: ['Positiespel'],
-    ages: ['U10–13', 'U14–15', 'U16–21'],
-    ageLabel: 'U12 – U21',
-    diff: 3,
-    pmin: 14,
-    players: '14',
-    playersDetail: '(7 × 2, keepers inbegrepen)',
-    min: 20,
-    intensity: 4,
-    field: '55 × 40 m',
-    materials: [
-      { name: 'Grote doelen', qty: '2' },
-      { name: 'Kegels', qty: '12' },
-      { name: 'Ballen', qty: '10' },
-      { name: 'Hesjes', qty: '2 × 7' },
     ],
   },
   {

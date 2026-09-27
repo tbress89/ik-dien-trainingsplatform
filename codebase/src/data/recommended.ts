@@ -34,7 +34,7 @@ export const RECOMMENDED: string[] = [
   'gkshot', // Schotstoppen vanuit de startpositie
 
   // 2 · Sterke basis: bewezen oefeningen die een kernthema goed uitdiepen, voor de meeste leeftijden.
-  'pwall', // Kaatsen: één-twee langs een kegel
+  'pwall', // Kaatsen: één-twee-race naar het doeltje
   'ps43', // Positiespel 4 tegen 4 + 3 jokers
   'fcross', // Afwerken na voorzet
   'dfeint', // Schijnbewegingen: passeren en versnellen
@@ -83,7 +83,6 @@ export const RECOMMENDED: string[] = [
   // 3 · Waardevol en gerichter: goede oefeningen voor een specifiek thema, een leeftijd of een
   //     bepaald niveau.
   'press', // Druk zetten in blok 6 tegen 4
-  'psgame', // Partijvorm 7 tegen 7 met vijf corridors
   'sgbuild', // Partijvorm 6 tegen 6 met opbouwzone
   'cagility', // Wendbaarheid: T-parcours
   'gsnordic', // Hamstrings en liezen: Nordic en Copenhagen in duo’s
@@ -92,7 +91,7 @@ export const RECOMMENDED: string[] = [
   'rcolor', // Kleurenrondo 6 tegen 3
   'dback', // 1 tegen 1 met de rug naar doel
   'sgman', // Mandekking 4 tegen 4
-  'prshift', // Verschuiven als blok
+  'prshift', // Verschuiven als blok: over de rivier
   'obsix', // Vrijlopen van de zes: opbouw 3 + K tegen 2
   'fplace', // Plaatsen in de hoeken
   'omduel', // Omschakelduel 1 tegen 1

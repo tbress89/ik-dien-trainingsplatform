@@ -4,6 +4,7 @@ import { Pitch } from '../components/Pitch';
 import { ArrowRightIcon, ChevronDownIcon, ChevronRightIcon, PlayersIcon, PlusIcon, SearchIcon, TagIcon } from '../components/icons';
 import { useDismiss } from '../components/useDismiss';
 import { EXERCISE_BY_ID, THEMES, type Theme } from '../data/exercises';
+import { REFERENCE_TRAININGS, type ReferenceTraining } from '../data/referenceTrainings';
 import {
   BLOCKS,
   BLOCK_TARGETS,
@@ -60,7 +61,7 @@ function BlockBar({ duration, colors }: { duration: Duration; colors: Record<Blo
 }
 
 export function TrainingsPage() {
-  const { sessions, newTraining } = useTraining();
+  const { sessions, newTraining, newTrainingFrom } = useTraining();
   const navigate = useNavigate();
   const [tab, setTab] = useState<Tab>('up');
   const [theme, setTheme] = useState<Theme | 'Alle'>('Alle');
@@ -76,6 +77,14 @@ export function TrainingsPage() {
     newTraining(duration);
     navigate(trainingPath(null));
   };
+  const startFrom = (ref: ReferenceTraining) => {
+    newTrainingFrom(ref);
+    navigate(trainingPath(null));
+  };
+  const refGroups = [...new Set(REFERENCE_TRAININGS.map((r) => r.ages))].map((ages) => ({
+    ages,
+    trainings: REFERENCE_TRAININGS.filter((r) => r.ages === ages),
+  }));
 
   return (
     <div className="trainings">
@@ -172,7 +181,7 @@ export function TrainingsPage() {
           </div>
         </section>
 
-        <aside>
+        <aside className="trainings-aside">
           <section className="card-section">
             <div>
               <h2 className="panel-title" style={{ letterSpacing: '0.02em' }}>
@@ -194,6 +203,31 @@ export function TrainingsPage() {
                 </button>
               );
             })}
+          </section>
+
+          <section className="card-section">
+            <div>
+              <h2 className="panel-title" style={{ letterSpacing: '0.02em' }}>
+                Voorbeeldtrainingen
+              </h2>
+              <span className="template-sub">Uitgewerkt per leeftijd. Open er een, pas aan en sla op als je eigen training.</span>
+            </div>
+            {refGroups.map((g) => (
+              <div key={g.ages} className="reference-group">
+                <span className="eyebrow">{g.ages}</span>
+                {g.trainings.map((r) => (
+                  <button key={r.id} type="button" className="template" onClick={() => startFrom(r)}>
+                    <span className="template-duration">{r.duration}′</span>
+                    <span className="template-text">
+                      <strong>{r.name}</strong>
+                      <span>
+                        {r.theme} · {r.items.length} oefeningen
+                      </span>
+                    </span>
+                  </button>
+                ))}
+              </div>
+            ))}
           </section>
         </aside>
       </div>

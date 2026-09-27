@@ -16,6 +16,7 @@ All paths are relative to `codebase/`:
 - `src/components/Pitch.tsx` — one diagram per `Variant`.
 - Trainings are stored in the user's browser (`ikdien:trainingen` in localStorage, see `src/data/training.tsx`), not in the code. When they're loaded, plan items for exercise ids that no longer exist are dropped, so a delete or id rename can't crash the builder — but renamed ids do disappear from saved trainings.
 - Saved ("bewaarde") exercises are also stored in the browser (`ikdien:bewaard`); ids that no longer exist are dropped on load.
+- `src/data/referenceTrainings.ts` — the example trainings per age group on the Trainingen page (`[block, exercise id, minutes]` items). A rename must update the id there; a delete must replace the exercise with a comparable one of the same age and minutes, since each block has to keep adding up.
 - `src/data/recommended.ts` — `RECOMMENDED`, the ranked id list behind the dashboard's "Aanbevolen" sort. Move an exercise within it only when the user asks to change its ranking; keep its `// Title` comment in step with a renamed title.
 
 The field rules, Dutch writing style, and diagram drawing rules are the same as for adding an exercise; they live in `.claude/skills/add-exercise/SKILL.md` (sections "Write the entry", "Writing the Dutch text" and "Pick or draw the diagram"). Read the relevant section before touching those parts, so edits follow the same conventions as new entries.
@@ -55,6 +56,7 @@ Only change an `id` when the user explicitly asks, since it's the page URL. When
 Deleting touches other pages, so confirm before doing it. First list what will happen, then wait for a clear yes:
 
 - the exercise entry is removed from `EXERCISES`, its text from `EXERCISE_DETAILS` and its id from `RECOMMENDED`;
+- any reference training in `referenceTrainings.ts` that uses it gets a comparable replacement (name it), so its blocks still add up;
 - its diagram variant is removed too, if no other exercise uses it (union member in `exercises.ts` and entry in `Pitch.tsx`);
 - the exercises that list it under "Past goed bij" (name them), plus the replacement you'd put in each of those slots, so their pages still show four related exercises;
 - trainings saved in people's browsers that use it lose that plan item automatically when they're next loaded; mention this, since their minutes change;
