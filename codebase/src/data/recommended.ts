@@ -72,6 +72,7 @@ export const RECOMMENDED: string[] = [
   'fcircuit', // Schietcarrousel rond de zestien
   'obgame', // Opbouwspel 6 + K tegen 6 op drie doeltjes
   'obzones', // Positiespel in twee vakken: opbouw via de keeper
+  'obwave', // K + 5 tegen K + 4: opbouwen in golven
   'wmatch', // Wedstrijdopwarming in vier delen
   'pthrough', // Steekpass in de loop
   'gklow', // Lage ballen opscheppen

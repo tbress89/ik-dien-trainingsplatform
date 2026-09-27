@@ -4009,4 +4009,36 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'sgbuild', fit: 'Als afsluiter' },
     ],
   },
+  obwave: {
+    summary:
+      'Een ploeg van K + 5 bouwt in golven op tegen K + 4: elke aanval start bij de eigen keeper. Zonder vakken passen de spelers de opbouw toe in een wedstrijdvorm: loskomen, ruimte maken en de vrije man vinden.',
+    steps: [
+      { title: 'Opstelling.', text: 'Speel op drie kwart van een 8-tegen-8-veld met twee grote doelen en keepers. De opbouwende ploeg (K + 5) speelt met een centrale verdediger (3), twee flankspelers (2 en 5), een middenvelder (10) en een spits (9). De tegenstander speelt met K + 4 en heeft één wisselspeler.' },
+      { title: 'Opbouw.', text: 'Elke aanval start bij de keeper. De 3 en de 10 bewegen diagonaal van elkaar weg, de 2 en de 5 schuiven hoger om ruimte te maken en de 9 probeert zich aanspeelbaar te maken. Na een doelpunt of een bal over de lijn start de volgende golf opnieuw bij de keeper.' },
+      { title: 'Punten.', text: 'Een doelpunt van de opbouwende ploeg is 1 punt, een doelpunt van de tegenstander 2 punten. Zo loont rustig en verzorgd opbouwen.' },
+      { title: 'Ritme.', text: 'Speel 5 minuten met de ene ploeg in opbouw en wissel dan de rollen voor 5 minuten.' },
+    ],
+    easier: 'Laat de tegenstander pas druk zetten na de eerste pass van de keeper.',
+    harder: 'Laat de wisselspeler meedoen (K + 5 tegen K + 5), of geef de opbouwende ploeg maximaal twee balcontacten.',
+    objectives: ['Opbouwen via de keeper', 'Vrijlopen en loskomen', 'Ruimte maken', 'Passen op tempo'],
+    coaching: [
+      'Speel in op de verste voet en op tempo; kan het, speel dan in de ruimte vóór je ploegmaat.',
+      'Loop weg van je tegenstander met een tempowissel om de bal te krijgen.',
+      'Sta ingedraaid naar het doel van de tegenstander, zodat je naar voren kunt aannemen.',
+      'Keeper: scan eerst en kies dan de vrije speler.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'K + 5 tegen K + 4, de bal start bij de keeper'],
+      ['Loskomen', 'De 3 en de 10 bewegen diagonaal van elkaar weg'],
+      ['Ruimte maken', 'De 2 en de 5 schuiven hoger, de 9 biedt zich aan'],
+      ['Opbouw', 'De keeper speelt de 3 aan'],
+      ['Doorspelen', 'De 3 speelt de hoge 5 aan'],
+    ],
+    related: [
+      { id: 'obzones', fit: 'Als warming-up' },
+      { id: 'psbuild', fit: 'Zelfde thema' },
+      { id: 'obgame', fit: 'Als vervolg' },
+      { id: 'game', fit: 'Als afsluiter' },
+    ],
+  },
 };

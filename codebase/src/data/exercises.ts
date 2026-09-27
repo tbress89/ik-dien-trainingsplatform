@@ -128,7 +128,8 @@ export type Variant =
   | 'obline'
   | 'obwall'
   | 'obkeeper'
-  | 'obzones';
+  | 'obzones'
+  | 'obwave';
 
 export type ExerciseType = 'Warming-up' | 'Technisch' | 'Tactisch' | 'Fysiek' | 'Partijvorm';
 
@@ -3114,6 +3115,29 @@ export const EXERCISES: Exercise[] = [
       { name: 'Grote doelen', qty: '2' },
       { name: 'Kegels', qty: '8' },
       { name: 'Ballen', qty: '10' },
+      { name: 'Hesjes', qty: '2 × 5' },
+    ],
+  },
+  {
+    id: 'obwave',
+    title: 'K + 5 tegen K + 4: opbouwen in golven',
+    variant: 'obwave',
+    type: 'Partijvorm',
+    phase: 'Aanvallen',
+    themes: ['Opbouw van achteruit', 'Positiespel'],
+    ages: ['U10–13'],
+    ageLabel: 'U10 – U13',
+    diff: 2,
+    pmin: 11,
+    players: '10 + 2 K',
+    playersDetail: '(K + 5 tegen K + 4, + 1 wissel)',
+    min: 10,
+    intensity: 4,
+    field: '3/4 van een 8-tegen-8-veld',
+    materials: [
+      { name: 'Grote doelen', qty: '2' },
+      { name: 'Kegels', qty: '8' },
+      { name: 'Ballen', qty: '12' },
       { name: 'Hesjes', qty: '2 × 5' },
     ],
   },
