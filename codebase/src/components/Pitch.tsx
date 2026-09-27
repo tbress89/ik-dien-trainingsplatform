@@ -23,9 +23,40 @@ export function Pitch({ variant, step = Infinity }: Props) {
   const arK = `arK${id}`;
 
   // Primitives
-  const P = (x: number, y: number) => <circle key={`p${x}-${y}`} cx={x} cy={y} r={8} fill={PURPLE} stroke="#fff" strokeWidth={2} />;
-  const O = (x: number, y: number) => <circle key={`o${x}-${y}`} cx={x} cy={y} r={8} fill={ORANGE} stroke="#fff" strokeWidth={2} />;
-  const N = (x: number, y: number) => <circle key={`n${x}-${y}`} cx={x} cy={y} r={7} fill="#fff" stroke={PURPLE} strokeWidth={2.5} />;
+  // Players take an optional label, e.g. a shirt number or 'K', drawn inside the dot.
+  const Label = (x: number, y: number, label: string | undefined, color: string) =>
+    label && (
+      <text
+        x={x}
+        y={y}
+        dy="0.35em"
+        textAnchor="middle"
+        fontSize={label.length > 1 ? 7.5 : 9}
+        fontWeight={700}
+        fill={color}
+        fontFamily="Figtree, system-ui, sans-serif"
+      >
+        {label}
+      </text>
+    );
+  const P = (x: number, y: number, label?: string) => (
+    <g key={`p${x}-${y}`}>
+      <circle cx={x} cy={y} r={8} fill={PURPLE} stroke="#fff" strokeWidth={2} />
+      {Label(x, y, label, '#fff')}
+    </g>
+  );
+  const O = (x: number, y: number, label?: string) => (
+    <g key={`o${x}-${y}`}>
+      <circle cx={x} cy={y} r={8} fill={ORANGE} stroke="#fff" strokeWidth={2} />
+      {Label(x, y, label, INK)}
+    </g>
+  );
+  const N = (x: number, y: number, label?: string) => (
+    <g key={`n${x}-${y}`}>
+      <circle cx={x} cy={y} r={7} fill="#fff" stroke={PURPLE} strokeWidth={2.5} />
+      {Label(x, y, label, PURPLE)}
+    </g>
+  );
   const Ball = (x: number, y: number) => <circle key={`b${x}-${y}`} cx={x} cy={y} r={4} fill="#fff" stroke={INK} strokeWidth={1.5} />;
   const Cone = (x: number, y: number) => (
     <polygon key={`c${x}-${y}`} points={`${x},${y} ${x + 5},${y + 10} ${x - 5},${y + 10}`} fill={CONE} />
@@ -1317,8 +1348,8 @@ export function Pitch({ variant, step = Infinity }: Props) {
       Pass(30, 106, 64, 134, 2),
       Pass(32, 96, 154, 82, 3),
       Run('M78 144 Q130 156 196 138', 4),
-      P(24, 100), P(110, 18), P(110, 182), P(98, 124), P(172, 100),
-      O(296, 100), O(116, 114), O(140, 36), O(140, 164),
+      P(24, 100, 'K'), P(130, 18, '5'), P(130, 182, '2'), P(98, 124, '3'), P(172, 100, '10'),
+      O(296, 100, 'K'), O(116, 114, '9'), O(180, 36, '7'), O(180, 164, '11'),
       Ball(31, 104),
     ],
   };

@@ -19,6 +19,7 @@ over there), since a missing entry would only show up as an empty detail page.
 Running it twice in a row changes nothing the second time.
 """
 import ast
+import html
 import json
 import math
 import re
@@ -184,13 +185,19 @@ PURPLE, ORANGE, INK, ZONE, CONE, WHITE = '#5B2BC4', '#F2A541', '#1A1033', '#C7B6
 
 def svg_primitive(name, args):
     """SVG markup for one Pitch.tsx primitive call, matching what the React component renders."""
-    if name in ('P', 'O'):
-        x, y = args
-        fill = PURPLE if name == 'P' else ORANGE
-        return f'<circle cx="{x}" cy="{y}" r="8" fill="{fill}" stroke="{WHITE}" stroke-width="2"></circle>'
-    if name == 'N':
-        x, y = args
-        return f'<circle cx="{x}" cy="{y}" r="7" fill="{WHITE}" stroke="{PURPLE}" stroke-width="2.5"></circle>'
+    if name in ('P', 'O', 'N'):  # players, with an optional label (shirt number or 'K') inside the dot
+        x, y = args[:2]
+        if name == 'N':
+            dot = f'<circle cx="{x}" cy="{y}" r="7" fill="{WHITE}" stroke="{PURPLE}" stroke-width="2.5"></circle>'
+        else:
+            dot = f'<circle cx="{x}" cy="{y}" r="8" fill="{PURPLE if name == "P" else ORANGE}" stroke="{WHITE}" stroke-width="2"></circle>'
+        if len(args) < 3:
+            return dot
+        label = html.escape(str(args[2]))
+        color = {'P': WHITE, 'O': INK, 'N': PURPLE}[name]
+        size = 7.5 if len(label) > 1 else 9
+        return (f'<g>{dot}<text x="{x}" y="{y}" dy="0.35em" text-anchor="middle" font-size="{size}" font-weight="700" '
+                f'fill="{color}" font-family="Figtree, system-ui, sans-serif">{label}</text></g>')
     if name == 'Ball':
         x, y = args
         return f'<circle cx="{x}" cy="{y}" r="4" fill="{WHITE}" stroke="{INK}" stroke-width="1.5"></circle>'
