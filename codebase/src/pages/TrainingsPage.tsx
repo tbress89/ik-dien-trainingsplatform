@@ -4,7 +4,6 @@ import { Pitch } from '../components/Pitch';
 import { ArrowRightIcon, ChevronDownIcon, ChevronRightIcon, PlayersIcon, PlusIcon, SearchIcon, TagIcon } from '../components/icons';
 import { useDismiss } from '../components/useDismiss';
 import { EXERCISE_BY_ID, THEMES, type Theme } from '../data/exercises';
-import { SQUAD_SIZE, type Session } from '../data/sessions';
 import {
   BLOCKS,
   BLOCK_TARGETS,
@@ -16,6 +15,7 @@ import {
   useTraining,
   type BlockId,
   type Duration,
+  type Session,
 } from '../data/training';
 
 type Tab = 'up' | 'past' | 'all';
@@ -139,11 +139,10 @@ export function TrainingsPage() {
                     <span>{MONTH_NAMES[date.getMonth()].slice(0, 3).toUpperCase()}</span>
                   </span>
                   <span className="session-info">
-                    <span className="session-team">{s.team}</span>
+                    <span className="session-team">{s.team || 'Geen team'}</span>
                     <span className="session-theme">{s.theme}</span>
                     <span className="session-extra">
                       {exerciseCount(exercises.length)}
-                      {isPast && s.attendance !== undefined && ` · ${s.attendance}/${SQUAD_SIZE} aanwezig`}
                     </span>
                   </span>
                   <span className="session-build">
@@ -218,10 +217,12 @@ function NextTraining({ session: s, today }: { session: Session; today: string }
         </span>
         <span className="next-title">{title[0].toUpperCase() + title.slice(1)}</span>
         <span className="next-pills">
-          <span className="next-pill next-pill-team">
-            <PlayersIcon size={14} strokeWidth={2.2} />
-            {s.team}
-          </span>
+          {s.team && (
+            <span className="next-pill next-pill-team">
+              <PlayersIcon size={14} strokeWidth={2.2} />
+              {s.team}
+            </span>
+          )}
           <span className="next-pill">Thema: {s.theme}</span>
         </span>
       </div>

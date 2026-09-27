@@ -282,7 +282,10 @@ export function DetailPage() {
                 Toevoegen aan training
               </span>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                <span className="add-panel-sub">Training van {formatTrainingDate(date)} · {team}</span>
+                <span className="add-panel-sub">
+                  Training van {formatTrainingDate(date)}
+                  {team && ` · ${team}`}
+                </span>
                 <div role="group" aria-label="Blok" className="segmented">
                   {BLOCKS.map((b, i) => (
                     <button
