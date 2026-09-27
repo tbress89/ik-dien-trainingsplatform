@@ -140,8 +140,8 @@ export function DetailPage() {
       <div className="detail-grid">
         <div className="detail-col">
           <figure className="diagram">
-            <div className="diagram-canvas">
-              <Pitch variant={e.variant} step={hasStepToggle && step < diagramSteps.length - 1 ? step : undefined} />
+            {/* Above the drawing rather than on top of it, so it never covers players or cones. */}
+            <div className="diagram-toolbar">
               {hasStepToggle && (
                 <div role="group" aria-label="Fase in de oefening" className="segmented diagram-steps">
                   {diagramSteps.map(([label], i) => (
@@ -155,6 +155,9 @@ export function DetailPage() {
                 <FieldIcon size={14} />
                 {e.field}
               </span>
+            </div>
+            <div className="diagram-canvas">
+              <Pitch variant={e.variant} step={hasStepToggle && step < diagramSteps.length - 1 ? step : undefined} />
             </div>
             <figcaption>
               <span>

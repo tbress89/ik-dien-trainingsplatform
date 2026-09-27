@@ -127,7 +127,8 @@ export type Variant =
   | 'obgame'
   | 'obline'
   | 'obwall'
-  | 'obkeeper';
+  | 'obkeeper'
+  | 'obzones';
 
 export type ExerciseType = 'Warming-up' | 'Technisch' | 'Tactisch' | 'Fysiek' | 'Partijvorm';
 
@@ -3091,6 +3092,29 @@ export const EXERCISES: Exercise[] = [
       { name: 'Kegels', qty: '10' },
       { name: 'Ballen', qty: '12' },
       { name: 'Hesjes', qty: '3' },
+    ],
+  },
+  {
+    id: 'obzones',
+    title: 'Positiespel in twee vakken: opbouw via de keeper',
+    variant: 'obzones',
+    type: 'Tactisch',
+    phase: 'Aanvallen',
+    themes: ['Opbouw van achteruit', 'Positiespel'],
+    ages: ['U10–13'],
+    ageLabel: 'U10 – U13',
+    diff: 2,
+    pmin: 11,
+    players: '9 + 2 K',
+    playersDetail: '(K + 4 tegen K + 3 + 2)',
+    min: 10,
+    intensity: 3,
+    field: '3/4 van een 8-tegen-8-veld',
+    materials: [
+      { name: 'Grote doelen', qty: '2' },
+      { name: 'Kegels', qty: '8' },
+      { name: 'Ballen', qty: '10' },
+      { name: 'Hesjes', qty: '2 × 5' },
     ],
   },
 ];

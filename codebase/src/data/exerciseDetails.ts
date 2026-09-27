@@ -3976,4 +3976,36 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'obgame', fit: 'Als afsluiter' },
     ],
   },
+  obzones: {
+    summary:
+      'Vanuit de keeper bouwt een ploeg op in twee vakken: drie spelers in de opbouwzone en een aanspeelpunt in de aanvalszone, tegen drie actieve verdedigers. Onderscheppen de verdedigers de bal, dan vallen de vakken weg en komen er twee extra spelers bij: opbouwen, loskomen van je man en omschakelen.',
+    steps: [
+      { title: 'Opstelling.', text: 'Speel op drie kwart van een 8-tegen-8-veld met twee grote doelen en keepers, verdeeld in een opbouwzone en een aanvalszone. De opbouwende ploeg (K + 4) heeft een centrale middenvelder (3) en twee flankspelers (2 en 5) in de opbouwzone en een spits (10) in de aanvalszone. De tegenstander verdedigt met één speler in de opbouwzone (9) en twee in de aanvalszone. Twee extra spelers (7 en 11) wachten langs de zijlijn.' },
+      { title: 'Opbouw.', text: 'De keeper start en heeft twee opties: de 3 aanspelen of meteen de 10. De 2 en de 5 mogen in eerste instantie niet aangespeeld worden: zij houden het centrum vrij door hoog en breed te gaan. De 3 mag de aanvalszone in. De 9 zet druk op de 3 en schermt tegelijk de passlijn naar de 10 af: de moeilijkste taak.' },
+      { title: 'Omschakelen.', text: 'Onderschept de tegenstander de bal, dan vallen de vakken weg en wordt er vrij gespeeld. De 7 en de 11 komen erbij, zodat de verdedigende ploeg in overtal speelt. Elk doelpunt is 1 punt.' },
+      { title: 'Ritme.', text: 'Speel 5 minuten met de ene ploeg in opbouw en wissel dan de rollen voor 5 minuten.' },
+    ],
+    easier: 'Laat de 9 alleen de passlijn naar de 10 afschermen, zonder druk te zetten op de 3.',
+    harder: 'Beperk de opbouwende ploeg tot twee balcontacten, of laat de 7 en de 11 al meedoen voor de balwinst.',
+    objectives: ['Opbouwen via de keeper', 'Loskomen van je tegenstander', 'Kiezen tussen kort en diep', 'Omschakelen na balverlies'],
+    coaching: [
+      'Keeper: speel op tempo in de verste voet van de vrijlopende speler.',
+      'Keeper: scan eerst en kies dan: kort op de 3 of meteen diep op de 10.',
+      '3 en 10: kom op het juiste moment los en beweeg diagonaal van elkaar weg, richting keeper.',
+      '2 en 5: ga hoger om ruimte te maken, en loop je in tweede instantie vrij.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Opbouwzone en aanvalszone, drie verdedigers'],
+      ['Loskomen', '3 en 10 bewegen diagonaal van elkaar weg, richting keeper'],
+      ['Kort', 'De keeper speelt de 3 aan'],
+      ['Diep', 'Of meteen de pass op de 10 in de aanvalszone'],
+      ['Infiltreren', 'De 3 mag de aanvalszone in'],
+    ],
+    related: [
+      { id: 'psbuild', fit: 'Als warming-up' },
+      { id: 'obsix', fit: 'Zelfde thema' },
+      { id: 'obgame', fit: 'Als vervolg' },
+      { id: 'sgbuild', fit: 'Als afsluiter' },
+    ],
+  },
 };
