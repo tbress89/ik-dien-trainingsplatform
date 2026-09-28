@@ -210,4 +210,28 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
       { label: 'De volgende schutter start met een nieuwe bal', ms: 400, ball: 's2', newBall: 's2' },
     ],
   },
+  // Passvorm in Y met kaatsbal
+  passy: {
+    actors: [
+      { id: 'a1', team: 'P', x: 70, y: 100 },
+      { id: 'a2', team: 'P', x: 52, y: 100 },
+      { id: 'a3', team: 'P', x: 34, y: 100 },
+      { id: 'b', team: 'P', x: 150, y: 100 },
+      { id: 'c', team: 'P', x: 230, y: 62 },
+      { id: 'd', team: 'P', x: 230, y: 138 },
+    ],
+    ballStart: 'a1',
+    beats: [
+      { label: 'A speelt in op B, die kort aankomt', ms: 700, ball: 'b', moves: { b: [142, 100] } },
+      { label: 'B kaatst in één keer terug; C vertrekt', ms: 600, ball: 'a1', moves: { c: [240, 60] } },
+      { label: 'A speelt diep in de loop van C', ms: 900, ball: 'c', moves: { c: [262, 56] } },
+      {
+        label: 'C dribbelt terug naar de rij, iedereen schuift door: A naar B, B naar C',
+        ms: 1600,
+        ball: 'c',
+        moves: { c: [34, 100], a1: [150, 100], b: [230, 62], a2: [70, 100], a3: [52, 100] },
+      },
+      { label: 'De volgende beurt gaat naar rechts (D)', ms: 500, ball: 'a2', newBall: 'a2' },
+    ],
+  },
 };
