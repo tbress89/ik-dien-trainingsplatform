@@ -68,11 +68,15 @@ export function PitchAnimation({ variant, def, onBeat }: { variant: Variant; def
   const from = frames[Math.min(i, frames.length - 1)];
   const to = frames[Math.min(i + 1, frames.length - 1)];
   const positions = Object.fromEntries(def.actors.map((a) => [a.id, lerp(from.positions[a.id], to.positions[a.id], t)]));
+  // A beat can start with a fresh ball at a player (e.g. the trainer plays in a new one).
+  const fresh = def.beats[i]?.newBall;
+  const fromHolder = fresh ?? from.holder;
+  const fromBall: Point = fresh ? [from.positions[fresh][0] + BALL_OFFSET[0], from.positions[fresh][1] + BALL_OFFSET[1]] : from.ball;
   // A dribble keeps the ball at the player's feet; anything else is a pass or a shot.
   const ball: Point =
-    to.holder && to.holder === from.holder
+    to.holder && to.holder === fromHolder
       ? [positions[to.holder][0] + BALL_OFFSET[0], positions[to.holder][1] + BALL_OFFSET[1]]
-      : lerp(from.ball, to.ball, t);
+      : lerp(fromBall, to.ball, t);
 
   const label = def.beats[Math.min(i, def.beats.length - 1)].label;
   useEffect(() => {

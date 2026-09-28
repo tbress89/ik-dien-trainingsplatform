@@ -6,7 +6,8 @@ import type { Variant } from './exercises';
  * An animation uses the same 320 × 200 field as the diagram (Pitch.tsx draws the field, zones and goals;
  * the animation draws the players and the ball on top). It runs through a list of beats: in each beat the
  * listed players move to a new spot, and the ball either goes to a player (a pass, or a dribble when that
- * player already had it) or to a fixed spot (e.g. into the goal). After the last beat it pauses and loops.
+ * player already had it) or to a fixed spot (e.g. into the goal); `newBall` starts a beat with a fresh ball
+ * at a player, like a trainer playing in a new one. After the last beat it pauses and loops.
  */
 export interface AnimActor {
   id: string;
@@ -24,6 +25,8 @@ export interface AnimBeat {
   moves?: Record<string, [number, number]>;
   /** Who has the ball at the end of the beat (an actor id), or where it ends up. */
   ball: string | [number, number];
+  /** A new ball appears at this actor at the start of the beat (e.g. the trainer plays in a fresh one). */
+  newBall?: string;
 }
 
 export interface PitchAnimationDef {
@@ -57,6 +60,39 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
       { label: 'De kaatser legt terug', ms: 900, ball: 'o1' },
       { label: 'Oranje dribbelt op', ms: 1500, ball: 'o1', moves: { o1: [236, 96], p2: [216, 84], o2: [250, 70] } },
       { label: 'Doelpunt', ms: 600, ball: [298, 100], moves: { k: [290, 94] } },
+    ],
+  },
+  // Omschakel-waves 2 tegen 2 met kaatsers
+  omwave2k: {
+    actors: [
+      { id: 'p1', team: 'P', x: 120, y: 70 },
+      { id: 'p2', team: 'P', x: 120, y: 130 },
+      { id: 'o1', team: 'O', x: 196, y: 84 },
+      { id: 'o2', team: 'O', x: 196, y: 126 },
+      { id: 'pk', team: 'P', label: 'Ka', x: 264, y: 100 },
+      { id: 'ok', team: 'O', label: 'Ka', x: 56, y: 100 },
+      { id: 'pw1', team: 'P', x: 40, y: 44 },
+      { id: 'pw2', team: 'P', x: 40, y: 156 },
+      { id: 'ow1', team: 'O', x: 280, y: 44 },
+      { id: 'ow2', team: 'O', x: 280, y: 156 },
+      { id: 't', team: 'N', label: 'T', x: 160, y: 168 },
+    ],
+    ballStart: 't',
+    beats: [
+      { label: 'De trainer speelt in bij paars', ms: 900, ball: 'p2' },
+      { label: 'Pass op de eigen kaatser: 3 tegen 2', ms: 1000, ball: 'pk', moves: { p1: [176, 74], o1: [206, 90], o2: [214, 112] } },
+      { label: 'De kaatser legt terug in de loop', ms: 900, ball: 'p1', moves: { p1: [214, 80] } },
+      { label: 'In één keer afgewerkt: 2 punten', ms: 600, ball: [256, 68] },
+      {
+        label: 'Vliegende wissel: nieuwe duo’s sprinten erin, de kaatsers blijven staan',
+        ms: 1600,
+        ball: [256, 68],
+        moves: {
+          p1: [40, 44], p2: [40, 156], o1: [280, 44], o2: [280, 156],
+          pw1: [120, 70], pw2: [120, 130], ow1: [196, 84], ow2: [196, 126],
+        },
+      },
+      { label: 'Nieuwe bal voor paars, dat net scoorde', ms: 900, ball: 'pw2', newBall: 't' },
     ],
   },
 };
