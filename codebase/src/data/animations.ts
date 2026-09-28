@@ -147,4 +147,23 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
       { label: 'Aansluiten achteraan in de nieuwe rij', ms: 700, ball: 'a2', moves: { d1: [70, 38] } },
     ],
   },
+  // Rondo 4 tegen 1
+  rondo: {
+    actors: [
+      { id: 't', team: 'P', x: 160, y: 30 },
+      { id: 'r', team: 'P', x: 230, y: 100 },
+      { id: 'b', team: 'P', x: 160, y: 170 },
+      { id: 'l', team: 'P', x: 90, y: 100 },
+      { id: 'o', team: 'O', x: 155, y: 92 },
+    ],
+    ballStart: 't',
+    beats: [
+      { label: 'Pass naar een vrije zijde', ms: 800, ball: 'r', moves: { o: [192, 80] } },
+      { label: 'Verder rond: de middenspeler jaagt, links schuift mee', ms: 800, ball: 'b', moves: { o: [182, 130], l: [90, 122] } },
+      { label: 'Splitpass door het midden', ms: 900, ball: 't', moves: { o: [176, 108] } },
+      { label: 'Snel naar de andere kant', ms: 900, ball: 'l', moves: { o: [135, 95] } },
+      { label: 'Onderschept!', ms: 700, ball: 'o', moves: { o: [125, 145] } },
+      { label: 'Wissel: wie de bal verliest, gaat in het midden', ms: 1200, ball: 'o', moves: { l: [160, 100], o: [90, 100] } },
+    ],
+  },
 };
