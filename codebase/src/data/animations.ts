@@ -166,4 +166,29 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
       { label: 'Wissel: wie de bal verliest, gaat in het midden', ms: 1200, ball: 'o', moves: { l: [160, 100], o: [90, 100] } },
     ],
   },
+  // 1 tegen 1 op kleine doeltjes
+  duel: {
+    actors: [
+      { id: 'p1', team: 'P', x: 95, y: 75 },
+      { id: 'p2', team: 'P', x: 40, y: 90 },
+      { id: 'p3', team: 'P', x: 40, y: 110 },
+      { id: 'o1', team: 'O', x: 225, y: 120 },
+      { id: 'o2', team: 'O', x: 280, y: 90 },
+      { id: 'o3', team: 'O', x: 280, y: 110 },
+    ],
+    ballStart: 'p1',
+    beats: [
+      { label: 'Paars speelt diep in bij oranje en loopt in', ms: 900, ball: 'o1', moves: { p1: [132, 96] } },
+      { label: 'Oranje neemt aan in de loop', ms: 600, ball: 'o1', moves: { o1: [200, 116], p1: [150, 104] } },
+      { label: 'Duel: oranje gaat de verdediger voorbij', ms: 1100, ball: 'o1', moves: { o1: [128, 126], p1: [142, 110] } },
+      { label: 'Scoren in het doeltje van paars', ms: 500, ball: [66, 100], moves: { o1: [104, 116] } },
+      {
+        label: 'Beide spelers sluiten achteraan aan bij de andere rij',
+        ms: 1400,
+        ball: [66, 100],
+        moves: { p1: [280, 130], o1: [40, 130], p2: [95, 75], p3: [40, 90], o2: [225, 120], o3: [280, 90] },
+      },
+      { label: 'Het volgende duel begint', ms: 500, ball: 'p2', newBall: 'p2' },
+    ],
+  },
 };
