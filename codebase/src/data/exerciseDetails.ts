@@ -670,26 +670,26 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
   },
   r52: {
     summary:
-      'Vijf spelers houden de bal in een vierkant tegen twee verdedigers. De klassieke rondo: balcirculatie, lichaamshouding en de pass tussen de twee verdedigers door.',
+      'Vijf spelers houden de bal in een vierkant tegen twee verdedigers en verhuizen na elke pass naar een andere zijde. De klassieke rondo met doorbewegen: balcirculatie, vrijlopen na de pass en de pass tussen de twee verdedigers door.',
     steps: [
-      { title: 'Opstelling.', text: 'Zet een vierkant van 12 × 12 m uit. Vijf spelers verdelen zich over de zijden, twee verdedigers staan in het midden.' },
-      { title: 'Spelen.', text: 'De buitenspelers houden de bal met maximaal twee balcontacten. Tien passes op rij is een punt.' },
-      { title: 'Wisselen.', text: 'Wie de bal verliest of buiten speelt, gaat erin samen met de speler die hem de laatste pass gaf. De twee verdedigers gaan naar buiten.' },
+      { title: 'Opstelling.', text: 'Zet een vierkant van 12 × 12 m uit. Vijf spelers verdelen zich over de zijden, met maximaal twee spelers op dezelfde zijde. Twee verdedigers staan in het midden.' },
+      { title: 'Spelen.', text: 'De buitenspelers houden de bal met maximaal twee balcontacten. Na elke pass verhuist de passer verplicht naar een andere zijde, zonder dat er drie spelers op één zijde komen. Tien passes op rij is een punt.' },
+      { title: 'Wisselen.', text: 'Wie de bal verliest, buiten speelt of na zijn pass niet verhuist, gaat erin samen met de speler die hem de laatste pass gaf. De twee verdedigers gaan naar buiten.' },
       { title: 'Ritme.', text: 'Speel 3 reeksen van 3 minuten met 1 minuut rust.' },
     ],
     easier: 'Vergroot het vierkant tot 15 × 15 m of speel met één verdediger.',
     harder: 'Speel met één balcontact. Een pass tussen de twee verdedigers door telt dubbel.',
-    objectives: ['Balcirculatie', 'Splitpass', 'Lichaamshouding', 'Snel druk zetten na balverlies'],
+    objectives: ['Balcirculatie', 'Splitpass', 'Doorbewegen na de pass', 'Snel druk zetten na balverlies'],
     coaching: [
       'Open lichaamshouding: ontvang met de verste voet.',
       'Zoek de pass tussen de twee verdedigers door.',
-      'Beweeg mee langs de lijn om een passlijn te openen.',
+      'Na je pass meteen verhuizen: kies de zijde waar maar één ploegmaat staat en een passlijn open ligt.',
       'Verdedigers: de eerste zet druk, de tweede sluit het midden af.',
     ],
     diagramSteps: [
-      ['Organisatie', 'Vijf buitenspelers, twee verdedigers'],
-      ['Circulatie', 'De bal gaat naar de andere kant'],
-      ['Doorbewegen', 'Nieuwe pass, een buitenspeler opent een passlijn'],
+      ['Organisatie', 'Vijf buitenspelers, maximaal twee per zijde'],
+      ['Passen en verhuizen', 'De passer verhuist na zijn pass naar een andere zijde'],
+      ['Doorspelen', 'Nieuwe pass, ook deze passer verhuist'],
     ],
     related: [
       { id: 'r31', fit: 'Als warming-up' },

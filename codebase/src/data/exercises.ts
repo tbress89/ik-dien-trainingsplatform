@@ -734,7 +734,7 @@ export const EXERCISES: Exercise[] = [
     players: '7',
     playersDetail: '(5 + 2)',
     min: 10,
-    intensity: 2,
+    intensity: 3,
     field: '12 × 12 m',
     materials: [
       { name: 'Kegels', qty: '4' },
