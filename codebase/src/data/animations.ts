@@ -188,6 +188,23 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
       { label: 'Pass naar boven; de passer vult de lege onderkant', ms: 1200, ball: 'p2', moves: { p1: [130, 155], o1: [145, 78], o2: [180, 80] } },
     ],
   },
+  // Passen in lijnen: pass en volg (wie van links komt loopt onderlangs, wie van rechts komt bovenlangs)
+  pline: {
+    actors: [
+      { id: 'l1', team: 'P', x: 80, y: 100 },
+      { id: 'l2', team: 'P', x: 62, y: 100 },
+      { id: 'l3', team: 'P', x: 44, y: 100 },
+      { id: 'r1', team: 'P', x: 240, y: 100 },
+      { id: 'r2', team: 'P', x: 258, y: 100 },
+    ],
+    ballStart: 'l1',
+    beats: [
+      { label: 'Binnenkantpass naar de overkant; de passer sprint achter zijn pass aan', ms: 1000, ball: 'r1', moves: { l1: [160, 135], l2: [80, 100], l3: [62, 100] } },
+      { label: 'Aannemen en terugpassen; de eerste passer sluit achteraan aan', ms: 1000, ball: 'l2', moves: { r1: [160, 65], l1: [258, 100], r2: [240, 100] } },
+      { label: 'Pass en volg: iedereen schuift één plek op', ms: 1000, ball: 'r2', moves: { l2: [160, 135], r1: [62, 100], l3: [80, 100] } },
+      { label: 'En opnieuw: wie past, loopt naar de andere rij', ms: 1000, ball: 'l3', moves: { r2: [160, 65], l2: [258, 100], l1: [240, 100] } },
+    ],
+  },
   // 1 tegen 1 op kleine doeltjes
   duel: {
     actors: [
