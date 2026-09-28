@@ -4318,4 +4318,36 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'game5', fit: 'Als afsluiter' },
     ],
   },
+  omwave2k: {
+    summary:
+      'Dezelfde omschakel-waves als 2 tegen 2 op vier doeltjes, maar elke ploeg heeft een vaste kaatser achter de doellijn van de tegenstander. Door de kaatser aan te spelen creëer je meteen een 3 tegen 2: zo leren spelers na balverovering snel vooruit spelen en de vrije man gebruiken.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet een veld van 20 × 20 m uit met twee doeltjes op elke doellijn. Elke ploeg zet één speler als vaste kaatser buiten het veld, op de achterlijn tussen de twee doeltjes van de tegenstander. Van elke ploeg staan er twee spelers in het veld, de rest wacht naast de eigen doeltjes. De trainer staat met ballen aan de zijlijn.' },
+      { title: 'Spelen.', text: 'Er wordt 2 tegen 2 gespeeld op de doeltjes van de tegenstander. Spelers mogen hun eigen kaatser aanspelen om een 3 tegen 2 te creëren. Een gewoon doelpunt is 1 punt, een doelpunt meteen op aangeven van de kaatser 2 punten.' },
+      { title: 'Vliegende wissel.', text: 'Na een doelpunt of een uitbal sprinten de vier veldspelers eruit en komen er meteen twee nieuwe duo’s in; de kaatsers blijven staan. De trainer speelt een nieuwe bal in: na een doelpunt bij de ploeg die scoorde, na een uitbal bij de ploeg die de inworp zou krijgen.' },
+      { title: 'Ritme.', text: 'Speel tot een ploeg 10 punten heeft en begin dan een nieuwe wedstrijd. Wissel na elke wedstrijd de kaatsers, en houd zo 20 minuten vol.' },
+    ],
+    easier: 'Maak het veld breder of langer, of speel met twee neutrale kaatsers die altijd meedoen met de ploeg in balbezit.',
+    harder: 'Maak het veld smaller of korter, laat de kaatser in één keer spelen, of laat een doelpunt op aangeven van de kaatser alleen dubbel tellen als het in één keer afgewerkt wordt.',
+    objectives: ['Omschakelen na balverovering', 'Diep spelen op de kaatser', 'Overtal benutten', 'Afwerken op doeltjes'],
+    coaching: [
+      'Bal veroverd? Kijk meteen of je kaatser vrij staat.',
+      'Na je pass op de kaatser: meteen doorlopen voor de terugbal.',
+      'Kaatser: beweeg langs de lijn om aanspeelbaar te blijven.',
+      'Verdedigers: scherm de passlijn naar de kaatser af.',
+    ],
+    diagramSteps: [
+      ['Organisatie', '2 tegen 2 op vier doeltjes, elke ploeg met een kaatser achter de doellijn van de tegenstander'],
+      ['Inspelen', 'De trainer speelt een nieuwe bal in'],
+      ['Via de kaatser', 'Pass op de kaatser, de ploegmaat loopt door'],
+      ['Scoren', 'De kaatser legt terug, afwerken in één keer: 2 punten'],
+      ['Wissel', 'Nieuwe duo’s sprinten erin, de kaatsers blijven staan'],
+    ],
+    related: [
+      { id: 'r22', fit: 'Als warming-up' },
+      { id: 'omwave2', fit: 'Zelfde thema' },
+      { id: 'trans', fit: 'Als vervolg' },
+      { id: 'game5', fit: 'Als afsluiter' },
+    ],
+  },
 };

@@ -74,7 +74,7 @@ export const REFERENCE_TRAININGS: ReferenceTraining[] = [
       ['wu', 'omduel', 5], // Omschakelduel 1 tegen 1
       ['kern', 'trans', 20], // Omschakelen 4 tegen 4 op vier doeltjes
       ['kern', 'prcp', 20], // Tegendruk: 5 seconden om terug te winnen
-      ['pv', 'game5', 20], // Partijvorm 5 tegen 5 op grote doelen
+      ['pv', 'omwave2', 20], // Omschakel-waves 2 tegen 2 op vier doeltjes
     ],
   },
   {

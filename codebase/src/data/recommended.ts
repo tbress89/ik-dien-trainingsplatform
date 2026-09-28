@@ -40,6 +40,7 @@ export const RECOMMENDED: string[] = [
   'dfeint', // Schijnbewegingen: passeren en versnellen
   'omwinner', // Winnaar blijft: 2 tegen 2 met wisselende duo's
   'omwave2', // Omschakel-waves 2 tegen 2 op vier doeltjes
+  'omwave2k', // Omschakel-waves 2 tegen 2 met kaatsers
   'rcircle', // Kringrondo 7 tegen 2
   'sgnum', // Nummerspel: 1 tegen 1 tot 3 tegen 3
   'pr2v2', // 2 tegen 2: druk en dekking

@@ -138,7 +138,8 @@ export type Variant =
   | 'kplyo'
   | 'ksprint'
   | 'krepeat'
-  | 'omwave2';
+  | 'omwave2'
+  | 'omwave2k';
 
 export type ExerciseType = 'Warming-up' | 'Technisch' | 'Tactisch' | 'Fysiek' | 'Partijvorm';
 
@@ -3333,6 +3334,29 @@ export const EXERCISES: Exercise[] = [
       { name: 'Kegels', qty: '4' },
       { name: 'Ballen', qty: '10' },
       { name: 'Hesjes', qty: '2 × 5' },
+    ],
+  },
+  {
+    id: 'omwave2k',
+    title: 'Omschakel-waves 2 tegen 2 met kaatsers',
+    variant: 'omwave2k',
+    type: 'Partijvorm',
+    phase: 'Omschakelen → aanval',
+    themes: ['Omschakelen', 'Afwerken'],
+    ages: ['U10–13'],
+    ageLabel: 'U10 – U13',
+    diff: 2,
+    pmin: 10,
+    players: '10–16',
+    playersDetail: '(2 ploegen, 2 tegen 2 + 2 kaatsers)',
+    min: 20,
+    intensity: 5,
+    field: '20 × 20 m',
+    materials: [
+      { name: 'Doeltjes', qty: '4' },
+      { name: 'Kegels', qty: '4' },
+      { name: 'Ballen', qty: '10' },
+      { name: 'Hesjes', qty: '2 × 7' },
     ],
   },
 ];
