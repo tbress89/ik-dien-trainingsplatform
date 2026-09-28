@@ -139,7 +139,8 @@ export type Variant =
   | 'ksprint'
   | 'krepeat'
   | 'omwave2'
-  | 'omwave2k';
+  | 'omwave2k'
+  | 'omright';
 
 export type ExerciseType = 'Warming-up' | 'Technisch' | 'Tactisch' | 'Fysiek' | 'Partijvorm';
 
@@ -3357,6 +3358,29 @@ export const EXERCISES: Exercise[] = [
       { name: 'Kegels', qty: '4' },
       { name: 'Ballen', qty: '10' },
       { name: 'Hesjes', qty: '2 × 7' },
+    ],
+  },
+  {
+    id: 'omright',
+    title: '3 tegen 3 + neutrale kaatser: recht van de aanval',
+    variant: 'omright',
+    type: 'Partijvorm',
+    phase: 'Omschakelen → aanval',
+    themes: ['Omschakelen', 'Afwerken'],
+    ages: ['U14–15', 'U16–21'],
+    ageLabel: 'U15 – U17',
+    diff: 2,
+    pmin: 8,
+    players: '7 + K',
+    playersDetail: '(3 tegen 3 + 1 neutrale kaatser + neutrale K)',
+    min: 15,
+    intensity: 4,
+    field: '40 × 20 m',
+    materials: [
+      { name: 'Groot doel', qty: '1' },
+      { name: 'Kegels', qty: '8' },
+      { name: 'Ballen', qty: '10' },
+      { name: 'Hesjes', qty: '3 + 3 + 2' },
     ],
   },
 ];

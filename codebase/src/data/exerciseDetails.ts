@@ -4350,4 +4350,36 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'game5', fit: 'Als afsluiter' },
     ],
   },
+  omright: {
+    summary:
+      'Twee ploegen van drie spelen op één groot doel met een neutrale keeper. Voor ze mogen scoren, moeten ze eerst de neutrale kaatser tegenover het doel aanspelen: zo leren spelers na balverovering eerst de bal veiligstellen en dan snel doorschakelen naar de aanval.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet een veld van 40 × 20 m uit, in de zaal of buiten, met één groot doel en een neutrale keeper. Tegenover het doel staat een neutrale kaatser in een klein vak. Twee ploegen van drie spelen in het veld.' },
+      { title: 'Recht van de aanval.', text: 'Beide ploegen scoren op hetzelfde doel. Wie de bal heeft, moet eerst de neutrale kaatser aanspelen voor hij mag scoren: zo haalt de ploeg het recht van de aanval.' },
+      { title: 'Omschakelen.', text: 'Gaat de bal uit of onderschept de tegenpartij hem, dan moet het recht van de aanval opnieuw gehaald worden via de kaatser. Na een uitbal wordt er ingedribbeld.' },
+      { title: 'Ritme.', text: 'Speel 3 reeksen van 4 minuten met 1 minuut rust. Wissel na elke reeks de kaatser met een veldspeler.' },
+    ],
+    easier: 'Maak het veld breder of langer, zodat er na balwinst meer ruimte is om de kaatser te vinden.',
+    harder: 'Maak het veld smaller of korter, of laat de kaatser in één keer spelen.',
+    objectives: ['Omschakelen na balverovering', 'Bal veiligstellen', 'Snel naar doel na het terugleggen', 'Meteen druk na balverlies'],
+    coaching: [
+      'Bal veroverd? Kijk eerst naar de kaatser en speel hem snel aan.',
+      'Na je pass op de kaatser: loop meteen door richting doel.',
+      'Balverlies? Scherm meteen de passlijn naar de kaatser af.',
+      'Keeper: sta klaar, de aanval kan elk moment komen.',
+    ],
+    diagramSteps: [
+      ['Organisatie', '3 tegen 3 op één doel, met een neutrale keeper en kaatser'],
+      ['Recht van de aanval', 'Eerst de neutrale kaatser aanspelen'],
+      ['Terugleggen', 'De kaatser legt terug op een ploegmaat'],
+      ['Afwerken', 'Opdribbelen en scoren'],
+      ['Balverlies', 'Na een onderschepping moet de andere ploeg eerst weer via de kaatser'],
+    ],
+    related: [
+      { id: 'rondo', fit: 'Als warming-up' },
+      { id: 'omkeeper', fit: 'Zelfde thema' },
+      { id: 'omcounter', fit: 'Als vervolg' },
+      { id: 'game', fit: 'Als afsluiter' },
+    ],
+  },
 };

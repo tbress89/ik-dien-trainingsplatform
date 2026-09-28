@@ -102,6 +102,7 @@ export const RECOMMENDED: string[] = [
   'gkangle', // Positie kiezen: de hoek verkleinen
   'sgblock', // Partijvorm 5 tegen 5: doorschuiven als blok
   'omcounter', // Balwinst op eigen helft en counteren: 6 tegen 6
+  'omright', // 3 tegen 3 + neutrale kaatser: recht van de aanval
   'wtennis', // Voetbaltennis
   'psflank', // Driehoek op de flank
   'prtrig', // Pressing op de trigger: terugspeelbal
