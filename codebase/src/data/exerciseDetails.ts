@@ -4286,4 +4286,36 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'gscool', fit: 'Als afsluiter' },
     ],
   },
+  omwave2: {
+    summary:
+      'Twee ploegen spelen 2 tegen 2 op vier doeltjes, in golven: na elk doelpunt of elke uitbal sprinten de vier spelers eruit en komen er meteen twee nieuwe duo’s in. Korte, felle acties waarin spelers kansen creëren, snel omschakelen en meteen scherp moeten zijn.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet een veld van 20 × 20 m uit met twee doeltjes op elke doellijn. Elke ploeg verdedigt de twee doeltjes aan haar kant en wacht achter de eigen doellijn; van elke ploeg staan er twee spelers in het veld. De trainer staat met ballen aan de zijlijn.' },
+      { title: 'Spelen.', text: 'Er wordt 2 tegen 2 gespeeld: scoor in een van de twee doeltjes van de tegenstander. Zodra er gescoord wordt of de bal over de zij- of achterlijn gaat, is de actie voorbij.' },
+      { title: 'Vliegende wissel.', text: 'De vier spelers sprinten meteen het veld uit en twee nieuwe spelers van elke ploeg sprinten erin. De trainer speelt meteen een nieuwe bal in: na een doelpunt bij de ploeg die scoorde (als beloning), na een uitbal bij de ploeg die de inworp zou krijgen.' },
+      { title: 'Ritme.', text: 'Speel tot een ploeg 10 punten heeft en begin dan een nieuwe wedstrijd. Houd zo 20 minuten vol, met een korte pauze tussen de wedstrijden.' },
+    ],
+    easier: 'Maak het veld breder of langer, zodat de aanvallers meer ruimte hebben om kansen te creëren.',
+    harder: 'Maak het veld smaller of korter, of laat een doelpunt alleen tellen na een pass tussen de twee aanvallers.',
+    objectives: ['Kansen creëren', 'Omschakelen', 'Meteen scherp zijn', 'Afwerken op doeltjes'],
+    coaching: [
+      'Sprint het veld in en wees meteen klaar voor de bal.',
+      'Kies het doeltje dat het minst verdedigd is.',
+      'Maak het veld groot met je duomaat: breed en diep.',
+      'Balverlies? Meteen omschakelen en je doeltjes afschermen.',
+    ],
+    diagramSteps: [
+      ['Organisatie', '2 tegen 2 op vier doeltjes, de andere duo’s wachten achter hun doellijn'],
+      ['Inspelen', 'De trainer speelt een nieuwe bal in'],
+      ['Samenspelen', 'Pass naar de duomaat'],
+      ['Scoren', 'Opdribbelen en scoren in een doeltje'],
+      ['Wissel', 'Na de actie sprinten nieuwe duo’s het veld in'],
+    ],
+    related: [
+      { id: 'r52', fit: 'Als warming-up' },
+      { id: 'omwinner', fit: 'Zelfde thema' },
+      { id: 'trans', fit: 'Als vervolg' },
+      { id: 'game5', fit: 'Als afsluiter' },
+    ],
+  },
 };

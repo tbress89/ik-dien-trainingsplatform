@@ -214,7 +214,7 @@ def svg_primitive(name, args):
             dot = f'<circle cx="{x}" cy="{y}" r="7" fill="{WHITE}" stroke="{PURPLE}" stroke-width="2.5"></circle>'
         else:
             dot = f'<circle cx="{x}" cy="{y}" r="8" fill="{PURPLE if name == "P" else ORANGE}" stroke="{WHITE}" stroke-width="2"></circle>'
-        if len(args) < 3:
+        if len(args) < 3 or args[2] is None:
             return dot
         label = html.escape(str(args[2]))
         color = {'P': WHITE, 'O': INK, 'N': PURPLE}[name]
@@ -258,6 +258,7 @@ def parse_args(text):
     text = re.sub(r'\bZONE\b', "'ZONE'", text)
     text = re.sub(r'\btrue\b', 'True', text)
     text = re.sub(r'\bfalse\b', 'False', text)
+    text = re.sub(r'\bundefined\b', 'None', text)
     return list(ast.literal_eval(f'({text},)'))
 
 
