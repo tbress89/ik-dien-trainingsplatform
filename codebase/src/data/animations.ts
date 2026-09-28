@@ -95,4 +95,56 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
       { label: 'Nieuwe bal voor paars, dat net scoorde', ms: 900, ball: 'pw2', newBall: 't' },
     ],
   },
+  // Omschakel-waves 2 tegen 2 op vier doeltjes
+  omwave2: {
+    actors: [
+      { id: 'p1', team: 'P', x: 120, y: 70 },
+      { id: 'p2', team: 'P', x: 120, y: 130 },
+      { id: 'o1', team: 'O', x: 196, y: 84 },
+      { id: 'o2', team: 'O', x: 196, y: 126 },
+      { id: 'pw1', team: 'P', x: 40, y: 96 },
+      { id: 'pw2', team: 'P', x: 40, y: 116 },
+      { id: 'ow1', team: 'O', x: 280, y: 96 },
+      { id: 'ow2', team: 'O', x: 280, y: 116 },
+      { id: 't', team: 'N', label: 'T', x: 160, y: 168 },
+    ],
+    ballStart: 't',
+    beats: [
+      { label: 'De trainer speelt in bij paars', ms: 900, ball: 'p2' },
+      { label: 'Pass naar de duomaat', ms: 900, ball: 'p1', moves: { p1: [130, 70] } },
+      { label: 'Opdribbelen naar het vrije doeltje', ms: 1300, ball: 'p1', moves: { p1: [226, 66], o1: [212, 78], p2: [170, 120], o2: [206, 118] } },
+      { label: 'Doelpunt: 1 punt', ms: 600, ball: [254, 68] },
+      {
+        label: 'Vliegende wissel: de vier spelers sprinten eruit, nieuwe duo’s erin',
+        ms: 1600,
+        ball: [254, 68],
+        moves: {
+          p1: [40, 96], p2: [40, 116], o1: [280, 96], o2: [280, 116],
+          pw1: [120, 70], pw2: [120, 130], ow1: [196, 84], ow2: [196, 126],
+        },
+      },
+      { label: 'Nieuwe bal voor paars, dat net scoorde', ms: 900, ball: 'pw2', newBall: 't' },
+    ],
+  },
+  // Passvierkant met doorbewegen: one round of the square, after which it looks like the start again.
+  passing: {
+    actors: [
+      { id: 'a1', team: 'P', x: 86, y: 46 },
+      { id: 'a2', team: 'P', x: 70, y: 38 },
+      { id: 'b1', team: 'P', x: 234, y: 46 },
+      { id: 'b2', team: 'P', x: 250, y: 38 },
+      { id: 'c1', team: 'P', x: 234, y: 158 },
+      { id: 'c2', team: 'P', x: 250, y: 166 },
+      { id: 'd1', team: 'P', x: 86, y: 158 },
+      { id: 'd2', team: 'P', x: 70, y: 166 },
+    ],
+    ballStart: 'a1',
+    beats: [
+      { label: 'Pass naar de volgende kegel en volg je pass', ms: 900, ball: 'b1', moves: { a1: [160, 46] } },
+      { label: 'Aannemen in de loop en doorspelen', ms: 900, ball: 'c1', moves: { a1: [250, 38], b2: [234, 46], b1: [234, 102], a2: [86, 46] } },
+      { label: 'De bal gaat rond, iedereen volgt zijn pass', ms: 900, ball: 'd1', moves: { b1: [250, 166], c2: [234, 158], c1: [160, 158] } },
+      { label: 'Terug naar de eerste kegel', ms: 900, ball: 'a2', moves: { c1: [70, 166], d2: [86, 158], d1: [86, 102] } },
+      { label: 'Aansluiten achteraan in de nieuwe rij', ms: 700, ball: 'a2', moves: { d1: [70, 38] } },
+    ],
+  },
 };
