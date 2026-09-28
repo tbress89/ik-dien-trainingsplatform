@@ -18,17 +18,20 @@ interface Frame {
   ball: Point;
   /** Actor id holding the ball, or null when it's lying loose (e.g. in the goal). */
   holder: string | null;
+  labels: Record<string, string | undefined>;
 }
 
 /** Positions at the start of each beat, plus the end state after the last one. */
 function keyframes(def: PitchAnimationDef): Frame[] {
   const positions = Object.fromEntries(def.actors.map((a) => [a.id, [a.x, a.y] as Point]));
+  const labels: Record<string, string | undefined> = Object.fromEntries(def.actors.map((a) => [a.id, a.label]));
   const at = (id: string): Point => [positions[id][0] + BALL_OFFSET[0], positions[id][1] + BALL_OFFSET[1]];
-  const frames: Frame[] = [{ positions: { ...positions }, ball: at(def.ballStart), holder: def.ballStart }];
+  const frames: Frame[] = [{ positions: { ...positions }, ball: at(def.ballStart), holder: def.ballStart, labels: { ...labels } }];
   for (const beat of def.beats) {
     Object.assign(positions, beat.moves ?? {});
+    Object.assign(labels, beat.labels ?? {});
     const holder = typeof beat.ball === 'string' ? beat.ball : null;
-    frames.push({ positions: { ...positions }, ball: holder ? at(holder) : (beat.ball as Point), holder });
+    frames.push({ positions: { ...positions }, ball: holder ? at(holder) : (beat.ball as Point), holder, labels: { ...labels } });
   }
   return frames;
 }
@@ -99,6 +102,8 @@ export function PitchAnimation({ variant, def, onBeat }: { variant: Variant; def
       >
         {def.actors.map((a) => {
           const [x, y] = positions[a.id];
+          // Labels change only once a beat is done (from the frame at its start), e.g. after a rotation.
+          const tag = from.labels[a.id];
           const fill = a.team === 'P' ? PURPLE : a.team === 'O' ? ORANGE : '#fff';
           const text = a.team === 'P' ? '#fff' : a.team === 'O' ? INK : PURPLE;
           return (
@@ -108,9 +113,9 @@ export function PitchAnimation({ variant, def, onBeat }: { variant: Variant; def
               ) : (
                 <circle cx={x} cy={y} r={8} fill={fill} stroke="#fff" strokeWidth={2} />
               )}
-              {a.label && (
-                <text x={x} y={y} dy="0.35em" textAnchor="middle" fontSize={a.label.length > 1 ? 7.5 : 9} fontWeight={700} fill={text} fontFamily="Figtree, system-ui, sans-serif">
-                  {a.label}
+              {tag && (
+                <text x={x} y={y} dy="0.35em" textAnchor="middle" fontSize={tag.length > 1 ? 7.5 : 9} fontWeight={700} fill={text} fontFamily="Figtree, system-ui, sans-serif">
+                  {tag}
                 </text>
               )}
             </g>

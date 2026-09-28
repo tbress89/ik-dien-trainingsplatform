@@ -27,6 +27,8 @@ export interface AnimBeat {
   ball: string | [number, number];
   /** A new ball appears at this actor at the start of the beat (e.g. the trainer plays in a fresh one). */
   newBall?: string;
+  /** New labels for actors, shown once the beat is done (e.g. position letters after a rotation). */
+  labels?: Record<string, string>;
 }
 
 export interface PitchAnimationDef {
@@ -232,6 +234,32 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
         moves: { c: [34, 100], a1: [150, 100], b: [230, 62], a2: [70, 100], a3: [52, 100] },
       },
       { label: 'De volgende beurt gaat naar rechts (D)', ms: 500, ball: 'a2', newBall: 'a2' },
+    ],
+  },
+  // Ruitpassen met derde man
+  diamond: {
+    actors: [
+      { id: 'a1', team: 'P', label: 'A', x: 70, y: 100 },
+      { id: 'a2', team: 'P', label: 'A', x: 52, y: 100 },
+      { id: 'b', team: 'P', label: 'B', x: 160, y: 55 },
+      { id: 'c', team: 'P', label: 'C', x: 160, y: 145 },
+      { id: 'd', team: 'P', label: 'D', x: 250, y: 100 },
+    ],
+    ballStart: 'a1',
+    beats: [
+      { label: 'A speelt in op B; tegelijk loopt C naar het midden', ms: 900, ball: 'b', moves: { c: [156, 108] } },
+      { label: 'B legt in één keer terug op de derde man', ms: 600, ball: 'c' },
+      { label: 'C speelt diep door naar D; B loopt in', ms: 800, ball: 'd', moves: { b: [200, 62] } },
+      { label: 'D legt af in de loop van B', ms: 600, ball: 'b', moves: { b: [228, 76] } },
+      { label: 'B schiet op het doeltje', ms: 500, ball: [286, 72] },
+      {
+        label: 'Iedereen schuift door: A naar C, C naar D, D naar B, B achteraan in de rij',
+        ms: 1700,
+        ball: [286, 72],
+        moves: { a1: [160, 145], c: [250, 100], d: [160, 55], b: [52, 100], a2: [70, 100] },
+        labels: { a1: 'C', c: 'D', d: 'B', b: 'A' },
+      },
+      { label: 'De volgende beurt begint', ms: 500, ball: 'a2', newBall: 'a2' },
     ],
   },
 };

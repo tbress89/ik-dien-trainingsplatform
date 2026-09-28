@@ -1308,27 +1308,29 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
   },
   pdiamond: {
     summary:
-      'Vier spelers staan in een ruit. De bal gaat via een teruggelegde bal naar de derde man, die in de loop wordt aangespeeld en diep doorspeelt. Traint de derde-mancombinatie: de sleutel om door een linie te spelen.',
+      'Vier spelers staan in een ruit. De bal gaat via een teruggelegde bal naar de derde man, die diep doorspeelt naar D; D legt af voor de inlopende B, die afwerkt op een doeltje. Traint de derde-mancombinatie en het afronden ervan: de sleutel om door een linie te spelen en tot een kans te komen.',
     steps: [
-      { title: 'Opstelling.', text: 'Zet vier kegels in een ruit op 15 meter van elkaar: A aan de start, B en C op de zijkanten, D aan de overkant. Bij A staat een rij met ballen.' },
-      { title: 'Derde man.', text: 'A speelt in op B. Tegelijk loopt C naar het midden. B legt in één keer terug op C, de derde man, die diep doorspeelt naar D.' },
-      { title: 'Doorbewegen.', text: 'Iedereen volgt zijn pass: A naar B, B naar C, C naar D. D dribbelt met de bal terug naar de rij bij A.' },
+      { title: 'Opstelling.', text: 'Zet vier kegels in een ruit op 15 meter van elkaar: A aan de start, B en C op de zijkanten, D aan de overkant. Zet een doeltje 8 meter achter D, schuin aan de kant van B. Bij A staat een rij met ballen.' },
+      { title: 'Derde man en afwerken.', text: 'A speelt in op B. Tegelijk loopt C naar het midden. B legt in één keer terug op C, de derde man, die diep doorspeelt naar D. Ondertussen loopt B in: D legt de bal in één keer af in de loop van B, die afwerkt op het doeltje.' },
+      { title: 'Doorbewegen.', text: 'Na elke beurt schuift iedereen één positie door: A gaat naar C, C volgt zijn pass naar D, D gaat naar B, en B haalt na het schot zijn bal op en sluit achteraan aan bij de rij bij A. Zo komt iedereen op elke positie.' },
       { title: 'Ritme.', text: 'Speel 3 reeksen van 4 minuten met 1 minuut rust. Wissel na elke reeks van draairichting.' },
     ],
     easier: 'Laat twee balcontacten toe en zet de kegels op 10 meter.',
     harder: 'Speel alles in één keer en zet een passieve verdediger in het midden.',
-    objectives: ['Derde man', 'Terugleggen in één keer', 'Timing van de loopactie', 'Doorbewegen'],
+    objectives: ['Derde man', 'Terugleggen in één keer', 'Timing van de loopactie', 'Afwerken na een combinatie'],
     coaching: [
       'C: vertrek op het moment dat A de bal inspeelt.',
       'B: open lichaamshouding, zodat je C al ziet aankomen.',
       'Leg de bal in de loop van de derde man, niet in zijn voeten.',
-      'Na elke pass: volg je bal naar de volgende kegel.',
+      'B: na je terugleg meteen inlopen, zodat D in je loop kan afleggen.',
     ],
     diagramSteps: [
       ['Organisatie', 'Vier posities in een ruit'],
       ['Inspelen', 'A speelt in op B, C loopt naar het midden'],
       ['Terugleggen', 'B legt terug op de derde man'],
       ['Diepe pass', 'C speelt diep door naar D'],
+      ['Afleggen', 'B loopt in, D legt af in zijn loop'],
+      ['Afwerken', 'B schiet op het doeltje'],
     ],
     related: [
       { id: 'pgates', fit: 'Als warming-up' },
