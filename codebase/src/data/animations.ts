@@ -191,4 +191,23 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
       { label: 'Het volgende duel begint', ms: 500, ball: 'p2', newBall: 'p2' },
     ],
   },
+  // Aannemen en schieten vanaf de zestien
+  fshot: {
+    actors: [
+      { id: 'a', team: 'N', x: 170, y: 60 },
+      { id: 's1', team: 'P', x: 110, y: 120 },
+      { id: 's2', team: 'P', x: 92, y: 132 },
+      { id: 'k', team: 'O', x: 292, y: 100 },
+    ],
+    ballStart: 's1',
+    beats: [
+      { label: 'De schutter speelt in op de aangever', ms: 700, ball: 'a' },
+      { label: 'De schutter loopt meteen in', ms: 700, ball: 'a', moves: { s1: [150, 112] } },
+      { label: 'De aangever kaatst terug in de loop', ms: 700, ball: 's1', moves: { s1: [184, 106] } },
+      { label: 'Aannemen naar voren, richting doel', ms: 500, ball: 's1', moves: { s1: [206, 102] } },
+      { label: 'Schot laag in de hoek', ms: 500, ball: [300, 116], moves: { k: [292, 108] } },
+      { label: 'Volg je schot; de volgende schutter maakt zich klaar', ms: 1100, ball: [300, 116], moves: { s1: [262, 112], s2: [110, 120], k: [292, 100] } },
+      { label: 'De volgende schutter start met een nieuwe bal', ms: 400, ball: 's2', newBall: 's2' },
+    ],
+  },
 };

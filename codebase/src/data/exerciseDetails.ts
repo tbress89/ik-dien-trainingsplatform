@@ -1525,10 +1525,10 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
   },
   fshot: {
     summary:
-      'De aangever speelt de bal in, de schutter neemt aan naar voren en werkt af in twee balcontacten. De basis van afwerken: een goede aanname die het schot voorbereidt.',
+      'De schutter speelt de bal in op de aangever, die terugkaatst in de loop; de schutter neemt aan naar voren en werkt af in twee balcontacten. De basis van afwerken: een goede aanname die het schot voorbereidt.',
     steps: [
-      { title: 'Opstelling.', text: 'Zet een groot doel met keeper. De schutters staan in een rij op 25 meter, de aangever met ballen op 18 meter, schuin voor de zestien.' },
-      { title: 'Aannemen.', text: 'De schutter start en de aangever speelt in. De schutter neemt de bal aan naar voren, in de richting van het doel.' },
+      { title: 'Opstelling.', text: 'Zet een groot doel met keeper. De schutters staan met ballen in een rij op 25 meter, de aangever op 18 meter, schuin voor de zestien.' },
+      { title: 'Aannemen.', text: 'De schutter speelt de bal in op de aangever en loopt in. De aangever kaatst terug in zijn loop, en de schutter neemt de bal aan naar voren, in de richting van het doel.' },
       { title: 'Schieten.', text: 'Met het tweede balcontact schiet hij op doel, laag en in de hoek. Daarna haalt hij de bal op en sluit hij weer aan.' },
       { title: 'Ritme.', text: 'Speel 3 reeksen van 3 minuten met 1 minuut rust. Wissel na elke reeks de kant van de aangever.' },
     ],
@@ -1542,9 +1542,10 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       'Volg je schot: ga altijd naar de tweede bal.',
     ],
     diagramSteps: [
-      ['Organisatie', 'Schutters, aangever en keeper'],
-      ['Starten', 'De schutter vertrekt'],
-      ['Inspelen', 'De aangever speelt in'],
+      ['Organisatie', 'Schutters met ballen, aangever en keeper'],
+      ['Inspelen', 'De schutter speelt in op de aangever'],
+      ['Inlopen', 'De schutter loopt meteen in'],
+      ['Terugkaatsen', 'De aangever kaatst terug in de loop'],
       ['Afwerken', 'Aannemen en schieten'],
     ],
     related: [
