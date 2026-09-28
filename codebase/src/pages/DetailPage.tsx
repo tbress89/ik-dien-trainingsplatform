@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Pitch } from '../components/Pitch';
+import { PitchAnimation } from '../components/PitchAnimation';
 import {
   ArrowDownIcon,
   ArrowLeftIcon,
@@ -9,7 +10,9 @@ import {
   CheckIcon,
   DifficultyBars,
   FieldIcon,
+  PlayIcon,
   PlusIcon,
+  StopIcon,
 } from '../components/icons';
 import {
   DIFFICULTY,
@@ -20,6 +23,7 @@ import {
   loadExerciseDetails,
   type ExerciseDetail,
 } from '../data/exercises';
+import { ANIMATIONS } from '../data/animations';
 import { BLOCKS, clampMinutes, formatTrainingDate, trainingPath, useTraining } from '../data/training';
 import { TRAINING_BUILDER } from '../features';
 
@@ -54,6 +58,9 @@ export function DetailPage() {
   // Open on the second stage when there are three or more (the first one only shows the setup).
   const defaultStep = Math.min(1, diagramSteps.length - 1);
   const [step, setStep] = useState(defaultStep);
+  const [playing, setPlaying] = useState(false);
+  const [beat, setBeat] = useState('');
+  const onBeat = useCallback((label: string) => setBeat(label), []);
   const [block, setBlock] = useState(1);
   const [min, setMin] = useState(e?.min ?? 15);
   const [added, setAdded] = useState<string | null>(null);
@@ -61,6 +68,7 @@ export function DetailPage() {
   // Reset local state when navigating between exercises.
   useEffect(() => {
     setStep(defaultStep);
+    setPlaying(false);
     setBlock(1);
     setMin(e?.min ?? 15);
     setAdded(null);
@@ -80,6 +88,7 @@ export function DetailPage() {
 
   const fav = favs.includes(e.id);
   const hint = hasStepToggle ? diagramSteps[step]?.[1] : diagramSteps[0]?.[1];
+  const animation = ANIMATIONS[e.variant];
 
   const add = () => {
     addExercise(BLOCKS[block].id, e.id, min);
@@ -142,7 +151,13 @@ export function DetailPage() {
           <figure className="diagram">
             {/* Above the drawing rather than on top of it, so it never covers players or cones. */}
             <div className="diagram-toolbar">
-              {hasStepToggle && (
+              {animation && (
+                <button type="button" className="btn diagram-play" aria-pressed={playing} onClick={() => setPlaying((p) => !p)}>
+                  {playing ? <StopIcon size={14} /> : <PlayIcon size={14} />}
+                  {playing ? 'Stoppen' : 'Afspelen'}
+                </button>
+              )}
+              {hasStepToggle && !playing && (
                 <div role="group" aria-label="Fase in de oefening" className="segmented diagram-steps">
                   {diagramSteps.map(([label], i) => (
                     <button key={label} type="button" aria-pressed={step === i} onClick={() => setStep(i)}>
@@ -157,7 +172,11 @@ export function DetailPage() {
               </span>
             </div>
             <div className="diagram-canvas">
-              <Pitch variant={e.variant} step={hasStepToggle && step < diagramSteps.length - 1 ? step : undefined} />
+              {animation && playing ? (
+                <PitchAnimation variant={e.variant} def={animation} onBeat={onBeat} />
+              ) : (
+                <Pitch variant={e.variant} step={hasStepToggle && step < diagramSteps.length - 1 ? step : undefined} />
+              )}
             </div>
             <figcaption>
               <span>
@@ -186,7 +205,11 @@ export function DetailPage() {
                 <span style={{ width: 18, height: 10, border: '1.5px solid #1A1033', background: '#fff' }} />
                 Doeltje
               </span>
-              {hint && <span className="diagram-hint">{hint}</span>}
+              {playing && beat ? (
+                <span className="diagram-hint diagram-beat">{beat}</span>
+              ) : (
+                hint && <span className="diagram-hint">{hint}</span>
+              )}
             </figcaption>
           </figure>
 

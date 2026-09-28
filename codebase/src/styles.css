@@ -1793,6 +1793,20 @@ a:focus-visible,
   flex-wrap: wrap;
   gap: 10px 16px;
 }
+.diagram-play {
+  height: 36px;
+  padding: 0 12px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.diagram-play[aria-pressed='true'] {
+  border-color: var(--purple);
+  color: var(--purple);
+}
+.diagram-beat {
+  color: var(--purple-dark);
+  font-weight: 600;
+}
 .diagram-steps {
   max-width: 100%;
   overflow-x: auto;

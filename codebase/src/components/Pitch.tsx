@@ -1,9 +1,9 @@
 import { useId, type ReactNode } from 'react';
 import type { Variant } from '../data/exercises';
 
-const PURPLE = '#5B2BC4';
-const ORANGE = '#F2A541';
-const INK = '#1A1033';
+export const PURPLE = '#5B2BC4';
+export const ORANGE = '#F2A541';
+export const INK = '#1A1033';
 const ZONE = '#C7B6EF';
 const CONE = '#A98BE8';
 
@@ -14,10 +14,16 @@ interface Props {
    * Shows everything when omitted.
    */
   step?: number;
+  /** Leave out the players and the ball, e.g. when PitchAnimation draws moving ones on top. */
+  hideActors?: boolean;
 }
 
+/** Players (P/O/N) and balls are keyed `p…`, `o…`, `n…`, `b…` followed by their coordinates. */
+const withoutActors = (nodes: ReactNode[]) =>
+  nodes.filter((n) => !(n && typeof n === 'object' && 'key' in n && /^[ponb]\d/.test(String(n.key))));
+
 /** Tactical diagram on a striped pitch. Fills its parent; the parent sets the size. */
-export function Pitch({ variant, step = Infinity }: Props) {
+export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
   const id = useId().replace(/:/g, '');
   const arP = `arP${id}`;
   const arK = `arK${id}`;
@@ -1539,7 +1545,7 @@ export function Pitch({ variant, step = Infinity }: Props) {
           <path d="M0 0L10 5L0 10z" fill={ORANGE} />
         </marker>
       </defs>
-      {content[variant]}
+      {hideActors ? withoutActors(content[variant]) : content[variant]}
     </svg>
   );
 }

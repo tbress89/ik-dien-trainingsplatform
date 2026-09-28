@@ -139,6 +139,18 @@ export const ChevronRightIcon = (p: IconProps) => (
   </svg>
 );
 
+export const PlayIcon = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M7 4l13 8-13 8z" fill="currentColor" />
+  </svg>
+);
+
+export const StopIcon = (p: IconProps) => (
+  <svg {...base(p)}>
+    <rect x="6" y="6" width="12" height="12" rx="1.5" fill="currentColor" />
+  </svg>
+);
+
 export const TrashIcon = (p: IconProps) => (
   <svg {...base(p)}>
     <path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3" />
