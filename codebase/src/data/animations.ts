@@ -168,6 +168,26 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
       { label: 'Wissel: wie de bal verliest, gaat in het midden', ms: 1200, ball: 'o', moves: { l: [160, 100], o: [90, 100] } },
     ],
   },
+  // Rondo 5 tegen 2: na elke pass naar een andere zijde, maximaal twee per zijde
+  rondo52: {
+    actors: [
+      { id: 'p1', team: 'P', x: 135, y: 45 },
+      { id: 'p2', team: 'P', x: 190, y: 45 },
+      { id: 'p3', team: 'P', x: 215, y: 110 },
+      { id: 'p4', team: 'P', x: 160, y: 155 },
+      { id: 'p5', team: 'P', x: 105, y: 100 },
+      { id: 'o1', team: 'O', x: 150, y: 92 },
+      { id: 'o2', team: 'O', x: 178, y: 112 },
+    ],
+    ballStart: 'p1',
+    beats: [
+      { label: 'Pass naar rechts; de passer verhuist meteen naar een andere zijde', ms: 1100, ball: 'p3', moves: { p1: [105, 70], o1: [165, 80], o2: [195, 100] } },
+      { label: 'Pass naar onder; ook deze passer verhuist, naar boven', ms: 1200, ball: 'p4', moves: { p3: [160, 45], o1: [140, 128], o2: [182, 132] } },
+      { label: 'Splitpass tussen de verdedigers door; de passer vult de lege zijde rechts', ms: 1200, ball: 'p3', moves: { p4: [215, 125], o1: [145, 95], o2: [175, 100] } },
+      { label: 'Pass naar links; daar staan er al twee, dus de passer gaat naar rechts', ms: 1200, ball: 'p1', moves: { p3: [215, 75], o1: [130, 85], o2: [170, 95] } },
+      { label: 'Pass naar boven; de passer vult de lege onderkant', ms: 1200, ball: 'p2', moves: { p1: [130, 155], o1: [145, 78], o2: [180, 80] } },
+    ],
+  },
   // 1 tegen 1 op kleine doeltjes
   duel: {
     actors: [
