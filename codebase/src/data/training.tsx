@@ -143,11 +143,13 @@ const TrainingContext = createContext<TrainingContextValue | null>(null);
 /** Saved ("bewaarde") exercises are remembered in this browser only; there are no accounts yet. */
 const FAVS_KEY = 'ikdien:bewaard';
 
+/** Validates stored saved-exercise ids; ids of exercises that no longer exist are dropped. */
+export const readFavs = (stored: unknown): string[] =>
+  Array.isArray(stored) ? stored.filter((id): id is string => typeof id === 'string' && id in EXERCISE_BY_ID) : [];
+
 function loadFavs(): string[] {
   try {
-    const stored: unknown = JSON.parse(localStorage.getItem(FAVS_KEY) ?? '[]');
-    // Drop ids of exercises that no longer exist.
-    return Array.isArray(stored) ? stored.filter((id): id is string => typeof id === 'string' && id in EXERCISE_BY_ID) : [];
+    return readFavs(JSON.parse(localStorage.getItem(FAVS_KEY) ?? '[]'));
   } catch {
     return [];
   }
@@ -184,25 +186,29 @@ function readPlan(raw: unknown): Plan {
   return plan;
 }
 
+/** Validates stored trainings: malformed entries are skipped, and unknown exercises and odd minutes are fixed. */
+export function readTrainings(stored: unknown): Session[] {
+  if (!Array.isArray(stored)) return [];
+  const trainings: Session[] = [];
+  for (const t of stored) {
+    if (!isRecord(t) || typeof t.id !== 'string' || typeof t.date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(t.date)) continue;
+    if (trainings.some((x) => x.id === t.id)) continue;
+    trainings.push({
+      id: t.id,
+      date: t.date,
+      team: typeof t.team === 'string' ? t.team.trim() : '',
+      theme: (THEMES as readonly unknown[]).includes(t.theme) ? (t.theme as Theme) : THEMES[0],
+      duration: (DURATIONS as readonly unknown[]).includes(t.duration) ? (t.duration as Duration) : 90,
+      plan: readPlan(t.plan),
+      savedAt: typeof t.savedAt === 'number' && Number.isFinite(t.savedAt) ? t.savedAt : 0,
+    });
+  }
+  return trainings;
+}
+
 function loadTrainings(): Session[] {
   try {
-    const stored: unknown = JSON.parse(localStorage.getItem(TRAININGS_KEY) ?? '[]');
-    if (!Array.isArray(stored)) return [];
-    const trainings: Session[] = [];
-    for (const t of stored) {
-      if (!isRecord(t) || typeof t.id !== 'string' || typeof t.date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(t.date)) continue;
-      if (trainings.some((x) => x.id === t.id)) continue;
-      trainings.push({
-        id: t.id,
-        date: t.date,
-        team: typeof t.team === 'string' ? t.team.trim() : '',
-        theme: (THEMES as readonly unknown[]).includes(t.theme) ? (t.theme as Theme) : THEMES[0],
-        duration: (DURATIONS as readonly unknown[]).includes(t.duration) ? (t.duration as Duration) : 90,
-        plan: readPlan(t.plan),
-        savedAt: typeof t.savedAt === 'number' && Number.isFinite(t.savedAt) ? t.savedAt : 0,
-      });
-    }
-    return trainings;
+    return readTrainings(JSON.parse(localStorage.getItem(TRAININGS_KEY) ?? '[]'));
   } catch {
     return [];
   }

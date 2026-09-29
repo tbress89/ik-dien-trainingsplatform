@@ -69,10 +69,10 @@ After confirming, make all of these changes, then grep for the deleted id in quo
 Build from `codebase/` (Node 18+ via `.nvmrc`; the default shell Node may be older):
 
 ```bash
-cd codebase && source ~/.nvm/nvm.sh >/dev/null && nvm use >/dev/null && npm run build
+cd codebase && source ~/.nvm/nvm.sh >/dev/null && nvm use >/dev/null && npm run build && npm test
 ```
 
-Fix any type errors, then `rm -rf dist tsconfig.tsbuildinfo`.
+Fix any type errors and failing tests (they check the content rules and render every diagram; the deploy stops on a failure), then `rm -rf dist tsconfig.tsbuildinfo`.
 
 Then sync the designs from the repo root, so `design/` shows the same exercises and diagrams as the app:
 

@@ -83,10 +83,10 @@ Drawing rules (viewBox is 320 × 200; the pitch outline runs 10–310 × 10–19
 Build from `codebase/`. The project needs Node 18+ (`.nvmrc` pins 22); the default shell Node may be older:
 
 ```bash
-cd codebase && source ~/.nvm/nvm.sh >/dev/null && nvm use >/dev/null && npm run build
+cd codebase && source ~/.nvm/nvm.sh >/dev/null && nvm use >/dev/null && npm run build && npm test
 ```
 
-Fix any type errors, then delete the build output (`rm -rf dist tsconfig.tsbuildinfo`) so the working tree stays clean.
+Fix any type errors and failing tests, then delete the build output (`rm -rf dist tsconfig.tsbuildinfo`) so the working tree stays clean. The tests (`src/**/*.test.ts`) check the content rules: unique ids, durations in steps of 5, a detail entry and a Recommended place for every exercise, valid themes and age buckets, existing "Past goed bij" links, reference trainings that add up, and that every diagram and animation renders. The deploy runs them too and stops on a failure.
 
 Then sync the designs from the repo root, so `design/` shows the same exercises and diagrams as the app:
 

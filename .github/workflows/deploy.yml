@@ -34,7 +34,11 @@ jobs:
 
       - run: npm ci
 
-      # Also writes dist/404.html so deep links like /trainingen/s3 load the app.
+      # Content checks, share links, stored-data validation and diagram rendering. A failing test stops
+      # the deploy, so the live site keeps its last good version.
+      - run: npm test
+
+      # Also writes dist/404.html so deep links like /trainingen/s3 load the app, and dist/sw.js.
       - run: npm run build
 
       - uses: actions/configure-pages@v6
