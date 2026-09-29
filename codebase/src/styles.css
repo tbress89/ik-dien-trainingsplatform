@@ -1155,6 +1155,86 @@ a:focus-visible,
 }
 .builder-main .actions {
   flex-wrap: nowrap;
+  align-items: center;
+}
+/* "Opgeslagen" / "Niet opgeslagen" next to the save button. */
+.save-state {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.save-state::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ok);
+}
+.save-state.is-dirty {
+  color: var(--warn);
+}
+.save-state.is-dirty::before {
+  background: var(--block-wu);
+}
+/* The "⋯" menu with the less frequent actions. */
+.more {
+  position: relative;
+}
+.more-btn {
+  width: 44px;
+  padding: 0;
+}
+.more-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 30;
+  min-width: 200px;
+  padding: 6px;
+  border-radius: 14px;
+  border: 1px solid var(--line-strong);
+  background: var(--card);
+  box-shadow: 0 14px 36px rgba(26, 16, 51, 0.18);
+  display: flex;
+  flex-direction: column;
+}
+.more-menu > * {
+  height: 42px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.more-menu > *:hover:not(:disabled) {
+  background: var(--purple-tint);
+  color: var(--ink);
+}
+.more-menu > *:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.more-menu .is-danger {
+  color: var(--danger);
+}
+.more-menu .is-danger:hover {
+  color: var(--danger);
+}
+.library-sheet-head {
+  display: none;
 }
 .builder-title {
   margin: 0;
@@ -1774,6 +1854,28 @@ a:focus-visible,
   font-size: 13px;
   padding: 16px;
   min-height: 72px;
+}
+.drop-slot {
+  width: 100%;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    background 0.15s;
+}
+.drop-slot:hover {
+  border-color: var(--purple);
+  background: var(--purple-tint);
+}
+.drop-slot-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--purple);
+}
+.drop-slot-hint {
+  font-size: 12px;
+  color: var(--muted);
 }
 .drop-slot.is-empty {
   flex-grow: 1;
@@ -3050,8 +3152,55 @@ a:focus-visible,
   .filters.is-collapsed .filters-chevron {
     transform: rotate(-90deg);
   }
+  /* The library is a sheet that slides up from the bottom; the training itself comes first on the page. */
+  .library {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 60;
+    height: min(85dvh, 760px);
+    border: 0;
+    border-radius: 22px 22px 0 0;
+    box-shadow: 0 -12px 40px rgba(26, 16, 51, 0.3);
+    transform: translateY(100%);
+    visibility: hidden;
+    transition:
+      transform 0.25s ease,
+      visibility 0.25s;
+  }
+  .library.is-open {
+    transform: none;
+    visibility: visible;
+  }
+  .library-head {
+    padding: 16px 16px 12px;
+  }
+  .library-sheet-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 15px;
+    color: var(--ink-2);
+  }
+  .library-sheet-head strong {
+    color: var(--ink);
+  }
+  .library-head .range-head {
+    display: none;
+  }
   .library-list {
-    max-height: 360px;
+    padding: 0 12px calc(16px + env(safe-area-inset-bottom));
+  }
+  .sheet-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 55;
+    background: rgba(26, 16, 51, 0.45);
+  }
+  .toast {
+    z-index: 70;
   }
   .dash-main,
   .builder-main {
@@ -3120,6 +3269,12 @@ a:focus-visible,
     font-size: 14px;
   }
   .builder-main .actions .btn-primary {
+    flex-basis: 100%;
+  }
+  .builder-main .actions .more-btn {
+    flex: 0 0 44px;
+  }
+  .builder-main .save-state {
     flex-basis: 100%;
   }
   .detail-title {

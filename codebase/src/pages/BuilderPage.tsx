@@ -1,14 +1,16 @@
-import { useEffect, useRef, useState, type DragEvent } from 'react';
+import { useCallback, useEffect, useRef, useState, type DragEvent } from 'react';
 import { Link, Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Pitch } from '../components/Pitch';
 import { ConfirmDialog } from '../components/ConfirmDialog';
 import { TrainingHeader } from '../components/TrainingHeader';
+import { useDismiss } from '../components/useDismiss';
 import { trainingTitle } from '../components/TrainingSheet';
 import {
   BookmarkIcon,
   CheckIcon,
   CloseIcon,
   GripIcon,
+  MoreIcon,
   PlusIcon,
   PrinterIcon,
   SearchIcon,
@@ -26,6 +28,22 @@ const TABS: ('Alle' | 'Bewaard' | ExerciseType)[] = ['Alle', 'Bewaard', 'Warming
 
 type DragSource = { src: 'lib'; ex: string } | { src: 'card'; from: BlockId; idx: number };
 
+/** The library tab that fits a block best when adding to it. */
+const BLOCK_TAB: Record<BlockId, (typeof TABS)[number]> = { wu: 'Warming-up', kern: 'Alle', pv: 'Partijvorm' };
+
+/** Phones and small tablets: the training comes first and the library opens as a sheet from the bottom. */
+const NARROW = '(max-width: 960px)';
+function useNarrow() {
+  const [narrow, setNarrow] = useState(() => window.matchMedia(NARROW).matches);
+  useEffect(() => {
+    const mq = window.matchMedia(NARROW);
+    const onChange = () => setNarrow(mq.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
+  return narrow;
+}
+
 export function BuilderPage() {
   const { sessions, draftId, openTraining, newTraining, saveTraining, deleteTraining, date, team, plan, duration, setDuration, theme, activeBlock, setActiveBlock, addExercise, removeItem, changeMinutes, moveItem, favs } = useTraining();
   const [tab, setTab] = useState<(typeof TABS)[number]>('Alle');
@@ -35,6 +53,15 @@ export function BuilderPage() {
   const drag = useRef<DragSource | null>(null);
   const [toast, setToast] = useState<string | null>(null);
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [libraryOpen, setLibraryOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const menuButton = useRef<HTMLButtonElement>(null);
+  const closeMenu = useCallback(() => setMenuOpen(false), []);
+  useDismiss(menuOpen, closeMenu, menuRef, menuButton);
+  const searchRef = useRef<HTMLInputElement>(null);
+  const narrow = useNarrow();
+  const sheetOpen = narrow && libraryOpen;
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -67,6 +94,45 @@ export function BuilderPage() {
     const t = setTimeout(() => setToast(null), 3200);
     return () => clearTimeout(t);
   }, [toast]);
+
+  // The library sheet: close on Escape, keep the page behind it from scrolling.
+  useEffect(() => {
+    if (!sheetOpen) return;
+    const onKey = (ev: KeyboardEvent) => ev.key === 'Escape' && setLibraryOpen(false);
+    document.addEventListener('keydown', onKey);
+    const overflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = overflow;
+    };
+  }, [sheetOpen]);
+
+  /** "+ Oefening toevoegen" in a block: picks that block and shows the library (as a sheet on phones). */
+  const addTo = (block: BlockId) => {
+    setActiveBlock(block);
+    setTab(BLOCK_TAB[block]);
+    if (narrow) setLibraryOpen(true);
+    else searchRef.current?.focus();
+  };
+
+  // Unsaved changes: a new training with exercises, or a saved one that differs from what's stored.
+  const saved = draftId ? sessions.find((s) => s.id === draftId) : undefined;
+  const planKey = (p: typeof plan) => BLOCKS.map((b) => p[b.id].map((it) => `${it.ex}:${it.min}`).join(',')).join('|');
+  const dirty = saved
+    ? saved.date !== date || saved.team !== team.trim() || saved.theme !== theme || saved.duration !== duration || planKey(saved.plan) !== planKey(plan)
+    : BLOCKS.some((b) => plan[b.id].length > 0);
+
+  // Closing or reloading the page would lose the changes; the browser asks first.
+  useEffect(() => {
+    if (!dirty) return;
+    const onBeforeUnload = (ev: BeforeUnloadEvent) => {
+      ev.preventDefault();
+      ev.returnValue = '';
+    };
+    window.addEventListener('beforeunload', onBeforeUnload);
+    return () => window.removeEventListener('beforeunload', onBeforeUnload);
+  }, [dirty]);
 
   const activeName = BLOCKS.find((b) => b.id === activeBlock)!.name;
   const q = query.trim().toLowerCase();
@@ -136,8 +202,22 @@ export function BuilderPage() {
 
   return (
     <div className="builder">
-      <aside aria-label="Oefeningenbibliotheek" className="library">
+      {sheetOpen && <div className="sheet-backdrop" onClick={() => setLibraryOpen(false)} aria-hidden="true" />}
+      <aside
+        aria-label="Oefeningenbibliotheek"
+        className={`library${libraryOpen ? ' is-open' : ''}`}
+        role={sheetOpen ? 'dialog' : undefined}
+        aria-modal={sheetOpen || undefined}
+      >
         <div className="library-head">
+          <div className="library-sheet-head">
+            <span>
+              Toevoegen aan <strong>{activeName}</strong>
+            </span>
+            <button type="button" className="icon-btn" onClick={() => setLibraryOpen(false)} aria-label="Bibliotheek sluiten">
+              <CloseIcon />
+            </button>
+          </div>
           <div className="range-head">
             <h2 className="panel-title">Bibliotheek</h2>
             <Link to="/" className="btn-link" style={{ padding: 0 }}>
@@ -147,6 +227,7 @@ export function BuilderPage() {
           <label className="search">
             <SearchIcon />
             <input
+              ref={searchRef}
               type="search"
               aria-label="Zoek in bibliotheek"
               placeholder="Zoek een oefening"
@@ -164,7 +245,8 @@ export function BuilderPage() {
             ))}
           </div>
           <span className="library-hint">
-            Sleep naar een blok, of druk op + om toe te voegen aan <strong>{activeName}</strong>.
+            {narrow ? 'Druk op + om toe te voegen aan ' : 'Sleep naar een blok, of druk op + om toe te voegen aan '}
+            <strong>{activeName}</strong>.
           </span>
         </div>
         <div className="library-list">
@@ -212,6 +294,8 @@ export function BuilderPage() {
                 onClick={() => {
                   addExercise(activeBlock, e.id);
                   setToast(`${e.title} toegevoegd aan ${activeName}`);
+                  // On a phone the sheet closes, so the exercise is seen landing in its block.
+                  setLibraryOpen(false);
                 }}
                 aria-label={`${e.title} toevoegen aan ${activeName}`}
               >
@@ -226,24 +310,62 @@ export function BuilderPage() {
         <div className="page-head">
           <TrainingHeader />
           <div className="actions">
-            {draftId && (
-              <button type="button" className="btn btn-danger-ghost" onClick={() => setConfirmDelete(true)}>
-                <TrashIcon />
-                Verwijderen
-              </button>
+            {(dirty || saved) && (
+              <span className={`save-state${dirty ? ' is-dirty' : ''}`} role="status">
+                {dirty ? 'Niet opgeslagen' : 'Opgeslagen'}
+              </span>
             )}
-            <button type="button" className="btn" onClick={share} disabled={total === 0}>
-              <ShareIcon />
-              Delen
-            </button>
             <Link to={`${trainingPath(draftId)}/geven`} className="btn">
               <WhistleIcon />
               Training geven
             </Link>
-            <Link to={`${trainingPath(draftId)}/afdrukken`} className="btn">
-              <PrinterIcon />
-              Afdrukken
-            </Link>
+            <div className="more" ref={menuRef}>
+              <button
+                ref={menuButton}
+                type="button"
+                className="btn more-btn"
+                aria-label="Meer acties"
+                aria-haspopup="menu"
+                aria-expanded={menuOpen}
+                onClick={() => setMenuOpen((o) => !o)}
+              >
+                <MoreIcon size={20} />
+              </button>
+              {menuOpen && (
+                <div className="more-menu" role="menu">
+                  <button
+                    type="button"
+                    role="menuitem"
+                    disabled={total === 0}
+                    onClick={() => {
+                      setMenuOpen(false);
+                      share();
+                    }}
+                  >
+                    <ShareIcon />
+                    Delen
+                  </button>
+                  <Link role="menuitem" to={`${trainingPath(draftId)}/afdrukken`} onClick={() => setMenuOpen(false)}>
+                    <PrinterIcon />
+                    Afdrukken
+                  </Link>
+                  {draftId && (
+                    <button
+                      type="button"
+                      role="menuitem"
+                      className="is-danger"
+                      onClick={() => {
+                        setMenuOpen(false);
+                        setConfirmDelete(true);
+                      }}
+                    >
+                      <TrashIcon />
+                      Verwijderen
+                    </button>
+                  )}
+                </div>
+              )}
+            </div>
             <button
               type="button"
               className="btn btn-primary"
@@ -254,7 +376,7 @@ export function BuilderPage() {
               }}
             >
               <CheckIcon />
-              Training opslaan
+              Opslaan
             </button>
           </div>
         </div>
@@ -395,16 +517,22 @@ export function BuilderPage() {
                       </article>
                     );
                   })}
-                  <div className={`drop-slot${empty ? ' is-empty' : ''}`}>
+                  {/* Also the drop target for dragging on a computer; the button works everywhere, including touch. */}
+                  <button type="button" className={`drop-slot${empty ? ' is-empty' : ''}`} onClick={() => addTo(b.id)}>
                     <PlusIcon size={22} strokeWidth={2} />
-                    <span>
-                      {empty
-                        ? 'Sleep een oefening hierheen'
-                        : u < targets[b.id]
-                          ? `Nog ${targets[b.id] - u} min · sleep om aan te vullen`
-                          : 'Sleep om te wisselen'}
+                    <span className="drop-slot-label">Oefening toevoegen</span>
+                    <span className="drop-slot-hint">
+                      {u > targets[b.id]
+                        ? `${u - targets[b.id]} min te veel`
+                        : u === targets[b.id]
+                          ? 'Blok is vol'
+                          : empty
+                            ? narrow
+                              ? `${targets[b.id]} min te vullen`
+                              : `${targets[b.id]} min te vullen · of sleep er een hierheen`
+                            : `Nog ${targets[b.id] - u} min te vullen`}
                     </span>
-                  </div>
+                  </button>
                 </div>
               </section>
             );
