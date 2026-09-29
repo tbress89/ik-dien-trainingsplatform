@@ -32,8 +32,9 @@ const TEMPLATES: { duration: Duration; name: string }[] = [
   { duration: 90, name: 'Lange training' },
 ];
 
-// Block colours on the dark "next training" card; the purple kern colour is lightened to stay visible.
-const DARK_BLOCK_COLOR: Record<BlockId, string> = { wu: '#F2A541', kern: '#8B63E0', pv: '#FFFFFF' };
+// Block colours on the dark "next training" card, lightened to stay visible, and the matching label colours.
+const DARK_BLOCK_COLOR: Record<BlockId, string> = { wu: '#F2A541', kern: '#4FD1B8', pv: '#FFFFFF' };
+const DARK_BLOCK_LABEL: Record<BlockId, string> = { wu: '#F2C07A', kern: '#8DE3D2', pv: '#CDBEF5' };
 const BLOCK_COLOR = Object.fromEntries(BLOCKS.map((b) => [b.id, b.color])) as Record<BlockId, string>;
 const BLOCK_NAME = Object.fromEntries(BLOCKS.map((b) => [b.id, b.name])) as Record<BlockId, string>;
 
@@ -268,7 +269,7 @@ function NextTraining({ session: s, today }: { session: Session; today: string }
                 <Pitch variant={EXERCISE_BY_ID[ex].variant} />
               </div>
               <span className="next-exercise-text">
-                <span className="next-block" style={{ color: block === 'wu' ? '#F2C07A' : '#CDBEF5' }}>
+                <span className="next-block" style={{ color: DARK_BLOCK_LABEL[block] }}>
                   {BLOCK_NAME[block]} · {min}′
                 </span>
                 <span className="next-exercise-title">{EXERCISE_BY_ID[ex].title}</span>
