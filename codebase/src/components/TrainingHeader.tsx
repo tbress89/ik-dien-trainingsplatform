@@ -9,7 +9,7 @@ import {
   toISODate,
   useTraining,
 } from '../data/training';
-import { CalendarIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, PencilIcon } from './icons';
+import { CalendarIcon, ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, PencilIcon, PlusIcon } from './icons';
 import { useDismiss } from './useDismiss';
 
 const WEEKDAYS = ['ma', 'di', 'wo', 'do', 'vr', 'za', 'zo'];
@@ -18,6 +18,9 @@ const WEEKDAYS = ['ma', 'di', 'wo', 'do', 'vr', 'za', 'zo'];
 export function TrainingHeader() {
   const { date, team, setTeam, draftId } = useTraining();
   const title = formatTrainingDate(date);
+  // An empty team shows as a small "+ Team toevoegen" chip; the title-size field appears once you add one.
+  const [editingTeam, setEditingTeam] = useState(false);
+  const showTeam = team.trim() !== '' || editingTeam;
 
   return (
     <div className="page-head-titles" style={{ gap: 8 }}>
@@ -26,24 +29,39 @@ export function TrainingHeader() {
       </span>
       <h1 className="builder-title">
         <DatePicker label={title[0].toUpperCase() + title.slice(1)} />
-        <span aria-hidden="true">·</span>
-        <label className="title-team">
-          <span className="visually-hidden">Team</span>
-          <input
-            type="text"
-            value={team}
-            size={Math.max(4, team.length + 1)}
-            placeholder="Team"
-            onChange={(ev) => setTeam(ev.target.value)}
-            onBlur={() => setTeam(team.trim())}
-          />
-          <span className="title-icon">
-            <PencilIcon size={18} />
-          </span>
-        </label>
+        {showTeam && (
+          <>
+            <span aria-hidden="true">·</span>
+            <label className="title-team">
+              <span className="visually-hidden">Team</span>
+              <input
+                type="text"
+                value={team}
+                size={Math.max(4, team.length + 1)}
+                placeholder="Team"
+                autoFocus={editingTeam}
+                onChange={(ev) => setTeam(ev.target.value)}
+                onKeyDown={(ev) => (ev.key === 'Enter' || ev.key === 'Escape') && ev.currentTarget.blur()}
+                onBlur={() => {
+                  setTeam(team.trim());
+                  setEditingTeam(false);
+                }}
+              />
+              <span className="title-icon">
+                <PencilIcon size={18} />
+              </span>
+            </label>
+          </>
+        )}
       </h1>
       <div className="pill-row">
         <ThemePicker />
+        {!showTeam && (
+          <button type="button" className="pill team-add" onClick={() => setEditingTeam(true)}>
+            <PlusIcon size={14} />
+            Team toevoegen
+          </button>
+        )}
       </div>
     </div>
   );

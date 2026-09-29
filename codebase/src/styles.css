@@ -1510,6 +1510,17 @@ a:focus-visible,
   background: var(--brand-dark);
   color: #fff;
 }
+/* "+ Team toevoegen" while the training has no team yet. */
+.team-add {
+  border: 1.5px dashed var(--line-accent);
+  background: transparent;
+  color: var(--purple);
+  cursor: pointer;
+}
+.team-add:hover {
+  border-color: var(--purple);
+  background: var(--purple-tint);
+}
 .actions {
   display: flex;
   gap: 10px;
