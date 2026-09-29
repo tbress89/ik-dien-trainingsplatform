@@ -141,7 +141,8 @@ export type Variant =
   | 'omwave2'
   | 'omwave2k'
   | 'omright'
-  | 'inworp';
+  | 'inworp'
+  | 'game11';
 
 export type ExerciseType = 'Warming-up' | 'Technisch' | 'Tactisch' | 'Fysiek' | 'Partijvorm';
 
@@ -3406,6 +3407,28 @@ export const EXERCISES: Exercise[] = [
       { name: 'Kegels', qty: '4' },
       { name: 'Ballen', qty: '6' },
       { name: 'Hesjes', qty: '2' },
+    ],
+  },
+  {
+    id: 'game11',
+    title: 'Wedstrijd 11 tegen 11 op een volledig veld',
+    variant: 'game11',
+    type: 'Partijvorm',
+    phase: 'Algemeen',
+    themes: ['Positiespel', 'Omschakelen'],
+    ages: ['U14–15', 'U16–21'],
+    ageLabel: 'U14 – U21',
+    diff: 2,
+    pmin: 22,
+    players: '22',
+    playersDetail: '(2 × 10 + 2 K)',
+    min: 35,
+    intensity: 4,
+    field: 'Volledig veld (105 × 68 m)',
+    materials: [
+      { name: 'Grote doelen', qty: '2' },
+      { name: 'Hesjes', qty: '11' },
+      { name: 'Ballen', qty: '10' },
     ],
   },
 ];

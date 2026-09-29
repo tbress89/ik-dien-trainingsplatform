@@ -4427,4 +4427,46 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'game5', fit: 'Als afsluiter' },
     ],
   },
+  game11: {
+    summary:
+      'Twee ploegen spelen een echte wedstrijd 11 tegen 11 op een volledig veld, elk in hun eigen wedstrijdsysteem. Traint het samenspel in het systeem, positiebesef en de omschakeling, met gerichte coachmomenten rond één thema.',
+    steps: [
+      {
+        title: 'Opstelling.',
+        text: 'Speel op een volledig veld met twee grote doelen en keepers. Beide ploegen spelen in hun wedstrijdsysteem, bijvoorbeeld 1-4-3-3, met elke speler op zijn eigen positie.',
+      },
+      {
+        title: 'Spelen.',
+        text: 'Speel een gewone wedstrijd volgens de voetbalregels, met buitenspel. Kies vooraf één thema, bijvoorbeeld opbouwen van achteruit of druk zetten na balverlies, en let vooral daarop.',
+      },
+      {
+        title: 'Coachmomenten.',
+        text: 'Leg het spel maximaal twee keer per helft stil als het thema zich voordoet: laat de spelers bevriezen, toon de oplossing en herneem vanuit dezelfde situatie.',
+      },
+      {
+        title: 'Ritme.',
+        text: 'Speel 2 helften van 15 minuten met 5 minuten rust. Gebruik de rust voor één korte coachboodschap en wissel waar nodig spelers en posities.',
+      },
+    ],
+    easier: 'Speel zonder buitenspel of verkort de helften tot 10 minuten. Leg het spel vaker kort stil om uit te leggen.',
+    harder: 'Leg een extra opdracht op: een doelpunt na een opbouw via de keeper telt dubbel, of speel met maximaal drie balcontacten.',
+    objectives: ['Spelen in het wedstrijdsysteem', 'Positiebesef', 'Omschakelen', 'Communicatie op het veld'],
+    coaching: [
+      'Bewaar je positie: breedte en diepte maken ruimte voor je ploegmaats.',
+      'Bij balverlies meteen omschakelen: de dichtste speler zet druk.',
+      'Praat met elkaar: roep, wijs en coach je ploegmaats.',
+      'Bij bevriezen: kijk eerst waar de vrije man staat.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Twee ploegen in 1-4-3-3 op een volledig veld'],
+      ['Opbouw', 'De keeper speelt in via de centrale verdediger en de zes'],
+      ['Aanval', 'Diagonale bal naar de flank, de flankspeler gaat diep'],
+    ],
+    related: [
+      { id: 'wmatch', fit: 'Als warming-up' },
+      { id: 'psshape', fit: 'Kern' },
+      { id: 'sgavv', fit: 'Kern' },
+      { id: 'game', fit: 'Zelfde thema' },
+    ],
+  },
 };

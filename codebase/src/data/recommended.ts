@@ -87,6 +87,7 @@ export const RECOMMENDED: string[] = [
   //     bepaald niveau.
   'press', // Druk zetten in blok 6 tegen 4
   'sgbuild', // Partijvorm 6 tegen 6 met opbouwzone
+  'game11', // Wedstrijd 11 tegen 11 op een volledig veld
   'cagility', // Wendbaarheid: T-parcours
   'gsnordic', // Hamstrings en liezen: Nordic en Copenhagen in duo’s
   'kcircuit', // Krachtcircuit met eigen lichaamsgewicht
