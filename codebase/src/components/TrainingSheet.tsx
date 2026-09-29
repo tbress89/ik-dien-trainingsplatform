@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
-import { EXERCISE_BY_ID, getLoadedExerciseDetails, loadExerciseDetails, materialNames } from '../data/exercises';
+import { useEffect } from 'react';
+import { EXERCISE_BY_ID, materialNames } from '../data/exercises';
 import type { SharedTraining } from '../data/share';
 import { BLOCKS, formatTrainingDate, type BlockId } from '../data/training';
 import { Pitch } from './Pitch';
+import { useExerciseDetails } from './useExerciseData';
 
 /** "Training dinsdag 29 september – U11": the page title, which also becomes the suggested PDF file name. */
 export const trainingTitle = (t: SharedTraining) => `Training ${formatTrainingDate(t.date)}${t.team ? ` – ${t.team}` : ''}`;
@@ -13,19 +14,7 @@ export const trainingTitle = (t: SharedTraining) => `Training ${formatTrainingDa
  * links; printing (or "Save as PDF") leaves only this sheet.
  */
 export function TrainingSheet({ training }: { training: SharedTraining }) {
-  const [details, setDetails] = useState(getLoadedExerciseDetails);
-  const [failed, setFailed] = useState(false);
-
-  useEffect(() => {
-    if (details) return;
-    let cancelled = false;
-    loadExerciseDetails()
-      .then((d) => !cancelled && setDetails(d))
-      .catch(() => !cancelled && setFailed(true));
-    return () => {
-      cancelled = true;
-    };
-  }, [details]);
+  const { details, failed } = useExerciseDetails();
 
   useEffect(() => {
     const previous = document.title;

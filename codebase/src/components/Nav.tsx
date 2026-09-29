@@ -4,6 +4,8 @@ import { TRAINING_BUILDER } from '../features';
 export function Nav() {
   const { pathname } = useLocation();
   const onExercises = pathname === '/' || pathname.startsWith('/oefeningen');
+  // "Training geven" uses the whole screen on the pitch.
+  if (pathname.endsWith('/geven')) return null;
 
   return (
     <header className="nav">

@@ -4,8 +4,20 @@
     {
       "name": "web",
       "runtimeExecutable": "bash",
-      "runtimeArgs": ["-c", "export PATH=$HOME/.nvm/versions/node/v22.14.0/bin:$PATH && cd codebase && npx vite --port 5173 --strictPort"],
+      "runtimeArgs": [
+        "-c",
+        "export PATH=$HOME/.nvm/versions/node/v22.14.0/bin:$PATH && cd codebase && npx vite --port 5173 --strictPort"
+      ],
       "port": 5173
+    },
+    {
+      "name": "preview",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-c",
+        "export PATH=$HOME/.nvm/versions/node/v22.14.0/bin:$PATH && cd codebase && npx vite preview --port 4173 --strictPort"
+      ],
+      "port": 4173
     }
   ]
 }

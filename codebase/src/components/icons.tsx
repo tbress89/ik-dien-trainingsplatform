@@ -160,6 +160,26 @@ export const ShareIcon = (p: IconProps) => (
   </svg>
 );
 
+export const PauseIcon = (p: IconProps) => (
+  <svg {...base(p)}>
+    <rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor" />
+    <rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor" />
+  </svg>
+);
+
+export const RestartIcon = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M4 12a8 8 0 1 0 2.3-5.6M4 4v4h4" />
+  </svg>
+);
+
+export const WhistleIcon = (p: IconProps) => (
+  <svg {...base(p)}>
+    <circle cx="9" cy="14" r="5" />
+    <path d="M12.5 10.5 21 7v4l-6 1.5M9 14h.01" />
+  </svg>
+);
+
 export const PrinterIcon = (p: IconProps) => (
   <svg {...base(p)}>
     <path d="M7 9V3h10v6M7 18H5a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />

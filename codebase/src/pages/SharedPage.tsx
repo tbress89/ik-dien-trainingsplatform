@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { ArrowRightIcon, PrinterIcon } from '../components/icons';
+import { ArrowRightIcon, PrinterIcon, WhistleIcon } from '../components/icons';
 import { TrainingSheet } from '../components/TrainingSheet';
 import { SHARE_PARAM, decodeTraining } from '../data/share';
 import { BLOCKS, trainingPath, useTraining } from '../data/training';
@@ -41,6 +41,12 @@ export function SharedPage() {
             trainingen.
           </span>
         </div>
+        {count > 0 && (
+          <Link to={`/gedeeld/geven?${SHARE_PARAM}=${code}`} className="btn">
+            <WhistleIcon />
+            Training geven
+          </Link>
+        )}
         <button type="button" className="btn" onClick={() => window.print()} disabled={count === 0}>
           <PrinterIcon />
           Afdrukken

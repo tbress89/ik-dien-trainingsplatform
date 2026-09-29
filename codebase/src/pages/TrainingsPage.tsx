@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Pitch } from '../components/Pitch';
-import { ArrowRightIcon, ChevronDownIcon, ChevronRightIcon, PlayersIcon, PlusIcon, SearchIcon, TagIcon } from '../components/icons';
+import { ArrowRightIcon, ChevronDownIcon, ChevronRightIcon, PlayersIcon, PlusIcon, SearchIcon, TagIcon, WhistleIcon } from '../components/icons';
 import { useDismiss } from '../components/useDismiss';
 import { EXERCISE_BY_ID, THEMES, type Theme } from '../data/exercises';
 import { REFERENCE_TRAININGS, type ReferenceTraining } from '../data/referenceTrainings';
@@ -299,6 +299,12 @@ function NextTraining({ session: s, today }: { session: Session; today: string }
           Bekijk training
           <ArrowRightIcon />
         </Link>
+        {exercises.length > 0 && (
+          <Link to={`${trainingPath(s.id)}/geven`} className="next-give">
+            <WhistleIcon />
+            Training geven
+          </Link>
+        )}
         <span>
           {s.duration} min · {exerciseCount(exercises.length)}
         </span>

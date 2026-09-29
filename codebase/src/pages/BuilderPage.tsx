@@ -13,6 +13,7 @@ import {
   PrinterIcon,
   SearchIcon,
   ShareIcon,
+  WhistleIcon,
   TagIcon,
   TrashIcon,
 } from '../components/icons';
@@ -235,6 +236,10 @@ export function BuilderPage() {
               <ShareIcon />
               Delen
             </button>
+            <Link to={`${trainingPath(draftId)}/geven`} className="btn">
+              <WhistleIcon />
+              Training geven
+            </Link>
             <Link to={`${trainingPath(draftId)}/afdrukken`} className="btn">
               <PrinterIcon />
               Afdrukken

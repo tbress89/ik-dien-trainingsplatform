@@ -9,6 +9,7 @@ import { BuilderPage } from './pages/BuilderPage';
 import { ComingSoonPage } from './pages/ComingSoonPage';
 import { DetailPage } from './pages/DetailPage';
 import { ExercisesPage } from './pages/ExercisesPage';
+import { GivePage } from './pages/GivePage';
 import { PrintPage } from './pages/PrintPage';
 import { SharedPage } from './pages/SharedPage';
 import { TrainingsPage } from './pages/TrainingsPage';
@@ -39,10 +40,12 @@ export function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/gedeeld" element={<SharedPage />} />
+            <Route path="/gedeeld/geven" element={<GivePage />} />
             <Route path="/oefeningen/:id" element={<DetailPage />} />
             <Route path="/trainingen" element={TRAINING_BUILDER ? <TrainingsPage /> : <ComingSoonPage />} />
             <Route path="/trainingen/:id" element={TRAINING_BUILDER ? <BuilderPage /> : <ComingSoonPage />} />
             <Route path="/trainingen/:id/afdrukken" element={TRAINING_BUILDER ? <PrintPage /> : <ComingSoonPage />} />
+            <Route path="/trainingen/:id/geven" element={TRAINING_BUILDER ? <GivePage /> : <ComingSoonPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
