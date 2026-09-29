@@ -1989,11 +1989,6 @@ a:focus-visible,
   background: var(--warm-bg);
   color: var(--warm-fg);
 }
-.tag-outline {
-  border: 1px solid var(--line-strong);
-  font-weight: 600;
-  color: var(--ink-2);
-}
 .detail-title {
   margin: 0;
   font-family: var(--font-display);

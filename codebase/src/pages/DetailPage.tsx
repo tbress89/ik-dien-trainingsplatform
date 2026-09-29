@@ -100,7 +100,6 @@ export function DetailPage() {
                 {e.type}
               </span>
               <span className="tag tag-phase">{e.phase}</span>
-              <span className="tag tag-outline">Ik Dien-methode · Bouwfase</span>
             </div>
             <h1 className="detail-title">{e.title}</h1>
             {d ? (
