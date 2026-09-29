@@ -160,6 +160,12 @@ export const ShareIcon = (p: IconProps) => (
   </svg>
 );
 
+export const FilterIcon = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M4 6h16M7 12h10M10 18h4" />
+  </svg>
+);
+
 export const PauseIcon = (p: IconProps) => (
   <svg {...base(p)}>
     <rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor" />

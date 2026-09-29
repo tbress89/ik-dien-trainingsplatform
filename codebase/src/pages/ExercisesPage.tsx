@@ -5,9 +5,11 @@ import {
   AgeIcon,
   ArrowRightIcon,
   BookmarkIcon,
+  ChevronLeftIcon,
   ClockIcon,
   CloseIcon,
   DifficultyBars,
+  FilterIcon,
   PlayersIcon,
   PlusIcon,
   SearchIcon,
@@ -32,6 +34,19 @@ type Sort = 'relevant' | 'duur' | 'moeilijkheid' | 'naam';
 
 const MAX_PLAYERS = 22;
 
+/** Whether the filter panel is open is remembered in this browser; on a first visit it's open on wide screens only. */
+const FILTERS_OPEN_KEY = 'ikdien:filters-open';
+
+function initialFiltersOpen(): boolean {
+  try {
+    const stored = localStorage.getItem(FILTERS_OPEN_KEY);
+    if (stored !== null) return stored === '1';
+  } catch {
+    // Storage unavailable: fall back to the screen width.
+  }
+  return !window.matchMedia('(max-width: 960px)').matches;
+}
+
 function toggle<T>(list: T[], v: T): T[] {
   return list.includes(v) ? list.filter((x) => x !== v) : [...list, v];
 }
@@ -45,6 +60,16 @@ export function ExercisesPage() {
   const [maxPlayers, setMaxPlayers] = useState(MAX_PLAYERS);
   const [query, setQuery] = useState('');
   const [sort, setSort] = useState<Sort>('relevant');
+  const [filtersOpen, setFiltersOpen] = useState(initialFiltersOpen);
+  const toggleFilters = () =>
+    setFiltersOpen((open) => {
+      try {
+        localStorage.setItem(FILTERS_OPEN_KEY, open ? '0' : '1');
+      } catch {
+        // Not remembered, but the panel still toggles.
+      }
+      return !open;
+    });
 
   const { favs, toggleFav, addExercise, activeBlock, draftId } = useTraining();
   const navigate = useNavigate();
@@ -100,122 +125,142 @@ export function ExercisesPage() {
 
   return (
     <div className="dashboard">
-      <aside aria-label="Filters" className="filters">
+      <aside aria-label="Filters" className={`filters${filtersOpen ? '' : ' is-collapsed'}`}>
         <div className="filters-head">
-          <h2 className="panel-title">Filters</h2>
-          <button type="button" className="btn-link" onClick={reset}>
-            Alles wissen
+          <button
+            type="button"
+            className="filters-toggle"
+            aria-expanded={filtersOpen}
+            aria-controls="filter-panel"
+            onClick={toggleFilters}
+            title={filtersOpen ? 'Filters verbergen' : 'Filters tonen'}
+          >
+            <FilterIcon size={20} />
+            <span className="panel-title">Filters</span>
+            {active.length > 0 && (
+              <span className="filters-count" aria-label={`${active.length} actief`}>
+                {active.length}
+              </span>
+            )}
+            <ChevronLeftIcon size={18} className="filters-chevron" />
           </button>
+          {filtersOpen && (
+            <button type="button" className="btn-link" onClick={reset}>
+              Alles wissen
+            </button>
+          )}
         </div>
 
-        <label className="check-row saved-filter">
-          <input type="checkbox" checked={savedOnly} onChange={() => setSavedOnly((v) => !v)} />
-          <BookmarkIcon filled={savedOnly} />
-          <span className="grow">Bewaard</span>
-          <span className="count">{EXERCISES.filter((e) => favs.includes(e.id) && matches(e, 'saved')).length}</span>
-        </label>
+        <div id="filter-panel" className="filters-body" hidden={!filtersOpen}>
+          <label className="check-row saved-filter">
+            <input type="checkbox" checked={savedOnly} onChange={() => setSavedOnly((v) => !v)} />
+            <BookmarkIcon filled={savedOnly} />
+            <span className="grow">Bewaard</span>
+            <span className="count">{EXERCISES.filter((e) => favs.includes(e.id) && matches(e, 'saved')).length}</span>
+          </label>
 
-        <section className="filter-group">
-          <h3 className="eyebrow">Leeftijdscategorie</h3>
-          <div className="age-grid">
-            {AGES.map((a) => (
-              <button
-                key={a}
-                type="button"
-                className="chip"
-                aria-pressed={ages.includes(a)}
-                onClick={() => setAges((s) => toggle(s, a))}
-              >
-                {a.replace('–', '-U')}
-              </button>
-            ))}
-          </div>
-        </section>
-
-        <fieldset className="filter-group" style={{ gap: 10 }}>
-          <legend className="eyebrow" style={{ marginBottom: 12 }}>
-            Thema
-          </legend>
-          {THEMES.map((t) => (
-            <label key={t} className="check-row">
-              <input type="checkbox" checked={themes.includes(t)} onChange={() => setThemes((s) => toggle(s, t))} />
-              <span className="grow">{t}</span>
-              <span className="count">{EXERCISES.filter((e) => e.themes.includes(t) && matches(e, 'theme')).length}</span>
-            </label>
-          ))}
-        </fieldset>
-
-        <section className="filter-group">
-          <h3 className="eyebrow">Type oefening</h3>
-          <div className="chip-wrap">
-            {TYPES.map((t) => {
-              const on = types.includes(t.name);
-              return (
+          <section className="filter-group">
+            <h3 className="eyebrow">Leeftijdscategorie</h3>
+            <div className="age-grid">
+              {AGES.map((a) => (
                 <button
-                  key={t.name}
+                  key={a}
                   type="button"
                   className="chip"
-                  aria-pressed={on}
-                  onClick={() => setTypes((s) => toggle(s, t.name))}
+                  aria-pressed={ages.includes(a)}
+                  onClick={() => setAges((s) => toggle(s, a))}
                 >
-                  <span className="dot" style={{ background: on ? '#fff' : t.color }} />
-                  {t.name}
+                  {a.replace('–', '-U')}
                 </button>
-              );
-            })}
-          </div>
-        </section>
+              ))}
+            </div>
+          </section>
 
-        <section className="filter-group">
-          <h3 className="eyebrow">Moeilijkheid</h3>
-          <div role="group" aria-label="Moeilijkheid" className="segmented">
-            {DIFFICULTY.map((d, i) => (
-              <button key={d} type="button" aria-pressed={diff === i} onClick={() => setDiff(i)}>
-                {d}
-              </button>
+          <fieldset className="filter-group" style={{ gap: 10 }}>
+            <legend className="eyebrow" style={{ marginBottom: 12 }}>
+              Thema
+            </legend>
+            {THEMES.map((t) => (
+              <label key={t} className="check-row">
+                <input type="checkbox" checked={themes.includes(t)} onChange={() => setThemes((s) => toggle(s, t))} />
+                <span className="grow">{t}</span>
+                <span className="count">{EXERCISES.filter((e) => e.themes.includes(t) && matches(e, 'theme')).length}</span>
+              </label>
             ))}
-          </div>
-        </section>
+          </fieldset>
 
-        <section className="filter-group">
-          <div className="range-head">
-            <h3 className="eyebrow">
-              <label htmlFor="spelers">Aantal spelers</label>
-            </h3>
-            <span className="range-value">tot {maxPlayers}</span>
-          </div>
-          <input
-            id="spelers"
-            type="range"
-            min={2}
-            max={MAX_PLAYERS}
-            step={1}
-            value={maxPlayers}
-            onChange={(ev) => setMaxPlayers(Number(ev.target.value))}
-          />
-          <div className="range-scale">
-            <span>2</span>
-            <span>11</span>
-            <span>22</span>
-          </div>
-        </section>
+          <section className="filter-group">
+            <h3 className="eyebrow">Type oefening</h3>
+            <div className="chip-wrap">
+              {TYPES.map((t) => {
+                const on = types.includes(t.name);
+                return (
+                  <button
+                    key={t.name}
+                    type="button"
+                    className="chip"
+                    aria-pressed={on}
+                    onClick={() => setTypes((s) => toggle(s, t.name))}
+                  >
+                    <span className="dot" style={{ background: on ? '#fff' : t.color }} />
+                    {t.name}
+                  </button>
+                );
+              })}
+            </div>
+          </section>
 
-        {TRAINING_BUILDER ? (
-          <div className="promo">
-            <span className="promo-title">Training van 60 tot 90 minuten?</span>
-            <span className="promo-text">Stel je sessie samen in drie blokken en zie meteen of de tijd klopt.</span>
-            <Link to={trainingPath(draftId)}>
-              Open trainingsbouwer
-              <ArrowRightIcon />
-            </Link>
-          </div>
-        ) : (
-          <div className="promo">
-            <span className="soon-badge">Binnenkort</span>
-            <span className="promo-title">De trainingsbouwer</span>
-            <span className="promo-text">Stel straks je sessie samen in drie blokken en zie meteen of de tijd klopt.</span>
-          </div>
-        )}
+          <section className="filter-group">
+            <h3 className="eyebrow">Moeilijkheid</h3>
+            <div role="group" aria-label="Moeilijkheid" className="segmented">
+              {DIFFICULTY.map((d, i) => (
+                <button key={d} type="button" aria-pressed={diff === i} onClick={() => setDiff(i)}>
+                  {d}
+                </button>
+              ))}
+            </div>
+          </section>
+
+          <section className="filter-group">
+            <div className="range-head">
+              <h3 className="eyebrow">
+                <label htmlFor="spelers">Aantal spelers</label>
+              </h3>
+              <span className="range-value">tot {maxPlayers}</span>
+            </div>
+            <input
+              id="spelers"
+              type="range"
+              min={2}
+              max={MAX_PLAYERS}
+              step={1}
+              value={maxPlayers}
+              onChange={(ev) => setMaxPlayers(Number(ev.target.value))}
+            />
+            <div className="range-scale">
+              <span>2</span>
+              <span>11</span>
+              <span>22</span>
+            </div>
+          </section>
+
+          {TRAINING_BUILDER ? (
+            <div className="promo">
+              <span className="promo-title">Training van 60 tot 90 minuten?</span>
+              <span className="promo-text">Stel je sessie samen in drie blokken en zie meteen of de tijd klopt.</span>
+              <Link to={trainingPath(draftId)}>
+                Open trainingsbouwer
+                <ArrowRightIcon />
+              </Link>
+            </div>
+          ) : (
+            <div className="promo">
+              <span className="soon-badge">Binnenkort</span>
+              <span className="promo-title">De trainingsbouwer</span>
+              <span className="promo-text">Stel straks je sessie samen in drie blokken en zie meteen of de tijd klopt.</span>
+            </div>
+          )}
+        </div>
       </aside>
 
       <main className="dash-main">

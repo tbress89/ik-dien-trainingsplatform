@@ -554,6 +554,64 @@ a:focus-visible,
   align-items: center;
   justify-content: space-between;
 }
+.filters-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.filters-body[hidden] {
+  display: none;
+}
+.filters-toggle {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.filters-toggle > svg:first-child {
+  color: var(--purple);
+}
+.filters-count {
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  border-radius: 11px;
+  background: var(--purple);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+}
+.filters-chevron {
+  color: var(--muted);
+  transition: transform 0.2s;
+}
+.filters-toggle:hover .filters-chevron {
+  color: var(--purple);
+}
+/* Collapsed on a wide screen: a slim rail with the filter button, so the exercises get the full width. */
+.filters.is-collapsed {
+  width: 72px;
+  padding: 28px 12px;
+  align-items: center;
+}
+.filters.is-collapsed .filters-toggle {
+  flex-direction: column;
+  gap: 12px;
+}
+.filters.is-collapsed .panel-title {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 20px;
+}
+.filters.is-collapsed .filters-chevron {
+  transform: rotate(180deg);
+}
 .filter-group {
   display: flex;
   flex-direction: column;
@@ -2969,6 +3027,27 @@ a:focus-visible,
     width: auto;
     border-right: 0;
     border-bottom: 1px solid var(--line);
+  }
+  /* On a narrow screen the filters sit above the exercises and collapse to a single row. */
+  .filters.is-collapsed {
+    width: auto;
+    padding: 16px;
+    align-items: stretch;
+  }
+  .filters.is-collapsed .filters-toggle {
+    flex-direction: row;
+    gap: 10px;
+  }
+  .filters.is-collapsed .panel-title {
+    writing-mode: horizontal-tb;
+    transform: none;
+    font-size: 24px;
+  }
+  .filters-chevron {
+    transform: rotate(90deg);
+  }
+  .filters.is-collapsed .filters-chevron {
+    transform: rotate(-90deg);
   }
   .library-list {
     max-height: 360px;
