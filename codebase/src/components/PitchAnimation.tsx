@@ -101,6 +101,7 @@ export function PitchAnimation({ variant, def, onBeat }: { variant: Variant; def
         height="100%"
         viewBox="0 0 320 200"
         preserveAspectRatio="xMidYMid slice"
+        className="pitch"
         style={{ position: 'absolute', inset: 0, display: 'block' }}
         aria-hidden="true"
       >

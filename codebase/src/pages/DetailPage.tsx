@@ -230,8 +230,8 @@ export function DetailPage() {
                 <>
                   <span>
                     <svg width="28" height="10" viewBox="0 0 28 10" aria-hidden="true">
-                      <line x1="0" y1="5" x2="22" y2="5" stroke="#1A1033" strokeWidth="1.6" strokeDasharray="4 3" />
-                      <path d="M21 1l6 4-6 4z" fill="#1A1033" />
+                      <line x1="0" y1="5" x2="22" y2="5" strokeWidth="1.6" strokeDasharray="4 3" style={{ stroke: 'var(--pitch-ink)' }} />
+                      <path d="M21 1l6 4-6 4z" style={{ fill: 'var(--pitch-ink)' }} />
                     </svg>
                     Pass
                   </span>
@@ -243,7 +243,7 @@ export function DetailPage() {
                     Loopactie
                   </span>
                   <span>
-                    <span style={{ width: 18, height: 10, border: '1.5px solid #1A1033', background: '#fff' }} />
+                    <span style={{ width: 18, height: 10, border: '1.5px solid var(--pitch-ink)', background: '#fff' }} />
                     Doeltje
                   </span>
                 </>

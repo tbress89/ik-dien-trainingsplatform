@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { BodyDemoDef, DemoScene, Joint, Point, Pose } from '../data/demos';
-import { INK, ORANGE, PURPLE } from './Pitch';
+import { ORANGE, PURPLE } from './Pitch';
 
 /** Pause at the end of each scene before the next one (or the loop) starts. */
 const SCENE_PAUSE_MS = 900;
@@ -109,15 +109,16 @@ export function BodyDemo({ def, onBeat }: { def: BodyDemoDef; onBeat: (label: st
       height="100%"
       viewBox="0 0 320 188"
       preserveAspectRatio="xMidYMid meet"
-      style={{ display: 'block', background: '#F6F2FE' }}
+      className="pitch"
+      style={{ display: 'block', background: 'var(--demo-bg)' }}
       aria-hidden="true"
     >
-      <rect x={0} y={170} width={320} height={18} fill="#E4DAFA" />
-      <rect x={24} y={166} width={272} height={5} rx={2.5} fill="#CDBDF3" />
-      <text x={16} y={24} fontSize={11} fontWeight={700} fill={INK} fontFamily="Figtree, system-ui, sans-serif">
+      <rect x={0} y={170} width={320} height={18} style={{ fill: 'var(--demo-ground)' }} />
+      <rect x={24} y={166} width={272} height={5} rx={2.5} style={{ fill: 'var(--demo-mat)' }} />
+      <text x={16} y={24} fontSize={11} fontWeight={700} fontFamily="Figtree, system-ui, sans-serif" style={{ fill: 'var(--ink)' }}>
         {scene.title}
       </text>
-      <text x={16} y={38} fontSize={8} fill="#6B5E8C" fontFamily="Figtree, system-ui, sans-serif">
+      <text x={16} y={38} fontSize={8} fontFamily="Figtree, system-ui, sans-serif" style={{ fill: 'var(--muted)' }}>
         {seg.scene + 1} / {def.scenes.length}
       </text>
       {scene.figures.map((f) => {

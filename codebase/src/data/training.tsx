@@ -10,10 +10,11 @@ export interface Block {
   color: string;
 }
 
+/** Block colours are CSS tokens (see styles.css), so they adapt to dark mode. */
 export const BLOCKS: Block[] = [
-  { id: 'wu', name: 'Warming-up', color: '#F2A541' },
-  { id: 'kern', name: 'Kern', color: '#5B2BC4' },
-  { id: 'pv', name: 'Partijvorm', color: '#2A1464' },
+  { id: 'wu', name: 'Warming-up', color: 'var(--block-wu)' },
+  { id: 'kern', name: 'Kern', color: 'var(--block-kern)' },
+  { id: 'pv', name: 'Partijvorm', color: 'var(--block-pv)' },
 ];
 
 export const DURATIONS = [60, 75, 90] as const;

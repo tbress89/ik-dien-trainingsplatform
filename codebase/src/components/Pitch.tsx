@@ -1532,7 +1532,8 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       height="100%"
       viewBox="0 0 320 200"
       preserveAspectRatio="xMidYMid slice"
-      style={{ display: 'block', background: '#F1ECFB' }}
+      className="pitch"
+      style={{ display: 'block', background: 'var(--pitch-bg)' }}
       aria-hidden="true"
     >
       <rect x={0} y={0} width={320} height={200} fill="#F1ECFB" />

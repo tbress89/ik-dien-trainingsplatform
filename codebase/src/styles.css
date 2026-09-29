@@ -1,9 +1,18 @@
-:root {
+/*
+ * Colour tokens. Light is the default; a dark system setting switches to the dark set below (on screen
+ * only, so printing stays light). The printable sheet is paper, so it keeps the light set in dark mode too.
+ */
+:root,
+.sheet {
   --purple: #5b2bc4;
+  /* Purple text on light tints; turns light in dark mode. For dark surfaces use --brand-dark. */
   --purple-dark: #2a1464;
   --purple-mid: #8b63e0;
+  --purple-strong: #4a21a6;
   --purple-soft: #efe9fb;
   --purple-tint: #f5f2fc;
+  /* Dark brand surfaces (promo, toast, "Aan training" panel, next training); the same in both modes. */
+  --brand-dark: #2a1464;
   --ink: #1a1033;
   --ink-2: #3d3552;
   --muted: #625a78;
@@ -12,18 +21,122 @@
   --line-strong: #e4ddf3;
   --line-dash: #d9cef3;
   --line-soft: #f1edf9;
+  --line-hover: #d3c8ef;
+  --line-accent: #c7b6ef;
+  --bg: #fff;
+  /* Cards, controls, menus and the nav bar. */
+  --card: #fff;
   --surface: #fbfafe;
   --surface-2: #f7f5fc;
+  --soft-hover: #e4dbf8;
+  --tint-hover: #f3eefd;
+  --track: #e9e3f6;
   --warn: #9a5b00;
   --danger: #b42318;
   --ok: #1a7f5a;
   --lavender: #ddd3f6;
+  --warm-bg: #fff3e0;
+  --warm-fg: #7a4a00;
+  --ok-bg: #f4faf7;
+  --ok-line: #d5ece1;
+  --ok-fg: #146b4b;
+
+  /* Pitch diagrams and instruction demos (see the .pitch rules). */
+  --pitch-bg: #f1ecfb;
+  --pitch-stripe: #ebe3f9;
+  --pitch-line: #fff;
+  --pitch-ink: #1a1033;
+  --demo-bg: #f6f2fe;
+  --demo-ground: #e4dafa;
+  --demo-mat: #cdbdf3;
+
+  /* Training blocks: warming-up, kern, partijvorm. */
+  --block-wu: #f2a541;
+  --block-kern: #5b2bc4;
+  --block-pv: #2a1464;
 
   --font-display: 'Barlow Condensed', sans-serif;
   --font-body: Figtree, system-ui, sans-serif;
 
   --shadow-card: 0 1px 2px rgba(42, 20, 100, 0.04), 0 8px 24px rgba(42, 20, 100, 0.05);
   --shadow-chip: 0 1px 3px rgba(26, 16, 51, 0.12);
+}
+
+:root {
+  color-scheme: light dark;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+  :root {
+    --purple: #8d67e8;
+    --purple-dark: #d6c8fa;
+    --purple-mid: #a78bef;
+    --purple-strong: #c2adf5;
+    --purple-soft: #2c2150;
+    --purple-tint: #211a38;
+    --brand-dark: #2e1870;
+    --ink: #f1ecfb;
+    --ink-2: #cfc6e4;
+    --muted: #a79dc2;
+    --faint: #7c7299;
+    --line: #2a2240;
+    --line-strong: #342a4e;
+    --line-dash: #43375f;
+    --line-soft: #221b35;
+    --line-hover: #4a3d6b;
+    --line-accent: #5a4788;
+    --bg: #110c1d;
+    --card: #1a1429;
+    --surface: #151024;
+    --surface-2: #1d1630;
+    --soft-hover: #372a63;
+    --tint-hover: #241c3d;
+    --track: #2a2240;
+    --warn: #f0b35a;
+    --danger: #f07a70;
+    --ok: #5fd3a3;
+    --warm-bg: #3a2a12;
+    --warm-fg: #f5c98a;
+    --ok-bg: #12261e;
+    --ok-line: #1f4034;
+    --ok-fg: #7fe0b8;
+
+    --pitch-bg: #1f1834;
+    --pitch-stripe: #241c3c;
+    --pitch-line: rgba(255, 255, 255, 0.32);
+    --pitch-ink: #e9e3f6;
+    --demo-bg: #1c1530;
+    --demo-ground: #2a2145;
+    --demo-mat: #3b2f60;
+
+    --block-kern: #8d67e8;
+    --block-pv: #5a45a8;
+
+    --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.25);
+    --shadow-chip: 0 1px 3px rgba(0, 0, 0, 0.4);
+  }
+}
+
+/*
+ * Pitch diagrams draw with fixed colours (the design sync reads the same drawing code), so the field,
+ * lines and ink are re-coloured here through the tokens. In light mode the tokens match the drawn colours.
+ */
+.pitch rect[fill='#F1ECFB'] {
+  fill: var(--pitch-bg);
+}
+.pitch rect[fill='#EBE3F9'] {
+  fill: var(--pitch-stripe);
+}
+.pitch rect[fill='none'][stroke='#fff'],
+.pitch line[stroke='#fff'],
+.pitch circle[fill='none'][stroke='#fff'] {
+  stroke: var(--pitch-line);
+}
+.pitch [stroke='#1A1033'] {
+  stroke: var(--pitch-ink);
+}
+.pitch path[fill='#1A1033'] {
+  fill: var(--pitch-ink);
 }
 
 * {
@@ -33,7 +146,7 @@
 html,
 body {
   margin: 0;
-  background: #fff;
+  background: var(--bg);
   color: var(--ink);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
@@ -140,7 +253,7 @@ a:focus-visible,
   padding: 0 14px;
   border-radius: 999px;
   border: 1px solid var(--line-strong);
-  background: #fff;
+  background: var(--card);
   color: var(--ink);
   font-size: 14px;
   font-weight: 500;
@@ -196,7 +309,7 @@ a:focus-visible,
   font: inherit;
   font-size: 15px;
   color: var(--ink);
-  background: #fff;
+  background: var(--card);
 }
 
 .btn {
@@ -204,7 +317,7 @@ a:focus-visible,
   padding: 0 16px;
   border-radius: 12px;
   border: 1px solid var(--line-strong);
-  background: #fff;
+  background: var(--card);
   font-size: 14px;
   font-weight: 600;
   color: var(--ink);
@@ -217,7 +330,7 @@ a:focus-visible,
 }
 .btn:hover {
   color: var(--ink);
-  border-color: #d3c8ef;
+  border-color: var(--line-hover);
 }
 .btn-primary {
   border: 0;
@@ -242,7 +355,7 @@ a:focus-visible,
   font-weight: 700;
 }
 .btn-soft:hover {
-  background: #e4dbf8;
+  background: var(--soft-hover);
   color: var(--purple-dark);
 }
 .btn-link {
@@ -260,7 +373,7 @@ a:focus-visible,
   height: 40px;
   border-radius: 12px;
   border: 0;
-  background: #fff;
+  background: var(--card);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -290,7 +403,7 @@ a:focus-visible,
   height: 28px;
   padding: 0 10px;
   border-radius: 999px;
-  background: #fff;
+  background: var(--card);
   font-size: 12px;
   font-weight: 700;
   display: flex;
@@ -307,7 +420,7 @@ a:focus-visible,
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #fff;
+  background: var(--card);
   border-bottom: 1px solid var(--line);
   position: sticky;
   top: 0;
@@ -333,6 +446,12 @@ a:focus-visible,
   width: 32px;
   height: auto;
   display: block;
+}
+/* The logo is dark purple ink; on the dark nav it's shown in a light lavender. */
+@media screen and (prefers-color-scheme: dark) {
+  .nav-brand img {
+    filter: brightness(0) invert(0.86) sepia(0.35) hue-rotate(215deg) saturate(2.2);
+  }
 }
 .nav-brand-text {
   display: flex;
@@ -487,7 +606,7 @@ a:focus-visible,
   padding: 10px 14px;
   border: 1px solid var(--line-strong);
   border-radius: 12px;
-  background: #fff;
+  background: var(--card);
   font-weight: 600;
   gap: 10px;
 }
@@ -500,7 +619,7 @@ a:focus-visible,
   background: var(--purple-soft);
 }
 .filters .segmented {
-  background: #fff;
+  background: var(--card);
   border: 1px solid var(--line-strong);
 }
 .filters .segmented {
@@ -534,7 +653,7 @@ a:focus-visible,
   margin-top: auto;
   padding: 20px;
   border-radius: 16px;
-  background: var(--purple-dark);
+  background: var(--brand-dark);
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -557,7 +676,7 @@ a:focus-visible,
   height: 44px;
   border-radius: 10px;
   background: #fff;
-  color: var(--purple-dark);
+  color: var(--brand-dark);
   font-weight: 700;
   font-size: 14px;
   text-decoration: none;
@@ -695,7 +814,7 @@ a:focus-visible,
   border: 1px solid var(--line);
   border-radius: 18px;
   overflow: hidden;
-  background: #fff;
+  background: var(--card);
   box-shadow: var(--shadow-card);
   display: flex;
   flex-direction: column;
@@ -858,7 +977,7 @@ a:focus-visible,
   align-items: center;
   gap: 12px;
   padding: 8px 8px 8px 6px;
-  background: #fff;
+  background: var(--card);
   border: 1px solid var(--line);
   border-radius: 14px;
   cursor: grab;
@@ -868,7 +987,7 @@ a:focus-visible,
 }
 .lib-item .grip {
   display: flex;
-  color: #b3a6d1;
+  color: var(--faint);
 }
 .lib-thumb {
   width: 84px;
@@ -891,7 +1010,7 @@ a:focus-visible,
   padding: 0 7px;
   white-space: nowrap;
   border-radius: 5px;
-  background: var(--purple-dark);
+  background: var(--brand-dark);
   color: #fff;
   font-size: 11px;
   font-weight: 700;
@@ -942,7 +1061,7 @@ a:focus-visible,
   justify-content: center;
 }
 .add-btn:hover {
-  background: #e4dbf8;
+  background: var(--soft-hover);
 }
 .library-empty {
   padding: 24px 8px;
@@ -1057,7 +1176,7 @@ a:focus-visible,
   z-index: 30;
   width: min(340px, calc(100vw - 32px));
   padding: 16px;
-  background: #fff;
+  background: var(--card);
   border: 1px solid var(--line-strong);
   border-radius: 16px;
   box-shadow: 0 16px 40px rgba(26, 16, 51, 0.18);
@@ -1124,7 +1243,7 @@ a:focus-visible,
 }
 .calendar-day.is-training {
   background: var(--purple-soft);
-  border-color: #c7b6ef;
+  border-color: var(--line-accent);
   color: var(--purple-dark);
   font-weight: 700;
 }
@@ -1135,7 +1254,7 @@ a:focus-visible,
   font-weight: 700;
 }
 .calendar-day.is-disabled {
-  color: #b8b0cc;
+  color: var(--faint);
   cursor: not-allowed;
 }
 .calendar-day.is-today {
@@ -1170,7 +1289,7 @@ a:focus-visible,
   height: 14px;
   border-radius: 4px;
   background: var(--purple-soft);
-  border: 1px solid #c7b6ef;
+  border: 1px solid var(--line-accent);
 }
 .legend-busy {
   width: 6px;
@@ -1207,7 +1326,7 @@ a:focus-visible,
   z-index: 20;
   width: 260px;
   padding: 6px;
-  background: #fff;
+  background: var(--card);
   border: 1px solid var(--line-strong);
   border-radius: 14px;
   box-shadow: 0 14px 36px rgba(26, 16, 51, 0.18);
@@ -1249,7 +1368,7 @@ a:focus-visible,
   flex-wrap: wrap;
 }
 .pill-dark {
-  background: var(--purple-dark);
+  background: var(--brand-dark);
   color: #fff;
 }
 .actions {
@@ -1440,7 +1559,7 @@ a:focus-visible,
   border-color: var(--purple);
 }
 .block.is-hover {
-  background: #f3eefd;
+  background: var(--tint-hover);
   border: 2px dashed var(--purple);
 }
 .block-head {
@@ -1490,7 +1609,7 @@ a:focus-visible,
   height: 4px;
   width: 100%;
   border-radius: 99px;
-  background: #e9e3f6;
+  background: var(--track);
   display: flex;
   overflow: hidden;
 }
@@ -1507,7 +1626,7 @@ a:focus-visible,
   gap: 10px;
 }
 .plan-card {
-  background: #fff;
+  background: var(--card);
   border: 1px solid var(--line);
   border-radius: 14px;
   overflow: hidden;
@@ -1531,7 +1650,7 @@ a:focus-visible,
   height: 32px;
   border-radius: 9px;
   border: 0;
-  background: #fff;
+  background: var(--card);
   color: var(--ink-2);
   display: flex;
   align-items: center;
@@ -1567,7 +1686,7 @@ a:focus-visible,
   height: 30px;
   border: 0;
   border-radius: 8px;
-  background: #fff;
+  background: var(--card);
   color: var(--purple-dark);
   font-size: 18px;
   font-weight: 700;
@@ -1615,7 +1734,7 @@ a:focus-visible,
   transform: translateX(-50%);
   padding: 12px 18px;
   border-radius: 12px;
-  background: var(--purple-dark);
+  background: var(--brand-dark);
   color: #fff;
   font-size: 14px;
   font-weight: 600;
@@ -1695,8 +1814,8 @@ a:focus-visible,
   color: var(--purple-dark);
 }
 .tag-phase {
-  background: #fff3e0;
-  color: #7a4a00;
+  background: var(--warm-bg);
+  color: var(--warm-fg);
 }
 .tag-outline {
   border: 1px solid var(--line-strong);
@@ -1777,7 +1896,7 @@ a:focus-visible,
   border: 1px solid var(--line);
   border-radius: 22px;
   overflow: hidden;
-  background: #fff;
+  background: var(--card);
   box-shadow: 0 1px 2px rgba(42, 20, 100, 0.04), 0 12px 32px rgba(42, 20, 100, 0.06);
 }
 .diagram-canvas {
@@ -1849,7 +1968,7 @@ a:focus-visible,
   width: 14px;
   height: 14px;
   border-radius: 99px;
-  border: 2px solid #fff;
+  border: 2px solid var(--card);
 }
 .diagram-hint {
   margin-left: auto;
@@ -1915,18 +2034,18 @@ a:focus-visible,
   line-height: 1.55;
 }
 .variation.easier {
-  background: #f4faf7;
-  border: 1px solid #d5ece1;
+  background: var(--ok-bg);
+  border: 1px solid var(--ok-line);
 }
 .variation.easier .variation-label {
-  color: #146b4b;
+  color: var(--ok-fg);
 }
 .variation.harder {
   background: var(--purple-tint);
-  border: 1px solid #e1d8f5;
+  border: 1px solid var(--line-strong);
 }
 .variation.harder .variation-label {
-  color: #4a21a6;
+  color: var(--purple-strong);
 }
 
 .detail-aside {
@@ -1989,7 +2108,7 @@ a:focus-visible,
 .add-panel {
   padding: 22px;
   border-radius: 18px;
-  background: var(--purple-dark);
+  background: var(--brand-dark);
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -2010,7 +2129,7 @@ a:focus-visible,
 }
 .add-panel .segmented button[aria-pressed='true'] {
   background: #fff;
-  color: var(--purple-dark);
+  color: var(--brand-dark);
 }
 .add-panel-row {
   display: flex;
@@ -2050,7 +2169,7 @@ a:focus-visible,
   border: 0;
   border-radius: 12px;
   background: #fff;
-  color: var(--purple-dark);
+  color: var(--brand-dark);
   font-size: 15px;
   font-weight: 700;
   display: flex;
@@ -2167,7 +2286,7 @@ a:focus-visible,
   overflow: hidden;
   text-decoration: none;
   color: var(--ink);
-  background: #fff;
+  background: var(--card);
   transition: box-shadow 0.15s;
 }
 .related-card:hover {
@@ -2232,7 +2351,7 @@ a:focus-visible,
   margin: 28px 56px 0;
   padding: 28px 32px;
   border-radius: 22px;
-  background: var(--purple-dark);
+  background: var(--brand-dark);
   color: #fff;
   display: grid;
   grid-template-columns: 300px minmax(0, 1fr) 200px;
@@ -2287,7 +2406,7 @@ a:focus-visible,
 }
 .next-pill-team {
   background: #fff;
-  color: var(--purple-dark);
+  color: var(--brand-dark);
 }
 .next-exercises {
   display: flex;
@@ -2376,7 +2495,7 @@ a:focus-visible,
   white-space: nowrap;
   border-radius: 12px;
   background: #fff;
-  color: var(--purple-dark);
+  color: var(--brand-dark);
   font-size: 15px;
   font-weight: 700;
   text-decoration: none;
@@ -2431,7 +2550,7 @@ a:focus-visible,
   gap: 8px;
 }
 .trainings-tabs button[aria-pressed='true'] {
-  background: #fff;
+  background: var(--card);
   color: var(--purple-dark);
   box-shadow: 0 1px 3px rgba(26, 16, 51, 0.1);
 }
@@ -2463,7 +2582,7 @@ a:focus-visible,
   padding: 0 14px;
   border-radius: 12px;
   border: 1px solid var(--line-strong);
-  background: #fff;
+  background: var(--card);
   color: var(--ink);
   font-size: 14px;
   display: flex;
@@ -2473,7 +2592,7 @@ a:focus-visible,
 }
 .theme-filter-btn.is-set {
   background: var(--purple-soft);
-  border-color: #c7b6ef;
+  border-color: var(--line-accent);
   color: var(--purple-dark);
 }
 .theme-filter-label {
@@ -2491,7 +2610,7 @@ a:focus-visible,
   z-index: 20;
   width: 300px;
   padding: 8px;
-  background: #fff;
+  background: var(--card);
   border: 1px solid var(--line-strong);
   border-radius: 14px;
   box-shadow: 0 14px 36px rgba(26, 16, 51, 0.18);
@@ -2556,18 +2675,18 @@ a:focus-visible,
   padding: 14px 20px;
   border: 1px solid var(--line);
   border-radius: 16px;
-  background: #fff;
+  background: var(--card);
   color: var(--ink);
   text-decoration: none;
   transition: box-shadow 0.15s, border-color 0.15s;
 }
 .session-row:hover {
   color: var(--ink);
-  border-color: #d9cef3;
+  border-color: var(--line-dash);
   box-shadow: 0 6px 18px rgba(42, 20, 100, 0.06);
 }
 .session-row.is-next {
-  border-color: #c7b6ef;
+  border-color: var(--line-accent);
   box-shadow: 0 6px 18px rgba(42, 20, 100, 0.08);
 }
 .session-date {
@@ -2688,7 +2807,7 @@ a:focus-visible,
   height: 44px;
   flex-shrink: 0;
   border-radius: 10px;
-  background: #fff;
+  background: var(--card);
   border: 1px solid var(--line-strong);
   font-family: var(--font-display);
   font-size: 20px;
