@@ -9,6 +9,7 @@ import {
   CloseIcon,
   GripIcon,
   PlusIcon,
+  PrinterIcon,
   SearchIcon,
   TagIcon,
   TrashIcon,
@@ -207,6 +208,10 @@ export function BuilderPage() {
                 Verwijderen
               </button>
             )}
+            <Link to={`${trainingPath(draftId)}/afdrukken`} className="btn">
+              <PrinterIcon />
+              Afdrukken
+            </Link>
             <button
               type="button"
               className="btn btn-primary"

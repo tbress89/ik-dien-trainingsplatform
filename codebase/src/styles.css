@@ -2903,3 +2903,270 @@ a:focus-visible,
     width: auto;
   }
 }
+
+/* ---------- Printable training (A4) ---------- */
+.print-page {
+  flex: 1;
+  background: var(--surface-2);
+  padding: 24px 16px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.print-toolbar {
+  width: 100%;
+  max-width: 210mm;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.print-toolbar-hint {
+  flex: 1;
+  min-width: 200px;
+  font-size: 13px;
+  color: var(--muted);
+}
+/* The sheet is laid out in millimetres and points, so the screen preview matches the paper. */
+.sheet {
+  width: 210mm;
+  max-width: 100%;
+  min-height: 297mm;
+  padding: 12mm;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: var(--shadow-card);
+  color: var(--ink);
+  font-size: 8.5pt;
+  line-height: 1.35;
+  display: flex;
+  flex-direction: column;
+  gap: 4mm;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.sheet-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 6mm;
+  padding-bottom: 3mm;
+  border-bottom: 2px solid var(--purple);
+}
+.sheet-brand {
+  display: flex;
+  align-items: center;
+  gap: 3mm;
+}
+.sheet-brand > span {
+  display: flex;
+  flex-direction: column;
+}
+.sheet-club {
+  font-family: var(--font-display);
+  font-size: 13pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1;
+}
+.sheet-sub {
+  font-size: 8pt;
+  color: var(--muted);
+}
+.sheet-title {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 1mm;
+}
+.sheet-title h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 20pt;
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--purple-dark);
+}
+.sheet-title span {
+  font-size: 9pt;
+  color: var(--ink-2);
+}
+.sheet-overview {
+  display: flex;
+  flex-direction: column;
+  gap: 2mm;
+}
+.sheet-bar {
+  display: flex;
+  height: 2.5mm;
+  border-radius: 2mm;
+  overflow: hidden;
+  background: var(--line);
+}
+.sheet-overview-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5mm 5mm;
+  align-items: center;
+}
+.sheet-sq {
+  display: inline-block;
+  width: 2.5mm;
+  height: 2.5mm;
+  border-radius: 0.6mm;
+  margin-right: 1.2mm;
+  vertical-align: -0.2mm;
+}
+.sheet-mats {
+  margin-left: auto;
+  color: var(--ink-2);
+}
+.sheet-empty {
+  margin: 8mm 0;
+  text-align: center;
+  color: var(--muted);
+}
+.sheet-block {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5mm;
+}
+.sheet-block h2 {
+  margin: 1mm 0 0;
+  padding-left: 2.5mm;
+  border-left: 1.5mm solid;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--font-display);
+  font-size: 12pt;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  break-after: avoid;
+}
+.sheet-block-min {
+  font-family: var(--font-body);
+  font-size: 9pt;
+  font-weight: 700;
+  text-transform: none;
+  color: var(--muted);
+}
+.sheet-ex {
+  display: grid;
+  grid-template-columns: 50mm 1fr 46mm;
+  gap: 4mm;
+  padding: 3mm;
+  border: 1px solid var(--line-strong);
+  border-radius: 2.5mm;
+  break-inside: avoid;
+}
+.sheet-ex-media {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5mm;
+}
+.sheet-diagram {
+  aspect-ratio: 820 / 480;
+  border-radius: 1.5mm;
+  overflow: hidden;
+}
+.sheet-ex-facts {
+  font-size: 7.5pt;
+  color: var(--muted);
+}
+.sheet-ex-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2mm;
+  min-width: 0;
+}
+.sheet-ex-main h3 {
+  margin: 0 0 0.5mm;
+  display: flex;
+  justify-content: space-between;
+  gap: 3mm;
+  font-size: 10pt;
+  line-height: 1.2;
+}
+.sheet-ex-min {
+  flex-shrink: 0;
+  color: var(--purple);
+}
+.sheet-ex-clock {
+  font-weight: 400;
+  color: var(--faint);
+}
+.sheet-ex-main p {
+  margin: 0;
+}
+.sheet-label {
+  display: block;
+  margin-bottom: 1mm;
+  font-size: 7pt;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--purple);
+}
+.sheet-ex-coach {
+  padding-left: 3mm;
+  border-left: 1px solid var(--line-strong);
+}
+.sheet-ex-coach ul {
+  margin: 0;
+  padding-left: 3.5mm;
+  display: flex;
+  flex-direction: column;
+  gap: 1mm;
+}
+.sheet-notes {
+  break-inside: avoid;
+}
+.sheet-lines {
+  height: 24mm;
+  background: repeating-linear-gradient(to bottom, transparent 0, transparent 7.6mm, var(--line-strong) 7.6mm, var(--line-strong) 8mm);
+}
+.sheet-foot {
+  margin-top: auto;
+  padding-top: 2mm;
+  border-top: 1px solid var(--line);
+  font-size: 7pt;
+  color: var(--faint);
+}
+
+/* The page margin repeats on every sheet of paper; the sheet's own padding only shows on screen. */
+@page {
+  size: A4;
+  margin: 12mm;
+}
+@media print {
+  .nav,
+  .print-toolbar {
+    display: none !important;
+  }
+  body,
+  .print-page {
+    background: #fff;
+    padding: 0;
+  }
+  .sheet {
+    width: auto;
+    min-height: 0;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+@media screen and (max-width: 640px) {
+  .sheet {
+    padding: 16px;
+  }
+  .sheet-ex {
+    grid-template-columns: 1fr;
+  }
+  .sheet-ex-coach {
+    padding-left: 0;
+    border-left: 0;
+  }
+}

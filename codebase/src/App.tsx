@@ -8,6 +8,7 @@ import { BuilderPage } from './pages/BuilderPage';
 import { ComingSoonPage } from './pages/ComingSoonPage';
 import { DetailPage } from './pages/DetailPage';
 import { ExercisesPage } from './pages/ExercisesPage';
+import { PrintPage } from './pages/PrintPage';
 import { TrainingsPage } from './pages/TrainingsPage';
 
 export function App() {
@@ -29,6 +30,7 @@ export function App() {
             <Route path="/oefeningen/:id" element={<DetailPage />} />
             <Route path="/trainingen" element={TRAINING_BUILDER ? <TrainingsPage /> : <ComingSoonPage />} />
             <Route path="/trainingen/:id" element={TRAINING_BUILDER ? <BuilderPage /> : <ComingSoonPage />} />
+            <Route path="/trainingen/:id/afdrukken" element={TRAINING_BUILDER ? <PrintPage /> : <ComingSoonPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>

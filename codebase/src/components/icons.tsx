@@ -151,6 +151,13 @@ export const StopIcon = (p: IconProps) => (
   </svg>
 );
 
+export const PrinterIcon = (p: IconProps) => (
+  <svg {...base(p)}>
+    <path d="M7 9V3h10v6M7 18H5a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+    <path d="M7 14h10v7H7z" />
+  </svg>
+);
+
 export const TrashIcon = (p: IconProps) => (
   <svg {...base(p)}>
     <path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3" />
