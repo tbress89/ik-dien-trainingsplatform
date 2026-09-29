@@ -3289,3 +3289,20 @@ a:focus-visible,
     border-left: 0;
   }
 }
+
+/* ---------- Shared training ---------- */
+.shared-intro {
+  flex: 1;
+  min-width: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+  color: var(--ink-2);
+}
+.shared-invalid {
+  max-width: 420px;
+  margin: 0;
+  text-align: center;
+  color: var(--muted);
+}

@@ -3,6 +3,7 @@ import { Link, Navigate, useLocation, useNavigate, useParams } from 'react-route
 import { Pitch } from '../components/Pitch';
 import { ConfirmDialog } from '../components/ConfirmDialog';
 import { TrainingHeader } from '../components/TrainingHeader';
+import { trainingTitle } from '../components/TrainingSheet';
 import {
   BookmarkIcon,
   CheckIcon,
@@ -11,10 +12,12 @@ import {
   PlusIcon,
   PrinterIcon,
   SearchIcon,
+  ShareIcon,
   TagIcon,
   TrashIcon,
 } from '../components/icons';
 import { EXERCISES, EXERCISE_BY_ID, TYPE_COLOR, materialNames, shortAgeLabel, type Exercise, type ExerciseType } from '../data/exercises';
+import { shareUrl } from '../data/share';
 import { BLOCKS, BLOCK_TARGETS, DURATIONS, formatTrainingDate, trainingPath, useTraining, type BlockId } from '../data/training';
 
 /** "Bewaard" shows the exercises saved with the bookmark on the dashboard or an exercise page. */
@@ -107,6 +110,26 @@ export function BuilderPage() {
   const status =
     rest > 0 ? `Nog ${rest} min te plannen` : rest === 0 ? `Precies ${duration} minuten` : `${Math.abs(rest)} min te veel`;
   const statusColor = rest < 0 ? 'var(--warn)' : rest === 0 ? 'var(--ok)' : 'var(--purple)';
+
+  // The whole training goes into the link. Phones get the share sheet (WhatsApp, mail, …); computers copy the link.
+  const share = async () => {
+    const training = { date, team, theme, duration, plan };
+    const url = shareUrl(training);
+    if (navigator.share && window.matchMedia('(pointer: coarse)').matches) {
+      try {
+        await navigator.share({ title: trainingTitle(training), url });
+      } catch {
+        // Closed the share sheet: nothing to do.
+      }
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      setToast('Link gekopieerd: plak hem in WhatsApp of een mail');
+    } catch {
+      window.prompt('Kopieer deze link om de training te delen', url);
+    }
+  };
 
   if (unknownId) return <Navigate to="/trainingen" replace />;
 
@@ -208,6 +231,10 @@ export function BuilderPage() {
                 Verwijderen
               </button>
             )}
+            <button type="button" className="btn" onClick={share} disabled={total === 0}>
+              <ShareIcon />
+              Delen
+            </button>
             <Link to={`${trainingPath(draftId)}/afdrukken`} className="btn">
               <PrinterIcon />
               Afdrukken
