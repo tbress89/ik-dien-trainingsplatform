@@ -82,10 +82,8 @@ export function TrainingsPage() {
     newTrainingFrom(ref);
     navigate(trainingPath(null));
   };
-  const refGroups = [...new Set(REFERENCE_TRAININGS.map((r) => r.ages))].map((ages) => ({
-    ages,
-    trainings: REFERENCE_TRAININGS.filter((r) => r.ages === ages),
-  }));
+  // No trainings yet: the example trainings take the place of the (empty) list, so a new coach sees them first.
+  const firstVisit = sessions.length === 0;
 
   return (
     <div className="trainings">
@@ -100,87 +98,98 @@ export function TrainingsPage() {
       {next && <NextTraining session={next} today={today} />}
 
       <div className="trainings-body">
-        <section aria-label="Alle trainingen" className="trainings-list">
-          <div className="trainings-toolbar">
-            <div role="group" aria-label="Weergave" className="trainings-tabs">
-              {TABS.map(([key, label]) => (
-                <button key={key} type="button" aria-pressed={tab === key} onClick={() => setTab(key)}>
-                  {label}
-                  <span className="count-badge">{byTab[key].length}</span>
-                </button>
-              ))}
+        {firstVisit ? (
+          <section aria-labelledby="first-training" className="trainings-first">
+            <div className="trainings-first-intro">
+              <h2 id="first-training" className="panel-title">
+                Je eerste training
+              </h2>
+              <p>
+                Kies een voorbeeldtraining voor jouw leeftijdsgroep: ze is al uitgewerkt, met oefeningen en tijden. Pas ze aan en sla ze op
+                als je eigen training. Liever van nul beginnen? Kies een sjabloon.
+              </p>
             </div>
-            <ThemeFilter theme={theme} setTheme={setTheme} sessions={byTab[tab]} />
-          </div>
-
-          <div className="session-grid session-grid-head" aria-hidden="true">
-            <span>Datum</span>
-            <span>Training</span>
-            <span>Opbouw</span>
-            <span>Oefeningen</span>
-            <span />
-          </div>
-
-          {rows.length === 0 && (
-            <div className="trainings-empty">
-              {sessions.length === 0
-                ? 'Nog geen trainingen. Maak de eerste training aan.'
-                : 'Geen trainingen met dit thema. Kies een ander thema of maak een nieuwe training.'}
+            <ReferenceGroups onOpen={startFrom} featured />
+          </section>
+        ) : (
+          <section aria-label="Alle trainingen" className="trainings-list">
+            <div className="trainings-toolbar">
+              <div role="group" aria-label="Weergave" className="trainings-tabs">
+                {TABS.map(([key, label]) => (
+                  <button key={key} type="button" aria-pressed={tab === key} onClick={() => setTab(key)}>
+                    {label}
+                    <span className="count-badge">{byTab[key].length}</span>
+                  </button>
+                ))}
+              </div>
+              <ThemeFilter theme={theme} setTheme={setTheme} sessions={byTab[tab]} />
             </div>
-          )}
 
-          <div className="session-rows">
-            {rows.map((s) => {
-              const date = parseISODate(s.date);
-              const isNext = s.id === next?.id;
-              const isPast = s.date < today;
-              const exercises = exercisesOf(s);
-              const thumbs = exercises.slice(0, exercises.length > 3 ? 2 : 3);
-              const targets = BLOCK_TARGETS[s.duration];
-              return (
-                <Link
-                  key={s.id}
-                  to={trainingPath(s.id)}
-                  className={`session-grid session-row${isNext ? ' is-next' : ''}${isPast ? ' is-past' : ''}`}
-                >
-                  <span className="session-date">
-                    <span>{DAY_SHORT[date.getDay()]}</span>
-                    <span className="session-date-num">{date.getDate()}</span>
-                    <span>{MONTH_NAMES[date.getMonth()].slice(0, 3).toUpperCase()}</span>
-                  </span>
-                  <span className="session-info">
-                    <span className="session-team">{s.team || 'Geen team'}</span>
-                    <span className="session-theme">{s.theme}</span>
-                    <span className="session-extra">
-                      {exerciseCount(exercises.length)}
+            <div className="session-grid session-grid-head" aria-hidden="true">
+              <span>Datum</span>
+              <span>Training</span>
+              <span>Opbouw</span>
+              <span>Oefeningen</span>
+              <span />
+            </div>
+
+            {rows.length === 0 && (
+              <div className="trainings-empty">Geen trainingen met dit thema. Kies een ander thema of maak een nieuwe training.</div>
+            )}
+
+            <div className="session-rows">
+              {rows.map((s) => {
+                const date = parseISODate(s.date);
+                const isNext = s.id === next?.id;
+                const isPast = s.date < today;
+                const exercises = exercisesOf(s);
+                const thumbs = exercises.slice(0, exercises.length > 3 ? 2 : 3);
+                const targets = BLOCK_TARGETS[s.duration];
+                return (
+                  <Link
+                    key={s.id}
+                    to={trainingPath(s.id)}
+                    className={`session-grid session-row${isNext ? ' is-next' : ''}${isPast ? ' is-past' : ''}`}
+                  >
+                    <span className="session-date">
+                      <span>{DAY_SHORT[date.getDay()]}</span>
+                      <span className="session-date-num">{date.getDate()}</span>
+                      <span>{MONTH_NAMES[date.getMonth()].slice(0, 3).toUpperCase()}</span>
                     </span>
-                  </span>
-                  <span className="session-build">
-                    <span className="session-bar">
-                      <BlockBar duration={s.duration} colors={BLOCK_COLOR} />
-                    </span>
-                    <span>
-                      <strong>{s.duration} min</strong> · {targets.wu} · {targets.kern} · {targets.pv}
-                    </span>
-                  </span>
-                  <span className="session-thumbs">
-                    {thumbs.map(([, ex], i) => (
-                      <span key={i} className="session-thumb">
-                        <Pitch variant={EXERCISE_BY_ID[ex].variant} />
+                    <span className="session-info">
+                      <span className="session-team">{s.team || 'Geen team'}</span>
+                      <span className="session-theme">{s.theme}</span>
+                      <span className="session-extra">
+                        {exerciseCount(exercises.length)}
                       </span>
-                    ))}
-                    {exercises.length > 3 && (
-                      <span className="session-thumb session-more" aria-label={`${exercises.length - 2} oefeningen meer`}>
-                        +{exercises.length - 2}
+                    </span>
+                    <span className="session-build">
+                      <span className="session-bar">
+                        <BlockBar duration={s.duration} colors={BLOCK_COLOR} />
                       </span>
-                    )}
-                  </span>
-                  <ChevronRightIcon size={20} className="session-chevron" />
-                </Link>
-              );
-            })}
-          </div>
-        </section>
+                      <span>
+                        <strong>{s.duration} min</strong> · {targets.wu} · {targets.kern} · {targets.pv}
+                      </span>
+                    </span>
+                    <span className="session-thumbs">
+                      {thumbs.map(([, ex], i) => (
+                        <span key={i} className="session-thumb">
+                          <Pitch variant={EXERCISE_BY_ID[ex].variant} />
+                        </span>
+                      ))}
+                      {exercises.length > 3 && (
+                        <span className="session-thumb session-more" aria-label={`${exercises.length - 2} oefeningen meer`}>
+                          +{exercises.length - 2}
+                        </span>
+                      )}
+                    </span>
+                    <ChevronRightIcon size={20} className="session-chevron" />
+                  </Link>
+                );
+              })}
+            </div>
+          </section>
+        )}
 
         <aside className="trainings-aside">
           <section className="card-section">
@@ -206,33 +215,52 @@ export function TrainingsPage() {
             })}
           </section>
 
-          <section className="card-section">
-            <div>
-              <h2 className="panel-title" style={{ letterSpacing: '0.02em' }}>
-                Voorbeeldtrainingen
-              </h2>
-              <span className="template-sub">Uitgewerkt per leeftijd. Open er een, pas aan en sla op als je eigen training.</span>
-            </div>
-            {refGroups.map((g) => (
-              <div key={g.ages} className="reference-group">
-                <span className="eyebrow">{g.ages}</span>
-                {g.trainings.map((r) => (
-                  <button key={r.id} type="button" className="template" onClick={() => startFrom(r)}>
-                    <span className="template-duration">{r.duration}′</span>
-                    <span className="template-text">
-                      <strong>{r.name}</strong>
-                      <span>
-                        {r.theme} · {r.items.length} oefeningen
-                      </span>
-                    </span>
-                  </button>
-                ))}
+          {!firstVisit && (
+            <section className="card-section">
+              <div>
+                <h2 className="panel-title" style={{ letterSpacing: '0.02em' }}>
+                  Voorbeeldtrainingen
+                </h2>
+                <span className="template-sub">Uitgewerkt per leeftijd. Open er een, pas aan en sla op als je eigen training.</span>
               </div>
-            ))}
-          </section>
+              <ReferenceGroups onOpen={startFrom} />
+            </section>
+          )}
         </aside>
       </div>
     </div>
+  );
+}
+
+const REFERENCE_GROUPS = [...new Set(REFERENCE_TRAININGS.map((r) => r.ages))].map((ages) => ({
+  ages,
+  trainings: REFERENCE_TRAININGS.filter((r) => r.ages === ages),
+}));
+
+/** The example trainings per age group; `featured` shows them as a larger grid for a first visit. */
+function ReferenceGroups({ onOpen, featured = false }: { onOpen: (ref: ReferenceTraining) => void; featured?: boolean }) {
+  return (
+    <>
+      {REFERENCE_GROUPS.map((g) => (
+        <div key={g.ages} className={`reference-group${featured ? ' is-featured' : ''}`}>
+          <span className="eyebrow">{g.ages}</span>
+          <div className="reference-list">
+            {g.trainings.map((r) => (
+              <button key={r.id} type="button" className="template" onClick={() => onOpen(r)}>
+                <span className="template-duration">{r.duration}′</span>
+                <span className="template-text">
+                  <strong>{r.name}</strong>
+                  <span>
+                    {r.theme} · {r.items.length} oefeningen
+                  </span>
+                </span>
+                {featured && <ArrowRightIcon className="template-arrow" />}
+              </button>
+            ))}
+          </div>
+        </div>
+      ))}
+    </>
   );
 }
 

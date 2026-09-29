@@ -3023,6 +3023,48 @@ a:focus-visible,
   flex-direction: column;
   gap: 8px;
 }
+.reference-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+/* First visit: the example trainings fill the main column. */
+.trainings-first {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.trainings-first-intro {
+  padding: 24px;
+  border-radius: 18px;
+  background: var(--purple-tint);
+  border: 1px solid var(--line);
+}
+.trainings-first-intro p {
+  margin: 8px 0 0;
+  max-width: 640px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+.reference-group.is-featured .reference-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 10px;
+}
+.reference-group.is-featured .template {
+  padding: 14px 16px;
+  background: var(--card);
+  border: 1px solid var(--line-strong);
+}
+.reference-group.is-featured .template:hover {
+  border-color: var(--line-accent);
+  background: var(--purple-tint);
+}
+.template-arrow {
+  flex-shrink: 0;
+  color: var(--purple);
+}
 
 @media (max-width: 1280px) {
   .next-training {
