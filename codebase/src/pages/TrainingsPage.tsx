@@ -11,6 +11,7 @@ import {
   MONTH_NAMES,
   formatTrainingDate,
   parseISODate,
+  relativeDay,
   todayISO,
   trainingPath,
   useTraining,
@@ -44,11 +45,6 @@ const exerciseCount = (n: number) => `${n} ${n === 1 ? 'oefening' : 'oefeningen'
 
 /** Exercises of a session in block order, as [block, exercise id, minutes]. */
 const exercisesOf = (s: Session) => BLOCKS.flatMap((b) => s.plan[b.id].map((it) => [b.id, it.ex, it.min] as const));
-
-function relativeDay(iso: string, today: string): string {
-  const days = Math.round((parseISODate(iso).getTime() - parseISODate(today).getTime()) / 86_400_000);
-  return days === 0 ? 'vandaag' : days === 1 ? 'morgen' : `over ${days} dagen`;
-}
 
 function BlockBar({ duration, colors }: { duration: Duration; colors: Record<BlockId, string> }) {
   const targets = BLOCK_TARGETS[duration];

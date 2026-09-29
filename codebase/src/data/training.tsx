@@ -43,6 +43,15 @@ export const parseISODate = (iso: string) => {
 export const toISODate = (date: Date) =>
   `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
 
+/** Whole days from `today` to `iso` (both "YYYY-MM-DD"); negative for past dates. */
+export const daysBetween = (today: string, iso: string) => Math.round((parseISODate(iso).getTime() - parseISODate(today).getTime()) / 86_400_000);
+
+/** "vandaag", "morgen" or "over 3 dagen", for an upcoming training. */
+export function relativeDay(iso: string, today: string): string {
+  const days = daysBetween(today, iso);
+  return days === 0 ? 'vandaag' : days === 1 ? 'morgen' : `over ${days} dagen`;
+}
+
 /** "2026-09-29" → "dinsdag 29 september". */
 export function formatTrainingDate(iso: string): string {
   const date = parseISODate(iso);

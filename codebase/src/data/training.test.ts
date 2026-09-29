@@ -1,12 +1,14 @@
 import { describe, expect, it } from 'vitest';
 import {
   clampMinutes,
+  daysBetween,
   formatTrainingDate,
   hasExercises,
   lastTeam,
   readConcept,
   readFavs,
   readTrainings,
+  relativeDay,
   sameTraining,
   type Session,
 } from './training';
@@ -88,6 +90,18 @@ describe('stored bookmarks', () => {
 describe('training helpers', () => {
   it('keep minutes between 5 and 45', () => {
     expect([clampMinutes(0), clampMinutes(20), clampMinutes(60)]).toEqual([5, 20, 45]);
+  });
+
+  it('say how far away a training is', () => {
+    expect(daysBetween('2026-09-29', '2026-10-01')).toBe(2);
+    expect(daysBetween('2026-09-29', '2026-09-28')).toBe(-1);
+    // Across the switch to winter time, a day still counts as one.
+    expect(daysBetween('2026-10-24', '2026-10-26')).toBe(2);
+    expect([
+      relativeDay('2026-09-29', '2026-09-29'),
+      relativeDay('2026-09-30', '2026-09-29'),
+      relativeDay('2026-10-02', '2026-09-29'),
+    ]).toEqual(['vandaag', 'morgen', 'over 3 dagen']);
   });
 
   it('write dates in Dutch', () => {

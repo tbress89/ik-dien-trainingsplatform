@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { NextTrainingStrip } from '../components/NextTrainingStrip';
 import { Pitch } from '../components/Pitch';
 import {
   AgeIcon,
@@ -264,6 +265,7 @@ export function ExercisesPage() {
       </aside>
 
       <main className="dash-main">
+        {TRAINING_BUILDER && <NextTrainingStrip />}
         <div className="page-head">
           <div className="page-head-titles">
             <span className="kicker">Oefeningendatabank</span>
