@@ -2189,7 +2189,7 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
       { label: 'De werper stapt meteen in als extra man', ms: 600, ball: 'a', moves: { w: [130, 134], o1: [110, 118] } },
       { label: 'Terugkaatsen naar de vrije werper', ms: 500, ball: 'w' },
       { label: 'Doorspelen naar de diepe man', ms: 700, ball: 'b', moves: { b: [208, 82], o2: [196, 104] } },
-      { label: 'Binnen 8 seconden gescoord op het doeltje: punt', ms: 600, ball: [236, 98], moves: { b: [214, 88] } },
+      { label: 'Gescoord op het doeltje: punt', ms: 600, ball: [236, 98], moves: { b: [214, 88] } },
       {
         label: 'Nieuwe inworp',
         ms: 1300,

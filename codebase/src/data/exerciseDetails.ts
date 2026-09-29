@@ -4399,11 +4399,11 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       },
       {
         title: 'Scoren.',
-        text: 'Na de worp stapt de werper meteen in als extra man: het wordt 3 tegen 2. Scoren de aanvallers binnen 8 seconden op hun doeltje, dan is het een punt. Winnen de verdedigers de bal, dan scoren zij meteen op het doeltje aan de andere kant.',
+        text: 'Na de worp stapt de werper meteen in als extra man: het wordt 3 tegen 2. Scoren de aanvallers op hun doeltje, dan is het een punt. Winnen de verdedigers de bal, dan scoren zij meteen op het doeltje aan de andere kant.',
       },
       { title: 'Ritme.', text: 'Speel 4 reeksen van 3 minuten met 1 minuut rust. Wissel na elke reeks de rollen: werper, aanvallers en verdedigers.' },
     ],
-    easier: 'Laat de verdedigers eerst half meedoen, of speel met één verdediger. Geef 12 seconden om te scoren.',
+    easier: 'Laat de verdedigers eerst half meedoen, of speel met één verdediger. Gebruik bredere doeltjes.',
     harder: 'Maak de zone smaller (10 m breed) of zet een derde verdediger in. Een punt telt alleen als de werper na de worp nog een balcontact had.',
     objectives: ['Loskomen van je man', 'Inworp volgens de regels', 'Aanname onder druk', 'Overtal na de worp'],
     coaching: [
