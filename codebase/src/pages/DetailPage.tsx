@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { BodyDemo } from '../components/BodyDemo';
 import { Pitch } from '../components/Pitch';
 import { PitchAnimation } from '../components/PitchAnimation';
 import {
@@ -24,6 +25,7 @@ import {
   type ExerciseDetail,
 } from '../data/exercises';
 import type { ANIMATIONS } from '../data/animations';
+import type { DEMOS } from '../data/demos';
 import { BLOCKS, clampMinutes, formatTrainingDate, trainingPath, useTraining } from '../data/training';
 import { TRAINING_BUILDER } from '../features';
 
@@ -46,9 +48,17 @@ function useExerciseDetails() {
   return { details, failed };
 }
 
-let loadedAnimations: typeof ANIMATIONS | null = null;
+interface Animations {
+  pitch: typeof ANIMATIONS;
+  demos: typeof DEMOS;
+}
 
-/** The diagram animations; like the detail text they load as their own chunk, since only this page uses them. */
+let loadedAnimations: Animations | null = null;
+
+/**
+ * The diagram animations (players on the pitch) and instruction demos (body movement); like the detail
+ * text they load as their own chunks, since only this page uses them.
+ */
 function useAnimations() {
   const [animations, setAnimations] = useState(loadedAnimations);
 
@@ -56,10 +66,10 @@ function useAnimations() {
     if (animations) return;
     let cancelled = false;
     // If the chunk fails to load, the page simply shows no "Afspelen" button.
-    import('../data/animations')
-      .then((m) => {
-        loadedAnimations = m.ANIMATIONS;
-        if (!cancelled) setAnimations(m.ANIMATIONS);
+    Promise.all([import('../data/animations'), import('../data/demos')])
+      .then(([a, d]) => {
+        loadedAnimations = { pitch: a.ANIMATIONS, demos: d.DEMOS };
+        if (!cancelled) setAnimations(loadedAnimations);
       })
       .catch(() => {});
     return () => {
@@ -113,7 +123,9 @@ export function DetailPage() {
 
   const fav = favs.includes(e.id);
   const hint = hasStepToggle ? diagramSteps[step]?.[1] : diagramSteps[0]?.[1];
-  const animation = animations?.[e.variant];
+  const animation = animations?.pitch[e.variant];
+  const demo = animations?.demos[e.variant];
+  const showDemo = !!demo && playing;
 
   const add = () => {
     addExercise(BLOCKS[block].id, e.id, min);
@@ -176,7 +188,7 @@ export function DetailPage() {
           <figure className="diagram">
             {/* Above the drawing rather than on top of it, so it never covers players or cones. */}
             <div className="diagram-toolbar">
-              {animation && (
+              {(animation || demo) && (
                 <button type="button" className="btn diagram-play" aria-pressed={playing} onClick={() => setPlaying((p) => !p)}>
                   {playing ? <StopIcon size={14} /> : <PlayIcon size={14} />}
                   {playing ? 'Stoppen' : 'Afspelen'}
@@ -197,7 +209,9 @@ export function DetailPage() {
               </span>
             </div>
             <div className="diagram-canvas">
-              {animation && playing ? (
+              {demo && playing ? (
+                <BodyDemo def={demo} onBeat={onBeat} />
+              ) : animation && playing ? (
                 <PitchAnimation variant={e.variant} def={animation} onBeat={onBeat} />
               ) : (
                 <Pitch variant={e.variant} step={hasStepToggle && step < diagramSteps.length - 1 ? step : undefined} />
@@ -206,30 +220,34 @@ export function DetailPage() {
             <figcaption>
               <span>
                 <span className="legend-dot" style={{ background: 'var(--purple)', boxShadow: '0 0 0 1px #C7B6EF' }} />
-                Balbezittende ploeg
+                {showDemo ? 'Speler' : 'Balbezittende ploeg'}
               </span>
               <span>
                 <span className="legend-dot" style={{ background: '#F2A541', boxShadow: '0 0 0 1px #F2D2A0' }} />
-                Tegenstander
+                {showDemo ? 'Partner' : 'Tegenstander'}
               </span>
-              <span>
-                <svg width="28" height="10" viewBox="0 0 28 10" aria-hidden="true">
-                  <line x1="0" y1="5" x2="22" y2="5" stroke="#1A1033" strokeWidth="1.6" strokeDasharray="4 3" />
-                  <path d="M21 1l6 4-6 4z" fill="#1A1033" />
-                </svg>
-                Pass
-              </span>
-              <span>
-                <svg width="28" height="10" viewBox="0 0 28 10" aria-hidden="true">
-                  <line x1="0" y1="5" x2="22" y2="5" stroke="#5B2BC4" strokeWidth="2" />
-                  <path d="M21 1l6 4-6 4z" fill="#5B2BC4" />
-                </svg>
-                Loopactie
-              </span>
-              <span>
-                <span style={{ width: 18, height: 10, border: '1.5px solid #1A1033', background: '#fff' }} />
-                Doeltje
-              </span>
+              {!showDemo && (
+                <>
+                  <span>
+                    <svg width="28" height="10" viewBox="0 0 28 10" aria-hidden="true">
+                      <line x1="0" y1="5" x2="22" y2="5" stroke="#1A1033" strokeWidth="1.6" strokeDasharray="4 3" />
+                      <path d="M21 1l6 4-6 4z" fill="#1A1033" />
+                    </svg>
+                    Pass
+                  </span>
+                  <span>
+                    <svg width="28" height="10" viewBox="0 0 28 10" aria-hidden="true">
+                      <line x1="0" y1="5" x2="22" y2="5" stroke="#5B2BC4" strokeWidth="2" />
+                      <path d="M21 1l6 4-6 4z" fill="#5B2BC4" />
+                    </svg>
+                    Loopactie
+                  </span>
+                  <span>
+                    <span style={{ width: 18, height: 10, border: '1.5px solid #1A1033', background: '#fff' }} />
+                    Doeltje
+                  </span>
+                </>
+              )}
               {playing && beat ? (
                 <span className="diagram-hint diagram-beat">{beat}</span>
               ) : (
@@ -318,7 +336,12 @@ export function DetailPage() {
               </div>
               <div className="intensity" aria-hidden="true">
                 {[1, 2, 3, 4, 5].map((n) => (
-                  <span key={n} style={{ background: n <= e.intensity ? 'var(--purple)' : 'var(--line-strong)' }} />
+                  <span
+                    key={n}
+                    style={{
+                      background: n <= e.intensity ? 'var(--purple)' : 'var(--line-strong)',
+                    }}
+                  />
                 ))}
               </div>
             </div>
