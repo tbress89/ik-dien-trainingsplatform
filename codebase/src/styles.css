@@ -1149,8 +1149,9 @@ a:focus-visible,
   color: var(--ink);
   font-weight: 600;
 }
-.builder-main .page-head {
-  flex-wrap: nowrap;
+/* The title keeps its full width; when the buttons don't fit next to it, they move to the row below. */
+.builder-main .page-head-titles {
+  flex: 1 1 auto;
 }
 .builder-main .actions {
   flex-wrap: nowrap;
@@ -2982,7 +2983,7 @@ a:focus-visible,
 /* ---------- Responsive ---------- */
 
 @media (max-width: 1280px) {
-  .builder-main .page-head {
+  .builder-main .actions {
     flex-wrap: wrap;
   }
   .card-grid {
@@ -3094,14 +3095,32 @@ a:focus-visible,
   .page-title {
     font-size: 40px;
   }
+  /* Phone: title on top, then the buttons filling full rows, with "Training opslaan" on its own row. */
   .builder-main .page-head {
-  flex-wrap: nowrap;
-}
-.builder-main .actions {
-  flex-wrap: nowrap;
-}
-.builder-title {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+  .builder-title {
     font-size: 32px;
+    gap: 4px 10px;
+  }
+  /* The "·" between date and team; the team goes on its own line instead. */
+  .builder-title > span[aria-hidden='true'] {
+    display: none;
+  }
+  .builder-main .actions {
+    gap: 8px;
+  }
+  .builder-main .actions .btn {
+    flex: 1 1 auto;
+    justify-content: center;
+    height: 42px;
+    padding: 0 12px;
+    font-size: 14px;
+  }
+  .builder-main .actions .btn-primary {
+    flex-basis: 100%;
   }
   .detail-title {
     font-size: 36px;
