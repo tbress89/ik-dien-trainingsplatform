@@ -23,7 +23,7 @@ import {
   loadExerciseDetails,
   type ExerciseDetail,
 } from '../data/exercises';
-import { ANIMATIONS } from '../data/animations';
+import type { ANIMATIONS } from '../data/animations';
 import { BLOCKS, clampMinutes, formatTrainingDate, trainingPath, useTraining } from '../data/training';
 import { TRAINING_BUILDER } from '../features';
 
@@ -46,11 +46,36 @@ function useExerciseDetails() {
   return { details, failed };
 }
 
+let loadedAnimations: typeof ANIMATIONS | null = null;
+
+/** The diagram animations; like the detail text they load as their own chunk, since only this page uses them. */
+function useAnimations() {
+  const [animations, setAnimations] = useState(loadedAnimations);
+
+  useEffect(() => {
+    if (animations) return;
+    let cancelled = false;
+    // If the chunk fails to load, the page simply shows no "Afspelen" button.
+    import('../data/animations')
+      .then((m) => {
+        loadedAnimations = m.ANIMATIONS;
+        if (!cancelled) setAnimations(m.ANIMATIONS);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [animations]);
+
+  return animations;
+}
+
 export function DetailPage() {
   const { id = '' } = useParams();
   const e = EXERCISE_BY_ID[id];
   const { favs, toggleFav, addExercise, date, team, draftId } = useTraining();
   const { details, failed } = useExerciseDetails();
+  const animations = useAnimations();
   const d: ExerciseDetail | undefined = details?.[id];
 
   const diagramSteps = d?.diagramSteps ?? [];
@@ -88,7 +113,7 @@ export function DetailPage() {
 
   const fav = favs.includes(e.id);
   const hint = hasStepToggle ? diagramSteps[step]?.[1] : diagramSteps[0]?.[1];
-  const animation = ANIMATIONS[e.variant];
+  const animation = animations?.[e.variant];
 
   const add = () => {
     addExercise(BLOCKS[block].id, e.id, min);

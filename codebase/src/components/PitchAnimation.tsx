@@ -26,12 +26,16 @@ function keyframes(def: PitchAnimationDef): Frame[] {
   const positions = Object.fromEntries(def.actors.map((a) => [a.id, [a.x, a.y] as Point]));
   const labels: Record<string, string | undefined> = Object.fromEntries(def.actors.map((a) => [a.id, a.label]));
   const at = (id: string): Point => [positions[id][0] + BALL_OFFSET[0], positions[id][1] + BALL_OFFSET[1]];
-  const frames: Frame[] = [{ positions: { ...positions }, ball: at(def.ballStart), holder: def.ballStart, labels: { ...labels } }];
+  let holder: string | null = def.ballStart ?? null;
+  let ball: Point = holder ? at(holder) : [0, 0];
+  const frames: Frame[] = [{ positions: { ...positions }, ball, holder, labels: { ...labels } }];
   for (const beat of def.beats) {
     Object.assign(positions, beat.moves ?? {});
     Object.assign(labels, beat.labels ?? {});
-    const holder = typeof beat.ball === 'string' ? beat.ball : null;
-    frames.push({ positions: { ...positions }, ball: holder ? at(holder) : (beat.ball as Point), holder, labels: { ...labels } });
+    // Without a `ball` the ball stays with its holder, or where it lies.
+    if (beat.ball !== undefined) holder = typeof beat.ball === 'string' ? beat.ball : null;
+    ball = holder ? at(holder) : typeof beat.ball === 'object' ? beat.ball : ball;
+    frames.push({ positions: { ...positions }, ball, holder, labels: { ...labels } });
   }
   return frames;
 }
@@ -121,7 +125,7 @@ export function PitchAnimation({ variant, def, onBeat }: { variant: Variant; def
             </g>
           );
         })}
-        <circle cx={ball[0]} cy={ball[1]} r={4} fill="#fff" stroke={INK} strokeWidth={1.5} />
+        {def.ballStart && <circle cx={ball[0]} cy={ball[1]} r={4} fill="#fff" stroke={INK} strokeWidth={1.5} />}
       </svg>
     </div>
   );
