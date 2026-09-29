@@ -3912,3 +3912,26 @@ a:focus-visible,
     animation: none;
   }
 }
+
+/* ---------- Builder: continue with an unsaved training ---------- */
+.recover {
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid var(--block-wu);
+  background: var(--warm-bg);
+  color: var(--ink);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 20px;
+  flex-wrap: wrap;
+}
+.recover-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.recover-actions .btn {
+  height: 38px;
+}

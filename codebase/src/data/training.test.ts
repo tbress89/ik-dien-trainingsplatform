@@ -1,5 +1,15 @@
 import { describe, expect, it } from 'vitest';
-import { clampMinutes, formatTrainingDate, lastTeam, readFavs, readTrainings, type Session } from './training';
+import {
+  clampMinutes,
+  formatTrainingDate,
+  hasExercises,
+  lastTeam,
+  readConcept,
+  readFavs,
+  readTrainings,
+  sameTraining,
+  type Session,
+} from './training';
 
 /**
  * Trainings and bookmarks live in the browser's localStorage, so the app must cope with whatever it finds
@@ -89,5 +99,47 @@ describe('training helpers', () => {
     const s = (team: string, savedAt: number) => ({ team, savedAt }) as Session;
     expect(lastTeam([s('U9', 1), s('U11', 3), s('U13', 2)])).toBe('U11');
     expect(lastTeam([])).toBe('');
+  });
+});
+
+describe('autosave and the unsaved-training safety net', () => {
+  const base = {
+    date: '2026-09-29',
+    team: 'U11',
+    theme: 'Dribbelen' as const,
+    duration: 60 as const,
+    plan: { wu: [{ uid: 'a', ex: 'dbox', min: 10 }], kern: [], pv: [] },
+  };
+
+  it('see two trainings with the same content as the same (ids and spacing in the team name do not count)', () => {
+    expect(sameTraining(base, { ...base, team: ' U11 ', plan: { ...base.plan, wu: [{ uid: 'other', ex: 'dbox', min: 10 }] } })).toBe(true);
+  });
+
+  it('notice every change that should be saved', () => {
+    expect(sameTraining(base, { ...base, date: '2026-10-01' })).toBe(false);
+    expect(sameTraining(base, { ...base, team: 'U13' })).toBe(false);
+    expect(sameTraining(base, { ...base, theme: 'Afwerken' })).toBe(false);
+    expect(sameTraining(base, { ...base, duration: 75 })).toBe(false);
+    expect(sameTraining(base, { ...base, plan: { ...base.plan, wu: [{ uid: 'a', ex: 'dbox', min: 15 }] } })).toBe(false);
+    expect(sameTraining(base, { ...base, plan: { wu: [], kern: [{ uid: 'a', ex: 'dbox', min: 10 }], pv: [] } })).toBe(false);
+  });
+
+  it('know whether a training has exercises', () => {
+    expect(hasExercises(base)).toBe(true);
+    expect(hasExercises({ plan: { wu: [], kern: [], pv: [] } })).toBe(false);
+  });
+
+  it('restore a stored unsaved training as a new one (without an id)', () => {
+    const t = readConcept(base);
+    expect(t?.id).toBeNull();
+    expect(t && sameTraining(t, base)).toBe(true);
+  });
+
+  it('ignore a stored unsaved training that is empty or broken', () => {
+    expect(readConcept({ ...base, plan: { wu: [], kern: [], pv: [] } })).toBeNull();
+    expect(readConcept({ ...base, plan: { wu: [{ ex: 'removed-exercise', min: 10 }] } })).toBeNull();
+    expect(readConcept({ ...base, date: 'morgen' })).toBeNull();
+    expect(readConcept(null)).toBeNull();
+    expect(readConcept('training')).toBeNull();
   });
 });

@@ -115,7 +115,13 @@ interface TrainingContextValue {
   newTrainingFrom: (ref: ReferenceTraining) => void;
   /** Starts a new, unsaved training from a shared link, so it can be adapted and saved as your own. */
   newTrainingFromShared: (shared: SharedTraining) => void;
-  /** Writes the draft into `sessions` and returns its id. */
+  /** A new training left unsaved in an earlier visit (e.g. the tab was closed), or null. */
+  recovered: Training | null;
+  /** Continues with the recovered training in the builder. */
+  restoreRecovered: () => void;
+  /** Throws the recovered training away. */
+  discardRecovered: () => void;
+  /** Saves a new training into `sessions` (after that, changes are saved automatically) and returns its id. */
   saveTraining: () => string;
   /** Removes a saved training; if it's open in the builder, the builder starts a new one. */
   deleteTraining: (id: string) => void;
@@ -222,6 +228,44 @@ function storeTrainings(trainings: Session[]) {
   }
 }
 
+/** Whether two trainings have the same content (date, team, theme, duration and exercises with their minutes). */
+export function sameTraining(a: Omit<Training, 'id'>, b: Omit<Training, 'id'>): boolean {
+  const planKey = (p: Plan) => BLOCKS.map((bl) => p[bl.id].map((it) => `${it.ex}:${it.min}`).join(',')).join('|');
+  return a.date === b.date && a.team.trim() === b.team.trim() && a.theme === b.theme && a.duration === b.duration && planKey(a.plan) === planKey(b.plan);
+}
+
+export const hasExercises = (t: Pick<Training, 'plan'>) => BLOCKS.some((b) => t.plan[b.id].length > 0);
+
+/**
+ * A new training that isn't saved yet is kept here as a safety net (a phone may discard the tab in the
+ * background), so the builder can offer to continue with it. It only joins the saved trainings on "Opslaan".
+ */
+const CONCEPT_KEY = 'ikdien:concept';
+
+/** Validates a stored concept like a saved training; returns null when there's nothing usable. */
+export function readConcept(stored: unknown): Training | null {
+  if (!isRecord(stored)) return null;
+  const [t] = readTrainings([{ ...stored, id: 'concept' }]);
+  return t && hasExercises(t) ? { date: t.date, team: t.team, theme: t.theme, duration: t.duration, plan: t.plan, id: null } : null;
+}
+
+function loadConcept(): Training | null {
+  try {
+    return readConcept(JSON.parse(localStorage.getItem(CONCEPT_KEY) ?? 'null'));
+  } catch {
+    return null;
+  }
+}
+
+function storeConcept(t: Training | null) {
+  try {
+    if (t) localStorage.setItem(CONCEPT_KEY, JSON.stringify({ date: t.date, team: t.team, theme: t.theme, duration: t.duration, plan: t.plan }));
+    else localStorage.removeItem(CONCEPT_KEY);
+  } catch {
+    // Storage unavailable: no safety net, but the builder still works.
+  }
+}
+
 const emptyTraining = (trainings: Session[], duration: Duration = 90): Training => ({
   id: null,
   date: nextFreeTrainingDay(trainings.map((s) => s.date)),
@@ -237,6 +281,8 @@ export function TrainingProvider({ children }: { children: ReactNode }) {
   const [draft, setDraft] = useState<Training>(() => emptyTraining(sessions));
   const [activeBlock, setActiveBlock] = useState<BlockId>('wu');
   const [favs, setFavs] = useState<string[]>(loadFavs);
+  // A new training left unsaved in an earlier visit, offered in the builder until it's restored or discarded.
+  const [recovered, setRecovered] = useState<Training | null>(loadConcept);
 
   // Persist every change, and pick up changes made in another tab.
   const skipStore = useRef(true);
@@ -256,6 +302,57 @@ export function TrainingProvider({ children }: { children: ReactNode }) {
     return () => window.removeEventListener('storage', onStorage);
   }, []);
 
+  // Autosave: a saved training is updated as soon as it changes.
+  useEffect(() => {
+    if (draft.id === null) return;
+    setSessions((list) => {
+      const i = list.findIndex((x) => x.id === draft.id);
+      if (i < 0 || sameTraining(list[i], draft)) return list;
+      const next = [...list];
+      next[i] = { ...draft, id: list[i].id, team: draft.team.trim(), plan: copyPlan(draft.plan), savedAt: Date.now() };
+      return next;
+    });
+  }, [draft]);
+
+  // Safety net for a new training: kept in the browser while it has exercises. A draft started in this visit
+  // replaces an older concept; the older one is only dropped once it's restored, discarded or replaced.
+  const conceptInUse = useRef(false);
+  useEffect(() => {
+    if (draft.id !== null) return;
+    if (hasExercises(draft)) {
+      conceptInUse.current = true;
+      setRecovered(null);
+      storeConcept(draft);
+    } else if (conceptInUse.current) {
+      conceptInUse.current = false;
+      storeConcept(null);
+    }
+  }, [draft]);
+
+  // Starting or opening another training while a new one with exercises is unsaved: keep that one
+  // recoverable instead of dropping it.
+  const draftRef = useRef(draft);
+  draftRef.current = draft;
+  const stashUnsaved = useCallback(() => {
+    const d = draftRef.current;
+    if (d.id === null && hasExercises(d)) {
+      conceptInUse.current = false;
+      setRecovered(d);
+    }
+  }, []);
+
+  const restoreRecovered = useCallback(() => {
+    if (!recovered) return;
+    setDraft({ ...recovered, plan: copyPlan(recovered.plan) });
+    setRecovered(null);
+    setActiveBlock('kern');
+  }, [recovered]);
+
+  const discardRecovered = useCallback(() => {
+    setRecovered(null);
+    storeConcept(null);
+  }, []);
+
   const busyDates = useMemo(() => sessions.filter((s) => s.id !== draft.id).map((s) => s.date), [sessions, draft.id]);
 
   const update = useCallback(<K extends keyof Training>(key: K) => (value: Training[K]) => setDraft((d) => ({ ...d, [key]: value })), []);
@@ -269,18 +366,20 @@ export function TrainingProvider({ children }: { children: ReactNode }) {
     (id: string) => {
       const s = sessions.find((x) => x.id === id);
       if (!s) return;
+      stashUnsaved();
       setDraft({ ...s, plan: copyPlan(s.plan) });
       setActiveBlock('kern');
     },
-    [sessions],
+    [sessions, stashUnsaved],
   );
 
   const newTraining = useCallback(
     (duration: Duration = 90) => {
+      stashUnsaved();
       setDraft(emptyTraining(sessions, duration));
       setActiveBlock('wu');
     },
-    [sessions],
+    [sessions, stashUnsaved],
   );
 
   const newTrainingFrom = useCallback(
@@ -307,6 +406,9 @@ export function TrainingProvider({ children }: { children: ReactNode }) {
     const saved: Session = { ...draft, id, team: draft.team.trim(), plan: copyPlan(draft.plan), savedAt: Date.now() };
     setSessions((list) => (list.some((s) => s.id === id) ? list.map((s) => (s.id === id ? saved : s)) : [...list, saved]));
     setDraft((d) => ({ ...d, id }));
+    // It's a saved training now: autosave takes over, the safety-net copy is no longer needed.
+    conceptInUse.current = false;
+    storeConcept(null);
     return id;
   }, [draft]);
 
@@ -362,6 +464,9 @@ export function TrainingProvider({ children }: { children: ReactNode }) {
       newTraining,
       newTrainingFrom,
       newTrainingFromShared,
+      recovered,
+      restoreRecovered,
+      discardRecovered,
       saveTraining,
       deleteTraining,
       date: draft.date,
@@ -382,7 +487,7 @@ export function TrainingProvider({ children }: { children: ReactNode }) {
       favs,
       toggleFav,
     }),
-    [sessions, draft, busyDates, openTraining, newTraining, newTrainingFrom, newTrainingFromShared, saveTraining, deleteTraining, setDate, setTeam, setTheme, setDuration, activeBlock, addExercise, removeItem, changeMinutes, moveItem, favs, toggleFav],
+    [sessions, draft, busyDates, openTraining, newTraining, newTrainingFrom, newTrainingFromShared, recovered, restoreRecovered, discardRecovered, saveTraining, deleteTraining, setDate, setTeam, setTheme, setDuration, activeBlock, addExercise, removeItem, changeMinutes, moveItem, favs, toggleFav],
   );
 
   return <TrainingContext.Provider value={value}>{children}</TrainingContext.Provider>;

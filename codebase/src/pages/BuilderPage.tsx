@@ -21,7 +21,7 @@ import {
 } from '../components/icons';
 import { EXERCISES, EXERCISE_BY_ID, TYPE_COLOR, materialNames, shortAgeLabel, type Exercise, type ExerciseType } from '../data/exercises';
 import { shareUrl } from '../data/share';
-import { BLOCKS, BLOCK_TARGETS, DURATIONS, formatTrainingDate, trainingPath, useTraining, type BlockId } from '../data/training';
+import { BLOCKS, BLOCK_TARGETS, DURATIONS, formatTrainingDate, hasExercises, trainingPath, useTraining, type BlockId } from '../data/training';
 
 /** "Bewaard" shows the exercises saved with the bookmark on the dashboard or an exercise page. */
 const TABS: ('Alle' | 'Bewaard' | ExerciseType)[] = ['Alle', 'Bewaard', 'Warming-up', 'Technisch', 'Tactisch', 'Partijvorm'];
@@ -45,7 +45,7 @@ function useNarrow() {
 }
 
 export function BuilderPage() {
-  const { sessions, draftId, openTraining, newTraining, saveTraining, deleteTraining, date, team, plan, duration, setDuration, theme, activeBlock, setActiveBlock, addExercise, removeItem, changeMinutes, moveItem, favs } = useTraining();
+  const { sessions, draftId, openTraining, newTraining, saveTraining, deleteTraining, date, team, plan, duration, setDuration, theme, activeBlock, setActiveBlock, addExercise, removeItem, changeMinutes, moveItem, favs, recovered, restoreRecovered, discardRecovered } = useTraining();
   const [tab, setTab] = useState<(typeof TABS)[number]>('Alle');
   const [query, setQuery] = useState('');
   const [hover, setHover] = useState<BlockId | null>(null);
@@ -116,14 +116,15 @@ export function BuilderPage() {
     else searchRef.current?.focus();
   };
 
-  // Unsaved changes: a new training with exercises, or a saved one that differs from what's stored.
-  const saved = draftId ? sessions.find((s) => s.id === draftId) : undefined;
-  const planKey = (p: typeof plan) => BLOCKS.map((b) => p[b.id].map((it) => `${it.ex}:${it.min}`).join(',')).join('|');
-  const dirty = saved
-    ? saved.date !== date || saved.team !== team.trim() || saved.theme !== theme || saved.duration !== duration || planKey(saved.plan) !== planKey(plan)
-    : BLOCKS.some((b) => plan[b.id].length > 0);
+  // A saved training saves itself on every change. A new one with exercises isn't in the list until "Opslaan"
+  // (the browser keeps a safety-net copy, see `recovered`).
+  const saved = draftId !== null;
+  const dirty = !saved && hasExercises({ plan });
+  // Offer to continue with a new training from an earlier visit, while the builder shows an empty new one.
+  const offerRecovery = recovered && !saved && !hasExercises({ plan });
 
-  // Closing or reloading the page would lose the changes; the browser asks first.
+  // Closing or reloading the page with an unsaved new training: the browser asks first (on desktops;
+  // phones don't always ask, which is what the safety-net copy is for).
   useEffect(() => {
     if (!dirty) return;
     const onBeforeUnload = (ev: BeforeUnloadEvent) => {
@@ -312,7 +313,7 @@ export function BuilderPage() {
           <div className="actions">
             {(dirty || saved) && (
               <span className={`save-state${dirty ? ' is-dirty' : ''}`} role="status">
-                {dirty ? 'Niet opgeslagen' : 'Opgeslagen'}
+                {dirty ? 'Nog niet opgeslagen' : 'Automatisch opgeslagen'}
               </span>
             )}
             <Link to={`${trainingPath(draftId)}/geven`} className="btn">
@@ -366,20 +367,39 @@ export function BuilderPage() {
                 </div>
               )}
             </div>
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={() => {
-                const savedId = saveTraining();
-                setToast('Training opgeslagen');
-                if (id !== savedId) navigate(trainingPath(savedId), { replace: true });
-              }}
-            >
-              <CheckIcon />
-              Opslaan
-            </button>
+            {!saved && (
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={() => {
+                  const savedId = saveTraining();
+                  setToast('Opgeslagen. Wijzigingen worden voortaan automatisch bewaard.');
+                  navigate(trainingPath(savedId), { replace: true });
+                }}
+              >
+                <CheckIcon />
+                Opslaan
+              </button>
+            )}
           </div>
         </div>
+
+        {offerRecovery && (
+          <div className="recover" role="status">
+            <span>
+              Je hebt nog een niet-opgeslagen training van <strong>{formatTrainingDate(recovered.date)}</strong>
+              {recovered.team ? ` (${recovered.team})` : ''} met {BLOCKS.reduce((n, b) => n + recovered.plan[b.id].length, 0)} oefeningen.
+            </span>
+            <span className="recover-actions">
+              <button type="button" className="btn-link" onClick={discardRecovered}>
+                Weggooien
+              </button>
+              <button type="button" className="btn btn-primary" onClick={restoreRecovered}>
+                Verdergaan
+              </button>
+            </span>
+          </div>
+        )}
 
         <section aria-label="Tijdsverdeling" className="timeline">
           <div className="timeline-total">
