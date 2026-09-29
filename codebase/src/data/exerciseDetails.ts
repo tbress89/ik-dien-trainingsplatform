@@ -4385,4 +4385,45 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'game', fit: 'Als afsluiter' },
     ],
   },
+  inworp: {
+    summary:
+      'Een werper en twee aanspeelpunten spelen tegen twee verdedigers in een zone langs de zijlijn: loskomen, de inworp aannemen en snel doorspelen naar de doelspeler. Traint de spelhervatting die in de jeugd het vaakst voorkomt, zodat je ploeg na een inworp de bal houdt.',
+    steps: [
+      {
+        title: 'Opstelling.',
+        text: 'Zet langs de zijlijn een zone van 20 × 15 m uit. De werper staat met ballen buiten de lijn, twee aanvallers en twee verdedigers staan in de zone. Een doelspeler staat net buiten de zone, hoger op het veld.',
+      },
+      {
+        title: 'Inworp.',
+        text: 'De aanvallers lopen eerst weg van hun man en komen dan kort, of gaan diep. De werper gooit volgens de regels (beide voeten op of achter de lijn, met twee handen over het hoofd) naar de voet of de borst van de vrije speler.',
+      },
+      {
+        title: 'Doorspelen.',
+        text: 'Na de worp stapt de werper meteen in als extra man: het wordt 3 tegen 2. Bereik je binnen 8 seconden de doelspeler, dan is het een punt. Winnen de verdedigers de bal, dan scoren zij door uit de zone te dribbelen.',
+      },
+      { title: 'Ritme.', text: 'Speel 4 reeksen van 3 minuten met 1 minuut rust. Wissel na elke reeks de rollen: werper, aanvallers, verdedigers en doelspeler.' },
+    ],
+    easier: 'Laat de verdedigers eerst half meedoen, of speel met één verdediger. Geef 12 seconden om de doelspeler te bereiken.',
+    harder: 'Maak de zone smaller (10 m breed) of zet een derde verdediger in. Een punt telt alleen als de werper na de worp nog een balcontact had.',
+    objectives: ['Loskomen van je man', 'Inworp volgens de regels', 'Aanname onder druk', 'Overtal na de worp'],
+    coaching: [
+      'Eerst weg, dan kort: maak ruimte voor je de bal vraagt.',
+      'Werper: gooi naar de voet of de borst, niet in de loop van een verdediger.',
+      'Werper: na de worp meteen het veld in, jij bent de vrije man.',
+      'Neem aan met een open lichaam, weg van de zijlijn.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Werper buiten de lijn, 2 tegen 2 in de zone, doelspeler hoger'],
+      ['Loskomen', 'Eerst weg van je man, dan kort komen of diep gaan'],
+      ['Inwerpen', 'Naar de voet van de vrije speler; de werper stapt in'],
+      ['Extra man', 'Terugkaatsen naar de vrije werper'],
+      ['Doelspeler', 'Via de diepe man naar de doelspeler: punt'],
+    ],
+    related: [
+      { id: 'pscan', fit: 'Als warming-up' },
+      { id: 'obfree', fit: 'Zelfde thema' },
+      { id: 'psflank', fit: 'Als vervolg' },
+      { id: 'game5', fit: 'Als afsluiter' },
+    ],
+  },
 };

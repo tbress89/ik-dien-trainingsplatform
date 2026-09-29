@@ -2173,4 +2173,24 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
       { label: 'Doelpunt na een opbouw zonder balverlies: telt dubbel', ms: 600, ball: [310, 100], moves: { ko: [300, 100] } },
     ],
   },
+  // Inworp: loskomen en doorspelen
+  inworp: {
+    actors: [
+      { id: 'w', team: 'P', x: 100, y: 157 },
+      { id: 'a', team: 'P', x: 110, y: 104 },
+      { id: 'b', team: 'P', x: 176, y: 92 },
+      { id: 'd', team: 'P', x: 270, y: 90 },
+      { id: 'o1', team: 'O', x: 126, y: 118 },
+      { id: 'o2', team: 'O', x: 190, y: 106 },
+    ],
+    ballStart: 'w',
+    beats: [
+      { label: 'Eerst weglopen van je man', ms: 800, ball: 'w', moves: { a: [90, 82], b: [200, 78], o1: [108, 98], o2: [198, 94] } },
+      { label: 'Dan kort komen: de werper gooit naar de voet', ms: 900, ball: 'a', moves: { a: [96, 124], o1: [110, 110] } },
+      { label: 'De werper stapt meteen in als extra man', ms: 600, ball: 'a', moves: { w: [130, 134], o1: [110, 118] } },
+      { label: 'Terugkaatsen naar de vrije werper', ms: 500, ball: 'w' },
+      { label: 'Doorspelen naar de diepe man', ms: 700, ball: 'b', moves: { b: [208, 82], o2: [196, 104] } },
+      { label: 'Binnen 8 seconden bij de doelspeler: punt', ms: 700, ball: 'd' },
+    ],
+  },
 };

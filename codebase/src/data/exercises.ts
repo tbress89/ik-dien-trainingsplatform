@@ -140,7 +140,8 @@ export type Variant =
   | 'krepeat'
   | 'omwave2'
   | 'omwave2k'
-  | 'omright';
+  | 'omright'
+  | 'inworp';
 
 export type ExerciseType = 'Warming-up' | 'Technisch' | 'Tactisch' | 'Fysiek' | 'Partijvorm';
 
@@ -3382,6 +3383,28 @@ export const EXERCISES: Exercise[] = [
       { name: 'Kegels', qty: '8' },
       { name: 'Ballen', qty: '10' },
       { name: 'Hesjes', qty: '3 + 3 + 2' },
+    ],
+  },
+  {
+    id: 'inworp',
+    title: 'Inworp: loskomen en doorspelen',
+    variant: 'inworp',
+    type: 'Tactisch',
+    phase: 'Aanvallen',
+    themes: ['Passing & aanname', 'Positiespel'],
+    ages: ['U10–13', 'U14–15'],
+    ageLabel: 'U10 – U15',
+    diff: 2,
+    pmin: 6,
+    players: '6–12',
+    playersDetail: '(werper + 3 tegen 2, per zone)',
+    min: 15,
+    intensity: 3,
+    field: '20 × 15 m langs de zijlijn',
+    materials: [
+      { name: 'Kegels', qty: '6' },
+      { name: 'Ballen', qty: '6' },
+      { name: 'Hesjes', qty: '2' },
     ],
   },
 ];
