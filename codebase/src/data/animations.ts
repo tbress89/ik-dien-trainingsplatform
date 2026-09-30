@@ -188,6 +188,23 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
       { label: 'Pass naar boven; de passer vult de lege onderkant', ms: 1200, ball: 'p2', moves: { p1: [130, 155], o1: [145, 78], o2: [180, 80] } },
     ],
   },
+  // Ruitpassen rond de palen: pass en volg rond drie passieve palen
+  diamondpoles: {
+    actors: [
+      { id: 'a', team: 'P', x: 160, y: 145 },
+      { id: 'q', team: 'P', x: 160, y: 163 },
+      { id: 'b', team: 'P', x: 250, y: 100 },
+      { id: 'c', team: 'P', x: 160, y: 55 },
+      { id: 'd', team: 'P', x: 70, y: 100 },
+    ],
+    ballStart: 'a',
+    beats: [
+      { label: 'A speelt in op B en volgt zijn pass', ms: 1100, ball: 'b', moves: { a: [240, 116], q: [160, 145] } },
+      { label: 'B speelt door naar C en volgt', ms: 1100, ball: 'c', moves: { b: [174, 50], a: [250, 100] } },
+      { label: 'C speelt naar D en volgt', ms: 1100, ball: 'd', moves: { c: [80, 88], b: [160, 55] } },
+      { label: 'D speelt terug naar de rij en sluit achteraan aan', ms: 1300, ball: 'q', moves: { d: [160, 163], c: [70, 100] } },
+    ],
+  },
   // Passen in lijnen: pass en volg (wie van links komt loopt onderlangs, wie van rechts komt bovenlangs)
   pline: {
     actors: [

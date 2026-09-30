@@ -42,6 +42,7 @@ Typical knock-on effects to check:
 | Setup, rules, or how it's played | `steps`, `summary`, `easier`/`harder`, and the diagram and its `diagramSteps` hints if they describe the old version |
 | Diagram arrows or stages | `diagramSteps` labels/hints and each arrow's `at` value, so every stage button still reveals something new |
 | Title | Nothing else. The title is display-only; keep the `id` |
+| Source or video | `source` in the detail entry: `{ label, url, channel?, youtube?: { id, start? } }` (see the add-exercise skill, including its "From a YouTube video" rules). Removing it removes the video and credit from the page |
 
 ### Editing a diagram
 

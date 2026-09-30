@@ -100,6 +100,20 @@ describe('exercise details', () => {
     expect(bad).toEqual([]);
   });
 
+  it('credit their source with a valid link, and a valid YouTube video and start time', () => {
+    const bad = ids.flatMap((id) => {
+      const s = EXERCISE_DETAILS[id].source;
+      if (!s) return [];
+      const problems = [];
+      if (!s.label.trim()) problems.push('no label');
+      if (!/^https:\/\//.test(s.url)) problems.push(`url ${s.url}`);
+      if (s.youtube && !/^[A-Za-z0-9_-]{11}$/.test(s.youtube.id)) problems.push(`youtube id ${s.youtube.id}`);
+      if (s.youtube?.start !== undefined && !(Number.isInteger(s.youtube.start) && s.youtube.start >= 0)) problems.push(`start ${s.youtube.start}`);
+      return problems.map((p) => `${id}: ${p}`);
+    });
+    expect(bad).toEqual([]);
+  });
+
   it('have diagram stages with a label and a hint', () => {
     const bad = ids.flatMap((id) =>
       (EXERCISE_DETAILS[id].diagramSteps ?? []).filter(([label, hint]) => !label.trim() || !hint.trim()).map(() => id),

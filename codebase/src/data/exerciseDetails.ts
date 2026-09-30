@@ -1244,6 +1244,42 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'game5', fit: 'Als afsluiter' },
     ],
   },
+  ppoles: {
+    summary:
+      'Vier spelers staan in een ruit rond drie palen die als passieve verdedigers dienen. De bal gaat rond en elke speler volgt zijn pass naar de volgende positie: een rustige passvorm om op te warmen, met veel balcontacten, aannames voorbij een tegenstander en korte loopjes.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet drie palen of hoge kegels op een rij, telkens 5 meter uit elkaar. Zet rond de rij vier posities in een ruit: A onderaan met een rij en de ballen, B rechts naast de rechterpaal, C bovenaan, D links naast de linkerpaal.' },
+      { title: 'Pass en volg.', text: 'A speelt in op B, B speelt door naar C, C naar D en D terug naar de volgende speler bij A. Elke speler volgt zijn pass naar de volgende positie; D sluit achteraan aan bij de rij.' },
+      { title: 'Variaties.', text: 'Bouw op in stappen van 3 minuten. Laat een speler tussen twee palen komen om de bal te kaatsen voor die verder gaat. Speel daarna een één-twee met de volgende speler voor je doorpast. Zoek tot slot de derde man: de kaatser legt af op een speler die al is ingelopen.' },
+      { title: 'Ritme.', text: 'Speel 4 reeksen van 3 minuten met 30 seconden rust. Wissel na elke reeks van draairichting, zodat iedereen met links en rechts speelt.' },
+    ],
+    easier: 'Laat twee balcontacten toe en speel zonder de palen tot de pass en volg vlot loopt.',
+    harder: 'Speel alles in één keer en zet een tweede bal in omloop, die bij C start.',
+    objectives: ['Binnenkantpass', 'Aanname in de loop', 'Pass en volg', 'Spelen langs een tegenstander'],
+    coaching: [
+      'Kom voor de aanname even weg van je paal: zo kan je ploegmaat je vrij aanspelen.',
+      'Neem aan met je verste voet, in de richting van je volgende pass.',
+      'Speel de bal op de voet waarmee je ploegmaat verder wil.',
+      'Na je pass meteen volgen: niet blijven kijken.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Vier posities in een ruit rond drie palen'],
+      ['Rondspelen', 'A naar B, B naar C, C naar D, D terug naar A'],
+      ['Volgen', 'Iedereen volgt zijn pass; D sluit aan bij de rij'],
+    ],
+    related: [
+      { id: 'pline', fit: 'Als warming-up' },
+      { id: 'pdiamond', fit: 'Als vervolg' },
+      { id: 'rondo', fit: 'Kern' },
+      { id: 'game5', fit: 'Als afsluiter' },
+    ],
+    source: {
+      label: 'Diamond Passing Warm-Up | 4 Variations | Football/Soccer Training',
+      url: 'https://www.youtube.com/watch?v=ScA0uJkV9CY',
+      channel: 'AD Football Training Videos',
+      youtube: { id: 'ScA0uJkV9CY', start: 9 },
+    },
+  },
   pgates: {
     summary:
       'Duo’s bewegen vrij door een vak vol kegelpoortjes en passen door zoveel mogelijk poortjes naar elkaar. Traint passen en aannemen in beweging, met de kop omhoog tussen andere spelers.',

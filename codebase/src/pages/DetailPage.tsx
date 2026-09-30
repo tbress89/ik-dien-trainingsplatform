@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { BodyDemo } from '../components/BodyDemo';
 import { Pitch } from '../components/Pitch';
 import { PitchAnimation } from '../components/PitchAnimation';
+import { VideoEmbed } from '../components/VideoEmbed';
 import { useAnimations, useExerciseDetails } from '../components/useExerciseData';
 import {
   ArrowDownIcon,
@@ -203,6 +204,7 @@ export function DetailPage() {
 
           {d ? (
             <>
+              {d.source && <VideoEmbed source={d.source} />}
               <section style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                 <h2 className="section-title">Verloop</h2>
                 <ol className="steps">

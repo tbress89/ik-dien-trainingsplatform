@@ -12,7 +12,7 @@ The user gives a rough idea (sometimes just a name and an age group). Turn it in
 All paths are relative to `codebase/`:
 
 - `src/data/exercises.ts` — the `Exercise` type (list data), the allowed values (`TYPES`, `PHASES`, `AGES`, `THEMES`, `Variant`) and the `EXERCISES` array. Read it first, both for the current field list and as a style reference.
-- `src/data/exerciseDetails.ts` — the detail-page text for each exercise (`EXERCISE_DETAILS`, keyed by exercise id): `summary`, `steps`, `easier`, `harder`, `objectives`, `coaching`, `diagramSteps` and `related`. It is split from `EXERCISES` so this text loads as a separate chunk only when a detail page opens, which keeps the app's main bundle small. Every exercise needs an entry in both files, with the same id.
+- `src/data/exerciseDetails.ts` — the detail-page text for each exercise (`EXERCISE_DETAILS`, keyed by exercise id): `summary`, `steps`, `easier`, `harder`, `objectives`, `coaching`, `diagramSteps`, `related` and the optional `source` (credit for a video or web page the exercise is based on). It is split from `EXERCISES` so this text loads as a separate chunk only when a detail page opens, which keeps the app's main bundle small. Every exercise needs an entry in both files, with the same id.
 - `src/components/Pitch.tsx` — the tactical diagrams, one entry per `Variant` in the `content` record.
 - `src/data/animations.ts` — optional animations (`ANIMATIONS`, keyed by variant) that the detail page plays with "Afspelen": players with start positions and beats in which they move and the ball goes to a player or a spot (leave out `ballStart` for drills without a ball). It uses the same 320 × 200 coordinates as the diagram and loads as its own chunk. Add one when the exercise has a clear sequence to show (a passing pattern, a finishing drill, a rondo, a duel, a build-up pattern); skip it for free play, circuits and strength work. With a new diagram variant, give the players the same start positions as in the drawing.
 - `src/data/demos.ts` — optional instruction demos (`DEMOS`, keyed by variant) for exercises where the body movement matters more than the pitch, like the Nordic and Copenhagen in `gsnordic`: side-view figures built from joint angles, one scene per movement. They also play with "Afspelen" and take the place of a pitch animation. Only add one when the user asks.
@@ -32,7 +32,7 @@ Only stop and ask when the request conflicts with what the app supports, because
 
 ## Step 2 — Write the entry
 
-Append the list data as a new object to `EXERCISES` in `exercises.ts` (before the closing `];`), and the detail text as a new `<id>: { … }` entry at the end of `EXERCISE_DETAILS` in `exerciseDetails.ts`. The `ExerciseDetail` fields are `summary`, `steps`, `easier`, `harder`, `objectives`, `coaching`, `diagramSteps` and `related`; everything else belongs in `EXERCISES`. Then add the id to `RECOMMENDED` in `recommended.ts`, in the tier that matches its value (how game-realistic, broadly usable and proven it is, and how many ball contacts it gives), next to comparable exercises, with a `// Title` comment. Fields that are easy to get subtly wrong:
+Append the list data as a new object to `EXERCISES` in `exercises.ts` (before the closing `];`), and the detail text as a new `<id>: { … }` entry at the end of `EXERCISE_DETAILS` in `exerciseDetails.ts`. The `ExerciseDetail` fields are `summary`, `steps`, `easier`, `harder`, `objectives`, `coaching`, `diagramSteps`, `related` and the optional `source`; everything else belongs in `EXERCISES`. Then add the id to `RECOMMENDED` in `recommended.ts`, in the tier that matches its value (how game-realistic, broadly usable and proven it is, and how many ball contacts it gives), next to comparable exercises, with a `// Title` comment. Fields that are easy to get subtly wrong:
 
 | Field | Guidance |
 |---|---|
@@ -49,6 +49,8 @@ Append the list data as a new object to `EXERCISES` in `exercises.ts` (before th
 | `diagramSteps` | Optional `[label, hint]` stages for the detail-page diagram; the hint is one short sentence on what that stage shows. Two or more stages get a button each: stage `i` reveals the arrows whose `at` is ≤ i, and the last stage always shows the full diagram. With the default `at` values (passes 1, runs 2), three stages read setup → passes → runs, e.g. Organisatie → Balwinst → Afwerken. Use as many stages as the exercise naturally has; a single stage just shows its hint as a caption, and leaving the field out shows the plain diagram. |
 | `related` | Four existing ids that pair well in a session, each with a `fit` label. Reuse the existing labels: `Als warming-up`, `Kern`, `Als afsluiter`, `Zelfde thema`, `Als vervolg`, `Tegenhanger`. Don't point at the new exercise itself. |
 
+| `source` | Only for an exercise based on a video or web page: `{ label, url, channel?, youtube?: { id, start? } }`. `label` is the original title, `channel` who to credit, `youtube.id` the 11-character video id and `start` the second where the drill is demonstrated. The detail page shows a YouTube video as a player that loads on click, and credits every source. |
+
 Leave other exercises' `related` lists alone unless the user asks — changing them silently alters pages they didn't touch.
 
 ### Writing the Dutch text
@@ -60,6 +62,17 @@ Match the existing entries' voice: Flemish youth-football coaching language, add
 - `easier` / `harder`: one or two concrete adjustments each (field size, numbers, touch limits, time limits, jokers).
 - `objectives`: four short noun phrases.
 - `coaching`: four one-line coaching points a trainer can shout or explain on the pitch.
+
+### From a YouTube video
+
+When the user gives a YouTube link (or another video), the exercise comes from watching it. Keep to these rules: the drill (the idea) is free to describe, but the text, diagram and animation are always our own, never copied from on-screen text, captions or the description, and the channel is always credited. Don't download the video (no yt-dlp or frame extraction); only watch it in the browser.
+
+1. **Open it** in the built-in browser and decline non-essential cookies. Note the title, channel, length and description. If the player has captions, open the transcript: narration often explains the rules.
+2. **Watch frames.** Pause the player and step through it with `document.querySelector('video').currentTime = …` plus a screenshot per step: one frame for the setup, then every 1–2 seconds while a sequence plays. Many drill videos have no narration, so the passing order, the runs and the rotation have to be read from consecutive frames. Note the start second of each variation.
+3. **Check for duplicates.** Compare the format and purpose with `EXERCISES` (and its diagram). If an existing exercise is the same drill, tell the user and ask: a new exercise, extra variations on the existing one (then use `/edit-exercise`), or only the video as `source` on the existing one.
+4. **Split sensibly.** A video with "4 variations" of one drill is one exercise: the basic form in the steps, the other variations as progressions (steps, `easier`, `harder`). Only truly different drills become separate exercises.
+5. **Write, draw and animate** as for any exercise (steps 2–3 below), and add `source` with the video title, channel, URL, `youtube.id` and the `start` of the demonstration.
+6. **Report** which parts come from the video and which you filled in. Frames can be ambiguous (who passes where, what the rotation is), so name anything you weren't sure of.
 
 ## Step 3 — Pick or draw the diagram
 

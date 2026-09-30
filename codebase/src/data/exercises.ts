@@ -42,6 +42,7 @@ export type Variant =
   | 'pgates'
   | 'passy'
   | 'diamond'
+  | 'diamondpoles'
   | 'wallpass'
   | 'scan'
   | 'longpass'
@@ -217,6 +218,20 @@ export interface ExerciseDetail {
    */
   diagramSteps?: [string, string][];
   related: { id: string; fit: string }[];
+  /**
+   * Where the exercise comes from, credited on its page. A YouTube video (`youtube.id`, optional `start`
+   * in seconds) is shown as a player that only loads on click; other sources get a credit link.
+   */
+  source?: ExerciseSource;
+}
+
+export interface ExerciseSource {
+  /** The original title, e.g. the video title. */
+  label: string;
+  url: string;
+  /** Channel or author to credit. */
+  channel?: string;
+  youtube?: { id: string; start?: number };
 }
 
 export const AGES: AgeGroup[] = ['U6–9', 'U10–13', 'U14–15', 'U16–21'];
@@ -3429,6 +3444,27 @@ export const EXERCISES: Exercise[] = [
       { name: 'Grote doelen', qty: '2' },
       { name: 'Hesjes', qty: '11' },
       { name: 'Ballen', qty: '10' },
+    ],
+  },
+  {
+    id: 'ppoles',
+    title: 'Ruitpassen rond de palen',
+    variant: 'diamondpoles',
+    type: 'Warming-up',
+    phase: 'Aanvallen',
+    themes: ['Passing & aanname'],
+    ages: ['U10–13', 'U14–15', 'U16–21'],
+    ageLabel: 'U11 – U21',
+    diff: 1,
+    pmin: 5,
+    players: '5–8',
+    playersDetail: '(4 posities + rij)',
+    min: 15,
+    intensity: 2,
+    field: '20 × 20 m',
+    materials: [
+      { name: 'Kegels', qty: '7' },
+      { name: 'Ballen', qty: '4' },
     ],
   },
 ];
