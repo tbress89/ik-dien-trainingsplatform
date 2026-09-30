@@ -35,7 +35,11 @@ export function DetailPage() {
   const animations = useAnimations();
   const d: ExerciseDetail | undefined = details?.[id];
 
-  const diagramSteps = d?.diagramSteps ?? [];
+  const versions = d?.versions ?? [];
+  const [versionIdx, setVersionIdx] = useState(0);
+  const version = versions[versionIdx];
+  // The first version is the exercise itself, so it uses the exercise's own diagram stages.
+  const diagramSteps = (versionIdx === 0 ? d?.diagramSteps : version?.diagramSteps) ?? [];
   const hasStepToggle = diagramSteps.length >= 2;
   // Open on the second stage when there are three or more (the first one only shows the setup).
   const defaultStep = Math.min(1, diagramSteps.length - 1);
@@ -49,13 +53,16 @@ export function DetailPage() {
 
   // Reset local state when navigating between exercises.
   useEffect(() => {
-    setStep(defaultStep);
+    setVersionIdx(0);
     setPlaying(false);
     setBlock(1);
     setMin(e?.min ?? 15);
     setAdded(null);
     window.scrollTo(0, 0);
-  }, [id, e?.min, defaultStep]);
+  }, [id, e?.min]);
+
+  // Each exercise and version opens on its default diagram stage.
+  useEffect(() => setStep(defaultStep), [id, versionIdx, defaultStep]);
 
   if (!e) {
     return (
@@ -70,8 +77,14 @@ export function DetailPage() {
 
   const fav = favs.includes(e.id);
   const hint = hasStepToggle ? diagramSteps[step]?.[1] : diagramSteps[0]?.[1];
-  const animation = animations?.pitch[e.variant];
-  const demo = animations?.demos[e.variant];
+  const variant = version?.variant ?? e.variant;
+  const animation = animations?.pitch[variant];
+  const demo = animations?.demos[variant];
+
+  const pickVersion = (i: number) => {
+    setVersionIdx(i);
+    setPlaying(false);
+  };
   const showDemo = !!demo && playing;
 
   const add = () => {
@@ -132,6 +145,26 @@ export function DetailPage() {
       <div className="detail-grid">
         <div className="detail-col">
           <figure className="diagram">
+            {versions.length > 1 && (
+              <div className="diagram-versions">
+                <div role="group" aria-label="Variant" className="version-tabs">
+                  {versions.map((v, i) => (
+                    <button key={v.name} type="button" aria-pressed={versionIdx === i} onClick={() => pickVersion(i)}>
+                      <span className="version-num">{i + 1}</span>
+                      {v.name}
+                    </button>
+                  ))}
+                </div>
+                {version && (
+                  <p className="version-text">
+                    <strong>
+                      Variant {versionIdx + 1} · {version.name}.
+                    </strong>{' '}
+                    {version.text}
+                  </p>
+                )}
+              </div>
+            )}
             {/* Above the drawing rather than on top of it, so it never covers players or cones. */}
             <div className="diagram-toolbar">
               {(animation || demo) && (
@@ -158,9 +191,9 @@ export function DetailPage() {
               {demo && playing ? (
                 <BodyDemo def={demo} onBeat={onBeat} />
               ) : animation && playing ? (
-                <PitchAnimation variant={e.variant} def={animation} onBeat={onBeat} />
+                <PitchAnimation key={variant} variant={variant} def={animation} onBeat={onBeat} />
               ) : (
-                <Pitch variant={e.variant} step={hasStepToggle && step < diagramSteps.length - 1 ? step : undefined} />
+                <Pitch variant={variant} step={hasStepToggle && step < diagramSteps.length - 1 ? step : undefined} />
               )}
             </div>
             <figcaption>
@@ -204,7 +237,7 @@ export function DetailPage() {
 
           {d ? (
             <>
-              {d.source && <VideoEmbed source={d.source} />}
+              {d.source && <VideoEmbed source={d.source} start={version?.videoStart} />}
               <section style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                 <h2 className="section-title">Verloop</h2>
                 <ol className="steps">

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { AGES, EXERCISES, PHASES, THEMES, TYPES, type AgeGroup } from './exercises';
+import { AGES, EXERCISE_BY_ID, EXERCISES, PHASES, THEMES, TYPES, type AgeGroup } from './exercises';
 import { EXERCISE_DETAILS } from './exerciseDetails';
 import { RECOMMENDED } from './recommended';
 import { REFERENCE_TRAININGS } from './referenceTrainings';
@@ -109,6 +109,26 @@ describe('exercise details', () => {
       if (!/^https:\/\//.test(s.url)) problems.push(`url ${s.url}`);
       if (s.youtube && !/^[A-Za-z0-9_-]{11}$/.test(s.youtube.id)) problems.push(`youtube id ${s.youtube.id}`);
       if (s.youtube?.start !== undefined && !(Number.isInteger(s.youtube.start) && s.youtube.start >= 0)) problems.push(`start ${s.youtube.start}`);
+      return problems.map((p) => `${id}: ${p}`);
+    });
+    expect(bad).toEqual([]);
+  });
+
+  it('have versions that start with the exercise itself, each with a name, text and its own diagram', () => {
+    const bad = ids.flatMap((id) => {
+      const versions = EXERCISE_DETAILS[id].versions;
+      if (!versions) return [];
+      const problems = [];
+      if (versions.length < 2) problems.push('fewer than two versions');
+      if (versions[0]?.variant !== EXERCISE_BY_ID[id].variant) problems.push('first version is not the exercise diagram');
+      if (new Set(versions.map((v) => v.name)).size !== versions.length) problems.push('duplicate names');
+      if (new Set(versions.map((v) => v.variant)).size !== versions.length) problems.push('versions share a diagram');
+      for (const v of versions) {
+        if (!v.name.trim() || !v.text.trim()) problems.push(`empty name or text in ${v.name}`);
+        if ((v.diagramSteps ?? []).some(([label, hint]) => !label.trim() || !hint.trim())) problems.push(`empty diagram stage in ${v.name}`);
+        if (v.videoStart !== undefined && !(Number.isInteger(v.videoStart) && v.videoStart >= 0 && EXERCISE_DETAILS[id].source?.youtube))
+          problems.push(`video start in ${v.name}`);
+      }
       return problems.map((p) => `${id}: ${p}`);
     });
     expect(bad).toEqual([]);

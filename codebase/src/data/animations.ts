@@ -205,6 +205,67 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
       { label: 'D speelt terug naar de rij en sluit achteraan aan', ms: 1300, ball: 'q', moves: { d: [160, 163], c: [70, 100] } },
     ],
   },
+  // Variant 2: kaatsen via de zijkant
+  diamondpoles2: {
+    actors: [
+      { id: 'a', team: 'P', x: 160, y: 145 },
+      { id: 'q', team: 'P', x: 160, y: 163 },
+      { id: 'b', team: 'P', x: 250, y: 100 },
+      { id: 'c', team: 'P', x: 160, y: 55 },
+      { id: 'd', team: 'P', x: 70, y: 100 },
+    ],
+    ballStart: 'a',
+    beats: [
+      { label: 'A speelt in op B en komt naar binnen', ms: 1100, ball: 'b', moves: { a: [200, 128], q: [160, 145] } },
+      { label: 'B kaatst terug op A', ms: 800, ball: 'a' },
+      { label: 'A speelt tussen de palen door naar C', ms: 900, ball: 'c' },
+      { label: 'Doorschuiven: A naar de plaats van B, B naar C', ms: 1100, ball: 'c', moves: { a: [250, 100], b: [176, 46] } },
+      { label: 'Aan de andere kant: C speelt in op D en komt naar binnen', ms: 1100, ball: 'd', moves: { c: [120, 80] } },
+      { label: 'D kaatst terug op C', ms: 800, ball: 'c' },
+      { label: 'C speelt naar de rij', ms: 900, ball: 'q' },
+      { label: 'Doorschuiven: C naar de plaats van D, D sluit aan bij de rij', ms: 1200, ball: 'q', moves: { c: [70, 100], d: [160, 163], b: [160, 55] } },
+    ],
+  },
+  // Variant 3: één-twee rond de paal
+  diamondpoles3: {
+    actors: [
+      { id: 'a', team: 'P', x: 160, y: 145 },
+      { id: 'q', team: 'P', x: 160, y: 163 },
+      { id: 'b', team: 'P', x: 250, y: 100 },
+      { id: 'c', team: 'P', x: 160, y: 55 },
+      { id: 'd', team: 'P', x: 70, y: 100 },
+    ],
+    ballStart: 'a',
+    beats: [
+      { label: 'A speelt in op B en komt naar binnen', ms: 1100, ball: 'b', moves: { a: [200, 128], q: [160, 145] } },
+      { label: 'B kaatst terug op A', ms: 800, ball: 'a' },
+      { label: 'B draait rond de paal; A speelt de bal in zijn loop', ms: 1200, ball: 'b', moves: { b: [234, 64] } },
+      { label: 'B speelt naar C; A neemt de plaats van B in', ms: 1100, ball: 'c', moves: { a: [250, 100], b: [176, 46] } },
+      { label: 'Aan de andere kant: C speelt in op D en komt naar binnen', ms: 1100, ball: 'd', moves: { c: [120, 80] } },
+      { label: 'D kaatst terug op C', ms: 800, ball: 'c' },
+      { label: 'D draait rond de paal; C speelt de bal in zijn loop', ms: 1200, ball: 'd', moves: { d: [86, 136] } },
+      { label: 'D speelt naar de rij; C neemt de plaats van D in', ms: 1200, ball: 'q', moves: { c: [70, 100], d: [160, 163], b: [160, 55] } },
+    ],
+  },
+  // Variant 4: derde man
+  diamondpoles4: {
+    actors: [
+      { id: 'a', team: 'P', x: 160, y: 145 },
+      { id: 'q', team: 'P', x: 160, y: 163 },
+      { id: 'b', team: 'P', x: 250, y: 100 },
+      { id: 'c', team: 'P', x: 160, y: 55 },
+      { id: 'd', team: 'P', x: 70, y: 100 },
+    ],
+    ballStart: 'c',
+    beats: [
+      { label: 'C speelt in op D en komt naar binnen', ms: 1100, ball: 'd', moves: { c: [124, 78] } },
+      { label: 'D kaatst terug op C', ms: 800, ball: 'c' },
+      { label: 'C speelt diep op A; D loopt rond zijn paal naar beneden', ms: 1200, ball: 'a', moves: { d: [106, 150] } },
+      { label: 'A legt af op D, de derde man', ms: 800, ball: 'd', moves: { c: [160, 55] } },
+      { label: 'D speelt diagonaal door naar B', ms: 1200, ball: 'b' },
+      { label: 'B speelt naar C en de volgende beurt begint', ms: 1100, ball: 'c' },
+    ],
+  },
   // Passen in lijnen: pass en volg (wie van links komt loopt onderlangs, wie van rechts komt bovenlangs)
   pline: {
     actors: [

@@ -1250,16 +1250,16 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
     steps: [
       { title: 'Opstelling.', text: 'Zet drie palen of hoge kegels op een rij, telkens 5 meter uit elkaar. Zet rond de rij vier posities in een ruit: A onderaan met een rij en de ballen, B rechts naast de rechterpaal, C bovenaan, D links naast de linkerpaal.' },
       { title: 'Pass en volg.', text: 'A speelt in op B, B speelt door naar C, C naar D en D terug naar de volgende speler bij A. Elke speler volgt zijn pass naar de volgende positie; D sluit achteraan aan bij de rij.' },
-      { title: 'Variaties.', text: 'Bouw op in stappen van 3 minuten. Laat een speler tussen twee palen komen om de bal te kaatsen voor die verder gaat. Speel daarna een één-twee met de volgende speler voor je doorpast. Zoek tot slot de derde man: de kaatser legt af op een speler die al is ingelopen.' },
+      { title: 'Varianten.', text: 'Bouw op in vier varianten van telkens 3 minuten; je kiest ze boven het schema. Na pass en volg komt er een kaatsbal bij, dan een één-twee rond de paal en tot slot een combinatie met de derde man.' },
       { title: 'Ritme.', text: 'Speel 4 reeksen van 3 minuten met 30 seconden rust. Wissel na elke reeks van draairichting, zodat iedereen met links en rechts speelt.' },
     ],
     easier: 'Laat twee balcontacten toe en speel zonder de palen tot de pass en volg vlot loopt.',
     harder: 'Speel alles in één keer en zet een tweede bal in omloop, die bij C start.',
-    objectives: ['Binnenkantpass', 'Aanname in de loop', 'Pass en volg', 'Spelen langs een tegenstander'],
+    objectives: ['Binnenkantpass', 'Aanname in de loop', 'Kaatsen en één-twee', 'Derde man'],
     coaching: [
       'Kom voor de aanname even weg van je paal: zo kan je ploegmaat je vrij aanspelen.',
       'Neem aan met je verste voet, in de richting van je volgende pass.',
-      'Speel de bal op de voet waarmee je ploegmaat verder wil.',
+      'Kaats in één keer met de binnenkant, in de loop van je ploegmaat.',
       'Na je pass meteen volgen: niet blijven kijken.',
     ],
     diagramSteps: [
@@ -1279,6 +1279,54 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       channel: 'AD Football Training Videos',
       youtube: { id: 'ScA0uJkV9CY', start: 9 },
     },
+    versions: [
+      {
+        name: 'Pass en volg',
+        text: 'A speelt in op B, B op C, C op D en D terug naar de rij. Elke speler volgt zijn pass naar de volgende positie.',
+        variant: 'diamondpoles',
+        videoStart: 9,
+      },
+      {
+        name: 'Kaatsen',
+        text: 'A speelt in op B en komt naar binnen. B kaatst terug en A speelt tussen de palen door naar C. Aan de andere kant net zo: C speelt in op D, D kaatst en C speelt naar de rij. Daarna schuift iedereen een positie door.',
+        variant: 'diamondpoles2',
+        diagramSteps: [
+          ['Organisatie', 'Vier posities in een ruit rond drie palen'],
+          ['Inspelen', 'A speelt in op B en komt naar binnen'],
+          ['Kaatsen', 'B kaatst terug op A'],
+          ['Doorspelen', 'A speelt tussen de palen door naar C'],
+          ['Doorschuiven', 'A naar de plaats van B, B naar C'],
+        ],
+        videoStart: 39,
+      },
+      {
+        name: 'Eén-twee rond de paal',
+        text: 'Zoals bij kaatsen, maar na zijn kaatsbal draait B rond zijn paal en loopt diep. A speelt de bal in de loop van B, die doorspeelt naar C. Aan de andere kant draait D rond zijn paal naar beneden en speelt naar de rij.',
+        variant: 'diamondpoles3',
+        diagramSteps: [
+          ['Organisatie', 'Vier posities in een ruit rond drie palen'],
+          ['Inspelen', 'A speelt in op B en komt naar binnen'],
+          ['Kaatsen', 'B kaatst terug op A'],
+          ['Eén-twee', 'B draait rond de paal, A speelt in zijn loop'],
+          ['Doorspelen', 'B speelt naar C, A neemt de plaats van B in'],
+        ],
+        videoStart: 70,
+      },
+      {
+        name: 'Derde man',
+        text: 'C speelt in op D en komt naar binnen; D kaatst terug. C speelt diep door naar A, terwijl D rond zijn paal naar beneden loopt. A legt af op de inlopende D, de derde man, die diagonaal doorspeelt naar B. B speelt naar C en de volgende beurt begint.',
+        variant: 'diamondpoles4',
+        diagramSteps: [
+          ['Organisatie', 'Vier posities in een ruit rond drie palen'],
+          ['Inspelen', 'C speelt in op D en komt naar binnen'],
+          ['Kaatsen', 'D kaatst terug op C'],
+          ['Diepe bal', 'C speelt diep op A, D loopt naar beneden'],
+          ['Derde man', 'A legt af op de inlopende D'],
+          ['Oversteken', 'D speelt diagonaal naar B, B naar C'],
+        ],
+        videoStart: 108,
+      },
+    ],
   },
   pgates: {
     summary:

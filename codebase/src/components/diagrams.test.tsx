@@ -8,7 +8,10 @@ import { BodyDemo } from './BodyDemo';
 import { Pitch } from './Pitch';
 import { PitchAnimation } from './PitchAnimation';
 
-const variants = [...new Set(EXERCISES.map((e) => e.variant))];
+// Every diagram an exercise shows: its own, plus those of its versions.
+const variants = [...new Set(EXERCISES.flatMap((e) => [e.variant, ...(EXERCISE_DETAILS[e.id]?.versions ?? []).map((v) => v.variant)]))];
+const versionStages = (variant: string) =>
+  Object.values(EXERCISE_DETAILS).flatMap((d) => (d.versions ?? []).filter((v) => v.variant === variant).map((v) => v.diagramSteps?.length ?? 1));
 const noop = () => {};
 
 describe('diagrams', () => {
@@ -16,6 +19,7 @@ describe('diagrams', () => {
     const stages = Math.max(
       1,
       ...EXERCISES.filter((e) => e.variant === variant).map((e) => EXERCISE_DETAILS[e.id]?.diagramSteps?.length ?? 1),
+      ...versionStages(variant),
     );
     for (let step = 0; step < stages; step++) {
       const svg = renderToStaticMarkup(<Pitch variant={variant} step={step} />);

@@ -17,12 +17,15 @@ function useOnline() {
   return online;
 }
 
+/** Seconds as m:ss, e.g. 70 → "1:10". */
+const clock = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
+
 /**
  * Where an exercise comes from. A YouTube video shows as a card that loads YouTube's player (via the
  * no-cookie domain) only when clicked, so opening the page sends nothing to YouTube or Google. Other
- * sources get a credit link only.
+ * sources get a credit link only. `start` overrides the video's start time, e.g. for the chosen version.
  */
-export function VideoEmbed({ source }: { source: ExerciseSource }) {
+export function VideoEmbed({ source, start }: { source: ExerciseSource; start?: number }) {
   const [loaded, setLoaded] = useState(false);
   const online = useOnline();
   const yt = source.youtube;
@@ -40,7 +43,8 @@ export function VideoEmbed({ source }: { source: ExerciseSource }) {
 
   if (!yt) return <section className="video-section">{credit}</section>;
 
-  const src = `https://www.youtube-nocookie.com/embed/${yt.id}?rel=0&autoplay=1${yt.start ? `&start=${yt.start}` : ''}`;
+  const from = start ?? yt.start;
+  const src = `https://www.youtube-nocookie.com/embed/${yt.id}?rel=0&autoplay=1${from ? `&start=${from}` : ''}`;
 
   return (
     <section className="video-section" aria-labelledby="video-title">
@@ -59,7 +63,9 @@ export function VideoEmbed({ source }: { source: ExerciseSource }) {
                   <PlayIcon size={18} />
                   Video laden (YouTube)
                 </button>
-                <span className="video-placeholder-note">De video wordt pas geladen als je erop klikt.</span>
+                <span className="video-placeholder-note">
+                  {from ? `Start bij ${clock(from)}. ` : ''}De video wordt pas geladen als je erop klikt.
+                </span>
               </>
             ) : (
               <span className="video-placeholder-note">Niet beschikbaar zonder internet. De oefening zelf werkt wel.</span>

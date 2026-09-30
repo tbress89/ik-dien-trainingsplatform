@@ -43,6 +43,9 @@ export type Variant =
   | 'passy'
   | 'diamond'
   | 'diamondpoles'
+  | 'diamondpoles2'
+  | 'diamondpoles3'
+  | 'diamondpoles4'
   | 'wallpass'
   | 'scan'
   | 'longpass'
@@ -223,6 +226,24 @@ export interface ExerciseDetail {
    * in seconds) is shown as a player that only loads on click; other sources get a credit link.
    */
   source?: ExerciseSource;
+  /**
+   * Optional versions of the same drill, picked with a switch above the diagram. The first is the exercise
+   * as described in `steps` (its `variant` is the exercise's own); each later one has its own diagram,
+   * animation and short explanation, and can start the source video at its own chapter.
+   */
+  versions?: ExerciseVersion[];
+}
+
+export interface ExerciseVersion {
+  /** Short name on the switch, e.g. 'Kaatsen'. */
+  name: string;
+  /** How this version is played, in two or three sentences. */
+  text: string;
+  variant: Variant;
+  /** Diagram stages for this version's diagram, like `ExerciseDetail.diagramSteps`. */
+  diagramSteps?: [string, string][];
+  /** Where this version starts in the source video, in seconds. */
+  videoStart?: number;
 }
 
 export interface ExerciseSource {
