@@ -55,8 +55,7 @@ export const REFERENCE_TRAININGS: ReferenceTraining[] = [
     duration: 75,
     theme: 'Opbouw van achteruit',
     items: [
-      ['wu', 'rondo', 5], // Rondo 4 tegen 1
-      ['wu', 'pscan', 10], // Aannemen met schouderblik
+      ['wu', 'ppoles', 15], // Ruitpassen rond de palen
       ['kern', 'obfree', 15], // Loskomen van de 3 en de 10: K + 2 tegen 2
       ['kern', 'obzones', 10], // Positiespel in twee vakken: opbouw via de keeper
       ['kern', 'obwave', 15], // K + 5 tegen K + 4: opbouwen in golven
