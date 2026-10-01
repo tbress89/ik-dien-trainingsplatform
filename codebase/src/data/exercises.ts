@@ -3475,7 +3475,7 @@ export const EXERCISES: Exercise[] = [
     phase: 'Aanvallen',
     themes: ['Passing & aanname'],
     ages: ['U10–13', 'U14–15', 'U16–21'],
-    ageLabel: 'U11 – U21',
+    ageLabel: 'U10 – U21',
     diff: 1,
     pmin: 5,
     players: '5–8',
