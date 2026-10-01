@@ -4436,6 +4436,12 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'trans', fit: 'Als vervolg' },
       { id: 'game5', fit: 'Als afsluiter' },
     ],
+    source: {
+      label: 'Olise’s incredible move past Musiala 😮‍💨 & Kimmich confronts Gnabry 😳😁 | 2 vs 2 in training',
+      url: 'https://www.youtube.com/watch?v=obpHM3y-uzs&t=38s',
+      channel: 'FC Bayern München',
+      youtube: { id: 'obpHM3y-uzs', start: 38 },
+    },
   },
   omright: {
     summary:
