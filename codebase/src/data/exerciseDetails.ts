@@ -1764,6 +1764,37 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'game5', fit: 'Als afsluiter' },
     ],
   },
+  fturn: {
+    summary:
+      'Een spits krijgt de bal met zijn rug naar doel en een verdediger vlak achter zich. Hij neemt aan weg van de druk, draait en werkt af. Traint de aanname onder druk, het draaien van de verdediger en de beslissing om te schieten of terug te leggen.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet een groot doel met een keeper op een halve veld. De spits staat op 20 meter van het doel met zijn rug naar het doel en een verdediger op een meter achter zich. Een rij passers staat op 12 meter voor de spits, met ballen. Markeer het vak met vier kegels.' },
+      { title: 'Aannemen en draaien.', text: 'De passer speelt een lage pass op de voet van de spits. De spits neemt aan met de voet die het verst van de verdediger staat, en draait zo dat zijn eerste aanraking de bal al van de verdediger weg legt. De verdediger staat eerst stil, daarna loopt hij mee, daarna verdedigt hij echt.' },
+      { title: 'Afwerken.', text: 'Na het draaien werkt de spits af op het doel, met maximaal twee aanrakingen. Er worden geen punten geteld: het gaat om de kwaliteit van de aanname en de draai. Komt de verdediger tussen de bal en het doel, dan mag de spits terugleggen op een passer die inloopt.' },
+      { title: 'Ritme.', text: 'Speel 3 reeksen van 4 minuten met 1 minuut rust. Wissel na vijf beurten van rol: spits, verdediger en passer.' },
+    ],
+    easier: 'Laat de verdediger twee meter achter de spits staan, passief, en geef de spits drie aanrakingen om af te werken.',
+    harder: 'Laat de verdediger meteen echt verdedigen op een halve meter van de spits, en laat de spits in één aanname draaien en schieten.',
+    objectives: ['Aanname met de rug naar doel', 'Draaien weg van de druk', 'Lichaam tussen bal en verdediger', 'Afwerken na de draai'],
+    coaching: [
+      'Kijk vóór de aanname over je schouder: waar staat de verdediger?',
+      'Neem aan met de verste voet, weg van de verdediger.',
+      'Houd je lichaam tussen de bal en de verdediger.',
+      'Maak je eerste aanraking groot genoeg om meteen te kunnen schieten.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Passer, spits met de rug naar doel en een verdediger achter hem'],
+      ['Pass', 'Lage pass op de voet van de spits'],
+      ['Draaien', 'De spits neemt aan weg van de verdediger en draait'],
+      ['Afwerken', 'Schot op doel na de draai'],
+    ],
+    related: [
+      { id: 'pscan', fit: 'Als warming-up' },
+      { id: 'dshield', fit: 'Zelfde thema' },
+      { id: 'obwall', fit: 'Als vervolg' },
+      { id: 'frebound', fit: 'Als afsluiter' },
+    ],
+  },
   prline: {
     summary:
       'Vier verdedigers houden één lijn tegen drie aanvallers en een keeper. Ze schuiven samen mee met de bal, houden hun onderlinge afstand en stappen op een signaal tegelijk uit, zodat een aanvaller die al is weggelopen buitenspel komt te staan. Traint de samenwerking van de achterlijn: communicatie, afstand en timing.',

@@ -57,6 +57,7 @@ export type Variant =
   | 'fvolley'
   | 'fcross'
   | 'fcorner'
+  | 'fturn'
   | 'defline'
   | 'fcutback'
   | 'frebound'
@@ -1480,6 +1481,29 @@ export const EXERCISES: Exercise[] = [
       { name: 'Kegels', qty: '4' },
       { name: 'Ballen', qty: '10' },
       { name: 'Hesjes', qty: '3' },
+    ],
+  },
+  {
+    id: 'fturn',
+    title: 'Aannemen en draaien: de spits met de rug naar doel',
+    variant: 'fturn',
+    type: 'Technisch',
+    phase: 'Aanvallen',
+    themes: ['Afwerken', 'Passing & aanname'],
+    ages: ['U10–13', 'U14–15', 'U16–21'],
+    ageLabel: 'U12 – U21',
+    diff: 2,
+    pmin: 4,
+    players: '4–10',
+    playersDetail: '(passers, spits, verdediger + K)',
+    min: 15,
+    intensity: 3,
+    field: 'Halve veld',
+    materials: [
+      { name: 'Groot doel', qty: '1' },
+      { name: 'Kegels', qty: '4' },
+      { name: 'Ballen', qty: '8' },
+      { name: 'Hesjes', qty: '2' },
     ],
   },
   {

@@ -447,6 +447,23 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
       { label: 'Daarna wisselen aanvallers en verdedigers van rol', ms: 800, ball: 't', newBall: 't', moves: { a1: [238, 70], a2: [240, 102], a3: [238, 130], d1: [276, 70], d2: [282, 94], d3: [280, 122], k: [296, 100] } },
     ],
   },
+  // Aannemen en draaien: de spits met de rug naar doel
+  fturn: {
+    actors: [
+      { id: 'p1', team: 'P', x: 114, y: 100 },
+      { id: 'p2', team: 'P', x: 98, y: 76 },
+      { id: 's', team: 'P', label: 'S', x: 192, y: 100 },
+      { id: 'v', team: 'O', x: 208, y: 98 },
+      { id: 'k', team: 'N', label: 'K', x: 296, y: 100 },
+    ],
+    ballStart: 'p1',
+    beats: [
+      { label: 'Lage pass op de voet van de spits', ms: 900, ball: 's', moves: { v: [204, 100] } },
+      { label: 'De spits neemt aan weg van de verdediger en draait', ms: 900, ball: 's', moves: { s: [214, 124], v: [212, 108] } },
+      { label: 'Afwerken op doel', ms: 600, ball: [306, 108], moves: { k: [298, 106] } },
+      { label: 'De volgende beurt: iedereen wisselt van rol', ms: 800, ball: 'p2', newBall: 'p2', moves: { s: [192, 100], v: [208, 98], k: [296, 100], p1: [98, 124], p2: [114, 100] } },
+    ],
+  },
   // Verdedigen als lijn: samen opschuiven en uitstappen
   defline: {
     actors: [
