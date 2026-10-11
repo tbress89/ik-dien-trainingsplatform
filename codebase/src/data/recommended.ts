@@ -86,6 +86,8 @@ export const RECOMMENDED: string[] = [
   // 3 · Waardevol en gerichter: goede oefeningen voor een specifiek thema, een leeftijd of een
   //     bepaald niveau.
   'press', // Druk zetten in blok 6 tegen 4
+  'fcorner', // Hoekschoppen: aanvallen en verdedigen
+  'prline', // Verdedigen als lijn: samen opschuiven
   'sgbuild', // Partijvorm 6 tegen 6 met opbouwzone
   'game11', // Wedstrijd 11 tegen 11 op een volledig veld
   'cagility', // Wendbaarheid: T-parcours

@@ -1733,6 +1733,68 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'fgame', fit: 'Als afsluiter' },
     ],
   },
+  fcorner: {
+    summary:
+      'Eén ploeg neemt hoekschoppen met afgesproken loopacties naar de eerste paal, het midden en de tweede paal; de andere ploeg verdedigt met een keeper. Traint de timing van de loopactie, een goede voorzet vanuit de hoek en afwerken uit een spelhervatting, en ook de taakverdeling bij het verdedigen ervan.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet een groot doel op een halve veld en leg een kegel in de hoek. Eén speler neemt de hoekschop, drie aanvallers staan aan de rand van de zestien. Drie verdedigers en een keeper verdedigen. Zet een kegel op de eerste paal, de strafschopstip en de tweede paal om de loopacties te markeren.' },
+      { title: 'Loopacties.', text: 'De aanvallers spreken af wie waarheen loopt: eerste paal, midden en tweede paal. Ze starten pas als de nemer de bal klaarlegt en lopen in een boog naar hun plek, niet recht in. De nemer geeft de bal op de loopactie, niet in de voeten.' },
+      { title: 'Verdedigen.', text: 'De verdedigers kiezen vooraf: elk één aanvaller dekken of elk één zone. Ze gaan voor de bal en koppen of trappen hem ver weg. Wie scoort, krijgt een punt; haalt de verdediging de bal weg, dan is het een punt voor de verdediging.' },
+      { title: 'Ritme.', text: 'Speel 3 reeksen van 4 minuten met 1 minuut rust. Na vier hoekschoppen wisselen aanvallers en verdedigers van rol, en iedereen neemt minstens één keer de hoekschop.' },
+    ],
+    easier: 'Oefen eerst zonder verdedigers, alleen de loopacties en de voorzet.',
+    harder: 'Laat de nemer kiezen tussen een voorzet en een korte hoekschop naar een ploegmaat, zodat de verdedigers moeten meedenken.',
+    objectives: ['Timing van de loopactie', 'Voorzet vanuit de hoek', 'Afwerken uit een spelhervatting', 'Afspraken in de ploeg'],
+    coaching: [
+      'Nemer: kijk eerst waar je ploegmaat naartoe loopt en trap dan op zijn loopactie.',
+      'Aanvallers: start net voor de trap, niet te vroeg en niet te laat.',
+      'Verdedigers: kijk naar de bal én je man, en ga aanvallend voor de bal.',
+      'Na de eerste bal meteen opkomen voor de tweede bal.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Nemer, drie aanvallers en drie verdedigers met een keeper'],
+      ['Loopacties', 'De aanvallers starten hun afgesproken loopacties'],
+      ['Hoekschop', 'De bal gaat naar de eerste paal'],
+      ['Afwerken', 'Kopbal of volley op doel'],
+    ],
+    related: [
+      { id: 'fcross', fit: 'Zelfde thema' },
+      { id: 'fheader', fit: 'Als vervolg' },
+      { id: 'pr2v2', fit: 'Kern' },
+      { id: 'game5', fit: 'Als afsluiter' },
+    ],
+  },
+  prline: {
+    summary:
+      'Vier verdedigers houden één lijn tegen drie aanvallers en een keeper. Ze schuiven samen mee met de bal, houden hun onderlinge afstand en stappen op een signaal tegelijk uit, zodat een aanvaller die al is weggelopen buitenspel komt te staan. Traint de samenwerking van de achterlijn: communicatie, afstand en timing.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet een groot doel met een keeper op een halve veld en markeer met kegels een veld van 40 × 30 m. Vier verdedigers staan op één lijn, ongeveer 7 meter van elkaar. Drie aanvallers spelen met de bal op 12 meter voor de lijn. Zet aan beide zijlijnen een kegel op de hoogte van de lijn.' },
+      { title: 'Schuiven.', text: 'De aanvallers spelen de bal rond en wisselen van kant. Bij elke wissel schuift de lijn mee, houdt dezelfde afstand en blijft samen. De verdediger het dichtst bij de bal stuurt de lijn met korte opdrachten als “op” en “blijf”.' },
+      { title: 'Uitstappen.', text: 'Gaat de bal zijwaarts of terug, dan roept de leider “nu” en stapt de hele lijn samen drie meter naar voren. Staat een aanvaller op dat moment voorbij de lijn, dan is hij buitenspel. De aanvallers proberen door of over de lijn te komen en te scoren.' },
+      { title: 'Ritme.', text: 'Speel 3 reeksen van 4 minuten met 1 minuut rust. Wissel na elke reeks aanvallers en verdedigers. Een doelpunt of een bal over de lijn is voor de aanvallers, een veroverde bal of buitenspel voor de verdedigers.' },
+    ],
+    easier: 'Speel eerst zonder buitenspel: de lijn schuift alleen mee, zonder uit te stappen.',
+    harder: 'Voeg een vierde aanvaller toe die diepte zoekt en laat de aanvallers vrij spelen.',
+    objectives: ['Samen opschuiven', 'Onderlinge afstand', 'Communicatie', 'Buitenspelval'],
+    coaching: [
+      'Praat: de speler het dichtst bij de bal stuurt de lijn.',
+      'Blijf op één lijn: kijk naar je buurman, niet alleen naar de bal.',
+      'Stap op hetzelfde moment uit: pas dan komt de aanvaller buitenspel.',
+      'Eén verdediger die achterblijft, houdt de aanvaller in het spel.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Vier verdedigers op één lijn tegen drie aanvallers'],
+      ['Bal wisselt', 'De aanvallers spelen de bal naar de andere kant'],
+      ['Lijn schuift', 'De lijn schuift mee met de bal'],
+      ['Uitstappen', 'De hele lijn stapt samen naar voren'],
+    ],
+    related: [
+      { id: 'pr1v1', fit: 'Als warming-up' },
+      { id: 'prshift', fit: 'Zelfde thema' },
+      { id: 'press', fit: 'Kern' },
+      { id: 'game5', fit: 'Als afsluiter' },
+    ],
+  },
   fcutback: {
     summary:
       'De flankspeler dribbelt tot aan de achterlijn en legt de bal terug naar een spits die rond de penaltystip aankomt. De teruggelegde bal levert in het moderne voetbal veel doelpunten op.',

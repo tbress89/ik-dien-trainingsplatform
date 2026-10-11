@@ -56,6 +56,8 @@ export type Variant =
   | 'fshot'
   | 'fvolley'
   | 'fcross'
+  | 'fcorner'
+  | 'defline'
   | 'fcutback'
   | 'frebound'
   | 'fcircuit'
@@ -1455,6 +1457,52 @@ export const EXERCISES: Exercise[] = [
       { name: 'Groot doel', qty: '1' },
       { name: 'Kegels', qty: '4' },
       { name: 'Ballen', qty: '12' },
+    ],
+  },
+  {
+    id: 'fcorner',
+    title: 'Hoekschoppen: aanvallen en verdedigen',
+    variant: 'fcorner',
+    type: 'Tactisch',
+    phase: 'Aanvallen',
+    themes: ['Afwerken'],
+    ages: ['U10–13', 'U14–15', 'U16–21'],
+    ageLabel: 'U12 – U21',
+    diff: 2,
+    pmin: 8,
+    players: '8–12',
+    playersDetail: '(4 tegen 3 + K)',
+    min: 15,
+    intensity: 3,
+    field: 'Halve veld',
+    materials: [
+      { name: 'Groot doel', qty: '1' },
+      { name: 'Kegels', qty: '4' },
+      { name: 'Ballen', qty: '10' },
+      { name: 'Hesjes', qty: '3' },
+    ],
+  },
+  {
+    id: 'prline',
+    title: 'Verdedigen als lijn: samen opschuiven',
+    variant: 'defline',
+    type: 'Tactisch',
+    phase: 'Verdedigen',
+    themes: ['Druk zetten'],
+    ages: ['U14–15', 'U16–21'],
+    ageLabel: 'U14 – U21',
+    diff: 3,
+    pmin: 8,
+    players: '8–12',
+    playersDetail: '(4 + K tegen 3)',
+    min: 15,
+    intensity: 3,
+    field: 'Halve veld',
+    materials: [
+      { name: 'Groot doel', qty: '1' },
+      { name: 'Kegels', qty: '6' },
+      { name: 'Ballen', qty: '8' },
+      { name: 'Hesjes', qty: '3' },
     ],
   },
   {

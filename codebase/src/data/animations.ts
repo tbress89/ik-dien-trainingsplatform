@@ -427,6 +427,46 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
       { label: 'Het tweede duo speelt tegelijk: wie haalt de meeste punten?', ms: 1000, ball: 'b2', newBall: 'a2' },
     ],
   },
+  // Hoekschoppen: aanvallen en verdedigen
+  fcorner: {
+    actors: [
+      { id: 't', team: 'P', x: 294, y: 52 },
+      { id: 'a1', team: 'P', x: 238, y: 70 },
+      { id: 'a2', team: 'P', x: 240, y: 102 },
+      { id: 'a3', team: 'P', x: 238, y: 130 },
+      { id: 'd1', team: 'O', x: 276, y: 70 },
+      { id: 'd2', team: 'O', x: 282, y: 94 },
+      { id: 'd3', team: 'O', x: 280, y: 122 },
+      { id: 'k', team: 'N', label: 'K', x: 296, y: 100 },
+    ],
+    ballStart: 't',
+    beats: [
+      { label: 'De aanvallers starten hun loopacties in een boog', ms: 1000, moves: { a1: [262, 82], a2: [258, 102], a3: [266, 118], d1: [272, 76], d2: [276, 96], d3: [276, 118] } },
+      { label: 'Hoekschop op de loopactie naar de eerste paal', ms: 800, ball: 'a1' },
+      { label: 'Kopbal of volley op doel', ms: 600, ball: [306, 94], moves: { k: [298, 92] } },
+      { label: 'Daarna wisselen aanvallers en verdedigers van rol', ms: 800, ball: 't', newBall: 't', moves: { a1: [238, 70], a2: [240, 102], a3: [238, 130], d1: [276, 70], d2: [282, 94], d3: [280, 122], k: [296, 100] } },
+    ],
+  },
+  // Verdedigen als lijn: samen opschuiven en uitstappen
+  defline: {
+    actors: [
+      { id: 'd1', team: 'P', x: 222, y: 62 },
+      { id: 'd2', team: 'P', x: 222, y: 88 },
+      { id: 'd3', team: 'P', x: 222, y: 114 },
+      { id: 'd4', team: 'P', x: 222, y: 140 },
+      { id: 'k', team: 'N', label: 'K', x: 296, y: 100 },
+      { id: 'o1', team: 'O', x: 130, y: 70 },
+      { id: 'o2', team: 'O', x: 104, y: 100 },
+      { id: 'o3', team: 'O', x: 150, y: 128 },
+    ],
+    ballStart: 'o1',
+    beats: [
+      { label: 'De bal wisselt naar de andere kant: de lijn schuift mee', ms: 1000, ball: 'o3', moves: { d1: [222, 70], d2: [222, 96], d3: [222, 122], d4: [222, 148] } },
+      { label: 'De bal gaat zijwaarts: de leider roept “nu” en de lijn stapt samen uit', ms: 900, ball: 'o3', moves: { d1: [206, 70], d2: [206, 96], d3: [206, 122], d4: [206, 148], o2: [200, 100] } },
+      { label: 'De aanvaller die al was weggelopen staat buitenspel', ms: 900, ball: 'o3', moves: { o3: [160, 124] } },
+      { label: 'Vrije trap voor de verdedigers: de lijn zakt weer terug', ms: 900, ball: 'd2', newBall: 'd2', moves: { d1: [222, 62], d2: [222, 88], d3: [222, 114], d4: [222, 140], o2: [104, 100], o3: [150, 128] } },
+    ],
+  },
   // Ruitpassen met derde man
   diamond: {
     actors: [
