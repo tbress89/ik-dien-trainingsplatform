@@ -146,6 +146,7 @@ export const RECOMMENDED: string[] = [
   'gkcross', // Hoge ballen: voorzetten klemmen
   'prbuild', // Druk zetten op de opbouw: 3 tegen 2 + K
   'whand', // Handbalvoetbal
+  'whandpos', // Handbalvoetbal op balbezit
   'ccircuit', // Coördinatiecircuit in vier posten
   'rtrans', // Omschakelrondo in twee vakken
   'omkeeper', // Snelle counter via de keeper

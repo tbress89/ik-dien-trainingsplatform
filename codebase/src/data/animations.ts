@@ -354,6 +354,27 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
       { label: 'De volgende beurt gaat naar rechts (D)', ms: 500, ball: 'a2', newBall: 'a2' },
     ],
   },
+  // Handbalvoetbal op balbezit: tien worpen na elkaar is een punt
+  whandpos: {
+    actors: [
+      { id: 'p1', team: 'P', label: 'A', x: 100, y: 70 },
+      { id: 'p2', team: 'P', label: 'B', x: 140, y: 118 },
+      { id: 'p3', team: 'P', label: 'C', x: 200, y: 70 },
+      { id: 'p4', team: 'P', label: 'D', x: 236, y: 118 },
+      { id: 'o1', team: 'O', x: 130, y: 92 },
+      { id: 'o2', team: 'O', x: 178, y: 100 },
+      { id: 'o3', team: 'O', x: 215, y: 98 },
+    ],
+    ballStart: 'p1',
+    beats: [
+      { label: 'Worp 1: A gooit naar B', ms: 800, ball: 'p2', moves: { p3: [206, 62], o1: [138, 100] } },
+      { label: 'Worp 2: B gooit naar C, die vrijgelopen is', ms: 900, ball: 'p3', moves: { p2: [150, 126], o2: [190, 88] } },
+      { label: 'Worp 3: C gooit naar D', ms: 800, ball: 'p4', moves: { p1: [96, 96], o3: [222, 94] } },
+      { label: 'Zo gaat het door: worp 4 tot en met 9, zonder dat de bal de grond raakt', ms: 1400, ball: 'p1', moves: { p1: [104, 84], p3: [212, 70], o1: [122, 94], o2: [170, 96] } },
+      { label: 'Worp 10: een punt voor paars', ms: 800, ball: 'p2', moves: { p2: [146, 112] } },
+      { label: 'Nu begint oranje met de bal en telt opnieuw vanaf nul', ms: 800, ball: 'o1', newBall: 'o1', moves: { o1: [130, 92] } },
+    ],
+  },
   // Ruitpassen met derde man
   diamond: {
     actors: [

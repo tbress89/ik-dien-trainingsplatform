@@ -2436,6 +2436,36 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'game5', fit: 'Als afsluiter' },
     ],
   },
+  whandpos: {
+    summary:
+      'Twee ploegen spelen met de hand, zonder doeltjes. Een punt haal je door de bal tien keer na elkaar naar een ploegmaat te gooien, zonder dat hij de grond raakt en zonder dat de tegenstander hem onderschept. Traint vrijlopen, overzicht en samenspel op balbezit.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet met vier kegels een veld van 30 × 20 m uit, zonder doeltjes. Maak twee ploegen met hesjes in twee kleuren en geef één ploeg de bal.' },
+      { title: 'Spelen.', text: 'De bal gaat van hand tot hand. Met de bal in de hand mag je niet lopen, en na 3 seconden moet je gooien. De ploeg met de bal telt hardop mee: elke worp naar een ploegmaat is één.' },
+      { title: 'Scoren.', text: 'Tien worpen na elkaar zonder dat de bal de grond raakt of wordt onderschept, is een punt. Daarna begint de andere ploeg met de bal. Valt de bal, wordt hij onderschept of gaat hij uit, dan krijgt de andere ploeg hem en begint het tellen opnieuw.' },
+      { title: 'Ritme.', text: 'Speel 3 reeksen van 3 minuten met 1 minuut rust. Welke ploeg haalt de meeste punten?' },
+    ],
+    easier: 'Tel tot 6 worpen, of laat de verdedigers pas na twee worpen onderscheppen.',
+    harder: 'Tel tot 15 worpen, of verbied de worp terug naar de speler van wie je de bal kreeg.',
+    objectives: ['Vrijlopen', 'Overzicht', 'Samenspel op balbezit', 'Plezier in het spel'],
+    coaching: [
+      'Na je worp meteen vrijlopen, weg van je verdediger.',
+      'Kijk op voor je de bal vangt: wie staat er vrij?',
+      'Gooi op de plek waar je ploegmaat naartoe loopt, niet in zijn voeten.',
+      'Verdedigen: onderschep de bal, niet de speler.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Twee ploegen in één vak, geen doeltjes'],
+      ['Gooien', 'De bal gaat van hand tot hand, tot tien worpen na elkaar'],
+      ['Vrijlopen', 'Na je worp loop je vrij voor de volgende worp'],
+    ],
+    related: [
+      { id: 'whand', fit: 'Zelfde thema' },
+      { id: 'wchain', fit: 'Als warming-up' },
+      { id: 'r52', fit: 'Als vervolg' },
+      { id: 'game5', fit: 'Als afsluiter' },
+    ],
+  },
   wtennis: {
     summary:
       'Twee duo’s spelen over een net of een rij kegels. De bal mag één keer stuiten per kant en elk duo heeft maximaal drie balcontacten. Traint balgevoel, aanname uit de lucht en samenwerken.',

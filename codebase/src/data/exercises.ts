@@ -79,6 +79,7 @@ export type Variant =
   | 'wjuggle'
   | 'wthrow'
   | 'whand'
+  | 'whandpos'
   | 'wtennis'
   | 'wduel'
   | 'wmatch'
@@ -1952,6 +1953,28 @@ export const EXERCISES: Exercise[] = [
     field: '30 × 20 m',
     materials: [
       { name: 'Doeltjes', qty: '2' },
+      { name: 'Kegels', qty: '4' },
+      { name: 'Ballen', qty: '2' },
+      { name: 'Hesjes', qty: '2 × 7' },
+    ],
+  },
+  {
+    id: 'whandpos',
+    title: 'Handbalvoetbal op balbezit',
+    variant: 'whandpos',
+    type: 'Warming-up',
+    phase: 'Aanvallen',
+    themes: ['Positiespel', 'Passing & aanname'],
+    ages: ['U6–9', 'U10–13', 'U14–15'],
+    ageLabel: 'U7 – U15',
+    diff: 1,
+    pmin: 8,
+    players: '8–14',
+    playersDetail: '(2 ploegen)',
+    min: 10,
+    intensity: 3,
+    field: '30 × 20 m',
+    materials: [
       { name: 'Kegels', qty: '4' },
       { name: 'Ballen', qty: '2' },
       { name: 'Hesjes', qty: '2 × 7' },
