@@ -49,6 +49,7 @@ export type Variant =
   | 'wallpass'
   | 'scan'
   | 'longpass'
+  | 'longpoints'
   | 'through'
   | 'tenpass'
   | 'relay'
@@ -1303,6 +1304,27 @@ export const EXERCISES: Exercise[] = [
     materials: [
       { name: 'Kegels', qty: '8' },
       { name: 'Ballen', qty: '6' },
+    ],
+  },
+  {
+    id: 'plongjr',
+    title: 'Lange bal: punten in het vak',
+    variant: 'longpoints',
+    type: 'Technisch',
+    phase: 'Aanvallen',
+    themes: ['Passing & aanname'],
+    ages: ['U10–13'],
+    ageLabel: 'U10 – U13',
+    diff: 2,
+    pmin: 2,
+    players: '2–12',
+    playersDetail: '(duo’s)',
+    min: 10,
+    intensity: 2,
+    field: '20 m tussen de vakken',
+    materials: [
+      { name: 'Kegels', qty: '8 per duo' },
+      { name: 'Ballen', qty: '1 per duo' },
     ],
   },
   {

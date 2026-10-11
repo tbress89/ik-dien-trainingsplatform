@@ -411,6 +411,22 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
       { label: 'Tel hardop mee: de bal mag de grond niet raken', ms: 900, ball: 'p3' },
     ],
   },
+  // Lange bal: punten in het vak
+  longpoints: {
+    actors: [
+      { id: 'a1', team: 'P', x: 64, y: 79 },
+      { id: 'b1', team: 'P', x: 256, y: 79 },
+      { id: 'a2', team: 'P', x: 64, y: 125 },
+      { id: 'b2', team: 'P', x: 256, y: 125 },
+    ],
+    ballStart: 'a1',
+    beats: [
+      { label: 'A speelt lang naar het vak van B', ms: 1100, ball: 'b1' },
+      { label: 'B neemt aan en houdt de bal in zijn vak: een punt voor het duo', ms: 700, ball: 'b1', moves: { b1: [250, 84] } },
+      { label: 'B speelt lang terug naar A', ms: 1100, ball: 'a1', moves: { b1: [256, 79] } },
+      { label: 'Het tweede duo speelt tegelijk: wie haalt de meeste punten?', ms: 1000, ball: 'b2', newBall: 'a2' },
+    ],
+  },
   // Ruitpassen met derde man
   diamond: {
     actors: [

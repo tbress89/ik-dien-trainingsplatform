@@ -1517,6 +1517,36 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'game', fit: 'Als afsluiter' },
     ],
   },
+  plongjr: {
+    summary:
+      'Duo’s spelen elkaar lange ballen toe over 20 meter en scoren een punt voor elke lange bal die hun ploegmaat in zijn vak aanneemt. De wreeftrap en de aanname van een lange bal, als wedstrijdje tussen de duo’s.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet per duo twee vakken van 6 × 6 m op 20 meter van elkaar. Elke speler staat in een vak. Laat de duo’s naast elkaar spelen, op minstens 4 meter afstand.' },
+      { title: 'Lange bal.', text: 'De speler legt de bal één pas voor zich en speelt met de wreef lang naar zijn ploegmaat. De bal moet in het vak van zijn ploegmaat aankomen, anders is er geen kans op een punt.' },
+      { title: 'Aannemen en punten.', text: 'De ontvanger neemt de bal aan met maximaal twee contacten en houdt hem in zijn vak: dat is een punt voor het duo. Rolt de bal weg of neemt hij hem buiten het vak aan, dan telt het niet. Daarna speelt hij op zijn beurt lang terug. Tel hardop het totaal van het duo.' },
+      { title: 'Ritme.', text: 'Speel 4 reeksen van 2 minuten met 30 seconden rust. Haalt een duo 6 punten, dan zet het de vakken 5 meter verder uit elkaar. Welk duo komt het verst?' },
+    ],
+    easier: 'Maak de vakken groter (8 × 8 m) en zet ze op 15 meter van elkaar.',
+    harder: 'Zet de vakken op 30 meter, of neem de bal aan met één contact.',
+    objectives: ['Wreeftrap', 'Afstand inschatten', 'Aanname van een lange bal', 'Wedstrijdspanning'],
+    coaching: [
+      'Kijk naar de bal en raak hem met de wreef, zwaai door naar je doel.',
+      'Meer kracht? Neem een langere aanloop, niet een grotere zwaai.',
+      'Aannemen: ga naar de bal toe en demp met een zachte voet.',
+      'Een punt telt pas als de bal onder controle in je vak ligt.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Twee vakken per duo op 20 meter'],
+      ['Lange bal', 'De bal moet in het vak van de ploegmaat aankomen'],
+      ['Aannemen', 'Punt voor het duo als de aanname in het vak lukt, daarna lang terug'],
+    ],
+    related: [
+      { id: 'pline', fit: 'Als warming-up' },
+      { id: 'pgates', fit: 'Zelfde thema' },
+      { id: 'plong', fit: 'Als vervolg' },
+      { id: 'game5', fit: 'Als afsluiter' },
+    ],
+  },
   pthrough: {
     summary:
       'Een middenvelder speelt de bal door een kegelpoortje in de loop van een aanvaller, die doorgaat en afwerkt op doel. Traint de timing van de diepe pass en van de loopactie.',

@@ -616,6 +616,16 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       P(60, 100), P(260, 100),
       Ball(67, 104),
     ],
+    longpoints: [
+      Box(44, 62, 40, 34, ZONE), Box(236, 62, 40, 34, ZONE),
+      Box(44, 108, 40, 34, ZONE), Box(236, 108, 40, 34, ZONE),
+      Pass(75, 74, 245, 74, 1),
+      Pass(245, 84, 75, 84, 2),
+      Pass(75, 120, 245, 120, 1),
+      Pass(245, 130, 75, 130, 2),
+      P(64, 79), P(256, 79), P(64, 125), P(256, 125),
+      Ball(71, 83), Ball(71, 129),
+    ],
     through: [
       Box(250, 50, 60, 100),
       Goal(304, 78, 10, 44),

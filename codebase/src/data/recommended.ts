@@ -140,6 +140,7 @@ export const RECOMMENDED: string[] = [
   'r22', // Rondo 2 tegen 2 met vier kaatsers
   'omwaves', // Golfaanvallen 2 tegen 1
   'plong', // Lange pass: van kant wisselen
+  'plongjr', // Lange bal: punten in het vak
   'prunder', // Onderaantal verdedigen: 2 tegen 3
   'obdrive', // Indribbelen door de centrale verdediger
   'wjuggle', // Balgevoel: hoog houden
