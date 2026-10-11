@@ -1360,27 +1360,28 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
   },
   py: {
     summary:
-      'Vier posities in de vorm van een Y: de bal gaat van de start via een kaatsbal diep naar een flank, en iedereen schuift een positie door. Een klassieke passvorm die pass, kaatsbal, pass in de loop en doorbewegen combineert.',
+      'Vier posities in de vorm van een Y: de bal gaat van de start via een kaatsbal diep naar een flank, en iedereen schuift een positie door. Een klassieke passvorm die pass, kaatsbal, pass in de loop, dribbelen in slalom en doorbewegen combineert.',
     steps: [
-      { title: 'Opstelling.', text: 'Zet vier kegels in een Y: A aan de start, B 10 meter verder, C en D elk 10 meter schuin links en rechts voorbij B. Bij A staat een rij met ballen, bij B, C en D één speler.' },
-      { title: 'Passen.', text: 'A speelt in op B, B kaatst in één keer terug naar A, en A speelt diep in de loop van C. C neemt aan en dribbelt terug naar de rij bij A.' },
-      { title: 'Doorbewegen.', text: 'Na elke beurt schuift iedereen één positie op: A naar B, B naar C. Wissel om de beurt naar links (C) en rechts (D).' },
+      { title: 'Opstelling.', text: 'Zet vier kegels in een Y: A aan de start, B 10 meter verder, C en D elk 10 meter schuin links en rechts voorbij B. Bij A staat een rij met ballen, bij B, C en D één speler. Zet tussen C en de rij bij A drie kegels in een slalom, en hetzelfde tussen D en de rij, telkens op 3 à 4 meter van elkaar.' },
+      { title: 'Passen.', text: 'A speelt in op B, B kaatst in één keer terug naar A, en A speelt diep in de loop van C. C neemt aan, dribbelt in slalom langs de drie kegels en sluit achteraan aan bij de rij bij A.' },
+      { title: 'Doorbewegen.', text: 'Zodra C aan de slalom begint, schuift iedereen één positie op: A naar B, B naar C. Wissel om de beurt naar links (C) en rechts (D).' },
       { title: 'Ritme.', text: 'Speel 3 reeksen van 4 minuten met 1 minuut rust.' },
     ],
     easier: 'Laat de kaatsbal weg: A speelt meteen diep naar C of D.',
     harder: 'Speel alles in één keer en laat een tweede bal vertrekken zodra C de bal heeft.',
-    objectives: ['Kaatsen', 'Pass in de loop', 'Aanname in de loop', 'Doorbewegen'],
+    objectives: ['Kaatsen', 'Pass in de loop', 'Aannemen en dribbelen', 'Doorbewegen'],
     coaching: [
       'B: kom kort aan en kaats met de binnenkant, hard en zuiver.',
       'Diepe pass vóór de voet van de loper, niet erachter.',
       'C en D: vertrek pas als de kaatsbal onderweg is.',
-      'Na je pass meteen doorschuiven naar de volgende positie.',
+      'Na je pass meteen doorschuiven; in de slalom blijft de bal dicht aan je voet.',
     ],
     diagramSteps: [
-      ['Organisatie', 'Vier posities in een Y'],
+      ['Organisatie', 'Vier posities in een Y, met een slalom aan elke kant'],
       ['Inspelen', 'A speelt in op B'],
       ['Kaatsen', 'B kaatst terug naar A'],
       ['Diepe pass', 'A speelt diep in de loop van C'],
+      ['Slalom', 'C dribbelt langs de kegels terug naar de rij'],
       ['Doorschuiven', 'Iedereen schuift een positie op'],
     ],
     related: [
