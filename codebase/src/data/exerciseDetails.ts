@@ -2496,6 +2496,36 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'rcircle', fit: 'Kern' },
     ],
   },
+  wworld: {
+    summary:
+      'Twee groepen staan aan weerszijden van een net en spelen samen een zo lang mogelijke rally. Wie de bal heeft gespeeld, loopt rond het net naar de andere kant en sluit daar achteraan aan. Traint balgevoel, aanname uit de lucht en altijd in beweging blijven.',
+    steps: [
+      { title: 'Opstelling.', text: 'Maak een veldje van 14 × 8 m met in het midden een net, een bank of een lijn kegels. Verdeel de spelers in twee groepen, één aan elke kant van het net. De eerste speler van één groep heeft de bal.' },
+      { title: 'Spelen.', text: 'De eerste speler speelt de bal met één contact over het net, met voet, dij of hoofd. Daarna loopt hij rond het net naar de andere kant en sluit achteraan aan. De eerste speler daar speelt de bal terug en loopt op zijn beurt rond het net.' },
+      { title: 'Rally.', text: 'Alle spelers werken samen en tellen hardop mee. De bal mag één keer stuiten per kant. Stuit hij twee keer, gaat hij uit of haalt hij het net niet, dan begint een nieuwe rally. Onthoud het record van de groep.' },
+      { title: 'Ritme.', text: 'Speel 3 reeksen van 3 minuten met 1 minuut rust. Probeer in elke reeks het record te verbreken.' },
+    ],
+    easier: 'De bal mag twee keer stuiten, en de eerste bal mag je met de hand opgooien.',
+    harder: 'Geen stuit: de bal moet in de lucht blijven. Of speel alleen met de zwakste voet.',
+    objectives: ['Balgevoel', 'Aanname uit de lucht', 'Samenwerken', 'Altijd in beweging'],
+    coaching: [
+      'Speel de bal hoog en zacht, zodat je ploegmaat hem kan aannemen.',
+      'Loop meteen na je contact rond het net: niet blijven staan.',
+      'Kijk wie er klaarstaat en speel de bal op zijn voet.',
+      'Tel hardop mee: samen een nieuw record verbreken.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Twee groepen aan weerszijden van het net'],
+      ['Over het net', 'De bal gaat over het net naar de andere kant'],
+      ['Rond het net', 'Na je contact loop je rond het net naar de overkant'],
+    ],
+    related: [
+      { id: 'wtennis', fit: 'Zelfde thema' },
+      { id: 'wjuggle', fit: 'Als warming-up' },
+      { id: 'fvolley', fit: 'Als vervolg' },
+      { id: 'game5', fit: 'Als afsluiter' },
+    ],
+  },
   wduel: {
     summary:
       'Twee spelers wachten naast elkaar tot de trainer een bal inspeelt. Wie er eerst is, valt aan op een doeltje, de ander verdedigt: reactiesnelheid, een sprintje en een 1 tegen 1 in één oefening.',

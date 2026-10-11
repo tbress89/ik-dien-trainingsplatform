@@ -375,6 +375,24 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
       { label: 'Nu begint oranje met de bal en telt opnieuw vanaf nul', ms: 800, ball: 'o1', newBall: 'o1', moves: { o1: [130, 92] } },
     ],
   },
+  // Voetbaltennis: Around the world
+  wtennisworld: {
+    actors: [
+      { id: 'l1', team: 'P', x: 100, y: 80 },
+      { id: 'l2', team: 'P', x: 72, y: 112 },
+      { id: 'l3', team: 'P', x: 62, y: 78 },
+      { id: 'r1', team: 'P', x: 212, y: 100 },
+      { id: 'r2', team: 'P', x: 246, y: 78 },
+      { id: 'r3', team: 'P', x: 250, y: 124 },
+    ],
+    ballStart: 'l1',
+    beats: [
+      { label: 'De eerste speler speelt de bal over het net', ms: 800, ball: 'r1' },
+      { label: 'Hij loopt rond het net; de overkant speelt terug', ms: 1100, ball: 'l2', moves: { l1: [160, 144], l2: [104, 86], r1: [160, 58] } },
+      { label: 'Ook die speler loopt rond het net; de bal gaat weer over', ms: 1100, ball: 'r2', moves: { l1: [232, 112], l2: [160, 144], r1: [96, 76], r2: [212, 100], r3: [248, 130] } },
+      { label: 'Zo gaat de rally door: tel hardop mee en probeer het record te breken', ms: 1200, ball: 'l3', moves: { r2: [160, 58], l3: [104, 86], l2: [240, 126], l1: [224, 98] } },
+    ],
+  },
   // Ruitpassen met derde man
   diamond: {
     actors: [

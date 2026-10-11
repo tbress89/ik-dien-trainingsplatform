@@ -106,6 +106,7 @@ export const RECOMMENDED: string[] = [
   'omcounter', // Balwinst op eigen helft en counteren: 6 tegen 6
   'omright', // 3 tegen 3 + neutrale kaatser: recht van de aanval
   'wtennis', // Voetbaltennis
+  'wworld', // Voetbaltennis: Around the world
   'psflank', // Driehoek op de flank
   'prtrig', // Pressing op de trigger: terugspeelbal
   'crelay', // Hindernisestafette met bal

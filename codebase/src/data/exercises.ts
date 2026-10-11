@@ -81,6 +81,7 @@ export type Variant =
   | 'whand'
   | 'whandpos'
   | 'wtennis'
+  | 'wtennisworld'
   | 'wduel'
   | 'wmatch'
   | 'ps43'
@@ -1996,6 +1997,27 @@ export const EXERCISES: Exercise[] = [
     min: 10,
     intensity: 2,
     field: '12 × 8 m',
+    materials: [
+      { name: 'Kegels', qty: '8' },
+      { name: 'Ballen', qty: '2' },
+    ],
+  },
+  {
+    id: 'wworld',
+    title: 'Voetbaltennis: Around the world',
+    variant: 'wtennisworld',
+    type: 'Warming-up',
+    phase: 'Aanvallen',
+    themes: ['Passing & aanname'],
+    ages: ['U10–13', 'U14–15', 'U16–21'],
+    ageLabel: 'U10 – U21',
+    diff: 2,
+    pmin: 4,
+    players: '4–12',
+    playersDetail: '(2 groepen)',
+    min: 10,
+    intensity: 3,
+    field: '14 × 8 m',
     materials: [
       { name: 'Kegels', qty: '8' },
       { name: 'Ballen', qty: '2' },
