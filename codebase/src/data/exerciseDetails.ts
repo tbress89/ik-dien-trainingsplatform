@@ -2376,6 +2376,36 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'fvolley', fit: 'Als vervolg' },
     ],
   },
+  wcirkel: {
+    summary:
+      'Een groep staat in een kring en houdt samen de bal zo lang mogelijk in de lucht, met voet, dij en hoofd. Elk record is van de hele groep: een speelse opwarming voor balgevoel, aanname uit de lucht en samenspel.',
+    steps: [
+      { title: 'Opstelling.', text: 'Laat 3 tot 5 spelers een kring van ongeveer 5 meter doorsnede vormen. Eén speler heeft de bal; de rest staat klaar. Bij een grotere groep maak je meerdere kringen.' },
+      { title: 'Spelen.', text: 'De groep houdt de bal samen in de lucht. Elke speler speelt hem hoog naar een ploegmaat, met maximaal twee contacten, en dezelfde speler mag niet twee keer na elkaar. De bal mag niet op de grond komen.' },
+      { title: 'Tellen.', text: 'De groep telt hardop het aantal passes. Valt de bal, dan begint de teller opnieuw. Onthoud het record en probeer het te verbreken.' },
+      { title: 'Ritme.', text: 'Speel 3 reeksen van 3 minuten met 1 minuut rust. Wissel na elke reeks de manier van spelen: vrij, alleen met voeten, alleen met de zwakste voet.' },
+    ],
+    easier: 'Laat de bal na elk contact één keer stuiten, of maak de kring kleiner.',
+    harder: 'Speel alles met één contact, of laat een tweede bal tegelijk in de lucht houden.',
+    objectives: ['Balgevoel', 'Aanname uit de lucht', 'Samenwerken', 'Aandacht voor elkaar'],
+    coaching: [
+      'Speel de bal hoog en zacht naar je ploegmaat.',
+      'Roep de naam van je ploegmaat voor je speelt.',
+      'Blijf in beweging met kleine pasjes, zodat je altijd onder de bal staat.',
+      'Tel hardop mee: samen een nieuw record verbreken.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Een kring van spelers met één bal'],
+      ['Hoog spelen', 'De bal gaat hoog van speler naar speler'],
+      ['Doorspelen', 'De rally gaat door zonder dat de bal de grond raakt'],
+    ],
+    related: [
+      { id: 'wjuggle', fit: 'Zelfde thema' },
+      { id: 'wtennis', fit: 'Als vervolg' },
+      { id: 'rcircle', fit: 'Kern' },
+      { id: 'game5', fit: 'Als afsluiter' },
+    ],
+  },
   wthrow: {
     summary:
       'De ene speler gooit de bal met de hand, de andere speelt hem terug met een vaste techniek: binnenkant, wreef of hoofd. Een technische opwarming die veel zuivere balcontacten oplevert.',

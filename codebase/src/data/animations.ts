@@ -393,6 +393,24 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
       { label: 'Zo gaat de rally door: tel hardop mee en probeer het record te breken', ms: 1200, ball: 'l3', moves: { r2: [160, 58], l3: [104, 86], l2: [240, 126], l1: [224, 98] } },
     ],
   },
+  // Samen hoog houden in de kring
+  wcircleup: {
+    actors: [
+      { id: 'p1', team: 'P', x: 160, y: 58 },
+      { id: 'p2', team: 'P', x: 200, y: 87 },
+      { id: 'p3', team: 'P', x: 185, y: 134 },
+      { id: 'p4', team: 'P', x: 135, y: 134 },
+      { id: 'p5', team: 'P', x: 120, y: 87 },
+    ],
+    ballStart: 'p1',
+    beats: [
+      { label: 'De bal gaat hoog naar de buurman', ms: 800, ball: 'p2' },
+      { label: 'Over de kring naar de overkant', ms: 900, ball: 'p4' },
+      { label: 'Weer door naar de volgende', ms: 800, ball: 'p5' },
+      { label: 'Iedereen blijft in beweging onder de bal', ms: 900, ball: 'p1', moves: { p1: [160, 63], p5: [124, 87] } },
+      { label: 'Tel hardop mee: de bal mag de grond niet raken', ms: 900, ball: 'p3' },
+    ],
+  },
   // Ruitpassen met derde man
   diamond: {
     actors: [

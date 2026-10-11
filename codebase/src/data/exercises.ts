@@ -77,6 +77,7 @@ export type Variant =
   | 'wreact'
   | 'wshadow'
   | 'wjuggle'
+  | 'wcircleup'
   | 'wthrow'
   | 'whand'
   | 'whandpos'
@@ -1914,6 +1915,26 @@ export const EXERCISES: Exercise[] = [
     field: 'Vrije ruimte',
     materials: [
       { name: 'Ballen', qty: '1 per speler' },
+    ],
+  },
+  {
+    id: 'wcirkel',
+    title: 'Samen hoog houden in de kring',
+    variant: 'wcircleup',
+    type: 'Warming-up',
+    phase: 'Aanvallen',
+    themes: ['Passing & aanname'],
+    ages: ['U14–15', 'U16–21'],
+    ageLabel: 'U14 – U21',
+    diff: 3,
+    pmin: 3,
+    players: '3–5',
+    playersDetail: '(1 kring)',
+    min: 10,
+    intensity: 2,
+    field: 'Kring van 5 m',
+    materials: [
+      { name: 'Ballen', qty: '2' },
     ],
   },
   {

@@ -143,6 +143,7 @@ export const RECOMMENDED: string[] = [
   'prunder', // Onderaantal verdedigen: 2 tegen 3
   'obdrive', // Indribbelen door de centrale verdediger
   'wjuggle', // Balgevoel: hoog houden
+  'wcirkel', // Samen hoog houden in de kring
   'psline', // Spelen tussen de linies: middenzone
   'gkcross', // Hoge ballen: voorzetten klemmen
   'prbuild', // Druk zetten op de opbouw: 3 tegen 2 + K

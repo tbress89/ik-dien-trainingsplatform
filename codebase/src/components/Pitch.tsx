@@ -890,6 +890,14 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       P(90, 80), P(150, 110), P(210, 110),
       Ball(90, 64), Ball(157, 102),
     ],
+    wcircleup: [
+      Pass(169, 64, 191, 81, 1),
+      Pass(191, 93, 144, 128, 1),
+      Pass(132, 124, 123, 97, 2),
+      Pass(129, 81, 151, 64, 2),
+      P(160, 58), P(200, 87), P(185, 134), P(135, 134), P(120, 87),
+      Ball(180, 64),
+    ],
     wthrow: [
       Pass(118, 98, 192, 98, 1),
       Pass(192, 106, 118, 106, 2),
