@@ -521,7 +521,7 @@ export function TrainingProvider({ children }: { children: ReactNode }) {
           up: [...p.up.filter((id) => !pushIds.has(id)), ...pushIds],
           favAdd: [...p.favAdd.filter((id) => !f.push.includes(id)), ...f.push],
         }));
-        await flush();
+        if ((await flush()) && gen === generation.current) setSyncState('idle');
       } catch (e) {
         console.warn('Sync: ophalen mislukt', e);
         if (gen === generation.current) failure();
