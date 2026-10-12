@@ -70,7 +70,7 @@ export const REFERENCE_TRAININGS: ReferenceTraining[] = [
     theme: 'Omschakelen',
     items: [
       ['wu', 'whand', 10], // Handbalvoetbal
-      ['wu', 'r52', 5], // Rondo 5 tegen 2
+      ['wu', 'rondo', 5], // Rondo 4 tegen 1
       ['kern', 'trans', 20], // Omschakelen 4 tegen 4 op vier doeltjes
       ['kern', 'prcp', 20], // Tegendruk: voorkom 3 passes na balverlies
       ['pv', 'omwave2', 20], // Omschakel-waves 2 tegen 2 op vier doeltjes
