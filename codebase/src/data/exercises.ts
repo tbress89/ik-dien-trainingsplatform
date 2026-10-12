@@ -260,6 +260,8 @@ export interface ExerciseSource {
   /** Channel or author to credit. */
   channel?: string;
   youtube?: { id: string; start?: number };
+  /** Further links to credit under the main source, e.g. a PDF that goes with the video. */
+  extra?: { label: string; url: string; channel?: string }[];
 }
 
 export const AGES: AgeGroup[] = ['U6–9', 'U10–13', 'U14–15', 'U16–21'];

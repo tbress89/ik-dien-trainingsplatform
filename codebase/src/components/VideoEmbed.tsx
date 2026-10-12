@@ -38,6 +38,15 @@ export function VideoEmbed({ source, start }: { source: ExerciseSource; start?: 
       </a>
       {source.channel && ` · ${source.channel}`}
       {yt && ' (YouTube)'}
+      {source.extra?.map((e) => (
+        <span key={e.url}>
+          {' · '}
+          <a href={e.url} target="_blank" rel="noopener noreferrer">
+            {e.label}
+          </a>
+          {e.channel && ` (${e.channel})`}
+        </span>
+      ))}
     </p>
   );
 

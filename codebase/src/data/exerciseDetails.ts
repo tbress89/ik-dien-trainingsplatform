@@ -4379,6 +4379,19 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'rondo', fit: 'Kern' },
       { id: 'gscool', fit: 'Als afsluiter' },
     ],
+    source: {
+      label: 'The "11+" Warm-up (playlist)',
+      url: 'https://www.youtube.com/watch?v=RSJIp7e7fyY&list=PLCGIzmTE4d0jJ8nngB9Szd8uWwuEPD4QD',
+      channel: 'FIFA',
+      youtube: { id: 'RSJIp7e7fyY' },
+      extra: [
+        {
+          label: '11+ warming-up Kon. Ik Dien FC (pdf)',
+          url: 'https://jeugdopleiding.ikdien.be/documents/11plus-warming-up-kon-ik-dien-fc.pdf',
+          channel: 'Jeugdopleiding Kon. Ik Dien FC',
+        },
+      ],
+    },
   },
   gsnordic: {
     summary:

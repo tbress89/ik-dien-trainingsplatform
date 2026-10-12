@@ -107,6 +107,7 @@ describe('exercise details', () => {
       const problems = [];
       if (!s.label.trim()) problems.push('no label');
       if (!/^https:\/\//.test(s.url)) problems.push(`url ${s.url}`);
+      for (const e of s.extra ?? []) if (!e.label.trim() || !/^https:\/\//.test(e.url)) problems.push(`extra ${e.url}`);
       if (s.youtube && !/^[A-Za-z0-9_-]{11}$/.test(s.youtube.id)) problems.push(`youtube id ${s.youtube.id}`);
       if (s.youtube?.start !== undefined && !(Number.isInteger(s.youtube.start) && s.youtube.start >= 0)) problems.push(`start ${s.youtube.start}`);
       return problems.map((p) => `${id}: ${p}`);
