@@ -32,8 +32,14 @@ export function AccountPage() {
     try {
       await sendMagicLink(address);
       setSentTo(address);
-    } catch {
-      setError('De inloglink kon niet verstuurd worden. Controleer het e-mailadres en je verbinding, en probeer het zo opnieuw.');
+    } catch (e) {
+      console.warn('Inloglink versturen mislukt', e);
+      const status = typeof e === 'object' && e !== null && 'status' in e ? (e as { status?: number }).status : undefined;
+      setError(
+        status === 429
+          ? 'Er zijn te veel inloglinks aangevraagd. Wacht een poos en probeer het dan opnieuw.'
+          : 'De inloglink kon niet verstuurd worden. Controleer het e-mailadres en je verbinding, en probeer het zo opnieuw.',
+      );
     } finally {
       setBusy(false);
     }
