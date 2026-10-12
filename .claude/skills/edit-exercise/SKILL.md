@@ -14,8 +14,8 @@ All paths are relative to `codebase/`:
 - `src/data/exercises.ts` — the `Exercise` type (list data: title, type, ages, players, duration, materials, …), allowed values, and the `EXERCISES` array.
 - `src/data/exerciseDetails.ts` — the detail-page text per exercise id (`summary`, `steps`, `easier`, `harder`, `objectives`, `coaching`, `diagramSteps`, `related`). It loads as a separate chunk; an exercise's fields are split across both files under the same id.
 - `src/components/Pitch.tsx` — one diagram per `Variant`.
-- Trainings are stored in the user's browser (`ikdien:trainingen` in localStorage, see `src/data/training.tsx`), not in the code. When they're loaded, plan items for exercise ids that no longer exist are dropped, so a delete or id rename can't crash the builder — but renamed ids do disappear from saved trainings.
-- Saved ("bewaarde") exercises are also stored in the browser (`ikdien:bewaard`); ids that no longer exist are dropped on load.
+- Trainings are stored in the user's browser (`ikdien:trainingen` in localStorage, see `src/data/training.tsx`), not in the code; with an optional account they are also synced to Supabase. When they're loaded, plan items for exercise ids that no longer exist are dropped, so a delete or id rename can't crash the builder — but renamed ids do disappear from saved trainings.
+- Saved ("bewaarde") exercises are also stored in the browser (`ikdien:bewaard`, synced to the account when signed in); ids that no longer exist are dropped on load.
 - `src/data/referenceTrainings.ts` — the example trainings per age group on the Trainingen page (`[block, exercise id, minutes]` items). A rename must update the id there; a delete must replace the exercise with a comparable one of the same age and minutes, since each block has to keep adding up.
 - `src/data/recommended.ts` — `RECOMMENDED`, the ranked id list behind the dashboard's "Aanbevolen" sort. Move an exercise within it only when the user asks to change its ranking; keep its `// Title` comment in step with a renamed title.
 

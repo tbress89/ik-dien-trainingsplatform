@@ -1,10 +1,13 @@
 import { useEffect } from 'react';
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { Nav } from './components/Nav';
+import { AuthProvider } from './data/auth';
 import { loadExerciseDetails } from './data/exercises';
 import { SHARE_PARAM } from './data/share';
 import { TrainingProvider } from './data/training';
+import { supabase } from './data/supabase';
 import { TRAINING_BUILDER } from './features';
+import { AccountPage } from './pages/AccountPage';
 import { BuilderPage } from './pages/BuilderPage';
 import { ComingSoonPage } from './pages/ComingSoonPage';
 import { DetailPage } from './pages/DetailPage';
@@ -34,6 +37,7 @@ export function App() {
 
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL}>
+      <AuthProvider>
       <TrainingProvider>
         <div className="app">
           <Nav />
@@ -46,10 +50,12 @@ export function App() {
             <Route path="/trainingen/:id" element={TRAINING_BUILDER ? <BuilderPage /> : <ComingSoonPage />} />
             <Route path="/trainingen/:id/afdrukken" element={TRAINING_BUILDER ? <PrintPage /> : <ComingSoonPage />} />
             <Route path="/trainingen/:id/geven" element={TRAINING_BUILDER ? <GivePage /> : <ComingSoonPage />} />
+            {supabase && <Route path="/account" element={<AccountPage />} />}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
       </TrainingProvider>
+      </AuthProvider>
     </BrowserRouter>
   );
 }
