@@ -1344,7 +1344,7 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
       { label: 'De tweede zet nu druk, de eerste dekt', ms: 700, ball: 'o2', moves: { o2: [126, 126], p2: [140, 124] } },
     ],
   },
-  // Tegendruk: 5 seconden om terug te winnen
+  // Tegendruk: voorkom 3 passes na balverlies
   prcp: {
     actors: [
       { id: 'o1', team: 'O', x: 160, y: 90 },
@@ -1358,9 +1358,9 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
     ],
     ballStart: 'o1',
     beats: [
-      { label: 'Balverlies: de trainer telt tot vijf, twee spelers sluiten de balbezitter in', ms: 700, ball: 'o1', moves: { p1: [150, 96], p2: [170, 80], o1: [164, 92] } },
+      { label: 'Paars heeft de bal verloren: twee spelers sluiten de balbezitter in', ms: 700, ball: 'o1', moves: { p1: [150, 96], p2: [170, 80], o1: [164, 92] } },
       { label: 'De anderen sluiten de passlijnen af', ms: 700, ball: 'o1', moves: { p3: [206, 110], p4: [106, 120] } },
-      { label: 'Binnen 5 seconden teruggewonnen: 1 punt', ms: 500, ball: 'p1', moves: { p1: [150, 100] } },
+      { label: 'Paars wint de bal terug voor de derde pass: geen punt voor oranje', ms: 500, ball: 'p1', moves: { p1: [150, 100] } },
     ],
   },
   // Pressing op de trigger: terugspeelbal

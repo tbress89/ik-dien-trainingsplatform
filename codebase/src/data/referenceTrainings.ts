@@ -72,7 +72,7 @@ export const REFERENCE_TRAININGS: ReferenceTraining[] = [
       ['wu', 'whand', 10], // Handbalvoetbal
       ['wu', 'r52', 5], // Rondo 5 tegen 2
       ['kern', 'trans', 20], // Omschakelen 4 tegen 4 op vier doeltjes
-      ['kern', 'prcp', 20], // Tegendruk: 5 seconden om terug te winnen
+      ['kern', 'prcp', 20], // Tegendruk: voorkom 3 passes na balverlies
       ['pv', 'omwave2', 20], // Omschakel-waves 2 tegen 2 op vier doeltjes
     ],
   },

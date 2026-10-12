@@ -1774,7 +1774,7 @@ export const EXERCISES: Exercise[] = [
   },
   {
     id: 'prcp',
-    title: 'Tegendruk: 5 seconden om terug te winnen',
+    title: 'Tegendruk: voorkom 3 passes na balverlies',
     variant: 'prcp',
     type: 'Tactisch',
     phase: 'Omschakelen → verdediging',

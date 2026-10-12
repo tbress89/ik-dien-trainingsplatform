@@ -25,7 +25,7 @@ export const RECOMMENDED: string[] = [
   'd2v1', // 2 tegen 1 naar doel
   'pos', // Positiespel 5 tegen 5 + 3
   'cmastery', // Balbeheersing: tikjes, zoolrol en V-beweging
-  'prcp', // Tegendruk: 5 seconden om terug te winnen
+  'prcp', // Tegendruk: voorkom 3 passes na balverlies
   'pr1v1', // 1 tegen 1 verdedigen: aansluiten en afremmen
   'dgates', // Poortjesspel 1 tegen 1
   'psbuild', // Opbouwen tegen druk: 4 + K tegen 2

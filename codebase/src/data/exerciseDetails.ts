@@ -2168,24 +2168,26 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
   },
   prcp: {
     summary:
-      'Vier tegen vier op kleine doeltjes met één extra regel: na balverlies heeft een ploeg 5 seconden om de bal terug te winnen, en dat levert een punt op. Traint tegendruk: meteen omschakelen en de bal hoog terugwinnen.',
+      'Vier tegen vier op kleine doeltjes met één extra regel: na balverlies moet je ploeg voorkomen dat de tegenstander drie passes geeft. Lukt dat, dan win je de bal terug en blijft het punt uit. Lukt het niet, dan krijgt de tegenstander een punt. Traint tegendruk: meteen omschakelen en de bal hoog terugwinnen.',
     steps: [
       { title: 'Opstelling.', text: 'Zet een veld van 30 × 20 m uit met twee doeltjes op elke korte zijde. Speel vier tegen vier.' },
       { title: 'Spelen.', text: 'Vrij spel op de doeltjes. Een doelpunt is 1 punt.' },
-      { title: 'Tegendruk.', text: 'Na balverlies telt de trainer luid tot vijf. Wint de ploeg de bal binnen die 5 seconden terug, dan is dat ook 1 punt.' },
+      { title: 'Balverlies.', text: 'Verlies je de bal, dan heeft je ploeg één opdracht: voorkom dat de tegenstander drie passes achter elkaar geeft. De trainer telt de passes hardop. Lukt dat niet, dan krijgt de tegenstander 1 punt.' },
+      { title: 'Terugwinnen.', text: 'Win je de bal terug of gaat hij uit voordat de derde pass is gegeven, dan blijft het punt uit. Nu heeft jouw ploeg de bal en probeert de tegenstander jullie drie passes te voorkomen.' },
       { title: 'Ritme.', text: 'Speel 3 reeksen van 4 minuten met 1 minuut rust.' },
     ],
-    easier: 'Geef 8 seconden om de bal terug te winnen.',
-    harder: 'Voeg een joker toe die altijd met de balbezitter meespeelt.',
+    easier: 'Laat de tegenstander maar twee passes geven om een punt te krijgen.',
+    harder: 'Vraag vier passes van de tegenstander, of laat de passes niet terug naar de speler van wie je de bal kreeg gaan. Je kunt ook een joker toevoegen die altijd met de balbezitter meespeelt.',
     objectives: ['Tegendruk', 'Snel omschakelen', 'Balbezitter insluiten', 'Compact blijven'],
     coaching: [
       'Balverlies? De dichtstbijzijnde speler zet meteen druk.',
       'De anderen sluiten de korte passlijnen af.',
       'Niet klagen, maar jagen.',
-      'Na 5 seconden niet gewonnen? Zak terug en verdedig compact.',
+      'Zorg dat de eerste pass al moeilijk is: hoe sneller de druk, hoe minder keuzes de tegenstander heeft.',
+      'Bal terug? Speel veilig en snel, zodat de tegenstander nu zelf onder druk staat.',
     ],
     diagramSteps: [
-      ['Organisatie', 'Oranje heeft net de bal gewonnen'],
+      ['Organisatie', 'Oranje heeft net de bal gewonnen: paars moet drie passes voorkomen'],
       ['Insluiten', 'Twee spelers sluiten de balbezitter in'],
       ['Afsluiten', 'De anderen sluiten de passlijnen af'],
     ],
