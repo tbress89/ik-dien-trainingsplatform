@@ -41,8 +41,8 @@ export const REFERENCE_TRAININGS: ReferenceTraining[] = [
     duration: 60,
     theme: 'Passing & aanname',
     items: [
-      ['wu', 'rondo', 10], // Rondo 4 tegen 1
-      ['kern', 'pass', 10], // Passvierkant met doorbewegen
+      ['wu', 'whandpos', 10], // Handbalvoetbal op balbezit
+      ['kern', 'prelay', 10], // Passestafette
       ['kern', 'pwall', 10], // Kaatsen: één-twee-race naar het doeltje
       ['kern', 'pgates', 10], // Passen door poortjes
       ['pv', 'game5', 20], // Partijvorm 5 tegen 5 op grote doelen
