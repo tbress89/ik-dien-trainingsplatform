@@ -69,8 +69,8 @@ export const REFERENCE_TRAININGS: ReferenceTraining[] = [
     duration: 75,
     theme: 'Omschakelen',
     items: [
-      ['wu', 'r52', 10], // Rondo 5 tegen 2
-      ['wu', 'omduel', 5], // Omschakelduel 1 tegen 1
+      ['wu', 'whand', 10], // Handbalvoetbal
+      ['wu', 'r52', 5], // Rondo 5 tegen 2
       ['kern', 'trans', 20], // Omschakelen 4 tegen 4 op vier doeltjes
       ['kern', 'prcp', 20], // Tegendruk: 5 seconden om terug te winnen
       ['pv', 'omwave2', 20], // Omschakel-waves 2 tegen 2 op vier doeltjes
