@@ -17,6 +17,7 @@ export const RECOMMENDED: string[] = [
   'duel', // 1 tegen 1 op kleine doeltjes
   'pass', // Passvierkant met doorbewegen
   'funino', // Funino: 3 tegen 3 op vier doeltjes
+  'r52', // Rondo 5 tegen 2
   'fshot', // Aannemen en schieten vanaf de zestien
   'trans', // Omschakelen 4 tegen 4 op vier doeltjes
   'pten', // Tienpassenspel 5 tegen 5
