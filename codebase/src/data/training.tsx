@@ -1,7 +1,10 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { useAuth } from './auth';
 import { EXERCISE_BY_ID, THEMES, type Theme } from './exercises';
+import { addFavs, fetchAll, markDeleted, removeFavs, upsertTrainings } from './remote';
 import type { ReferenceTraining } from './referenceTrainings';
 import type { SharedTraining } from './share';
+import { emptyPending, isPendingEmpty, mergeFavs, mergeTrainings, readPending, subtractPending, type Pending } from './sync';
 
 export type BlockId = 'wu' | 'kern' | 'pv';
 
@@ -151,11 +154,19 @@ interface TrainingContextValue {
   moveItem: (from: BlockId, index: number, to: BlockId) => void;
   favs: string[];
   toggleFav: (exId: string) => void;
+  /** State of the sync with the account; 'idle' also when there is no account. */
+  syncState: SyncState;
+  /** Signs out and clears the saved exercises and trainings from this browser (they stay in the account). */
+  signOutAndClear: () => Promise<void>;
+  /** Deletes the account with everything in it and clears this browser too. */
+  deleteAccountAndClear: () => Promise<void>;
 }
+
+export type SyncState = 'idle' | 'syncing' | 'offline' | 'error';
 
 const TrainingContext = createContext<TrainingContextValue | null>(null);
 
-/** Saved ("bewaarde") exercises are remembered in this browser only; there are no accounts yet. */
+/** Saved ("bewaarde") exercises are always kept in this browser; with an account they are synced too (see sync.ts). */
 const FAVS_KEY = 'ikdien:bewaard';
 
 /** Validates stored saved-exercise ids; ids of exercises that no longer exist are dropped. */
@@ -179,7 +190,8 @@ function storeFavs(favs: string[]) {
 }
 
 /**
- * Saved trainings are kept in this browser only (there are no accounts yet), like the saved exercises.
+ * Saved trainings are always kept in this browser (the offline cache), like the saved exercises; with an
+ * account they are synced too (see sync.ts).
  * Stored data is validated on load, so a malformed entry or an exercise that no longer exists can't break the pages.
  */
 const TRAININGS_KEY = 'ikdien:trainingen';
@@ -219,6 +231,44 @@ export function readTrainings(stored: unknown): Session[] {
     });
   }
   return trainings;
+}
+
+/** Changes that haven't reached the account yet, and the account this browser's data was last synced with. */
+const PENDING_KEY = 'ikdien:sync-pending';
+const SYNC_USER_KEY = 'ikdien:sync-user';
+
+function loadPending(): Pending {
+  try {
+    return readPending(JSON.parse(localStorage.getItem(PENDING_KEY) ?? 'null'));
+  } catch {
+    return emptyPending();
+  }
+}
+
+function storePending(p: Pending) {
+  try {
+    if (isPendingEmpty(p)) localStorage.removeItem(PENDING_KEY);
+    else localStorage.setItem(PENDING_KEY, JSON.stringify(p));
+  } catch {
+    // Storage unavailable: unsent changes are then only kept until the page is closed.
+  }
+}
+
+function loadSyncUser(): string | null {
+  try {
+    return localStorage.getItem(SYNC_USER_KEY);
+  } catch {
+    return null;
+  }
+}
+
+function storeSyncUser(id: string | null) {
+  try {
+    if (id) localStorage.setItem(SYNC_USER_KEY, id);
+    else localStorage.removeItem(SYNC_USER_KEY);
+  } catch {
+    // Storage unavailable: the next login simply combines local and account data again.
+  }
 }
 
 function loadTrainings(): Session[] {
@@ -292,6 +342,9 @@ export function TrainingProvider({ children }: { children: ReactNode }) {
   const [favs, setFavs] = useState<string[]>(loadFavs);
   // A new training left unsaved in an earlier visit, offered in the builder until it's restored or discarded.
   const [recovered, setRecovered] = useState<Training | null>(loadConcept);
+  const { user, signOut, deleteAccount } = useAuth();
+  const userId = user?.id ?? null;
+  const [syncState, setSyncState] = useState<SyncState>('idle');
 
   // Persist every change, and pick up changes made in another tab.
   const skipStore = useRef(true);
@@ -362,6 +415,186 @@ export function TrainingProvider({ children }: { children: ReactNode }) {
     storeConcept(null);
   }, []);
 
+  // ---- Sync with the account (only when signed in; this browser's storage stays the offline cache) ----
+  const userIdRef = useRef(userId);
+  userIdRef.current = userId;
+  const sessionsRef = useRef(sessions);
+  sessionsRef.current = sessions;
+  const favsRef = useRef(favs);
+  favsRef.current = favs;
+  const draftIdRef = useRef(draft.id);
+  draftIdRef.current = draft.id;
+  /** `savedAt` of each training as the account has it; a training that differs still has to be uploaded. */
+  const synced = useRef(new Map<string, number>());
+  /** Whether the first merge after login has finished (before that, local changes are picked up by the merge). */
+  const ready = useRef(false);
+  /** Bumped when local data is cleared, so a request that started earlier doesn't bring it back. */
+  const generation = useRef(0);
+  const queue = useRef<Promise<unknown>>(Promise.resolve());
+  const flushTimer = useRef<number | undefined>(undefined);
+  const lastPull = useRef(0);
+
+  const updatePending = useCallback((fn: (p: Pending) => Pending) => storePending(fn(loadPending())), []);
+
+  /** Queues every training that differs from what the account has. */
+  const enqueueChanged = useCallback(() => {
+    if (!userIdRef.current || !ready.current) return;
+    const changed = sessionsRef.current.filter((s) => synced.current.get(s.id) !== s.savedAt).map((s) => s.id);
+    if (changed.length) updatePending((p) => ({ ...p, up: [...p.up.filter((id) => !changed.includes(id)), ...changed] }));
+  }, [updatePending]);
+
+  const failure = () => setSyncState(typeof navigator !== 'undefined' && !navigator.onLine ? 'offline' : 'error');
+
+  /** Sends the pending changes; returns whether everything arrived. Calls run one after another. */
+  const flush = useCallback((): Promise<boolean> => {
+    const run = async () => {
+      const uid = userIdRef.current;
+      if (!uid) return true;
+      const gen = generation.current;
+      enqueueChanged();
+      const pending = loadPending();
+      if (isPendingEmpty(pending)) return true;
+      const ups = pending.up.map((id) => sessionsRef.current.find((s) => s.id === id)).filter((s): s is Session => !!s);
+      setSyncState('syncing');
+      try {
+        if (ups.length) await upsertTrainings(uid, ups);
+        if (pending.del.length) await markDeleted(uid, pending.del);
+        if (pending.favAdd.length) await addFavs(uid, pending.favAdd);
+        if (pending.favDel.length) await removeFavs(uid, pending.favDel);
+      } catch {
+        if (gen === generation.current) failure();
+        return false;
+      }
+      if (gen !== generation.current) return true;
+      ups.forEach((s) => synced.current.set(s.id, s.savedAt));
+      updatePending((p) => subtractPending(p, pending));
+      enqueueChanged(); // saved again while the upload was running
+      setSyncState('idle');
+      return true;
+    };
+    const result = queue.current.then(run, run);
+    queue.current = result;
+    return result;
+  }, [enqueueChanged, updatePending]);
+
+  const scheduleFlush = useCallback(() => {
+    window.clearTimeout(flushTimer.current);
+    flushTimer.current = window.setTimeout(() => void flush(), 1000);
+  }, [flush]);
+
+  /** Fetches the account, merges it with this browser's data and uploads whatever is newer here. */
+  const pull = useCallback(
+    async (mode: 'link' | 'refresh') => {
+      const uid = userIdRef.current;
+      if (!uid) return;
+      const gen = generation.current;
+      setSyncState('syncing');
+      try {
+        await flush();
+        const remote = await fetchAll();
+        if (gen !== generation.current || userIdRef.current !== uid) return;
+        const pending = loadPending();
+        const t = mergeTrainings(sessionsRef.current, remote.trainings, new Set(pending.del.map((d) => d.id)));
+        const f = mergeFavs(favsRef.current, remote.favs, { mode, pendingAdd: pending.favAdd, pendingRemove: pending.favDel });
+
+        const pushIds = new Set(t.push.map((s) => s.id));
+        synced.current = new Map(t.merged.filter((s) => !pushIds.has(s.id)).map((s) => [s.id, s.savedAt]));
+        const old = sessionsRef.current;
+        if (t.merged.length !== old.length || t.merged.some((s, i) => s !== old[i])) {
+          sessionsRef.current = t.merged;
+          setSessions(t.merged);
+          // The training open in the builder was changed or deleted on another device.
+          const open = draftIdRef.current;
+          if (open && t.changed.includes(open)) {
+            const fresh = t.merged.find((s) => s.id === open);
+            setDraft(fresh ? { ...fresh, plan: copyPlan(fresh.plan) } : emptyTraining(t.merged));
+          }
+        }
+        if (f.merged.length !== favsRef.current.length || f.merged.some((id, i) => id !== favsRef.current[i])) setFavs(f.merged);
+
+        storeSyncUser(uid);
+        ready.current = true;
+        lastPull.current = Date.now();
+        updatePending((p) => ({
+          ...p,
+          up: [...p.up.filter((id) => !pushIds.has(id)), ...pushIds],
+          favAdd: [...p.favAdd.filter((id) => !f.push.includes(id)), ...f.push],
+        }));
+        await flush();
+      } catch {
+        if (gen === generation.current) failure();
+      }
+    },
+    [flush, updatePending],
+  );
+
+  const clearLocalAccountData = useCallback(() => {
+    generation.current++;
+    window.clearTimeout(flushTimer.current);
+    ready.current = false;
+    synced.current = new Map();
+    storePending(emptyPending());
+    storeSyncUser(null);
+    storeConcept(null);
+    conceptInUse.current = false;
+    setSessions([]);
+    setFavs([]);
+    setRecovered(null);
+    setDraft(emptyTraining([]));
+    setActiveBlock('wu');
+    setSyncState('idle');
+  }, []);
+
+  const signOutAndClear = useCallback(async () => {
+    await flush(); // best effort: what doesn't arrive now is lost with the local copy
+    await signOut();
+    clearLocalAccountData();
+  }, [flush, signOut, clearLocalAccountData]);
+
+  const deleteAccountAndClear = useCallback(async () => {
+    await deleteAccount();
+    clearLocalAccountData();
+  }, [deleteAccount, clearLocalAccountData]);
+
+  // Login: combine this browser's data with the account. Data from a different account is dropped first.
+  useEffect(() => {
+    if (!userId) {
+      ready.current = false;
+      return;
+    }
+    const previous = loadSyncUser();
+    if (previous && previous !== userId) clearLocalAccountData();
+    ready.current = false;
+    void pull(previous === userId ? 'refresh' : 'link');
+  }, [userId, pull, clearLocalAccountData]);
+
+  // Changed trainings are uploaded shortly after the change.
+  useEffect(() => {
+    if (!userId || !ready.current) return;
+    if (sessions.some((s) => synced.current.get(s.id) !== s.savedAt)) {
+      enqueueChanged();
+      scheduleFlush();
+    }
+  }, [sessions, userId, enqueueChanged, scheduleFlush]);
+
+  // Retry unsent changes when back online, and pick up changes from other devices when the page comes back.
+  useEffect(() => {
+    if (!userId) return;
+    const onOnline = () => void pull(ready.current ? 'refresh' : 'link');
+    const onVisible = () => {
+      if (document.visibilityState !== 'visible') return;
+      if (!ready.current) void pull('link');
+      else if (Date.now() - lastPull.current > 15_000) void pull('refresh');
+      else void flush();
+    };
+    window.addEventListener('online', onOnline);
+    document.addEventListener('visibilitychange', onVisible);
+    return () => {
+      window.removeEventListener('online', onOnline);
+      document.removeEventListener('visibilitychange', onVisible);
+    };
+  }, [userId, pull, flush]);
+
   const busyDates = useMemo(() => sessions.filter((s) => s.id !== draft.id).map((s) => s.date), [sessions, draft.id]);
 
   const update = useCallback(<K extends keyof Training>(key: K) => (value: Training[K]) => setDraft((d) => ({ ...d, [key]: value })), []);
@@ -426,8 +659,12 @@ export function TrainingProvider({ children }: { children: ReactNode }) {
       const rest = sessions.filter((s) => s.id !== id);
       setSessions(rest);
       setDraft((d) => (d.id === id ? emptyTraining(rest) : d));
+      if (userIdRef.current) {
+        updatePending((p) => ({ ...p, up: p.up.filter((x) => x !== id), del: [...p.del.filter((d) => d.id !== id), { id, at: Date.now() }] }));
+        scheduleFlush();
+      }
     },
-    [sessions],
+    [sessions, updatePending, scheduleFlush],
   );
 
   const addExercise = useCallback((block: BlockId, exId: string, min?: number) => {
@@ -460,9 +697,21 @@ export function TrainingProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => storeFavs(favs), [favs]);
 
-  const toggleFav = useCallback((exId: string) => {
-    setFavs((f) => (f.includes(exId) ? f.filter((x) => x !== exId) : [...f, exId]));
-  }, []);
+  const toggleFav = useCallback(
+    (exId: string) => {
+      const adding = !favsRef.current.includes(exId);
+      setFavs((f) => (f.includes(exId) ? f.filter((x) => x !== exId) : [...f, exId]));
+      if (userIdRef.current) {
+        updatePending((p) => ({
+          ...p,
+          favAdd: adding ? [...p.favAdd.filter((x) => x !== exId), exId] : p.favAdd.filter((x) => x !== exId),
+          favDel: adding ? p.favDel.filter((x) => x !== exId) : [...p.favDel.filter((x) => x !== exId), exId],
+        }));
+        scheduleFlush();
+      }
+    },
+    [updatePending, scheduleFlush],
+  );
 
   const value = useMemo(
     () => ({
@@ -495,8 +744,11 @@ export function TrainingProvider({ children }: { children: ReactNode }) {
       moveItem,
       favs,
       toggleFav,
+      syncState,
+      signOutAndClear,
+      deleteAccountAndClear,
     }),
-    [sessions, draft, busyDates, openTraining, newTraining, newTrainingFrom, newTrainingFromShared, recovered, restoreRecovered, discardRecovered, saveTraining, deleteTraining, setDate, setTeam, setTheme, setDuration, activeBlock, addExercise, removeItem, changeMinutes, moveItem, favs, toggleFav],
+    [sessions, draft, busyDates, openTraining, newTraining, newTrainingFrom, newTrainingFromShared, recovered, restoreRecovered, discardRecovered, saveTraining, deleteTraining, setDate, setTeam, setTheme, setDuration, activeBlock, addExercise, removeItem, changeMinutes, moveItem, favs, toggleFav, syncState, signOutAndClear, deleteAccountAndClear],
   );
 
   return <TrainingContext.Provider value={value}>{children}</TrainingContext.Provider>;

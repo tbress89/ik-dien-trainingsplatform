@@ -1,7 +1,9 @@
 import { Link, NavLink, useLocation } from 'react-router-dom';
+import { useAuth } from '../data/auth';
 import { TRAINING_BUILDER } from '../features';
 
 export function Nav() {
+  const { enabled, user } = useAuth();
   const { pathname } = useLocation();
   const onExercises = pathname === '/' || pathname.startsWith('/oefeningen');
   // "Training geven" uses the whole screen on the pitch.
@@ -27,6 +29,11 @@ export function Nav() {
           </NavLink>
         </nav>
       </div>
+      {enabled && (
+        <Link to="/account" className={`nav-account${user ? ' signed-in' : ''}`} aria-label={user ? `Account (${user.email})` : 'Inloggen'}>
+          {user ? (user.email?.[0] ?? '?').toUpperCase() : 'Inloggen'}
+        </Link>
+      )}
     </header>
   );
 }
