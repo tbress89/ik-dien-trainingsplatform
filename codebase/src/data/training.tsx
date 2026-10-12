@@ -461,7 +461,8 @@ export function TrainingProvider({ children }: { children: ReactNode }) {
         if (pending.del.length) await markDeleted(uid, pending.del);
         if (pending.favAdd.length) await addFavs(uid, pending.favAdd);
         if (pending.favDel.length) await removeFavs(uid, pending.favDel);
-      } catch {
+      } catch (e) {
+        console.warn('Sync: uploaden mislukt', e);
         if (gen === generation.current) failure();
         return false;
       }
@@ -521,7 +522,8 @@ export function TrainingProvider({ children }: { children: ReactNode }) {
           favAdd: [...p.favAdd.filter((id) => !f.push.includes(id)), ...f.push],
         }));
         await flush();
-      } catch {
+      } catch (e) {
+        console.warn('Sync: ophalen mislukt', e);
         if (gen === generation.current) failure();
       }
     },

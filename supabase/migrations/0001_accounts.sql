@@ -21,6 +21,9 @@ create table public.trainings (
   primary key (user_id, id)
 );
 
+-- Newer Supabase projects don't grant table access automatically; RLS below still limits rows to the owner.
+grant select, insert, update, delete on public.favorites, public.trainings to authenticated;
+
 alter table public.favorites enable row level security;
 alter table public.trainings enable row level security;
 
