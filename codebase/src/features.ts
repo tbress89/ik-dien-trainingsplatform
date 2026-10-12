@@ -10,4 +10,4 @@ export const TRAINING_BUILDER = true;
  * Off until the Supabase project is set up; the account UI also needs VITE_SUPABASE_URL and
  * VITE_SUPABASE_ANON_KEY (see .env.example), otherwise it stays hidden.
  */
-export const ACCOUNTS = false;
+export const ACCOUNTS = true;
