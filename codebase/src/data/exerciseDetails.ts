@@ -2297,7 +2297,7 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
     steps: [
       { title: 'Opstelling.', text: 'Speel op 50 × 35 m met twee grote doelen en keepers. Markeer de middenlijn met kegels.' },
       { title: 'Spelen.', text: 'Vrij spel 6 tegen 6. Een gewoon doelpunt is 1 punt.' },
-      { title: 'Pressingzone.', text: 'Wint een ploeg de bal op de helft van de tegenstander en scoort ze binnen 10 seconden, dan telt dat voor 3 punten.' },
+      { title: 'Pressingzone.', text: 'Wint een ploeg de bal op de helft van de tegenstander en scoort ze binnen 10 seconden, dan telt dat voor 2 punten.' },
       { title: 'Ritme.', text: 'Speel 3 reeksen van 6 minuten met 1 minuut rust.' },
     ],
     easier: 'Maak het veld groter en tel een balwinst op de helft van de tegenstander al als 1 punt, ook zonder doelpunt.',
