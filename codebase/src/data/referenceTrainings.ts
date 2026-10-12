@@ -45,7 +45,7 @@ export const REFERENCE_TRAININGS: ReferenceTraining[] = [
       ['kern', 'pass', 10], // Passvierkant met doorbewegen
       ['kern', 'pwall', 10], // Kaatsen: één-twee-race naar het doeltje
       ['kern', 'pgates', 10], // Passen door poortjes
-      ['pv', 'sggates', 20], // Poortjesspel 4 tegen 4
+      ['pv', 'game5', 20], // Partijvorm 5 tegen 5 op grote doelen
     ],
   },
   {
