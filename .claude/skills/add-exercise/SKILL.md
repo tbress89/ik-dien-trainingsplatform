@@ -89,6 +89,7 @@ Drawing rules (viewBox is 320 × 200; the pitch outline runs 10–310 × 10–19
 - Include at least one `Pass` and, where the exercise has movement, one `Run`.
 - `Pass(x1, y1, x2, y2, at)` and `Run(d, at)` take an optional last argument: the diagram stage from which the arrow appears (defaults: passes 1, runs 2). Set it when the exercise has more than three stages, or when the arrows should appear in a different order than passes-then-runs, so each stage button reveals something new. When reusing an existing diagram, check its arrows fit the stages you wrote.
 - Order the array back to front: field lines and zones, then passes and runs, then players, then the ball last so it sits on top.
+- Purple (the team in B+) attacks from left to right: its own goal, if any, is on the left and the goal it attacks on the right. A test checks this for the big goals. Exercises without a direction (rondos, coordination) are free.
 - Keep the key action inside roughly x 30–290, y 45–155. The SVG is cropped to fill different boxes (the builder's plan cards are very wide and short, the library thumbnails narrow), so content near the edges gets cut off.
 - Each primitive derives its React key from its coordinates, so don't place two of the same primitive at identical coordinates.
 

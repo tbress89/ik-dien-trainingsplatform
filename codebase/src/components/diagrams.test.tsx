@@ -48,6 +48,27 @@ describe('diagrams', () => {
     expect(balls.some((b) => holder(b).fill !== ORANGE)).toBe(true);
   });
 
+  // The team in B+ attacks from left to right: a big goal kept by purple is on the left, one kept by orange on the
+  // right. gkserve and gkdive only have a keeper and a trainer, so there's no team in B+ to point.
+  it.each(variants.filter((v) => v !== 'gkserve' && v !== 'gkdive'))('%s has purple attacking to the right', (variant) => {
+    const svg = renderToStaticMarkup(<Pitch variant={variant} />);
+    const keepers = [...svg.matchAll(/<circle cx="([\d.]+)" cy="([\d.]+)" r="8" fill="(#5B2BC4|#F2A541)"/g)].map((m) => ({
+      x: +m[1],
+      y: +m[2],
+      fill: m[3],
+    }));
+    const goals = [...svg.matchAll(/<rect x="([\d.]+)" y="([\d.]+)" width="([\d.]+)" height="([\d.]+)" fill="#fff" stroke="#1A1033"/g)]
+      .map((m) => ({ x: +m[1] + +m[3] / 2, y: +m[2] + +m[4] / 2, h: +m[4] }))
+      .filter((g) => g.h >= 30);
+    for (const g of goals) {
+      const keeper = keepers.find((k) => Math.hypot(k.x - g.x, k.y - g.y) < 30);
+      if (keeper) expect({ goal: g.x < 160 ? 'links' : 'rechts', keeper: keeper.fill === ORANGE ? 'oranje' : 'paars' }).toEqual({
+        goal: keeper.fill === ORANGE ? 'rechts' : 'links',
+        keeper: keeper.fill === ORANGE ? 'oranje' : 'paars',
+      });
+    }
+  });
+
   // Only players who wait in every stage stay hollow in the full diagram; the legend's "Wachtrij" follows this list.
   it.each(variants)('%s is in QUEUE_VARIANTS only if it shows a queue', (variant) => {
     expect(renderToStaticMarkup(<Pitch variant={variant} />).includes('stroke-dasharray="2.5 2"')).toBe(QUEUE_VARIANTS.has(variant));
