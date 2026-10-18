@@ -2139,26 +2139,26 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
   },
   prhunt: {
     summary:
-      'Twee jagers zonder bal proberen samen zoveel mogelijk ballen van de dribbelaars af te pakken. Een speelse eerste kennismaking met samen druk zetten en de bal veroveren.',
+      'Twee jagers zonder bal proberen ballen af te pakken, terwijl de dribbelaars punten verdienen met een dribbel door een van de poortjes. Zo moeten de dribbelaars de druk opzoeken, en leren de jagers spelenderwijs samen druk zetten en de bal veroveren.',
     steps: [
-      { title: 'Opstelling.', text: 'Zet een vak van 20 × 20 m uit. Alle spelers hebben een bal, behalve twee jagers in een hesje.' },
-      { title: 'Jagen.', text: 'De jagers werken samen om ballen af te pakken of uit het vak te trappen. Een dribbelaar die zijn bal verliest, wordt ook jager.' },
-      { title: 'Winnen.', text: 'Wie het langst zijn bal houdt, wint. Daarna beginnen twee nieuwe jagers.' },
-      { title: 'Ritme.', text: 'Speel 4 rondes van ongeveer 2 minuten, met 30 seconden rust.' },
+      { title: 'Opstelling.', text: 'Zet een vak van 20 × 20 m uit met vier à zes poortjes van 2 meter breed, verspreid in het vak. Alle spelers hebben een bal, behalve twee jagers in een hesje.' },
+      { title: 'Scoren.', text: 'Een dribbelaar die door een poortje dribbelt, verdient 1 punt. Twee keer na elkaar door hetzelfde poortje telt niet. Jagers mogen niet in een poortje blijven staan.' },
+      { title: 'Jagen.', text: 'De jagers werken samen om ballen af te pakken of uit het vak te trappen. Wie zijn bal verliest, verliest 1 punt, haalt de bal terug, houdt hem 5 keer hoog (de jongsten: 5 keer de zool op de bal) en speelt verder. Niemand valt af.' },
+      { title: 'Ritme.', text: 'Speel 4 rondes van 2 minuten met 30 seconden rust. Wie na een ronde de meeste punten heeft, wint. Kies elke ronde twee nieuwe jagers.' },
     ],
-    easier: 'Laat dribbelaars die hun bal verliezen 5 keer hoog houden en dan terug meedoen.',
-    harder: 'Verklein het vak of begin met drie jagers.',
+    easier: 'Speel met één jager, of maak de poortjes breder.',
+    harder: 'Verklein het vak of speel met drie jagers.',
     objectives: ['Samen jagen', 'Snelheid naar de bal', 'Bal veroveren', 'Afschermen'],
     coaching: [
       'Jagers: kies samen één dribbelaar en sluit hem in.',
       'Kom snel aan en rem af vlak voor de bal.',
-      'Dribbelaars: kop omhoog, weg van de jagers.',
-      'Bal kwijt? Meteen mee jagen.',
+      'Dribbelaars: kop omhoog, kijk welk poortje vrij is en ga er snel door.',
+      'Komt er een jager? Zet je lichaam tussen de jager en de bal.',
     ],
     diagramSteps: [
-      ['Organisatie', 'Twee jagers tussen de dribbelaars'],
-      ['Aanvallen', 'De eerste jager stapt in'],
-      ['Insluiten', 'De tweede sluit de uitweg af'],
+      ['Organisatie', 'Twee jagers, de dribbelaars en de poortjes'],
+      ['Scoren', 'Een dribbelaar dribbelt door een poortje voor een punt'],
+      ['Jagen', 'De jagers sluiten samen een dribbelaar in bij een poortje'],
     ],
     related: [
       { id: 'dking', fit: 'Zelfde thema' },
