@@ -110,11 +110,13 @@ export function PitchAnimation({ variant, def, onBeat }: { variant: Variant; def
           // Labels change only once a beat is done (from the frame at its start), e.g. after a rotation.
           const tag = from.labels[a.id];
           const fill = a.team === 'P' ? PURPLE : a.team === 'O' ? ORANGE : '#fff';
-          const text = a.team === 'P' ? '#fff' : a.team === 'O' ? INK : PURPLE;
+          const text = a.waiting ? fill : a.team === 'P' ? '#fff' : a.team === 'O' ? INK : PURPLE;
           return (
             <g key={a.id}>
               {a.team === 'N' ? (
                 <circle cx={x} cy={y} r={7} fill="#fff" stroke={PURPLE} strokeWidth={2.5} />
+              ) : a.waiting ? (
+                <circle cx={x} cy={y} r={8} fill="#fff" stroke={fill} strokeWidth={1.5} strokeDasharray="2.5 2" />
               ) : (
                 <circle cx={x} cy={y} r={8} fill={fill} stroke="#fff" strokeWidth={2} />
               )}

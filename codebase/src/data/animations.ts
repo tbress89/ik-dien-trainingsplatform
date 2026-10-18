@@ -15,6 +15,8 @@ export interface AnimActor {
   label?: string;
   x: number;
   y: number;
+  /** Drawn as a waiting player (hollow, dashed outline), e.g. a queue that doesn't take part. */
+  waiting?: boolean;
 }
 
 export interface AnimBeat {
@@ -1087,8 +1089,8 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
       { id: 'w', team: 'P', x: 200, y: 54 },
       { id: 'a', team: 'O', x: 200, y: 100 },
       { id: 'g', team: 'P', x: 286, y: 100 },
-      { id: 'q1', team: 'P', x: 184, y: 164 },
-      { id: 'q2', team: 'P', x: 168, y: 174 },
+      { id: 'q1', team: 'P', x: 184, y: 164, waiting: true },
+      { id: 'q2', team: 'P', x: 168, y: 174, waiting: true },
     ],
     ballStart: 'd',
     beats: [

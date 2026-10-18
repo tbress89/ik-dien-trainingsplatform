@@ -5,7 +5,7 @@ import { DEMOS, type Joint } from '../data/demos';
 import { EXERCISES } from '../data/exercises';
 import { EXERCISE_DETAILS } from '../data/exerciseDetails';
 import { BodyDemo } from './BodyDemo';
-import { Pitch } from './Pitch';
+import { Pitch, QUEUE_VARIANTS } from './Pitch';
 import { PitchAnimation } from './PitchAnimation';
 
 // Every diagram an exercise shows: its own, plus those of its versions.
@@ -28,6 +28,11 @@ describe('diagrams', () => {
     }
     // The full diagram has at least one player, cone or goal on the field.
     expect(renderToStaticMarkup(<Pitch variant={variant} />)).toMatch(/<(circle|polygon|rect)[^>]*(r="[78]"|points=|stroke="#1A1033")/);
+  });
+
+  // Only players who wait in every stage stay hollow in the full diagram; the legend's "Wachtrij" follows this list.
+  it.each(variants)('%s is in QUEUE_VARIANTS only if it shows a queue', (variant) => {
+    expect(renderToStaticMarkup(<Pitch variant={variant} />).includes('stroke-dasharray="2.5 2"')).toBe(QUEUE_VARIANTS.has(variant));
   });
 });
 

@@ -4,6 +4,9 @@ import type { Variant } from '../data/exercises';
 export const PURPLE = '#5B2BC4';
 export const ORANGE = '#F2A541';
 export const INK = '#1A1033';
+
+/** Diagrams with players who wait in every stage (`joinsAt` Infinity), so the legend can explain them. */
+export const QUEUE_VARIANTS: ReadonlySet<Variant> = new Set<Variant>(['gkback']);
 const ZONE = '#C7B6EF';
 const CONE = '#A98BE8';
 
@@ -48,6 +51,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
     );
   // P and O also take an optional `joinsAt`: the diagram step from which the player takes part. Before
   // that step they are drawn as a waiting player (hollow, dashed outline), e.g. a substitute on the side.
+  // Infinity keeps them waiting in every stage and in the full diagram, e.g. a queue of players.
   const Waiting = (x: number, y: number, label: string | undefined, color: string) => (
     <>
       <circle cx={x} cy={y} r={8} fill="#fff" stroke={color} strokeWidth={1.5} strokeDasharray="2.5 2" />
@@ -56,7 +60,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
   );
   const P = (x: number, y: number, label?: string, joinsAt?: number) => (
     <g key={`p${x}-${y}`}>
-      {joinsAt !== undefined && step < joinsAt ? (
+      {joinsAt !== undefined && (joinsAt === Infinity || step < joinsAt) ? (
         Waiting(x, y, label, PURPLE)
       ) : (
         <>
@@ -68,7 +72,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
   );
   const O = (x: number, y: number, label?: string, joinsAt?: number) => (
     <g key={`o${x}-${y}`}>
-      {joinsAt !== undefined && step < joinsAt ? (
+      {joinsAt !== undefined && (joinsAt === Infinity || step < joinsAt) ? (
         Waiting(x, y, label, ORANGE)
       ) : (
         <>
@@ -313,7 +317,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M192 148 Q120 154 84 134', 3),
       Pass(80, 62, 42, 68, 3),
       P(200, 146), P(200, 54), O(200, 100), P(286, 100),
-      P(184, 164), P(168, 174),
+      P(184, 164, undefined, Infinity), P(168, 174, undefined, Infinity),
       Ball(206, 142),
     ],
     gkrebound: [

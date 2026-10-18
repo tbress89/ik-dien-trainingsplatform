@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { BodyDemo } from '../components/BodyDemo';
-import { Pitch } from '../components/Pitch';
+import { Pitch, QUEUE_VARIANTS } from '../components/Pitch';
 import { PitchAnimation } from '../components/PitchAnimation';
 import { VideoEmbed } from '../components/VideoEmbed';
 import { useAnimations, useExerciseDetails } from '../components/useExerciseData';
@@ -225,6 +225,12 @@ export function DetailPage() {
                     <span style={{ width: 18, height: 10, border: '1.5px solid var(--pitch-ink)', background: '#fff' }} />
                     Doeltje
                   </span>
+                  {QUEUE_VARIANTS.has(variant) && (
+                    <span>
+                      <span className="legend-dot" style={{ background: '#fff', border: '1.5px dashed var(--purple)' }} />
+                      Wachtrij
+                    </span>
+                  )}
                 </>
               )}
               {playing && beat ? (

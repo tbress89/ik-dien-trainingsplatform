@@ -208,16 +208,21 @@ def svg_primitive(name, args):
     """SVG markup for one Pitch.tsx primitive call, matching what the React component renders."""
     if name in ('P', 'O', 'N'):  # players, with an optional label (shirt number or 'K') inside the dot
         # A 4th argument (the step a waiting player joins at) only matters for the step buttons in the app;
-        # the design shows the full diagram, where every player takes part.
+        # the design shows the full diagram, where every player takes part, except those who wait in every
+        # stage (Infinity, e.g. a queue).
         x, y = args[:2]
+        waiting = len(args) > 3 and args[3] == float('inf')
         if name == 'N':
             dot = f'<circle cx="{x}" cy="{y}" r="7" fill="{WHITE}" stroke="{PURPLE}" stroke-width="2.5"></circle>'
+        elif waiting:
+            color = PURPLE if name == 'P' else ORANGE
+            dot = f'<circle cx="{x}" cy="{y}" r="8" fill="{WHITE}" stroke="{color}" stroke-width="1.5" stroke-dasharray="2.5 2"></circle>'
         else:
             dot = f'<circle cx="{x}" cy="{y}" r="8" fill="{PURPLE if name == "P" else ORANGE}" stroke="{WHITE}" stroke-width="2"></circle>'
         if len(args) < 3 or args[2] is None:
             return dot
         label = html.escape(str(args[2]))
-        color = {'P': WHITE, 'O': INK, 'N': PURPLE}[name]
+        color = (PURPLE if name == 'P' else ORANGE) if waiting else {'P': WHITE, 'O': INK, 'N': PURPLE}[name]
         size = 7.5 if len(label) > 1 else 9
         return (f'<g>{dot}<text x="{x}" y="{y}" dy="0.35em" text-anchor="middle" font-size="{size}" font-weight="700" '
                 f'fill="{color}" font-family="Figtree, system-ui, sans-serif">{label}</text></g>')
@@ -259,7 +264,8 @@ def parse_args(text):
     text = re.sub(r'\btrue\b', 'True', text)
     text = re.sub(r'\bfalse\b', 'False', text)
     text = re.sub(r'\bundefined\b', 'None', text)
-    return list(ast.literal_eval(f'({text},)'))
+    text = re.sub(r'\bInfinity\b', "'Infinity'", text)
+    return [float('inf') if a == 'Infinity' else a for a in ast.literal_eval(f'({text},)')]
 
 
 CIRCLE_JSX = (r'<circle key="\w+" cx=\{(\d+)\} cy=\{(\d+)\} r=\{(\d+)\} fill="none" stroke=(?:"#fff"|\{(ZONE)\}) '
