@@ -114,6 +114,7 @@ export const RECOMMENDED: string[] = [
   'prtrig', // Pressing op de trigger: terugspeelbal
   'crelay', // Hindernisestafette met bal
   'pline', // Passen in lijnen: pass en volg
+  'pfollow', // Vrij rondpassen en de bal volgen
   'ppoles', // Ruitpassen rond de palen
   'gkdist', // Uitworp en uittrap naar doeltjes
   'obline', // Rustig uitspelen: 3 + K tegen 2 met terugtreklijn

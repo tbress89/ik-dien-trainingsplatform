@@ -154,7 +154,8 @@ export type Variant =
   | 'omwave2k'
   | 'omright'
   | 'inworp'
-  | 'game11';
+  | 'game11'
+  | 'pfollow';
 
 export type ExerciseType = 'Warming-up' | 'Technisch' | 'Tactisch' | 'Fysiek' | 'Partijvorm';
 
@@ -3674,6 +3675,27 @@ export const EXERCISES: Exercise[] = [
       { name: 'Kegels', qty: '6' },
       { name: 'Ballen', qty: '10' },
       { name: 'Hesjes', qty: '2' },
+    ],
+  },
+  {
+    id: 'pfollow',
+    title: 'Vrij rondpassen en de bal volgen',
+    variant: 'pfollow',
+    type: 'Warming-up',
+    phase: 'Aanvallen',
+    themes: ['Passing & aanname'],
+    ages: ['U6–9', 'U10–13', 'U14–15', 'U16–21'],
+    ageLabel: 'U8 – U21',
+    diff: 1,
+    pmin: 5,
+    players: '5–18',
+    playersDetail: '(groepjes van 5 à 6)',
+    min: 10,
+    intensity: 2,
+    field: '15 × 15 m per groep',
+    materials: [
+      { name: 'Kegels', qty: '4 per groep' },
+      { name: 'Ballen', qty: '2 per groep' },
     ],
   },
 ];

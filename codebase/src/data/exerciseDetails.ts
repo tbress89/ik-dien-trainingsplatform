@@ -4820,4 +4820,35 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'game5', fit: 'Als afsluiter' },
     ],
   },
+  pfollow: {
+    summary:
+      'In groepjes van vijf à zes passen de spelers vrij rond in een vak en sprinten ze telkens achter hun pass aan. Een eenvoudige opwarming met veel balcontacten, waarin spelers leren kijken, aanbieden en in beweging aannemen.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet per groep een vak van 15 × 15 m uit. Vijf à zes spelers lopen vrij rond in het vak; één speler heeft de bal.' },
+      { title: 'Passen en volgen.', text: 'Pass naar een ploegmaat naar keuze en sprint je bal achterna tot bij die speler. De ontvanger neemt aan, speelt een andere ploegmaat aan en volgt op zijn beurt zijn bal. Niet terugpassen naar wie je de bal gaf.' },
+      { title: 'Varianten.', text: 'Wissel elke reeks: eerst aannemen en passen met twee balcontacten, dan alleen met je zwakke voet, dan in één keer. In de laatste reeks speel je met twee ballen tegelijk.' },
+      { title: 'Ritme.', text: 'Speel 4 reeksen van 2 minuten met 30 seconden actieve rust.' },
+    ],
+    easier: 'Maak het vak groter en laat de spelers aannemen met zoveel balcontacten als ze nodig hebben.',
+    harder: 'Speel met twee ballen in één keer, of roep de naam van wie je aanspeelt voor je past.',
+    objectives: ['Zuivere pass', 'Aannemen in beweging', 'Aanbieden en vrijlopen', 'Kijken voor je speelt'],
+    coaching: [
+      'Kijk al voor je de bal krijgt naar wie je wil spelen.',
+      'Pass en volg meteen, blijf niet staan.',
+      'Kom de bal tegemoet en neem aan in de loop.',
+      'Roep de naam van wie je aanspeelt.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Vijf spelers vrij in het vak met één bal'],
+      ['Passen', 'Pass naar een ploegmaat naar keuze'],
+      ['Volgen', 'Sprint je bal achterna'],
+      ['Doorspelen', 'De ontvanger speelt verder en volgt zijn bal'],
+    ],
+    related: [
+      { id: 'pline', fit: 'Zelfde thema' },
+      { id: 'pass', fit: 'Kern' },
+      { id: 'rondo', fit: 'Als vervolg' },
+      { id: 'pten', fit: 'Als afsluiter' },
+    ],
+  },
 };

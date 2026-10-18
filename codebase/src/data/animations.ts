@@ -2438,4 +2438,22 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
       { label: 'Punt voor de verdedigers', ms: 400, ball: [34, 100] },
     ],
   },
+  // Vrij rondpassen en de bal volgen
+  pfollow: {
+    actors: [
+      { id: 'a', team: 'P', x: 120, y: 66 },
+      { id: 'b', team: 'P', x: 200, y: 60 },
+      { id: 'c', team: 'P', x: 214, y: 120 },
+      { id: 'd', team: 'P', x: 152, y: 142 },
+      { id: 'e', team: 'P', x: 112, y: 116 },
+    ],
+    ballStart: 'a',
+    beats: [
+      { label: 'Pass naar een ploegmaat en sprint je bal achterna', ms: 1000, ball: 'b', moves: { a: [180, 72], e: [118, 110] } },
+      { label: 'Speel een andere ploegmaat aan, niet wie je de bal gaf', ms: 1100, ball: 'e', moves: { b: [146, 98], a: [188, 126], c: [210, 80], d: [150, 146] } },
+      { label: 'Kies vrij: kijk wie vrij staat', ms: 1100, ball: 'c', moves: { e: [192, 86], b: [126, 70] } },
+      { label: 'Blijf bewegen en bied je aan', ms: 1100, ball: 'd', moves: { c: [162, 134], e: [206, 110], a: [196, 60] } },
+      { label: 'Pass en volg', ms: 1100, ball: 'b', moves: { d: [142, 92], c: [176, 140] } },
+    ],
+  },
 };
