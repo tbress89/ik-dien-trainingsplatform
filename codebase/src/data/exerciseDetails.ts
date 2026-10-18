@@ -551,10 +551,10 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
     summary:
       'Een verdediger speelt de bal terug naar de keeper terwijl een aanvaller druk zet. De keeper neemt aan en speelt meteen door naar de vrije ploegmaat op de flank, die samen met de verdediger scoort in een van de twee doeltjes aan de overkant.',
     steps: [
-      { title: 'Opstelling.', text: 'Zet een verdediger met bal, een aanvaller en een ploegmaat op één lijn op 20 meter van het doel: de verdediger aan de ene kant, de aanvaller in het midden en de ploegmaat breed aan de andere kant. Zet aan de overkant, op 35 meter van het doel, twee kleine doeltjes.' },
+      { title: 'Opstelling.', text: 'Zet een verdediger met bal, een aanvaller en een ploegmaat op één lijn op 20 meter van het doel: de verdediger aan de ene kant, de aanvaller in het midden en de ploegmaat breed aan de andere kant. Zet aan de overkant, op 35 meter van het doel, twee kleine doeltjes. De andere spelers wachten met de ballen in een rij achter de verdediger.' },
       { title: 'Terugspelen.', text: 'De verdediger speelt de bal terug naar de keeper. Op dat moment zet de aanvaller druk op de keeper.' },
       { title: 'Doorspelen en scoren.', text: 'De keeper neemt aan naar de kant weg van de aanvaller en speelt in twee balcontacten naar de ploegmaat op de flank. Die scoort samen met de verdediger in een van de twee doeltjes. Wint de aanvaller de bal, dan werkt die meteen af op het grote doel.' },
-      { title: 'Ritme.', text: 'Speel 3 reeksen van 3 minuten met 1 minuut rust. Wissel de rollen van de veldspelers na elke reeks.' },
+      { title: 'Ritme.', text: 'Speel 3 reeksen van 3 minuten met 1 minuut rust. Na elke actie schuift iedereen door: de verdediger wordt aanvaller, de aanvaller wordt flankspeler en de flankspeler sluit achteraan de rij aan. De volgende uit de rij start als verdediger met een nieuwe bal. Wissel na elke reeks van kant.' },
     ],
     easier: 'Laat de aanvaller pas vertrekken als de keeper de bal heeft aangenomen.',
     harder: 'Speel de terugspeelbal harder of hobbelig en laat de aanvaller meteen vertrekken.',
