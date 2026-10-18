@@ -469,14 +469,14 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   // Verdedigen als lijn: samen opschuiven en uitstappen
   defline: {
     actors: [
-      { id: 'd1', team: 'P', x: 222, y: 62 },
-      { id: 'd2', team: 'P', x: 222, y: 88 },
-      { id: 'd3', team: 'P', x: 222, y: 114 },
-      { id: 'd4', team: 'P', x: 222, y: 140 },
+      { id: 'd1', team: 'O', x: 222, y: 62 },
+      { id: 'd2', team: 'O', x: 222, y: 88 },
+      { id: 'd3', team: 'O', x: 222, y: 114 },
+      { id: 'd4', team: 'O', x: 222, y: 140 },
       { id: 'k', team: 'N', label: 'K', x: 296, y: 100 },
-      { id: 'o1', team: 'O', x: 130, y: 70 },
-      { id: 'o2', team: 'O', x: 104, y: 100 },
-      { id: 'o3', team: 'O', x: 150, y: 128 },
+      { id: 'o1', team: 'P', x: 130, y: 70 },
+      { id: 'o2', team: 'P', x: 104, y: 100 },
+      { id: 'o3', team: 'P', x: 150, y: 128 },
     ],
     ballStart: 'o1',
     beats: [
@@ -1013,10 +1013,10 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   // Schotstoppen vanuit de startpositie
   gkshot: {
     actors: [
-      { id: 's1', team: 'O', x: 195, y: 60 },
-      { id: 's2', team: 'O', x: 185, y: 100 },
-      { id: 's3', team: 'O', x: 195, y: 140 },
-      { id: 'g', team: 'P', x: 286, y: 100 },
+      { id: 's1', team: 'P', x: 195, y: 60 },
+      { id: 's2', team: 'P', x: 185, y: 100 },
+      { id: 's3', team: 'P', x: 195, y: 140 },
+      { id: 'g', team: 'O', x: 286, y: 100 },
     ],
     ballStart: 's1',
     beats: [
@@ -1031,9 +1031,9 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   // Positie kiezen: de hoek verkleinen
   gkangle: {
     actors: [
-      { id: 'a1', team: 'O', x: 176, y: 62 },
-      { id: 'a2', team: 'O', x: 176, y: 136 },
-      { id: 'g', team: 'P', x: 282, y: 88 },
+      { id: 'a1', team: 'P', x: 176, y: 62 },
+      { id: 'a2', team: 'P', x: 176, y: 136 },
+      { id: 'g', team: 'O', x: 282, y: 88 },
     ],
     ballStart: 'a1',
     beats: [
@@ -1046,10 +1046,10 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   // 1 tegen 1: uitkomen en blokken
   gk1v1: {
     actors: [
-      { id: 'a1', team: 'O', x: 112, y: 100 },
-      { id: 'a2', team: 'O', x: 60, y: 90 },
-      { id: 'a3', team: 'O', x: 60, y: 110 },
-      { id: 'g', team: 'P', x: 286, y: 100 },
+      { id: 'a1', team: 'P', x: 112, y: 100 },
+      { id: 'a2', team: 'P', x: 60, y: 90 },
+      { id: 'a3', team: 'P', x: 60, y: 110 },
+      { id: 'g', team: 'O', x: 286, y: 100 },
     ],
     ballStart: 'a1',
     beats: [
@@ -1061,9 +1061,9 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   // Hoge ballen: voorzetten klemmen
   gkcross: {
     actors: [
-      { id: 'o1', team: 'O', x: 225, y: 50 },
-      { id: 'o2', team: 'O', x: 225, y: 150 },
-      { id: 'g', team: 'P', x: 292, y: 100 },
+      { id: 'o1', team: 'P', x: 225, y: 50 },
+      { id: 'o2', team: 'P', x: 225, y: 150 },
+      { id: 'g', team: 'O', x: 292, y: 100 },
     ],
     ballStart: 'o1',
     beats: [
@@ -1104,9 +1104,9 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   // Dubbele redding: opstaan en opnieuw
   gkrebound: {
     actors: [
-      { id: 's1', team: 'O', x: 180, y: 100 },
-      { id: 's2', team: 'O', x: 235, y: 54 },
-      { id: 'g', team: 'P', x: 286, y: 100 },
+      { id: 's1', team: 'P', x: 180, y: 100 },
+      { id: 's2', team: 'P', x: 235, y: 54 },
+      { id: 'g', team: 'O', x: 286, y: 100 },
     ],
     ballStart: 's1',
     beats: [
@@ -1322,9 +1322,9 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   // Druk zetten in een boog: 1 tegen 2
   prcurve: {
     actors: [
-      { id: 'a1', team: 'O', x: 130, y: 60 },
-      { id: 'a2', team: 'O', x: 200, y: 60 },
-      { id: 'd', team: 'P', x: 165, y: 130 },
+      { id: 'a1', team: 'P', x: 130, y: 60 },
+      { id: 'a2', team: 'P', x: 200, y: 60 },
+      { id: 'd', team: 'O', x: 165, y: 130 },
     ],
     ballStart: 'a1',
     beats: [
@@ -1337,10 +1337,10 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   // 2 tegen 2: druk en dekking
   pr2v2: {
     actors: [
-      { id: 'o1', team: 'O', x: 120, y: 70 },
-      { id: 'o2', team: 'O', x: 120, y: 130 },
-      { id: 'p1', team: 'P', x: 180, y: 85 },
-      { id: 'p2', team: 'P', x: 200, y: 120 },
+      { id: 'o1', team: 'P', x: 120, y: 70 },
+      { id: 'o2', team: 'P', x: 120, y: 130 },
+      { id: 'p1', team: 'O', x: 180, y: 85 },
+      { id: 'p2', team: 'O', x: 200, y: 120 },
     ],
     ballStart: 'o1',
     beats: [
@@ -1353,34 +1353,34 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   // Tegendruk: voorkom 3 passes na balverlies
   prcp: {
     actors: [
-      { id: 'o1', team: 'O', x: 160, y: 90 },
-      { id: 'o2', team: 'O', x: 215, y: 95 },
-      { id: 'o3', team: 'O', x: 110, y: 132 },
-      { id: 'o4', team: 'O', x: 230, y: 140 },
-      { id: 'p1', team: 'P', x: 130, y: 100 },
-      { id: 'p2', team: 'P', x: 185, y: 66 },
-      { id: 'p3', team: 'P', x: 195, y: 128 },
-      { id: 'p4', team: 'P', x: 90, y: 70 },
+      { id: 'o1', team: 'P', x: 160, y: 90 },
+      { id: 'o2', team: 'P', x: 215, y: 95 },
+      { id: 'o3', team: 'P', x: 110, y: 132 },
+      { id: 'o4', team: 'P', x: 230, y: 140 },
+      { id: 'p1', team: 'O', x: 130, y: 100 },
+      { id: 'p2', team: 'O', x: 185, y: 66 },
+      { id: 'p3', team: 'O', x: 195, y: 128 },
+      { id: 'p4', team: 'O', x: 90, y: 70 },
     ],
     ballStart: 'o1',
     beats: [
-      { label: 'Paars heeft de bal verloren: twee spelers sluiten de balbezitter in', ms: 700, ball: 'o1', moves: { p1: [150, 96], p2: [170, 80], o1: [164, 92] } },
+      { label: 'Oranje heeft de bal verloren: twee spelers sluiten de balbezitter in', ms: 700, ball: 'o1', moves: { p1: [150, 96], p2: [170, 80], o1: [164, 92] } },
       { label: 'De anderen sluiten de passlijnen af', ms: 700, ball: 'o1', moves: { p3: [206, 110], p4: [106, 120] } },
-      { label: 'Paars wint de bal terug voor de derde pass: geen punt voor oranje', ms: 500, ball: 'p1', moves: { p1: [150, 100] } },
+      { label: 'Oranje wint de bal terug voor de derde pass: geen punt voor paars', ms: 500, ball: 'p1', moves: { p1: [150, 100] } },
     ],
   },
   // Pressing op de trigger: terugspeelbal
   prtrig: {
     actors: [
-      { id: 'o1', team: 'O', x: 250, y: 60 },
-      { id: 'o2', team: 'O', x: 250, y: 140 },
-      { id: 'o3', team: 'O', x: 210, y: 80 },
-      { id: 'o4', team: 'O', x: 210, y: 120 },
-      { id: 'k', team: 'O', x: 292, y: 100 },
-      { id: 'p1', team: 'P', x: 150, y: 70 },
-      { id: 'p2', team: 'P', x: 150, y: 130 },
-      { id: 'p3', team: 'P', x: 170, y: 100 },
-      { id: 'p4', team: 'P', x: 130, y: 100 },
+      { id: 'o1', team: 'P', x: 250, y: 60 },
+      { id: 'o2', team: 'P', x: 250, y: 140 },
+      { id: 'o3', team: 'P', x: 210, y: 80 },
+      { id: 'o4', team: 'P', x: 210, y: 120 },
+      { id: 'k', team: 'P', x: 292, y: 100 },
+      { id: 'p1', team: 'O', x: 150, y: 70 },
+      { id: 'p2', team: 'O', x: 150, y: 130 },
+      { id: 'p3', team: 'O', x: 170, y: 100 },
+      { id: 'p4', team: 'O', x: 130, y: 100 },
     ],
     ballStart: 'o1',
     beats: [
@@ -1395,13 +1395,13 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   // Onderaantal verdedigen: 2 tegen 3
   prunder: {
     actors: [
-      { id: 'a1', team: 'O', x: 100, y: 60 },
-      { id: 'a2', team: 'O', x: 100, y: 100 },
-      { id: 'a3', team: 'O', x: 100, y: 140 },
-      { id: 'd1', team: 'P', x: 200, y: 85 },
-      { id: 'd2', team: 'P', x: 200, y: 118 },
-      { id: 'd3', team: 'P', x: 50, y: 150 },
-      { id: 'k', team: 'P', x: 292, y: 100 },
+      { id: 'a1', team: 'P', x: 100, y: 60 },
+      { id: 'a2', team: 'P', x: 100, y: 100 },
+      { id: 'a3', team: 'P', x: 100, y: 140 },
+      { id: 'd1', team: 'O', x: 200, y: 85 },
+      { id: 'd2', team: 'O', x: 200, y: 118 },
+      { id: 'd3', team: 'O', x: 50, y: 150 },
+      { id: 'k', team: 'O', x: 292, y: 100 },
     ],
     ballStart: 'a2',
     beats: [
@@ -1414,12 +1414,12 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   // Druk zetten op de opbouw: 3 tegen 2 + K
   prbuild: {
     actors: [
-      { id: 'k', team: 'O', x: 292, y: 100 },
-      { id: 'o1', team: 'O', x: 250, y: 60 },
-      { id: 'o2', team: 'O', x: 250, y: 140 },
-      { id: 'p1', team: 'P', x: 190, y: 100 },
-      { id: 'p2', team: 'P', x: 180, y: 60 },
-      { id: 'p3', team: 'P', x: 180, y: 140 },
+      { id: 'k', team: 'P', x: 292, y: 100 },
+      { id: 'o1', team: 'P', x: 250, y: 60 },
+      { id: 'o2', team: 'P', x: 250, y: 140 },
+      { id: 'p1', team: 'O', x: 190, y: 100 },
+      { id: 'p2', team: 'O', x: 180, y: 60 },
+      { id: 'p3', team: 'O', x: 180, y: 140 },
     ],
     ballStart: 'k',
     beats: [
@@ -1433,18 +1433,18 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   // Verschuiven als blok: over de rivier
   prshift: {
     actors: [
-      { id: 't1', team: 'O', x: 160, y: 26 },
-      { id: 't2', team: 'O', x: 104, y: 52 },
-      { id: 't3', team: 'O', x: 216, y: 52 },
-      { id: 't4', team: 'O', x: 160, y: 72 },
-      { id: 'b1', team: 'O', x: 160, y: 174 },
-      { id: 'b2', team: 'O', x: 104, y: 148 },
-      { id: 'b3', team: 'O', x: 216, y: 148 },
-      { id: 'b4', team: 'O', x: 166, y: 128 },
-      { id: 'd1', team: 'P', x: 92, y: 100 },
-      { id: 'd2', team: 'P', x: 130, y: 100 },
-      { id: 'd3', team: 'P', x: 190, y: 100 },
-      { id: 'd4', team: 'P', x: 228, y: 100 },
+      { id: 't1', team: 'P', x: 160, y: 26 },
+      { id: 't2', team: 'P', x: 104, y: 52 },
+      { id: 't3', team: 'P', x: 216, y: 52 },
+      { id: 't4', team: 'P', x: 160, y: 72 },
+      { id: 'b1', team: 'P', x: 160, y: 174 },
+      { id: 'b2', team: 'P', x: 104, y: 148 },
+      { id: 'b3', team: 'P', x: 216, y: 148 },
+      { id: 'b4', team: 'P', x: 166, y: 128 },
+      { id: 'd1', team: 'O', x: 92, y: 100 },
+      { id: 'd2', team: 'O', x: 130, y: 100 },
+      { id: 'd3', team: 'O', x: 190, y: 100 },
+      { id: 'd4', team: 'O', x: 228, y: 100 },
     ],
     ballStart: 't3',
     beats: [
@@ -1457,17 +1457,17 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   // Druk zetten in blok 6 tegen 4
   pressing: {
     actors: [
-      { id: 'o1', team: 'O', x: 262, y: 54 },
-      { id: 'o2', team: 'O', x: 262, y: 146 },
-      { id: 'o3', team: 'O', x: 252, y: 98 },
-      { id: 'o4', team: 'O', x: 284, y: 120 },
-      { id: 'k', team: 'O', x: 298, y: 100 },
-      { id: 'p1', team: 'P', x: 200, y: 50 },
-      { id: 'p2', team: 'P', x: 200, y: 150 },
-      { id: 'p3', team: 'P', x: 216, y: 100 },
-      { id: 'p4', team: 'P', x: 170, y: 75 },
-      { id: 'p5', team: 'P', x: 170, y: 125 },
-      { id: 'p6', team: 'P', x: 140, y: 100 },
+      { id: 'o1', team: 'P', x: 262, y: 54 },
+      { id: 'o2', team: 'P', x: 262, y: 146 },
+      { id: 'o3', team: 'P', x: 252, y: 98 },
+      { id: 'o4', team: 'P', x: 284, y: 120 },
+      { id: 'k', team: 'P', x: 298, y: 100 },
+      { id: 'p1', team: 'O', x: 200, y: 50 },
+      { id: 'p2', team: 'O', x: 200, y: 150 },
+      { id: 'p3', team: 'O', x: 216, y: 100 },
+      { id: 'p4', team: 'O', x: 170, y: 75 },
+      { id: 'p5', team: 'O', x: 170, y: 125 },
+      { id: 'p6', team: 'O', x: 140, y: 100 },
     ],
     ballStart: 'k',
     beats: [

@@ -199,11 +199,11 @@ export function DetailPage() {
             <figcaption>
               <span>
                 <span className="legend-dot" style={{ background: 'var(--purple)', boxShadow: '0 0 0 1px #C7B6EF' }} />
-                {showDemo ? 'Speler' : 'Balbezittende ploeg'}
+                {showDemo ? 'Speler' : 'Ploeg in B+'}
               </span>
               <span>
                 <span className="legend-dot" style={{ background: '#F2A541', boxShadow: '0 0 0 1px #F2D2A0' }} />
-                {showDemo ? 'Partner' : 'Tegenstander'}
+                {showDemo ? 'Partner' : 'Ploeg in B−'}
               </span>
               {!showDemo && (
                 <>

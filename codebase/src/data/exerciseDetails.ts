@@ -2188,7 +2188,7 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       'Bal terug? Speel veilig en snel, zodat de tegenstander nu zelf onder druk staat.',
     ],
     diagramSteps: [
-      ['Organisatie', 'Oranje heeft net de bal gewonnen: paars moet drie passes voorkomen'],
+      ['Organisatie', 'Paars heeft net de bal gewonnen: oranje moet drie passes voorkomen'],
       ['Insluiten', 'Twee spelers sluiten de balbezitter in'],
       ['Afsluiten', 'De anderen sluiten de passlijnen af'],
     ],
@@ -2311,8 +2311,8 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       'Blijf compact: niemand blijft achter.',
     ],
     diagramSteps: [
-      ['Organisatie', 'Zes tegen zes, de helft van oranje is de pressingzone'],
-      ['Druk zetten', 'Paars stapt in op de opbouw'],
+      ['Organisatie', 'Zes tegen zes, de helft van paars is de pressingzone'],
+      ['Druk zetten', 'Oranje stapt in op de opbouw'],
       ['Scoren', 'Balwinst en meteen afwerken'],
     ],
     related: [
@@ -3291,8 +3291,8 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       'Roep elkaar: “terug!”',
     ],
     diagramSteps: [
-      ['Organisatie', 'Oranje wint de bal'],
-      ['Terug', 'Paars sprint terug achter de bal'],
+      ['Organisatie', 'Paars wint de bal'],
+      ['Terug', 'Oranje sprint terug achter de bal'],
       ['Druk', 'De dichtstbijzijnde zet druk op de bal'],
     ],
     related: [

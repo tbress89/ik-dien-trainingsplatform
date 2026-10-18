@@ -5,7 +5,7 @@ import { DEMOS, type Joint } from '../data/demos';
 import { EXERCISES } from '../data/exercises';
 import { EXERCISE_DETAILS } from '../data/exerciseDetails';
 import { BodyDemo } from './BodyDemo';
-import { Pitch, QUEUE_VARIANTS } from './Pitch';
+import { ORANGE, Pitch, QUEUE_VARIANTS } from './Pitch';
 import { PitchAnimation } from './PitchAnimation';
 
 // Every diagram an exercise shows: its own, plus those of its versions.
@@ -28,6 +28,24 @@ describe('diagrams', () => {
     }
     // The full diagram has at least one player, cone or goal on the field.
     expect(renderToStaticMarkup(<Pitch variant={variant} />)).toMatch(/<(circle|polygon|rect)[^>]*(r="[78]"|points=|stroke="#1A1033")/);
+  });
+
+  // The legend calls purple the team in B+ and orange the team in B−, so orange may not start with the ball.
+  // omrondo shows the ball just after orange wins it, so the counter is visible.
+  it.each(variants.filter((v) => v !== 'omrondo'))('%s starts with the ball at purple or a neutral player', (variant) => {
+    const svg = renderToStaticMarkup(<Pitch variant={variant} />);
+    const circles = [...svg.matchAll(/<circle cx="([\d.]+)" cy="([\d.]+)" r="(\d+)" fill="([^"]+)"/g)].map((m) => ({
+      x: +m[1],
+      y: +m[2],
+      r: +m[3],
+      fill: m[4],
+    }));
+    const players = circles.filter((c) => c.r === 8 || c.r === 7).filter((c) => c.fill !== '#fff' || c.r === 7);
+    const balls = circles.filter((c) => c.r === 4);
+    if (!balls.length || !players.some((c) => c.fill === ORANGE)) return;
+    const holder = (b: (typeof balls)[number]) =>
+      players.reduce((best, c) => (Math.hypot(c.x - b.x, c.y - b.y) < Math.hypot(best.x - b.x, best.y - b.y) ? c : best));
+    expect(balls.some((b) => holder(b).fill !== ORANGE)).toBe(true);
   });
 
   // Only players who wait in every stage stay hollow in the full diagram; the legend's "Wachtrij" follows this list.
@@ -58,6 +76,12 @@ describe('pitch animations', () => {
     expect(refs.filter((r) => !ids.has(r))).toEqual([]);
     expect(def.beats.length).toBeGreaterThan(0);
     expect(def.beats.filter((b) => !(b.ms > 0) || !b.label.trim())).toEqual([]);
+  });
+
+  // Purple is the team in B+: orange may only start with the ball in transition animations that open just
+  // before purple wins it (their diagrams show purple on the ball).
+  it.each(entries.filter(([v]) => v !== 'transition' && v !== 'omcounter'))('%s starts with the ball at purple or a neutral player', (_, def) => {
+    expect(def.actors.find((a) => a.id === def.ballStart)?.team).not.toBe('O');
   });
 
   it.each(entries)('%s renders', (variant, def) => {
