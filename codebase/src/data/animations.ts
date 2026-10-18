@@ -1083,16 +1083,18 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   // Terugspeelbal onder druk
   gkback: {
     actors: [
-      { id: 'd', team: 'P', x: 180, y: 140 },
-      { id: 'w', team: 'P', x: 200, y: 50 },
-      { id: 'a', team: 'O', x: 210, y: 106 },
+      { id: 'd', team: 'P', x: 200, y: 146 },
+      { id: 'w', team: 'P', x: 200, y: 54 },
+      { id: 'a', team: 'O', x: 200, y: 100 },
       { id: 'g', team: 'P', x: 286, y: 100 },
     ],
     ballStart: 'd',
     beats: [
       { label: 'De verdediger speelt terug; de aanvaller zet meteen druk op de keeper', ms: 900, ball: 'g', moves: { a: [250, 104] } },
       { label: 'Aannemen naar de kant weg van de aanvaller', ms: 500, ball: 'g', moves: { g: [284, 86], a: [264, 100] } },
-      { label: 'Doorspelen naar de vrije man op de flank', ms: 900, ball: 'w', moves: { w: [206, 56], a: [272, 94] } },
+      { label: 'Doorspelen naar de vrije man op de flank', ms: 900, ball: 'w', moves: { w: [206, 60], a: [272, 94] } },
+      { label: 'De flankspeler dribbelt op, de verdediger loopt mee', ms: 1300, ball: 'w', moves: { w: [96, 56], d: [96, 132], a: [170, 86] } },
+      { label: 'Scoren in een doeltje', ms: 700, ball: [38, 68] },
     ],
   },
   // Dubbele redding: opstaan en opnieuw

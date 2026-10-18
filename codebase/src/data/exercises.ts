@@ -694,9 +694,10 @@ export const EXERCISES: Exercise[] = [
     playersDetail: '(K + 3)',
     min: 10,
     intensity: 3,
-    field: 'Strafschopgebied',
+    field: '35 × 30 m',
     materials: [
       { name: 'Groot doel', qty: '1' },
+      { name: 'Doeltjes', qty: '2' },
       { name: 'Kegels', qty: '4' },
       { name: 'Ballen', qty: '8' },
       { name: 'Hesjes', qty: '2' },
