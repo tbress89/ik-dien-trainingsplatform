@@ -313,6 +313,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M192 148 Q120 154 84 134', 3),
       Pass(80, 62, 42, 68, 3),
       P(200, 146), P(200, 54), O(200, 100), P(286, 100),
+      P(184, 164), P(168, 174),
       Ball(206, 142),
     ],
     gkrebound: [
