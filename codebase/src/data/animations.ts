@@ -1849,6 +1849,25 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
       { label: 'Scoren op een doeltje', ms: 400, ball: [282, 66] },
     ],
   },
+  // Terugspeelbal en uitbouwen: 3 + K tegen 2
+  obback: {
+    actors: [
+      { id: 'g', team: 'P', x: 32, y: 100 },
+      { id: 'lb', team: 'P', x: 70, y: 42 },
+      { id: 'cv', team: 'P', x: 110, y: 100 },
+      { id: 'rb', team: 'P', x: 70, y: 158 },
+      { id: 'a1', team: 'O', x: 110, y: 128 },
+      { id: 'a2', team: 'O', x: 110, y: 72 },
+    ],
+    ballStart: 'cv',
+    beats: [
+      { label: 'De centrale verdediger speelt terug: de ene aanvaller zet druk op de keeper, de andere sluit de centrale verdediger af', ms: 1000, ball: 'g', moves: { a1: [56, 110], a2: [114, 88], lb: [76, 36], rb: [76, 164] } },
+      { label: 'De keeper neemt aan weg van de druk', ms: 600, ball: 'g', moves: { g: [34, 90], a1: [44, 104] } },
+      { label: 'en speelt de vrije back aan', ms: 800, ball: 'lb', moves: { a2: [98, 52] } },
+      { label: 'Indribbelen voorbij de aanvaller', ms: 1100, ball: 'lb', moves: { lb: [170, 44], a2: [136, 52], cv: [150, 104], rb: [150, 160] } },
+      { label: 'Scoren in een doeltje', ms: 700, ball: [272, 62] },
+    ],
+  },
   // Rustig uitspelen: 3 + K tegen 2 met terugtreklijn
   obline: {
     actors: [

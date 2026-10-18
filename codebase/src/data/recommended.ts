@@ -117,6 +117,7 @@ export const RECOMMENDED: string[] = [
   'ppoles', // Ruitpassen rond de palen
   'gkdist', // Uitworp en uittrap naar doeltjes
   'obline', // Rustig uitspelen: 3 + K tegen 2 met terugtreklijn
+  'obback', // Terugspeelbal en uitbouwen: 3 + K tegen 2
   'sg2v2', // Intervalpartijtjes 2 tegen 2
   'krepeat', // Herhaalde sprints met afwerking
   'omback', // Na balverlies achter de bal: 5 tegen 5

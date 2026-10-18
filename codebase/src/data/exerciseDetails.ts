@@ -4788,4 +4788,35 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'game', fit: 'Zelfde thema' },
     ],
   },
+  obback: {
+    summary:
+      'De centrale verdediger speelt de bal terug naar de keeper, terwijl de twee aanvallers naast hem meteen druk zetten. De keeper, de centrale verdediger en de twee backs moeten onder druk uitbouwen en scoren op twee doeltjes, zodat de terugspeelbal niet het einde maar het begin van een aanval is.',
+    steps: [
+      { title: 'Opstelling.', text: 'Speel op 35 × 35 m met een groot doel met keeper aan één kant en twee doeltjes aan de overkant. De centrale verdediger staat met bal op 20 meter van het doel, de twee aanvallers staan links en rechts naast hem op dezelfde lijn. De twee backs staan breed op de flanken, iets dieper.' },
+      { title: 'Terugspelen.', text: 'Elke actie start met een terugspeelbal van de centrale verdediger naar de keeper. Op dat moment vertrekken beide aanvallers: de ene zet druk op de keeper, de andere sluit de centrale verdediger of een back af.' },
+      { title: 'Uitbouwen en scoren.', text: 'De keeper, de centrale verdediger en de backs scoren op een van de twee doeltjes. Winnen de aanvallers de bal, dan werken ze meteen af op het grote doel.' },
+      { title: 'Ritme.', text: 'Speel 4 reeksen van 3 minuten met 1 minuut rust. Wissel de aanvallers na elke reeks. Laat de aanvallers zelf kiezen wie de keeper aanloopt.' },
+    ],
+    easier: 'Laat de tweede aanvaller van dieper vertrekken, bijvoorbeeld van tussen de twee doeltjes.',
+    harder: 'Zet een derde aanvaller achter de twee jagende spitsen. Die sluit de passes naar voren af en werkt bij balwinst mee af (3 + K tegen 3).',
+    objectives: ['Open aannemen onder druk', 'Keeper als vrije man', 'Snel uitbouwen', 'Afwerken na de opbouw'],
+    coaching: [
+      'Keeper: kijk vóór de aanname waar de druk vandaan komt.',
+      'Neem aan naar de kant zonder druk en speel de vrije man aan.',
+      'Backs en centrale verdediger: ga breed zodra de bal terug gaat, maak je aanspeelbaar.',
+      'Is het vrij? Versnel en ga naar de doeltjes, niet opnieuw terug.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Centrale verdediger met bal en de twee aanvallers op één lijn'],
+      ['Terugspeelbal', 'De centrale verdediger speelt terug, een aanvaller zet druk op de keeper'],
+      ['Uitbouwen', 'De keeper speelt de vrije back aan de kant zonder druk aan'],
+      ['Scoren', 'Indribbelen en scoren in een doeltje'],
+    ],
+    related: [
+      { id: 'gkback', fit: 'Als warming-up' },
+      { id: 'prtrig', fit: 'Tegenhanger' },
+      { id: 'psbuild', fit: 'Als vervolg' },
+      { id: 'game5', fit: 'Als afsluiter' },
+    ],
+  },
 };

@@ -141,6 +141,7 @@ export type Variant =
   | 'obzones'
   | 'obwave'
   | 'obfree'
+  | 'obback'
   | 'gs11'
   | 'gsnordic'
   | 'gsland'
@@ -3648,6 +3649,30 @@ export const EXERCISES: Exercise[] = [
     materials: [
       { name: 'Kegels', qty: '7' },
       { name: 'Ballen', qty: '4' },
+    ],
+  },
+  {
+    id: 'obback',
+    title: 'Terugspeelbal en uitbouwen: 3 + K tegen 2',
+    variant: 'obback',
+    type: 'Tactisch',
+    phase: 'Aanvallen',
+    themes: ['Opbouw van achteruit', 'Keeper'],
+    ages: ['U10–13', 'U14–15', 'U16–21'],
+    ageLabel: 'U10 – U21',
+    diff: 2,
+    pmin: 6,
+    players: '5 + K',
+    playersDetail: '(K + 3 tegen 2)',
+    min: 15,
+    intensity: 4,
+    field: '35 × 35 m',
+    materials: [
+      { name: 'Groot doel', qty: '1' },
+      { name: 'Doeltjes', qty: '2' },
+      { name: 'Kegels', qty: '6' },
+      { name: 'Ballen', qty: '10' },
+      { name: 'Hesjes', qty: '2' },
     ],
   },
 ];
