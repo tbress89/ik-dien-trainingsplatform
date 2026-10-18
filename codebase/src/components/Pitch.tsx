@@ -910,6 +910,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
     prbuild: [
       Box(10, 50, 60, 100),
       Goal(6, 78, 10, 44),
+      Line(220, 30, 220, 170, true),
       Pass(34, 96, 64, 66, 1),
       ORun('M124 98 Q84 106 62 82', 2),
       ORun('M134 56 Q106 52 82 56', 2),

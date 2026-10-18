@@ -2324,12 +2324,12 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
   },
   prbuild: {
     summary:
-      'Drie aanvallers zetten druk op een keeper en twee centrale verdedigers die proberen uit te voetballen. De spits stuurt de opbouw naar één kant en de andere twee sluiten daar aan.',
+      'Drie aanvallers zetten druk op een keeper en twee centrale verdedigers die proberen uit te voetballen tot over een lijn op 35 meter. De spits stuurt de opbouw naar één kant en de andere twee sluiten daar aan.',
     steps: [
-      { title: 'Opstelling.', text: 'Speel op 35 × 30 m voor een groot doel met keeper. De keeper en twee verdedigers bouwen op en scoren door over de lijn op 35 meter te dribbelen. Drie drukzetters starten op 25 meter.' },
+      { title: 'Opstelling.', text: 'Speel op 35 × 30 m voor een groot doel met keeper en markeer met kegels een lijn op 35 meter. De keeper en twee verdedigers bouwen op en scoren door over die lijn te dribbelen. Drie drukzetters starten op 25 meter.' },
       { title: 'Sturen.', text: 'De keeper speelt in. De middelste drukzetter loopt in een boog, zodat de pass terug naar de keeper dicht is en de bal naar één kant moet.' },
       { title: 'Insluiten.', text: 'Aan die kant zet de buitenste drukzetter druk, de middelste sluit de pass terug af en de derde dekt het midden. Na balwinst scoren ze op het grote doel.' },
-      { title: 'Ritme.', text: 'Speel 3 reeksen van 4 minuten met 1 minuut rust.' },
+      { title: 'Ritme.', text: 'Speel 3 reeksen van 4 minuten met 1 minuut rust. Een dribbel over de lijn is een punt voor de opbouwers, een doelpunt is een punt voor de drukzetters.' },
     ],
     easier: 'Speel 3 tegen 1 + keeper.',
     harder: 'Speel 3 tegen 3 + keeper, met een extra middenvelder bij de opbouwers.',
@@ -2341,7 +2341,7 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       'Balwinst? Meteen op doel.',
     ],
     diagramSteps: [
-      ['Organisatie', 'Keeper en twee verdedigers tegen drie drukzetters'],
+      ['Organisatie', 'Keeper en twee verdedigers tegen drie drukzetters, met de scoorlijn op 35 meter'],
       ['Inspelen', 'De keeper speelt in'],
       ['Insluiten', 'Boog van de spits, de buitenste stapt in'],
       ['Midden afdekken', 'De derde drukzetter dekt het midden'],
