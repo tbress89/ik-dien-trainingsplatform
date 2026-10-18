@@ -2148,7 +2148,7 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
     ],
     easier: 'Speel met één jager, of maak de poortjes breder.',
     harder: 'Verklein het vak of speel met drie jagers.',
-    objectives: ['Samen jagen', 'Snelheid naar de bal', 'Bal veroveren', 'Afschermen'],
+    objectives: ['Samen jagen', 'Dribbelen onder druk', 'Bal veroveren', 'Afschermen'],
     coaching: [
       'Jagers: kies samen één dribbelaar en sluit hem in.',
       'Kom snel aan en rem af vlak voor de bal.',
