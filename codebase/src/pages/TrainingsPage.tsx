@@ -10,6 +10,7 @@ import {
   BLOCK_TARGETS,
   MONTH_NAMES,
   formatTrainingDate,
+  lastTeam,
   parseISODate,
   relativeDay,
   todayISO,
@@ -219,7 +220,7 @@ export function TrainingsPage() {
                 </h2>
                 <span className="template-sub">Uitgewerkt per leeftijd. Open er een, pas aan en sla op als je eigen training.</span>
               </div>
-              <ReferenceGroups onOpen={startFrom} />
+              <ReferenceGroups onOpen={startFrom} team={lastTeam(sessions)} />
             </section>
           )}
         </aside>
@@ -233,30 +234,47 @@ const REFERENCE_GROUPS = [...new Set(REFERENCE_TRAININGS.map((r) => r.ages))].ma
   trainings: REFERENCE_TRAININGS.filter((r) => r.ages === ages),
 }));
 
-/** The example trainings per age group; `featured` shows them as a larger grid for a first visit. */
-function ReferenceGroups({ onOpen, featured = false }: { onOpen: (ref: ReferenceTraining) => void; featured?: boolean }) {
+/** The group whose ages include the team's age ("U11 Rangers" → U10 – U13), or the first group. */
+function groupForTeam(team: string): string {
+  const age = Number(/U(\d+)/i.exec(team)?.[1]);
+  const group = REFERENCE_GROUPS.find((g) => {
+    const [lo, hi = lo] = [...g.ages.matchAll(/U(\d+)/g)].map((m) => Number(m[1]));
+    return age >= lo && age <= hi;
+  });
+  return (group ?? REFERENCE_GROUPS[0]).ages;
+}
+
+/**
+ * The example trainings of one age group at a time, picked with a switch; it starts on the age group of the
+ * coach's last team. `featured` shows them as a larger grid for a first visit.
+ */
+function ReferenceGroups({ onOpen, team = '', featured = false }: { onOpen: (ref: ReferenceTraining) => void; team?: string; featured?: boolean }) {
+  const [ages, setAges] = useState(() => groupForTeam(team));
+  const group = REFERENCE_GROUPS.find((g) => g.ages === ages) ?? REFERENCE_GROUPS[0];
   return (
-    <>
-      {REFERENCE_GROUPS.map((g) => (
-        <div key={g.ages} className={`reference-group${featured ? ' is-featured' : ''}`}>
-          <span className="eyebrow">{g.ages}</span>
-          <div className="reference-list">
-            {g.trainings.map((r) => (
-              <button key={r.id} type="button" className="template" onClick={() => onOpen(r)}>
-                <span className="template-duration">{r.duration}′</span>
-                <span className="template-text">
-                  <strong>{r.name}</strong>
-                  <span>
-                    {r.theme} · {r.items.length} oefeningen
-                  </span>
-                </span>
-                {featured && <ArrowRightIcon className="template-arrow" />}
-              </button>
-            ))}
-          </div>
-        </div>
-      ))}
-    </>
+    <div className={`reference-group${featured ? ' is-featured' : ''}`}>
+      <div role="group" aria-label="Leeftijdsgroep" className="reference-ages">
+        {REFERENCE_GROUPS.map((g) => (
+          <button key={g.ages} type="button" aria-pressed={g.ages === group.ages} onClick={() => setAges(g.ages)}>
+            {g.ages.replace(/\s*–\s*U/, '–')}
+          </button>
+        ))}
+      </div>
+      <div className="reference-list">
+        {group.trainings.map((r) => (
+          <button key={r.id} type="button" className="template" onClick={() => onOpen(r)}>
+            <span className="template-duration">{r.duration}′</span>
+            <span className="template-text">
+              <strong>{r.name}</strong>
+              <span>
+                {r.theme} · {r.items.length} oefeningen
+              </span>
+            </span>
+            {featured && <ArrowRightIcon className="template-arrow" />}
+          </button>
+        ))}
+      </div>
+    </div>
   );
 }
 
