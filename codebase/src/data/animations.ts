@@ -1,24 +1,16 @@
 import type { Variant } from './exercises';
+import { LINEUPS, type Lineup } from './lineups';
 
 /**
  * Optional animations for exercise diagrams, played on the detail page with "Afspelen".
  *
  * An animation uses the same 320 × 200 field as the diagram (Pitch.tsx draws the field, zones and goals;
- * the animation draws the players and the ball on top). It runs through a list of beats: in each beat the
+ * the animation draws the players and the ball on top). It starts from the diagram's lineup (lineups.ts:
+ * the players with their ids, and who has the ball) and runs through a list of beats: in each beat the
  * listed players move to a new spot, and the ball either goes to a player (a pass, or a dribble when that
  * player already had it) or to a fixed spot (e.g. into the goal); `newBall` starts a beat with a fresh ball
  * at a player, like a trainer playing in a new one. After the last beat it pauses and loops.
  */
-export interface AnimActor {
-  id: string;
-  team: 'P' | 'O' | 'N';
-  label?: string;
-  x: number;
-  y: number;
-  /** Drawn as a waiting player (hollow, dashed outline), e.g. a queue that doesn't take part. */
-  waiting?: boolean;
-}
-
 export interface AnimBeat {
   /** Shown under the diagram while this beat plays. */
   label: string;
@@ -33,27 +25,13 @@ export interface AnimBeat {
   labels?: Record<string, string>;
 }
 
-export interface PitchAnimationDef {
-  actors: AnimActor[];
-  /** Actor id that has the ball at the start; left out for drills without a ball (e.g. sprints). */
-  ballStart?: string;
+export interface PitchAnimationDef extends Lineup {
   beats: AnimBeat[];
 }
 
-export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
+const BEATS: Partial<Record<Variant, { beats: AnimBeat[] }>> = {
   // 3 tegen 3 + neutrale kaatser: recht van de aanval
   omright: {
-    actors: [
-      { id: 'p1', team: 'P', x: 100, y: 130 },
-      { id: 'p2', team: 'P', x: 110, y: 70 },
-      { id: 'p3', team: 'P', x: 200, y: 110 },
-      { id: 'o1', team: 'O', x: 130, y: 100 },
-      { id: 'o2', team: 'O', x: 165, y: 94 },
-      { id: 'o3', team: 'O', x: 230, y: 130 },
-      { id: 'n', team: 'N', x: 33, y: 100 },
-      { id: 'k', team: 'N', label: 'K', x: 288, y: 100 },
-    ],
-    ballStart: 'p1',
     beats: [
       { label: 'Recht van de aanval: paars speelt eerst de kaatser aan', ms: 1100, ball: 'n', moves: { o1: [86, 112], p2: [104, 74] } },
       { label: 'De kaatser legt terug', ms: 1000, ball: 'p2', moves: { p2: [116, 66], o2: [144, 82] } },
@@ -68,20 +46,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Omschakel-waves 2 tegen 2 met kaatsers
   omwave2k: {
-    actors: [
-      { id: 'p1', team: 'P', x: 120, y: 70 },
-      { id: 'p2', team: 'P', x: 120, y: 130 },
-      { id: 'o1', team: 'O', x: 196, y: 84 },
-      { id: 'o2', team: 'O', x: 196, y: 126 },
-      { id: 'pk', team: 'P', label: 'Ka', x: 264, y: 100 },
-      { id: 'ok', team: 'O', label: 'Ka', x: 56, y: 100 },
-      { id: 'pw1', team: 'P', x: 40, y: 44 },
-      { id: 'pw2', team: 'P', x: 40, y: 156 },
-      { id: 'ow1', team: 'O', x: 280, y: 44 },
-      { id: 'ow2', team: 'O', x: 280, y: 156 },
-      { id: 't', team: 'N', label: 'T', x: 160, y: 168 },
-    ],
-    ballStart: 't',
     beats: [
       { label: 'De trainer speelt in bij paars', ms: 900, ball: 'p2' },
       { label: 'Pass op de eigen kaatser: 3 tegen 2', ms: 1000, ball: 'pk', moves: { p1: [176, 74], o1: [206, 90], o2: [214, 112] } },
@@ -101,18 +65,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Omschakel-waves 2 tegen 2 op vier doeltjes
   omwave2: {
-    actors: [
-      { id: 'p1', team: 'P', x: 120, y: 70 },
-      { id: 'p2', team: 'P', x: 120, y: 130 },
-      { id: 'o1', team: 'O', x: 196, y: 84 },
-      { id: 'o2', team: 'O', x: 196, y: 126 },
-      { id: 'pw1', team: 'P', x: 40, y: 96 },
-      { id: 'pw2', team: 'P', x: 40, y: 116 },
-      { id: 'ow1', team: 'O', x: 280, y: 96 },
-      { id: 'ow2', team: 'O', x: 280, y: 116 },
-      { id: 't', team: 'N', label: 'T', x: 160, y: 168 },
-    ],
-    ballStart: 't',
     beats: [
       { label: 'De trainer speelt in bij paars', ms: 900, ball: 'p2' },
       { label: 'Pass naar de duomaat', ms: 900, ball: 'p1', moves: { p1: [130, 70] } },
@@ -132,17 +84,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Passvierkant met doorbewegen: one round of the square, after which it looks like the start again.
   passing: {
-    actors: [
-      { id: 'a1', team: 'P', x: 86, y: 46 },
-      { id: 'a2', team: 'P', x: 70, y: 38 },
-      { id: 'b1', team: 'P', x: 234, y: 46 },
-      { id: 'b2', team: 'P', x: 250, y: 38 },
-      { id: 'c1', team: 'P', x: 234, y: 158 },
-      { id: 'c2', team: 'P', x: 250, y: 166 },
-      { id: 'd1', team: 'P', x: 86, y: 158 },
-      { id: 'd2', team: 'P', x: 70, y: 166 },
-    ],
-    ballStart: 'a1',
     beats: [
       { label: 'Pass naar de volgende kegel en volg je pass', ms: 900, ball: 'b1', moves: { a1: [160, 46] } },
       { label: 'Aannemen in de loop en doorspelen', ms: 900, ball: 'c1', moves: { a1: [250, 38], b2: [234, 46], b1: [234, 102], a2: [86, 46] } },
@@ -153,14 +94,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Rondo 4 tegen 1
   rondo: {
-    actors: [
-      { id: 't', team: 'P', x: 160, y: 30 },
-      { id: 'r', team: 'P', x: 230, y: 100 },
-      { id: 'b', team: 'P', x: 160, y: 170 },
-      { id: 'l', team: 'P', x: 90, y: 100 },
-      { id: 'o', team: 'O', x: 155, y: 92 },
-    ],
-    ballStart: 't',
     beats: [
       { label: 'Pass naar een vrije zijde', ms: 800, ball: 'r', moves: { o: [192, 80] } },
       { label: 'Verder rond: de middenspeler jaagt, links schuift mee', ms: 800, ball: 'b', moves: { o: [182, 130], l: [90, 122] } },
@@ -172,16 +105,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Rondo 5 tegen 2: na elke pass naar een andere zijde, maximaal twee per zijde
   rondo52: {
-    actors: [
-      { id: 'p1', team: 'P', x: 135, y: 45 },
-      { id: 'p2', team: 'P', x: 190, y: 45 },
-      { id: 'p3', team: 'P', x: 215, y: 110 },
-      { id: 'p4', team: 'P', x: 160, y: 155 },
-      { id: 'p5', team: 'P', x: 105, y: 100 },
-      { id: 'o1', team: 'O', x: 150, y: 92 },
-      { id: 'o2', team: 'O', x: 178, y: 112 },
-    ],
-    ballStart: 'p1',
     beats: [
       { label: 'Pass naar rechts; de passer verhuist meteen naar een andere zijde', ms: 1100, ball: 'p3', moves: { p1: [105, 70], o1: [165, 80], o2: [195, 100] } },
       { label: 'Pass naar onder; ook deze passer verhuist, naar boven', ms: 1200, ball: 'p4', moves: { p3: [160, 45], o1: [140, 128], o2: [182, 132] } },
@@ -192,14 +115,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Ruitpassen rond de palen: pass en volg rond drie passieve palen
   diamondpoles: {
-    actors: [
-      { id: 'a', team: 'P', x: 160, y: 145 },
-      { id: 'q', team: 'P', x: 160, y: 163 },
-      { id: 'b', team: 'P', x: 250, y: 100 },
-      { id: 'c', team: 'P', x: 160, y: 55 },
-      { id: 'd', team: 'P', x: 70, y: 100 },
-    ],
-    ballStart: 'a',
     beats: [
       { label: 'A speelt in op B en volgt zijn pass', ms: 1100, ball: 'b', moves: { a: [240, 116], q: [160, 145] } },
       { label: 'B speelt door naar C en volgt', ms: 1100, ball: 'c', moves: { b: [174, 50], a: [250, 100] } },
@@ -209,14 +124,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Variant 2: kaatsen via de zijkant
   diamondpoles2: {
-    actors: [
-      { id: 'a', team: 'P', x: 160, y: 145 },
-      { id: 'q', team: 'P', x: 160, y: 163 },
-      { id: 'b', team: 'P', x: 250, y: 100 },
-      { id: 'c', team: 'P', x: 160, y: 55 },
-      { id: 'd', team: 'P', x: 70, y: 100 },
-    ],
-    ballStart: 'a',
     beats: [
       { label: 'A speelt in op B en komt naar binnen', ms: 1100, ball: 'b', moves: { a: [200, 128], q: [160, 145] } },
       { label: 'B kaatst terug op A', ms: 800, ball: 'a' },
@@ -230,14 +137,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Variant 3: één-twee rond de paal
   diamondpoles3: {
-    actors: [
-      { id: 'a', team: 'P', x: 160, y: 145 },
-      { id: 'q', team: 'P', x: 160, y: 163 },
-      { id: 'b', team: 'P', x: 250, y: 100 },
-      { id: 'c', team: 'P', x: 160, y: 55 },
-      { id: 'd', team: 'P', x: 70, y: 100 },
-    ],
-    ballStart: 'a',
     beats: [
       { label: 'A speelt in op B en komt naar binnen', ms: 1100, ball: 'b', moves: { a: [200, 128], q: [160, 145] } },
       { label: 'B kaatst terug op A', ms: 800, ball: 'a' },
@@ -251,14 +150,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Variant 4: derde man
   diamondpoles4: {
-    actors: [
-      { id: 'a', team: 'P', x: 160, y: 145 },
-      { id: 'q', team: 'P', x: 160, y: 163 },
-      { id: 'b', team: 'P', x: 250, y: 100 },
-      { id: 'c', team: 'P', x: 160, y: 55 },
-      { id: 'd', team: 'P', x: 70, y: 100 },
-    ],
-    ballStart: 'c',
     beats: [
       { label: 'C speelt in op D en komt naar binnen', ms: 1100, ball: 'd', moves: { c: [124, 78] } },
       { label: 'D kaatst terug op C', ms: 800, ball: 'c' },
@@ -270,14 +161,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Passen in lijnen: pass en volg (wie van links komt loopt onderlangs, wie van rechts komt bovenlangs)
   pline: {
-    actors: [
-      { id: 'l1', team: 'P', x: 80, y: 100 },
-      { id: 'l2', team: 'P', x: 62, y: 100 },
-      { id: 'l3', team: 'P', x: 44, y: 100 },
-      { id: 'r1', team: 'P', x: 240, y: 100 },
-      { id: 'r2', team: 'P', x: 258, y: 100 },
-    ],
-    ballStart: 'l1',
     beats: [
       { label: 'Binnenkantpass naar de overkant; de passer sprint achter zijn pass aan', ms: 1000, ball: 'r1', moves: { l1: [160, 135], l2: [80, 100], l3: [62, 100] } },
       { label: 'Aannemen en terugpassen; de eerste passer sluit achteraan aan', ms: 1000, ball: 'l2', moves: { r1: [160, 65], l1: [258, 100], r2: [240, 100] } },
@@ -287,15 +170,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // 1 tegen 1 op kleine doeltjes
   duel: {
-    actors: [
-      { id: 'p1', team: 'P', x: 95, y: 75 },
-      { id: 'p2', team: 'P', x: 40, y: 90 },
-      { id: 'p3', team: 'P', x: 40, y: 110 },
-      { id: 'o1', team: 'O', x: 225, y: 120 },
-      { id: 'o2', team: 'O', x: 280, y: 90 },
-      { id: 'o3', team: 'O', x: 280, y: 110 },
-    ],
-    ballStart: 'p1',
     beats: [
       { label: 'Paars speelt diep in bij oranje en loopt in', ms: 900, ball: 'o1', moves: { p1: [132, 96] } },
       { label: 'Oranje neemt aan in de loop', ms: 600, ball: 'o1', moves: { o1: [200, 116], p1: [150, 104] } },
@@ -312,13 +186,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Aannemen en schieten vanaf de zestien
   fshot: {
-    actors: [
-      { id: 'a', team: 'N', x: 170, y: 60 },
-      { id: 's1', team: 'P', x: 110, y: 120 },
-      { id: 's2', team: 'P', x: 92, y: 132 },
-      { id: 'k', team: 'O', x: 292, y: 100 },
-    ],
-    ballStart: 's1',
     beats: [
       { label: 'De schutter speelt in op de aangever', ms: 700, ball: 'a' },
       { label: 'De schutter loopt meteen in', ms: 700, ball: 'a', moves: { s1: [150, 112] } },
@@ -331,15 +198,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Passvorm in Y met kaatsbal
   passy: {
-    actors: [
-      { id: 'a1', team: 'P', x: 70, y: 100 },
-      { id: 'a2', team: 'P', x: 52, y: 100 },
-      { id: 'a3', team: 'P', x: 34, y: 100 },
-      { id: 'b', team: 'P', x: 150, y: 100 },
-      { id: 'c', team: 'P', x: 230, y: 62 },
-      { id: 'd', team: 'P', x: 230, y: 138 },
-    ],
-    ballStart: 'a1',
     beats: [
       { label: 'A speelt in op B, die kort aankomt', ms: 700, ball: 'b', moves: { b: [142, 100] } },
       { label: 'B kaatst in één keer terug; C vertrekt', ms: 600, ball: 'a1', moves: { c: [240, 60] } },
@@ -358,36 +216,17 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Handbalvoetbal op balbezit: tien worpen na elkaar is een punt
   whandpos: {
-    actors: [
-      { id: 'p1', team: 'P', label: 'A', x: 100, y: 70 },
-      { id: 'p2', team: 'P', label: 'B', x: 140, y: 118 },
-      { id: 'p3', team: 'P', label: 'C', x: 200, y: 70 },
-      { id: 'p4', team: 'P', label: 'D', x: 236, y: 118 },
-      { id: 'o1', team: 'O', x: 130, y: 92 },
-      { id: 'o2', team: 'O', x: 178, y: 100 },
-      { id: 'o3', team: 'O', x: 215, y: 98 },
-    ],
-    ballStart: 'p1',
     beats: [
       { label: 'Worp 1: A gooit naar B', ms: 800, ball: 'p2', moves: { p3: [206, 62], o1: [138, 100] } },
       { label: 'Worp 2: B gooit naar C, die vrijgelopen is', ms: 900, ball: 'p3', moves: { p2: [150, 126], o2: [190, 88] } },
       { label: 'Worp 3: C gooit naar D', ms: 800, ball: 'p4', moves: { p1: [96, 96], o3: [222, 94] } },
       { label: 'Zo gaat het door: worp 4 tot en met 9, zonder dat de bal de grond raakt', ms: 1400, ball: 'p1', moves: { p1: [104, 84], p3: [212, 70], o1: [122, 94], o2: [170, 96] } },
-      { label: 'Worp 10: een punt voor paars', ms: 800, ball: 'p2', moves: { p2: [146, 112] } },
-      { label: 'Nu begint oranje met de bal en telt opnieuw vanaf nul', ms: 800, ball: 'o1', newBall: 'o1', moves: { o1: [130, 92] } },
+      { label: 'Worp 10: een punt voor paars', ms: 800, ball: 'p2', moves: { p2: [148, 112] } },
+      { label: 'Nu begint oranje met de bal en telt opnieuw vanaf nul', ms: 800, ball: 'o1', newBall: 'o1', moves: { o1: [128, 92] } },
     ],
   },
   // Voetbaltennis: Around the world
   wtennisworld: {
-    actors: [
-      { id: 'l1', team: 'P', x: 100, y: 80 },
-      { id: 'l2', team: 'P', x: 72, y: 112 },
-      { id: 'l3', team: 'P', x: 62, y: 78 },
-      { id: 'r1', team: 'P', x: 212, y: 100 },
-      { id: 'r2', team: 'P', x: 246, y: 78 },
-      { id: 'r3', team: 'P', x: 250, y: 124 },
-    ],
-    ballStart: 'l1',
     beats: [
       { label: 'De eerste speler speelt de bal over het net', ms: 800, ball: 'r1' },
       { label: 'Hij loopt rond het net; de overkant speelt terug', ms: 1100, ball: 'l2', moves: { l1: [160, 144], l2: [104, 86], r1: [160, 58] } },
@@ -397,14 +236,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Samen hoog houden in de kring
   wcircleup: {
-    actors: [
-      { id: 'p1', team: 'P', x: 160, y: 58 },
-      { id: 'p2', team: 'P', x: 200, y: 87 },
-      { id: 'p3', team: 'P', x: 185, y: 134 },
-      { id: 'p4', team: 'P', x: 135, y: 134 },
-      { id: 'p5', team: 'P', x: 120, y: 87 },
-    ],
-    ballStart: 'p1',
     beats: [
       { label: 'De bal gaat hoog naar de buurman', ms: 800, ball: 'p2' },
       { label: 'Over de kring naar de overkant', ms: 900, ball: 'p4' },
@@ -415,13 +246,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Lange bal: punten in het vak
   longpoints: {
-    actors: [
-      { id: 'a1', team: 'P', x: 64, y: 79 },
-      { id: 'b1', team: 'P', x: 256, y: 79 },
-      { id: 'a2', team: 'P', x: 64, y: 125 },
-      { id: 'b2', team: 'P', x: 256, y: 125 },
-    ],
-    ballStart: 'a1',
     beats: [
       { label: 'A speelt lang naar het vak van B', ms: 1100, ball: 'b1' },
       { label: 'B neemt aan en houdt de bal in zijn vak: een punt voor het duo', ms: 700, ball: 'b1', moves: { b1: [250, 84] } },
@@ -431,17 +255,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Hoekschoppen: aanvallen en verdedigen
   fcorner: {
-    actors: [
-      { id: 't', team: 'P', x: 294, y: 52 },
-      { id: 'a1', team: 'P', x: 238, y: 70 },
-      { id: 'a2', team: 'P', x: 240, y: 102 },
-      { id: 'a3', team: 'P', x: 238, y: 130 },
-      { id: 'd1', team: 'O', x: 276, y: 70 },
-      { id: 'd2', team: 'O', x: 282, y: 94 },
-      { id: 'd3', team: 'O', x: 280, y: 122 },
-      { id: 'k', team: 'N', label: 'K', x: 296, y: 100 },
-    ],
-    ballStart: 't',
     beats: [
       { label: 'De aanvallers starten hun loopacties in een boog', ms: 1000, moves: { a1: [262, 82], a2: [258, 102], a3: [266, 118], d1: [272, 76], d2: [276, 96], d3: [276, 118] } },
       { label: 'Hoekschop op de loopactie naar de eerste paal', ms: 800, ball: 'a1' },
@@ -451,34 +264,15 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Aannemen en draaien: de spits met de rug naar doel
   fturn: {
-    actors: [
-      { id: 'p1', team: 'P', x: 114, y: 100 },
-      { id: 'p2', team: 'P', x: 98, y: 76 },
-      { id: 's', team: 'P', label: 'S', x: 192, y: 100 },
-      { id: 'v', team: 'O', x: 208, y: 98 },
-      { id: 'k', team: 'N', label: 'K', x: 296, y: 100 },
-    ],
-    ballStart: 'p1',
     beats: [
       { label: 'Lage pass op de voet van de spits', ms: 900, ball: 's', moves: { v: [204, 100] } },
       { label: 'De spits neemt aan weg van de verdediger en draait', ms: 900, ball: 's', moves: { s: [214, 124], v: [212, 108] } },
       { label: 'Afwerken op doel', ms: 600, ball: [306, 108], moves: { k: [298, 106] } },
-      { label: 'De volgende beurt: iedereen wisselt van rol', ms: 800, ball: 'p2', newBall: 'p2', moves: { s: [192, 100], v: [208, 98], k: [296, 100], p1: [98, 124], p2: [114, 100] } },
+      { label: 'De volgende beurt: iedereen wisselt van rol', ms: 800, ball: 'p2', newBall: 'p2', moves: { s: [192, 100], v: [208, 98], k: [296, 100], p1: [98, 124], p2: [114, 100], p3: [98, 76] } },
     ],
   },
   // Verdedigen als lijn: samen opschuiven en uitstappen
   defline: {
-    actors: [
-      { id: 'd1', team: 'O', x: 222, y: 62 },
-      { id: 'd2', team: 'O', x: 222, y: 88 },
-      { id: 'd3', team: 'O', x: 222, y: 114 },
-      { id: 'd4', team: 'O', x: 222, y: 140 },
-      { id: 'k', team: 'N', label: 'K', x: 296, y: 100 },
-      { id: 'o1', team: 'P', x: 130, y: 70 },
-      { id: 'o2', team: 'P', x: 104, y: 100 },
-      { id: 'o3', team: 'P', x: 150, y: 128 },
-    ],
-    ballStart: 'o1',
     beats: [
       { label: 'De bal wisselt naar de andere kant: de lijn schuift mee', ms: 1000, ball: 'o3', moves: { d1: [222, 70], d2: [222, 96], d3: [222, 122], d4: [222, 148] } },
       { label: 'De bal gaat zijwaarts: de leider roept “nu” en de lijn stapt samen uit', ms: 900, ball: 'o3', moves: { d1: [206, 70], d2: [206, 96], d3: [206, 122], d4: [206, 148], o2: [200, 100] } },
@@ -488,14 +282,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Ruitpassen met derde man
   diamond: {
-    actors: [
-      { id: 'a1', team: 'P', label: 'A', x: 70, y: 100 },
-      { id: 'a2', team: 'P', label: 'A', x: 52, y: 100 },
-      { id: 'b', team: 'P', label: 'B', x: 160, y: 55 },
-      { id: 'c', team: 'P', label: 'C', x: 160, y: 145 },
-      { id: 'd', team: 'P', label: 'D', x: 250, y: 100 },
-    ],
-    ballStart: 'a1',
     beats: [
       { label: 'A speelt in op B; tegelijk loopt C naar het midden', ms: 900, ball: 'b', moves: { c: [156, 108] } },
       { label: 'B legt in één keer terug op de derde man', ms: 600, ball: 'c' },
@@ -514,13 +300,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Rondo 3 tegen 1: de speler zonder bal loopt telkens naar de vrije zijde
   rondo31: {
-    actors: [
-      { id: 't', team: 'P', x: 160, y: 45 },
-      { id: 'r', team: 'P', x: 215, y: 100 },
-      { id: 'l', team: 'P', x: 105, y: 100 },
-      { id: 'o', team: 'O', x: 160, y: 110 },
-    ],
-    ballStart: 't',
     beats: [
       { label: 'Pass naar rechts; de speler zonder bal loopt naar de vrije zijde', ms: 1000, ball: 'r', moves: { l: [160, 155], o: [188, 92] } },
       { label: 'Pass naar onder; boven schuift door naar links', ms: 1000, ball: 'l', moves: { t: [105, 100], o: [180, 128] } },
@@ -530,18 +309,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Kringrondo 7 tegen 2
   rcircle: {
-    actors: [
-      { id: 'p1', team: 'P', x: 160, y: 45 },
-      { id: 'p2', team: 'P', x: 203, y: 66 },
-      { id: 'p3', team: 'P', x: 214, y: 112 },
-      { id: 'p4', team: 'P', x: 184, y: 150 },
-      { id: 'p5', team: 'P', x: 136, y: 150 },
-      { id: 'p6', team: 'P', x: 106, y: 112 },
-      { id: 'p7', team: 'P', x: 117, y: 66 },
-      { id: 'o1', team: 'O', x: 176, y: 74 },
-      { id: 'o2', team: 'O', x: 148, y: 122 },
-    ],
-    ballStart: 'p1',
     beats: [
       { label: 'Korte pass naar een buur op de cirkel', ms: 800, ball: 'p2', moves: { o1: [190, 78], o2: [162, 110] } },
       { label: 'Verder rond; de verdedigers schuiven mee', ms: 800, ball: 'p3', moves: { o1: [208, 90], o2: [178, 138] } },
@@ -552,16 +319,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Rondo 4 + 1 tegen 2 met middenspeler
   rondo412: {
-    actors: [
-      { id: 't', team: 'P', x: 160, y: 45 },
-      { id: 'r', team: 'P', x: 215, y: 100 },
-      { id: 'b', team: 'P', x: 160, y: 155 },
-      { id: 'l', team: 'P', x: 105, y: 100 },
-      { id: 'm', team: 'P', x: 160, y: 98 },
-      { id: 'o1', team: 'O', x: 135, y: 80 },
-      { id: 'o2', team: 'O', x: 188, y: 126 },
-    ],
-    ballStart: 't',
     beats: [
       { label: 'Pass naar de middenspeler tussen de verdedigers', ms: 900, ball: 'm', moves: { o1: [146, 82], o2: [178, 114] } },
       { label: 'De middenspeler draait open en speelt door naar een andere zijde: punt', ms: 900, ball: 'r', moves: { o1: [150, 112], o2: [198, 112] } },
@@ -572,17 +329,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Rondo 2 tegen 2 met vier kaatsers
   rondo22: {
-    actors: [
-      { id: 'n1', team: 'N', x: 160, y: 45 },
-      { id: 'n2', team: 'N', x: 215, y: 100 },
-      { id: 'n3', team: 'N', x: 160, y: 155 },
-      { id: 'n4', team: 'N', x: 105, y: 100 },
-      { id: 'p1', team: 'P', x: 138, y: 118 },
-      { id: 'p2', team: 'P', x: 182, y: 80 },
-      { id: 'o1', team: 'O', x: 150, y: 96 },
-      { id: 'o2', team: 'O', x: 178, y: 116 },
-    ],
-    ballStart: 'p1',
     beats: [
       { label: 'Pass naar een kaatser', ms: 700, ball: 'n4', moves: { o1: [128, 104], o2: [166, 102] } },
       { label: 'De ploegmaat loopt zich vrij', ms: 700, ball: 'n4', moves: { p2: [198, 60], o2: [176, 90] } },
@@ -593,15 +339,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Rondo 4 tegen 2 in duo's
   rondo42: {
-    actors: [
-      { id: 't', team: 'P', x: 160, y: 45 },
-      { id: 'r', team: 'P', x: 215, y: 100 },
-      { id: 'b', team: 'P', x: 160, y: 155 },
-      { id: 'l', team: 'P', x: 105, y: 100 },
-      { id: 'o1', team: 'O', x: 148, y: 90 },
-      { id: 'o2', team: 'O', x: 170, y: 110 },
-    ],
-    ballStart: 't',
     beats: [
       { label: 'Pass naar een andere zijde; het duo stapt in op de ontvanger', ms: 1000, ball: 'r', moves: { o1: [165, 95], o2: [198, 104] } },
       { label: 'Snel door voor de druk er is', ms: 1000, ball: 'b', moves: { o1: [150, 115], o2: [180, 138] } },
@@ -611,18 +348,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Kleurenrondo 6 tegen 3: altijd naar de andere kleur
   rcolor: {
-    actors: [
-      { id: 'p1', team: 'P', x: 130, y: 45 },
-      { id: 'p2', team: 'P', x: 225, y: 85 },
-      { id: 'p3', team: 'P', x: 165, y: 155 },
-      { id: 'n1', team: 'N', x: 190, y: 45 },
-      { id: 'n2', team: 'N', x: 95, y: 110 },
-      { id: 'n3', team: 'N', x: 225, y: 138 },
-      { id: 'o1', team: 'O', x: 140, y: 92 },
-      { id: 'o2', team: 'O', x: 175, y: 90 },
-      { id: 'o3', team: 'O', x: 160, y: 122 },
-    ],
-    ballStart: 'p1',
     beats: [
       { label: 'Pass naar de andere kleur', ms: 900, ball: 'n2', moves: { o1: [118, 105], o2: [150, 90], o3: [145, 128] } },
       { label: 'En weer naar de andere kleur', ms: 900, ball: 'p3', moves: { o1: [130, 120], o2: [160, 105], o3: [150, 125] } },
@@ -633,15 +358,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Rondo 4 tegen 2 met uitweg voor de verdedigers
   rpress: {
-    actors: [
-      { id: 't', team: 'P', x: 160, y: 45 },
-      { id: 'r', team: 'P', x: 215, y: 100 },
-      { id: 'b', team: 'P', x: 160, y: 155 },
-      { id: 'l', team: 'P', x: 105, y: 100 },
-      { id: 'o1', team: 'O', x: 150, y: 90 },
-      { id: 'o2', team: 'O', x: 170, y: 110 },
-    ],
-    ballStart: 't',
     beats: [
       { label: 'De buitenspelers houden de bal', ms: 1000, ball: 'r', moves: { o1: [165, 95], o2: [198, 106] } },
       { label: 'Onderschept: de verdediger wint de bal', ms: 700, ball: 'o2', moves: { o2: [188, 128] } },
@@ -650,17 +366,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Rondo 5 tegen 2 met diepe pass naar de spits
   rdeep: {
-    actors: [
-      { id: 'p1', team: 'P', x: 105, y: 55 },
-      { id: 'p2', team: 'P', x: 150, y: 80 },
-      { id: 'p3', team: 'P', x: 150, y: 125 },
-      { id: 'p4', team: 'P', x: 105, y: 145 },
-      { id: 'p5', team: 'P', x: 60, y: 100 },
-      { id: 's', team: 'P', x: 260, y: 100 },
-      { id: 'o1', team: 'O', x: 95, y: 95 },
-      { id: 'o2', team: 'O', x: 122, y: 108 },
-    ],
-    ballStart: 'p1',
     beats: [
       { label: 'De bal gaat rond in het vierkant', ms: 800, ball: 'p5', moves: { o1: [82, 88], o2: [100, 112] } },
       { label: 'Verder rond', ms: 800, ball: 'p4', moves: { o1: [100, 118], o2: [122, 120] } },
@@ -673,17 +378,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Omschakelrondo in twee vakken
   rtrans: {
-    actors: [
-      { id: 'a', team: 'P', x: 90, y: 55 },
-      { id: 'b', team: 'P', x: 140, y: 100 },
-      { id: 'c', team: 'P', x: 90, y: 145 },
-      { id: 'd', team: 'P', x: 40, y: 100 },
-      { id: 'o1', team: 'O', x: 80, y: 95 },
-      { id: 'o2', team: 'O', x: 106, y: 112 },
-      { id: 'o3', team: 'O', x: 230, y: 78 },
-      { id: 'o4', team: 'O', x: 230, y: 122 },
-    ],
-    ballStart: 'a',
     beats: [
       { label: 'Paars houdt de bal in vak A', ms: 900, ball: 'b', moves: { o1: [108, 85], o2: [118, 108] } },
       { label: 'Oranje onderschept', ms: 700, ball: 'o2', moves: { o2: [116, 122], o1: [105, 108] } },
@@ -699,11 +393,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Passen door poortjes (één duo)
   pgates: {
-    actors: [
-      { id: 'a', team: 'P', x: 149, y: 74 },
-      { id: 'b', team: 'P', x: 149, y: 112 },
-    ],
-    ballStart: 'a',
     beats: [
       { label: 'Pass door een poortje', ms: 700, ball: 'b' },
       { label: 'De ontvanger dribbelt naar een ander poortje; zijn ploegmaat loopt mee naar de overkant', ms: 1300, ball: 'b', moves: { b: [214, 100], a: [214, 136] } },
@@ -714,13 +403,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Kaatsen: één-twee-race naar het doeltje (één baan)
   wallpass: {
-    actors: [
-      { id: 'p1', team: 'P', x: 60, y: 82 },
-      { id: 'p2', team: 'P', x: 42, y: 82 },
-      { id: 'p3', team: 'P', x: 24, y: 82 },
-      { id: 'k', team: 'P', x: 160, y: 46 },
-    ],
-    ballStart: 'p1',
     beats: [
       { label: 'Op het signaal: dribbel op de kegel af', ms: 1000, ball: 'p1', moves: { p1: [138, 82] } },
       { label: 'Pass naar de kaatser vóór de kegel', ms: 500, ball: 'k' },
@@ -736,13 +418,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Aannemen met schouderblik
   scan: {
-    actors: [
-      { id: 'a', team: 'P', x: 70, y: 100 },
-      { id: 'm', team: 'P', x: 160, y: 100 },
-      { id: 'c', team: 'P', x: 250, y: 100 },
-      { id: 't', team: 'N', label: 'T', x: 184, y: 64 },
-    ],
-    ballStart: 'a',
     beats: [
       { label: 'Inspelen; terwijl de bal onderweg is, kijkt de middenspeler naar de trainer', ms: 900, ball: 'm' },
       { label: 'Hand omhoog: opendraaien', ms: 600, ball: 'm', moves: { m: [172, 104] } },
@@ -753,11 +428,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Lange pass: van kant wisselen
   longpass: {
-    actors: [
-      { id: 'a', team: 'P', x: 60, y: 100 },
-      { id: 'b', team: 'P', x: 260, y: 100 },
-    ],
-    ballStart: 'a',
     beats: [
       { label: 'Bal één pas voor je leggen', ms: 500, ball: 'a', moves: { a: [66, 100] } },
       { label: 'Lange bal met de wreef naar het andere vakje', ms: 1300, ball: 'b' },
@@ -767,12 +437,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Steekpass in de loop
   through: {
-    actors: [
-      { id: 'p', team: 'P', x: 110, y: 100 },
-      { id: 'r', team: 'P', x: 140, y: 140 },
-      { id: 'k', team: 'O', x: 292, y: 100 },
-    ],
-    ballStart: 'p',
     beats: [
       { label: 'Eerst een kleine beweging weg van het poortje', ms: 600, ball: 'p', moves: { r: [128, 150] } },
       { label: 'Dan diep starten', ms: 700, ball: 'p', moves: { r: [186, 130] } },
@@ -782,13 +446,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Passestafette (één ploeg)
   relay: {
-    actors: [
-      { id: 'p1', team: 'P', x: 60, y: 75 },
-      { id: 'p2', team: 'P', x: 120, y: 75 },
-      { id: 'p3', team: 'P', x: 180, y: 75 },
-      { id: 'p4', team: 'P', x: 240, y: 75 },
-    ],
-    ballStart: 'p1',
     beats: [
       { label: 'De race begint: door het eerste poortje', ms: 600, ball: 'p2' },
       { label: 'Aannemen, draaien en door het volgende poortje', ms: 700, ball: 'p3' },
@@ -803,13 +460,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Afwerken na combinatie
   finishing: {
-    actors: [
-      { id: 'a', team: 'P', label: 'A', x: 60, y: 100 },
-      { id: 'b', team: 'P', label: 'B', x: 150, y: 60 },
-      { id: 'c', team: 'P', label: 'C', x: 150, y: 140 },
-      { id: 'k', team: 'O', x: 292, y: 100 },
-    ],
-    ballStart: 'a',
     beats: [
       { label: 'A speelt in op B en loopt mee', ms: 800, ball: 'b', moves: { a: [96, 96] } },
       { label: 'B kaatst terug', ms: 600, ball: 'a', moves: { a: [108, 96] } },
@@ -826,13 +476,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Volley en halve volley
   fvolley: {
-    actors: [
-      { id: 't', team: 'N', label: 'T', x: 210, y: 70 },
-      { id: 's1', team: 'P', x: 160, y: 110 },
-      { id: 's2', team: 'P', x: 140, y: 124 },
-      { id: 'k', team: 'O', x: 292, y: 100 },
-    ],
-    ballStart: 't',
     beats: [
       { label: 'De trainer gooit de bal zacht op', ms: 900, ball: 's1' },
       { label: 'Halve volley: net na de stuit raken met de wreef', ms: 600, ball: [306, 96], moves: { k: [296, 94] } },
@@ -843,13 +486,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Afwerken na voorzet
   fcross: {
-    actors: [
-      { id: 'w', team: 'P', x: 175, y: 48 },
-      { id: 'a', team: 'P', x: 150, y: 95 },
-      { id: 'b', team: 'P', x: 150, y: 130 },
-      { id: 'k', team: 'O', x: 292, y: 100 },
-    ],
-    ballStart: 'w',
     beats: [
       { label: 'De flankspeler dribbelt op', ms: 1100, ball: 'w', moves: { w: [230, 52] } },
       { label: 'De spitsen lopen in: naar de eerste en de tweede paal', ms: 900, ball: 'w', moves: { w: [240, 56], a: [238, 90], b: [234, 124] } },
@@ -859,12 +495,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Terugleggen vanaf de achterlijn
   fcutback: {
-    actors: [
-      { id: 'w', team: 'P', x: 170, y: 48 },
-      { id: 's', team: 'P', x: 160, y: 110 },
-      { id: 'k', team: 'O', x: 292, y: 100 },
-    ],
-    ballStart: 'w',
     beats: [
       { label: 'Dribbel langs de zijlijn tot bijna aan de achterlijn', ms: 1300, ball: 'w', moves: { w: [284, 62], s: [214, 100] } },
       { label: 'De spits loopt richting eerste paal en remt af rond de penaltystip', ms: 700, ball: 'w', moves: { s: [250, 100], k: [294, 88] } },
@@ -874,12 +504,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Schieten en opvolgen
   frebound: {
-    actors: [
-      { id: 's', team: 'P', x: 150, y: 100 },
-      { id: 't', team: 'N', label: 'T', x: 226, y: 146 },
-      { id: 'k', team: 'O', x: 292, y: 100 },
-    ],
-    ballStart: 's',
     beats: [
       { label: 'Eerste schot op doel', ms: 700, ball: [296, 90], moves: { k: [294, 92] } },
       { label: 'Meteen opvolgen: de schutter sprint mee', ms: 900, ball: [296, 90], moves: { s: [238, 112] } },
@@ -889,16 +513,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Schietcarrousel rond de zestien
   fcircuit: {
-    actors: [
-      { id: 'l1', team: 'P', x: 110, y: 55 },
-      { id: 'l2', team: 'P', x: 92, y: 55 },
-      { id: 'c1', team: 'P', x: 70, y: 100 },
-      { id: 'c2', team: 'P', x: 52, y: 100 },
-      { id: 'r1', team: 'P', x: 110, y: 145 },
-      { id: 'r2', team: 'P', x: 92, y: 145 },
-      { id: 'k', team: 'O', x: 292, y: 100 },
-    ],
-    ballStart: 'c1',
     beats: [
       { label: 'De centrale speler drijft op', ms: 1000, ball: 'c1', moves: { c1: [156, 100] } },
       { label: 'Hij trapt op doel en blijft staan als aflegger', ms: 600, ball: [306, 100], moves: { k: [296, 100] } },
@@ -912,12 +526,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Koppen op doel
   fheader: {
-    actors: [
-      { id: 'a', team: 'N', x: 256, y: 148 },
-      { id: 'h', team: 'P', x: 170, y: 100 },
-      { id: 'k', team: 'O', x: 292, y: 100 },
-    ],
-    ballStart: 'a',
     beats: [
       { label: 'Bal met een boog; de kopper loopt aan', ms: 1000, ball: 'h', moves: { h: [238, 100] } },
       { label: 'Afzetten op één been en naar beneden in de hoek koppen', ms: 500, ball: [306, 84], moves: { k: [294, 96] } },
@@ -926,15 +534,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // 3 tegen 2 afwerken na omschakeling
   fcounter: {
-    actors: [
-      { id: 'm', team: 'P', x: 80, y: 100 },
-      { id: 't', team: 'P', x: 80, y: 55 },
-      { id: 'b', team: 'P', x: 80, y: 145 },
-      { id: 'd1', team: 'O', x: 200, y: 84 },
-      { id: 'd2', team: 'O', x: 200, y: 118 },
-      { id: 'k', team: 'O', x: 292, y: 100 },
-    ],
-    ballStart: 'm',
     beats: [
       { label: 'Op het signaal: de middelste speler dribbelt op, de buitenspelers lopen breed mee', ms: 1300, ball: 'm', moves: { m: [166, 100], t: [160, 52], b: [160, 148], d1: [194, 90], d2: [196, 114] } },
       { label: 'Een verdediger stapt in: pass naar de vrije man', ms: 800, ball: 't', moves: { t: [212, 60], m: [176, 100], d1: [188, 92], d2: [204, 110] } },
@@ -943,19 +542,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Schietspel 2 tegen 2 met kaatsers
   fgame: {
-    actors: [
-      { id: 'k1', team: 'P', x: 46, y: 100 },
-      { id: 'p1', team: 'P', x: 130, y: 85 },
-      { id: 'p2', team: 'P', x: 200, y: 120 },
-      { id: 'k2', team: 'O', x: 274, y: 100 },
-      { id: 'o1', team: 'O', x: 170, y: 80 },
-      { id: 'o2', team: 'O', x: 140, y: 120 },
-      { id: 'n1', team: 'N', x: 160, y: 45 },
-      { id: 'n2', team: 'N', x: 160, y: 155 },
-      { id: 'n3', team: 'N', x: 100, y: 45 },
-      { id: 'n4', team: 'N', x: 220, y: 155 },
-    ],
-    ballStart: 'p1',
     beats: [
       { label: 'Pass naar een kaatser', ms: 700, ball: 'n1', moves: { o1: [162, 66], p2: [206, 112] } },
       { label: 'De kaatser speelt de vrije man aan', ms: 900, ball: 'p2', moves: { p2: [212, 106], o2: [178, 116] } },
@@ -968,11 +554,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Plaatsen in de hoeken
   fplace: {
-    actors: [
-      { id: 's', team: 'P', x: 200, y: 100 },
-      { id: 'k', team: 'O', x: 284, y: 100 },
-    ],
-    ballStart: 's',
     beats: [
       { label: 'Bal klaarleggen en kijken', ms: 700, ball: 's', moves: { s: [204, 100] } },
       { label: 'Plaatsen met de binnenkant in een hoekvak', ms: 700, ball: [306, 84], moves: { k: [286, 96] } },
@@ -981,15 +562,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Herhaalde sprints met afwerking
   krepeat: {
-    actors: [
-      { id: 'p1', team: 'P', x: 56, y: 100 },
-      { id: 'p2', team: 'P', x: 38, y: 100 },
-      { id: 'p3', team: 'P', x: 56, y: 124 },
-      { id: 'p4', team: 'P', x: 38, y: 124 },
-      { id: 't', team: 'N', label: 'T', x: 172, y: 144 },
-      { id: 'k', team: 'O', x: 292, y: 100 },
-    ],
-    ballStart: 't',
     beats: [
       { label: 'Sprint naar de kegel', ms: 1000, ball: 't', moves: { p1: [166, 100] } },
       { label: 'De trainer speelt de bal in', ms: 600, ball: 'p1', moves: { p1: [178, 102] } },
@@ -998,11 +570,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Vangen in W-vorm / Lage ballen opscheppen
   gkserve: {
-    actors: [
-      { id: 't', team: 'N', label: 'T', x: 180, y: 100 },
-      { id: 'g', team: 'P', x: 290, y: 100 },
-    ],
-    ballStart: 't',
     beats: [
       { label: 'De trainer speelt de bal aan; de keeper stapt in achter de bal', ms: 900, ball: 'g', moves: { g: [270, 100] } },
       { label: 'Teruggooien en opnieuw in startpositie', ms: 1000, ball: 't', moves: { g: [290, 100] } },
@@ -1012,13 +579,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Schotstoppen vanuit de startpositie
   gkshot: {
-    actors: [
-      { id: 's1', team: 'P', x: 195, y: 60 },
-      { id: 's2', team: 'P', x: 185, y: 100 },
-      { id: 's3', team: 'P', x: 195, y: 140 },
-      { id: 'g', team: 'O', x: 286, y: 100 },
-    ],
-    ballStart: 's1',
     beats: [
       { label: 'De keeper schuift bij tot op de lijn bal–midden doel', ms: 700, ball: 's1', moves: { g: [284, 92] } },
       { label: 'Schot vanaf links', ms: 600, ball: 'g', moves: { g: [280, 88] } },
@@ -1030,12 +590,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Positie kiezen: de hoek verkleinen
   gkangle: {
-    actors: [
-      { id: 'a1', team: 'P', x: 176, y: 62 },
-      { id: 'a2', team: 'P', x: 176, y: 136 },
-      { id: 'g', team: 'O', x: 282, y: 88 },
-    ],
-    ballStart: 'a1',
     beats: [
       { label: 'Pass naar de andere kant; de keeper schuift bij met kleine passen', ms: 1000, ball: 'a2', moves: { g: [282, 112] } },
       { label: 'En terug: weer op de lijn bal–midden doel', ms: 1000, ball: 'a1', moves: { g: [282, 88] } },
@@ -1045,13 +599,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // 1 tegen 1: uitkomen en blokken
   gk1v1: {
-    actors: [
-      { id: 'a1', team: 'P', x: 112, y: 100 },
-      { id: 'a2', team: 'P', x: 60, y: 90 },
-      { id: 'a3', team: 'P', x: 60, y: 110 },
-      { id: 'g', team: 'O', x: 286, y: 100 },
-    ],
-    ballStart: 'a1',
     beats: [
       { label: 'De aanvaller dribbelt op de keeper af', ms: 1200, ball: 'a1', moves: { a1: [196, 100], g: [274, 100] } },
       { label: 'Bal van de voet: de keeper komt uit en remt af op 2 à 3 meter', ms: 700, ball: 'a1', moves: { a1: [214, 100], g: [236, 100] } },
@@ -1060,12 +607,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Hoge ballen: voorzetten klemmen
   gkcross: {
-    actors: [
-      { id: 'o1', team: 'P', x: 225, y: 50 },
-      { id: 'o2', team: 'P', x: 225, y: 150 },
-      { id: 'g', team: 'O', x: 292, y: 100 },
-    ],
-    ballStart: 'o1',
     beats: [
       { label: 'Voorzet in de zestien; de keeper roept “keeper” en komt uit', ms: 1000, ball: 'g', moves: { g: [268, 86] } },
       { label: 'Vangen op het hoogste punt en terug in doel', ms: 900, ball: 'g', moves: { g: [292, 100] } },
@@ -1075,8 +616,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Uitworp en uittrap naar doeltjes
   gkdist: {
-    actors: [{ id: 'g', team: 'P', x: 34, y: 100 }],
-    ballStart: 'g',
     beats: [
       { label: 'Uitrollen naar het dichte doeltje', ms: 1000, ball: [140, 136] },
       { label: 'Werpen of uittrappen naar het verre doeltje', ms: 1500, ball: [252, 60], newBall: 'g' },
@@ -1084,15 +623,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Terugspeelbal onder druk
   gkback: {
-    actors: [
-      { id: 'd', team: 'P', x: 120, y: 146 },
-      { id: 'w', team: 'P', x: 120, y: 54 },
-      { id: 'a', team: 'O', x: 120, y: 100 },
-      { id: 'g', team: 'P', x: 34, y: 100 },
-      { id: 'q1', team: 'P', x: 136, y: 164, waiting: true },
-      { id: 'q2', team: 'P', x: 152, y: 174, waiting: true },
-    ],
-    ballStart: 'd',
     beats: [
       { label: 'De verdediger speelt terug; de aanvaller zet meteen druk op de keeper', ms: 900, ball: 'g', moves: { a: [70, 104] } },
       { label: 'Aannemen naar de kant weg van de aanvaller', ms: 500, ball: 'g', moves: { g: [36, 86], a: [56, 100] } },
@@ -1103,12 +633,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Dubbele redding: opstaan en opnieuw
   gkrebound: {
-    actors: [
-      { id: 's1', team: 'P', x: 180, y: 100 },
-      { id: 's2', team: 'P', x: 235, y: 54 },
-      { id: 'g', team: 'O', x: 286, y: 100 },
-    ],
-    ballStart: 's1',
     beats: [
       { label: 'Laag schot naast de keeper: duiken en verwerken', ms: 600, ball: [292, 134], moves: { g: [286, 122] } },
       { label: 'Meteen rechtstaan en positie kiezen tegenover de tweede schutter', ms: 700, ball: [292, 134], moves: { g: [282, 88] } },
@@ -1117,11 +641,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Leren vallen: van knielend naar staand
   gkdive: {
-    actors: [
-      { id: 't', team: 'N', label: 'T', x: 190, y: 100 },
-      { id: 'g', team: 'P', x: 288, y: 100 },
-    ],
-    ballStart: 't',
     beats: [
       { label: 'Bal net naast de keeper: zijwaarts vallen en vangen', ms: 800, ball: 'g', moves: { g: [288, 80] } },
       { label: 'Teruggooien en opnieuw in kniezit', ms: 1000, ball: 't', moves: { g: [288, 100] } },
@@ -1131,8 +650,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Draaibewegingen aan de kegel (één rij)
   dturns: {
-    actors: [{ id: 'p', team: 'P', x: 64, y: 110 }],
-    ballStart: 'p',
     beats: [
       { label: 'Dribbelen naar de draaikegel', ms: 1100, ball: 'p', moves: { p: [204, 110] } },
       { label: 'Draaien aan de kegel', ms: 500, ball: 'p', moves: { p: [214, 118] } },
@@ -1141,11 +658,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Schijnbewegingen: passeren en versnellen
   dfeint: {
-    actors: [
-      { id: 'p', team: 'P', x: 60, y: 100 },
-      { id: 'd', team: 'O', x: 170, y: 100 },
-    ],
-    ballStart: 'p',
     beats: [
       { label: 'Dribbel op de verdediger af', ms: 900, ball: 'p', moves: { p: [148, 100] } },
       { label: 'Op 2 meter: schijnbeweging naar de ene kant', ms: 400, ball: 'p', moves: { p: [154, 112] } },
@@ -1155,11 +667,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Poortjesspel 1 tegen 1 (één duo)
   dgates: {
-    actors: [
-      { id: 'a', team: 'P', x: 125, y: 86 },
-      { id: 'd', team: 'O', x: 150, y: 100 },
-    ],
-    ballStart: 'a',
     beats: [
       { label: 'De aanvaller dribbelt naar een vrij poortje', ms: 900, ball: 'a', moves: { a: [192, 72], d: [172, 86] } },
       { label: 'Door het poortje: punt', ms: 600, ball: 'a', moves: { a: [199, 38], d: [190, 66] } },
@@ -1170,12 +677,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // 1 tegen 1 met achtervolger
   dchase: {
-    actors: [
-      { id: 'a', team: 'P', x: 80, y: 90 },
-      { id: 'd', team: 'O', x: 60, y: 104 },
-      { id: 'k', team: 'O', x: 292, y: 100 },
-    ],
-    ballStart: 'a',
     beats: [
       { label: 'Op het signaal: de aanvaller dribbelt op snelheid naar doel', ms: 1100, ball: 'a', moves: { a: [170, 92], d: [138, 106] } },
       { label: 'De verdediger zet de achtervolging in', ms: 900, ball: 'a', moves: { a: [234, 96], d: [214, 106] } },
@@ -1184,13 +685,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // 2 tegen 1 naar doel
   d2v1: {
-    actors: [
-      { id: 'a1', team: 'P', x: 90, y: 80 },
-      { id: 'a2', team: 'P', x: 90, y: 130 },
-      { id: 'd', team: 'O', x: 190, y: 100 },
-      { id: 'k', team: 'O', x: 292, y: 100 },
-    ],
-    ballStart: 'a1',
     beats: [
       { label: 'De balbezitter dribbelt op de verdediger af', ms: 1100, ball: 'a1', moves: { a1: [164, 92], a2: [158, 138], d: [186, 98] } },
       { label: 'De verdediger stapt in: pass naar de vrije man', ms: 800, ball: 'a2', moves: { a2: [212, 132], d: [178, 96] } },
@@ -1199,13 +693,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // 1 tegen 1 met de rug naar doel
   dback: {
-    actors: [
-      { id: 't', team: 'N', x: 110, y: 100 },
-      { id: 'a', team: 'P', x: 170, y: 100 },
-      { id: 'd', team: 'O', x: 186, y: 100 },
-      { id: 'k', team: 'O', x: 292, y: 100 },
-    ],
-    ballStart: 't',
     beats: [
       { label: 'De aangever speelt in; de aanvaller komt kort', ms: 800, ball: 'a', moves: { a: [156, 100], d: [174, 100] } },
       { label: 'Aannemen en afschermen', ms: 500, ball: 'a', moves: { d: [170, 92] } },
@@ -1216,12 +703,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Wie is eerst aan de bal?
   wduel: {
-    actors: [
-      { id: 'p', team: 'P', x: 80, y: 90 },
-      { id: 'o', team: 'O', x: 80, y: 116 },
-      { id: 't', team: 'N', label: 'T', x: 80, y: 150 },
-    ],
-    ballStart: 't',
     beats: [
       { label: 'De trainer speelt de bal het veld in', ms: 800, ball: [160, 104] },
       { label: 'Rechtspringen en sprinten: wie is eerst aan de bal?', ms: 800, moves: { p: [154, 100], o: [144, 112] } },
@@ -1231,11 +712,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Reactiestart op signaal
   wreact: {
-    actors: [
-      { id: 'p', team: 'P', x: 152, y: 106 },
-      { id: 'o', team: 'O', x: 168, y: 110 },
-      { id: 't', team: 'N', label: 'T', x: 160, y: 150 },
-    ],
     beats: [
       { label: 'De trainer roept een kleur: sprinten naar die kegel', ms: 800, moves: { p: [108, 52], o: [120, 62] } },
       { label: 'Terug naar het midden', ms: 900, moves: { p: [152, 106], o: [168, 110] } },
@@ -1245,10 +721,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Wendbaarheid: T-parcours
   cagility: {
-    actors: [
-      { id: 'p1', team: 'P', x: 160, y: 152 },
-      { id: 'p2', team: 'P', x: 184, y: 152 },
-    ],
     beats: [
       { label: 'Vooruit sprinten naar de middelste kegel', ms: 800, moves: { p1: [160, 62] } },
       { label: 'Zijwaarts naar links: kegel aantikken', ms: 700, moves: { p1: [108, 60] } },
@@ -1259,10 +731,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Sterloop met kleurkegels
   cstar: {
-    actors: [
-      { id: 'p', team: 'P', x: 160, y: 100 },
-      { id: 'n', team: 'N', x: 250, y: 110 },
-    ],
     beats: [
       { label: 'De partner roept een kleur: tik die kegel aan', ms: 500, moves: { p: [160, 56] } },
       { label: 'Meteen terug naar het midden', ms: 500, moves: { p: [160, 100] } },
@@ -1274,11 +742,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Maximale sprintsnelheid: vliegende sprints
   ksprint: {
-    actors: [
-      { id: 'p1', team: 'P', x: 32, y: 100 },
-      { id: 'p2', team: 'P', x: 32, y: 128 },
-      { id: 'p3', team: 'P', x: 32, y: 72 },
-    ],
     beats: [
       { label: 'Rustig oplopen in de aanloopzone', ms: 1500, moves: { p1: [146, 100] } },
       { label: 'Topsnelheid vasthouden door de sprintzone', ms: 700, moves: { p1: [262, 100] } },
@@ -1287,11 +750,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Hindernisestafette met bal (één ploeg)
   crelay: {
-    actors: [
-      { id: 'p1', team: 'P', x: 40, y: 70 },
-      { id: 'p2', team: 'P', x: 22, y: 70 },
-    ],
-    ballStart: 'p1',
     beats: [
       { label: 'Dribbel door de slalom', ms: 450, ball: 'p1', moves: { p1: [90, 46] } },
       { label: 'Dribbel door de slalom', ms: 350, ball: 'p1', moves: { p1: [115, 72] } },
@@ -1306,11 +764,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // 1 tegen 1 verdedigen: aansluiten en afremmen
   pr1v1: {
-    actors: [
-      { id: 'd', team: 'P', x: 95, y: 100 },
-      { id: 'a', team: 'O', x: 225, y: 100 },
-    ],
-    ballStart: 'd',
     beats: [
       { label: 'De verdediger speelt de bal naar de aanvaller', ms: 800, ball: 'a' },
       { label: 'Meteen sprinten en op 2 meter afremmen', ms: 800, ball: 'a', moves: { d: [194, 104], a: [218, 100] } },
@@ -1321,12 +774,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Druk zetten in een boog: 1 tegen 2
   prcurve: {
-    actors: [
-      { id: 'a1', team: 'P', x: 130, y: 60 },
-      { id: 'a2', team: 'P', x: 200, y: 60 },
-      { id: 'd', team: 'O', x: 165, y: 130 },
-    ],
-    ballStart: 'a1',
     beats: [
       { label: 'De bal gaat naar de andere aanvaller', ms: 800, ball: 'a2', moves: { d: [154, 100] } },
       { label: 'Druk zetten in een boog: de pass terug is dicht', ms: 700, ball: 'a2', moves: { d: [184, 74] } },
@@ -1336,13 +783,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // 2 tegen 2: druk en dekking
   pr2v2: {
-    actors: [
-      { id: 'o1', team: 'P', x: 120, y: 70 },
-      { id: 'o2', team: 'P', x: 120, y: 130 },
-      { id: 'p1', team: 'O', x: 180, y: 85 },
-      { id: 'p2', team: 'O', x: 200, y: 120 },
-    ],
-    ballStart: 'o1',
     beats: [
       { label: 'De eerste verdediger stapt in', ms: 800, ball: 'o1', moves: { p1: [142, 74], o1: [124, 72] } },
       { label: 'De tweede dekt schuin achter hem', ms: 600, ball: 'o1', moves: { p2: [166, 98] } },
@@ -1352,17 +792,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Tegendruk: voorkom 3 passes na balverlies
   prcp: {
-    actors: [
-      { id: 'o1', team: 'P', x: 160, y: 90 },
-      { id: 'o2', team: 'P', x: 215, y: 95 },
-      { id: 'o3', team: 'P', x: 110, y: 132 },
-      { id: 'o4', team: 'P', x: 230, y: 140 },
-      { id: 'p1', team: 'O', x: 130, y: 100 },
-      { id: 'p2', team: 'O', x: 185, y: 66 },
-      { id: 'p3', team: 'O', x: 195, y: 128 },
-      { id: 'p4', team: 'O', x: 90, y: 70 },
-    ],
-    ballStart: 'o1',
     beats: [
       { label: 'Oranje heeft de bal verloren: twee spelers sluiten de balbezitter in', ms: 700, ball: 'o1', moves: { p1: [150, 96], p2: [170, 80], o1: [164, 92] } },
       { label: 'De anderen sluiten de passlijnen af', ms: 700, ball: 'o1', moves: { p3: [206, 110], p4: [106, 120] } },
@@ -1371,18 +800,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Pressing op de trigger: terugspeelbal
   prtrig: {
-    actors: [
-      { id: 'o1', team: 'P', x: 70, y: 60 },
-      { id: 'o2', team: 'P', x: 70, y: 140 },
-      { id: 'o3', team: 'P', x: 110, y: 80 },
-      { id: 'o4', team: 'P', x: 110, y: 120 },
-      { id: 'k', team: 'P', x: 28, y: 100 },
-      { id: 'p1', team: 'O', x: 170, y: 70 },
-      { id: 'p2', team: 'O', x: 170, y: 130 },
-      { id: 'p3', team: 'O', x: 150, y: 100 },
-      { id: 'p4', team: 'O', x: 190, y: 100 },
-    ],
-    ballStart: 'o1',
     beats: [
       { label: 'Compact wachten rond de middenlijn: nog niet instappen', ms: 900, ball: 'o3', moves: { p1: [162, 76], p3: [146, 96] } },
       { label: 'De opbouwers spelen rond', ms: 900, ball: 'o4', moves: { p1: [166, 84], p2: [162, 124], p3: [148, 106] } },
@@ -1394,16 +811,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Onderaantal verdedigen: 2 tegen 3
   prunder: {
-    actors: [
-      { id: 'a1', team: 'P', x: 100, y: 60 },
-      { id: 'a2', team: 'P', x: 100, y: 100 },
-      { id: 'a3', team: 'P', x: 100, y: 140 },
-      { id: 'd1', team: 'O', x: 200, y: 85 },
-      { id: 'd2', team: 'O', x: 200, y: 118 },
-      { id: 'd3', team: 'O', x: 50, y: 150 },
-      { id: 'k', team: 'O', x: 292, y: 100 },
-    ],
-    ballStart: 'a2',
     beats: [
       { label: 'Vertragen: niet te diep zakken en dicht bij elkaar blijven', ms: 900, ball: 'a2', moves: { a2: [132, 100], a1: [124, 62], a3: [124, 140], d1: [190, 92], d2: [190, 112] } },
       { label: 'De bal gaat naar de flank', ms: 800, ball: 'a1', moves: { a1: [138, 64] } },
@@ -1413,15 +820,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Druk zetten op de opbouw: 3 tegen 2 + K
   prbuild: {
-    actors: [
-      { id: 'k', team: 'P', x: 28, y: 100 },
-      { id: 'o1', team: 'P', x: 70, y: 60 },
-      { id: 'o2', team: 'P', x: 70, y: 140 },
-      { id: 'p1', team: 'O', x: 130, y: 100 },
-      { id: 'p2', team: 'O', x: 140, y: 60 },
-      { id: 'p3', team: 'O', x: 140, y: 140 },
-    ],
-    ballStart: 'k',
     beats: [
       { label: 'De keeper speelt in', ms: 900, ball: 'o1', moves: { p1: [92, 106] } },
       { label: 'Boog van de spits: de pass terug is dicht; de buitenste stapt in', ms: 800, ball: 'o1', moves: { p1: [56, 86], p2: [84, 58], o1: [72, 62] } },
@@ -1432,21 +830,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Verschuiven als blok: over de rivier
   prshift: {
-    actors: [
-      { id: 't1', team: 'P', x: 160, y: 26 },
-      { id: 't2', team: 'P', x: 104, y: 52 },
-      { id: 't3', team: 'P', x: 216, y: 52 },
-      { id: 't4', team: 'P', x: 160, y: 72 },
-      { id: 'b1', team: 'P', x: 160, y: 174 },
-      { id: 'b2', team: 'P', x: 104, y: 148 },
-      { id: 'b3', team: 'P', x: 216, y: 148 },
-      { id: 'b4', team: 'P', x: 166, y: 128 },
-      { id: 'd1', team: 'O', x: 92, y: 100 },
-      { id: 'd2', team: 'O', x: 130, y: 100 },
-      { id: 'd3', team: 'O', x: 190, y: 100 },
-      { id: 'd4', team: 'O', x: 228, y: 100 },
-    ],
-    ballStart: 't3',
     beats: [
       { label: 'De aanvallers spelen de bal breed; één verdediger zet druk', ms: 1000, ball: 't1', moves: { d3: [176, 44], d1: [100, 100], d2: [138, 100], d4: [206, 100] } },
       { label: 'De rest schuift mee in de rivier', ms: 1000, ball: 't2', moves: { d3: [128, 40], d1: [94, 100], d2: [118, 100], d4: [170, 100] } },
@@ -1456,20 +839,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Druk zetten in blok 6 tegen 4
   pressing: {
-    actors: [
-      { id: 'o1', team: 'P', x: 58, y: 54 },
-      { id: 'o2', team: 'P', x: 58, y: 146 },
-      { id: 'o3', team: 'P', x: 68, y: 98 },
-      { id: 'o4', team: 'P', x: 36, y: 120 },
-      { id: 'k', team: 'P', x: 22, y: 100 },
-      { id: 'p1', team: 'O', x: 120, y: 50 },
-      { id: 'p2', team: 'O', x: 120, y: 150 },
-      { id: 'p3', team: 'O', x: 104, y: 100 },
-      { id: 'p4', team: 'O', x: 150, y: 75 },
-      { id: 'p5', team: 'O', x: 150, y: 125 },
-      { id: 'p6', team: 'O', x: 180, y: 100 },
-    ],
-    ballStart: 'k',
     beats: [
       { label: 'De keeper start de opbouw', ms: 800, ball: 'o3' },
       { label: 'Pass naar de zijkant: de trigger', ms: 800, ball: 'o1' },
@@ -1480,17 +849,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Omschakelen 4 tegen 4 op vier doeltjes
   transition: {
-    actors: [
-      { id: 'p1', team: 'P', x: 120, y: 120 },
-      { id: 'p2', team: 'P', x: 165, y: 95 },
-      { id: 'p3', team: 'P', x: 90, y: 60 },
-      { id: 'p4', team: 'P', x: 210, y: 140 },
-      { id: 'o1', team: 'O', x: 140, y: 70 },
-      { id: 'o2', team: 'O', x: 195, y: 110 },
-      { id: 'o3', team: 'O', x: 230, y: 80 },
-      { id: 'o4', team: 'O', x: 80, y: 140 },
-    ],
-    ballStart: 'o2',
     beats: [
       { label: 'Oranje speelt in; paars onderschept', ms: 800, ball: 'p1', moves: { p1: [124, 128] } },
       { label: 'Balwinst: eerst vooruit kijken', ms: 700, ball: 'p2', moves: { p2: [172, 92] } },
@@ -1500,11 +858,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Omschakelduel 1 tegen 1
   omduel: {
-    actors: [
-      { id: 'p', team: 'P', x: 140, y: 100 },
-      { id: 'o', team: 'O', x: 185, y: 100 },
-    ],
-    ballStart: 'p',
     beats: [
       { label: 'Paars dribbelt naar het doeltje', ms: 800, ball: 'p', moves: { p: [186, 118], o: [196, 108] } },
       { label: 'Oranje wint de bal', ms: 500, ball: 'o', moves: { o: [198, 112] } },
@@ -1514,13 +867,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Golfaanvallen 2 tegen 1
   omwaves: {
-    actors: [
-      { id: 'p1', team: 'P', x: 100, y: 70 },
-      { id: 'p2', team: 'P', x: 100, y: 130 },
-      { id: 'o', team: 'O', x: 200, y: 100 },
-      { id: 'o2', team: 'O', x: 268, y: 60 },
-    ],
-    ballStart: 'p1',
     beats: [
       { label: 'Twee tegen één: pass naar de vrije ploegmaat', ms: 900, ball: 'p2', moves: { p2: [176, 126], p1: [150, 80], o: [178, 96] } },
       { label: 'Schot op een doeltje', ms: 500, ball: [284, 116] },
@@ -1537,16 +883,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Overtal heen, ondertal terug: 3 tegen 2 en 2 tegen 1
   om32: {
-    actors: [
-      { id: 'kp', team: 'P', x: 24, y: 100 },
-      { id: 'a1', team: 'P', x: 120, y: 60 },
-      { id: 'a2', team: 'P', x: 120, y: 100 },
-      { id: 'a3', team: 'P', x: 120, y: 140 },
-      { id: 'ko', team: 'O', x: 296, y: 100 },
-      { id: 'd1', team: 'O', x: 220, y: 80 },
-      { id: 'd2', team: 'O', x: 220, y: 120 },
-    ],
-    ballStart: 'a2',
     beats: [
       { label: '3 tegen 2: de middelste aanvaller dribbelt op', ms: 1000, ball: 'a2', moves: { a2: [184, 100], a1: [180, 58], a3: [180, 142], d1: [212, 90], d2: [212, 112] } },
       { label: 'Een verdediger stapt in: pass naar de vrije man', ms: 800, ball: 'a3', moves: { a3: [230, 136], d1: [198, 96], d2: [214, 116] } },
@@ -1564,15 +900,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Winnaar blijft: 2 tegen 2 met wisselende duo's
   omwinner: {
-    actors: [
-      { id: 'p1', team: 'P', x: 130, y: 80 },
-      { id: 'p2', team: 'P', x: 140, y: 125 },
-      { id: 'o1', team: 'O', x: 190, y: 95 },
-      { id: 'o2', team: 'O', x: 200, y: 125 },
-      { id: 'n1', team: 'N', x: 150, y: 40 },
-      { id: 'n2', team: 'N', x: 175, y: 42 },
-    ],
-    ballStart: 'p1',
     beats: [
       { label: 'Paars scoort', ms: 800, ball: [252, 72] },
       {
@@ -1589,16 +916,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Terugsprinten achter de bal: 3 tegen 2 + 1
   omrecover: {
-    actors: [
-      { id: 'p1', team: 'P', x: 120, y: 60 },
-      { id: 'p2', team: 'P', x: 110, y: 100 },
-      { id: 'p3', team: 'P', x: 120, y: 140 },
-      { id: 'd1', team: 'O', x: 210, y: 85 },
-      { id: 'd2', team: 'O', x: 210, y: 118 },
-      { id: 'd3', team: 'O', x: 70, y: 100 },
-      { id: 'k', team: 'O', x: 292, y: 100 },
-    ],
-    ballStart: 'p2',
     beats: [
       { label: 'Op het signaal: de aanvallers vallen aan, de derde verdediger sprint terug', ms: 1000, ball: 'p2', moves: { p2: [160, 100], p1: [166, 62], p3: [166, 138], d3: [130, 152] } },
       { label: 'De kortste weg naar het eigen doel, tussen bal en doel', ms: 1000, ball: 'p2', moves: { p2: [186, 100], p1: [196, 64], p3: [196, 140], d3: [216, 126], d1: [204, 90], d2: [206, 112] } },
@@ -1609,14 +926,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Snelle counter via de keeper
   omkeeper: {
-    actors: [
-      { id: 'g', team: 'P', x: 28, y: 100 },
-      { id: 'w1', team: 'P', x: 90, y: 48 },
-      { id: 'w2', team: 'P', x: 90, y: 152 },
-      { id: 's', team: 'N', x: 130, y: 100 },
-      { id: 'd', team: 'O', x: 150, y: 72 },
-    ],
-    ballStart: 's',
     beats: [
       { label: 'De schutter schiet; de keeper vangt', ms: 600, ball: 'g' },
       { label: 'De flankspelers lopen breed vrij', ms: 900, ball: 'g', moves: { w1: [168, 48], w2: [168, 152], d: [170, 88] } },
@@ -1628,17 +937,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Van rondo naar counter
   omrondo: {
-    actors: [
-      { id: 'p1', team: 'P', x: 215, y: 55 },
-      { id: 'p2', team: 'P', x: 170, y: 85 },
-      { id: 'p3', team: 'P', x: 170, y: 125 },
-      { id: 'p4', team: 'P', x: 215, y: 145 },
-      { id: 'p5', team: 'P', x: 260, y: 100 },
-      { id: 'g', team: 'P', x: 28, y: 100 },
-      { id: 'o1', team: 'O', x: 225, y: 95 },
-      { id: 'o2', team: 'O', x: 198, y: 110 },
-    ],
-    ballStart: 'p1',
     beats: [
       { label: 'Rondo: de vijf houden de bal', ms: 800, ball: 'p2', moves: { o1: [206, 88], o2: [188, 106] } },
       { label: 'Oranje onderschept', ms: 600, ball: 'o2', moves: { o2: [174, 104] } },
@@ -1648,20 +946,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Nummerspel: 1 tegen 1 tot 3 tegen 3
   sgnum: {
-    actors: [
-      { id: 'p1', team: 'P', x: 115, y: 46 },
-      { id: 'p2', team: 'P', x: 140, y: 46 },
-      { id: 'p3', team: 'P', x: 165, y: 46 },
-      { id: 'p4', team: 'P', x: 190, y: 46 },
-      { id: 'p5', team: 'P', x: 215, y: 46 },
-      { id: 'o1', team: 'O', x: 105, y: 154 },
-      { id: 'o2', team: 'O', x: 130, y: 154 },
-      { id: 'o3', team: 'O', x: 155, y: 154 },
-      { id: 'o4', team: 'O', x: 180, y: 154 },
-      { id: 'o5', team: 'O', x: 205, y: 154 },
-      { id: 't', team: 'N', label: 'T', x: 36, y: 64 },
-    ],
-    ballStart: 't',
     beats: [
       { label: 'De trainer roept een nummer en speelt de bal in', ms: 1000, ball: [128, 100], moves: { p3: [150, 76], o3: [158, 128] } },
       { label: 'Wie is eerst aan de bal?', ms: 600, moves: { p3: [122, 96], o3: [150, 112] } },
@@ -1672,13 +956,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Doeltrap: splitsen en uitspelen 2 + K tegen 1
   obsplit: {
-    actors: [
-      { id: 'g', team: 'P', x: 24, y: 100 },
-      { id: 'c1', team: 'P', x: 54, y: 86 },
-      { id: 'c2', team: 'P', x: 54, y: 114 },
-      { id: 'a', team: 'O', x: 100, y: 100 },
-    ],
-    ballStart: 'g',
     beats: [
       { label: 'Doeltrap: de verdedigers splitsen breed', ms: 900, ball: 'g', moves: { c1: [74, 56], c2: [74, 144] } },
       { label: 'De aanvaller kiest een kant', ms: 600, ball: 'g', moves: { a: [88, 76] } },
@@ -1688,16 +965,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Vrijlopen van de zes: opbouw 3 + K tegen 2
   obsix: {
-    actors: [
-      { id: 'g', team: 'P', x: 24, y: 100 },
-      { id: 'c1', team: 'P', x: 70, y: 60 },
-      { id: 'c2', team: 'P', x: 70, y: 140 },
-      { id: 's', team: 'P', x: 128, y: 122 },
-      { id: 'a1', team: 'O', x: 100, y: 94 },
-      { id: 'a2', team: 'O', x: 112, y: 136 },
-      { id: 'k', team: 'N', x: 256, y: 100 },
-    ],
-    ballStart: 'g',
     beats: [
       { label: 'Elke actie start bij de keeper', ms: 800, ball: 'c1', moves: { a1: [92, 76] } },
       { label: 'De zes zoekt de open ruimte tussen de aanvallers', ms: 700, ball: 'c1', moves: { s: [146, 100], a2: [110, 124] } },
@@ -1708,18 +975,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Uitzakkende zes: opbouwen met drie achteraan
   obdrop: {
-    actors: [
-      { id: 'g', team: 'P', x: 24, y: 100 },
-      { id: 'c1', team: 'P', x: 70, y: 70 },
-      { id: 'c2', team: 'P', x: 70, y: 130 },
-      { id: 's', team: 'P', x: 116, y: 100 },
-      { id: 'b1', team: 'P', x: 118, y: 44 },
-      { id: 'b2', team: 'P', x: 118, y: 156 },
-      { id: 'f1', team: 'O', x: 104, y: 80 },
-      { id: 'f2', team: 'O', x: 104, y: 122 },
-      { id: 'm', team: 'O', x: 150, y: 100 },
-    ],
-    ballStart: 'g',
     beats: [
       { label: 'Beide spitsen zetten druk op de centrale verdedigers', ms: 700, ball: 'g', moves: { f1: [84, 76], f2: [84, 124] } },
       {
@@ -1735,15 +990,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Indribbelen door de centrale verdediger
   obdrive: {
-    actors: [
-      { id: 'c1', team: 'P', x: 70, y: 70 },
-      { id: 'c2', team: 'P', x: 70, y: 130 },
-      { id: 's', team: 'O', x: 98, y: 92 },
-      { id: 'm', team: 'P', x: 200, y: 75 },
-      { id: 'o', team: 'O', x: 220, y: 92 },
-      { id: 'k', team: 'N', x: 280, y: 100 },
-    ],
-    ballStart: 'c1',
     beats: [
       { label: 'De verdedigers spelen de bal rond', ms: 800, ball: 'c2', moves: { s: [84, 114] } },
       { label: 'Terug naar de vrije verdediger', ms: 800, ball: 'c1', moves: { s: [86, 92] } },
@@ -1754,16 +1000,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Lange bal op de spits en de tweede bal
   oblong: {
-    actors: [
-      { id: 'g', team: 'P', x: 24, y: 100 },
-      { id: 's', team: 'P', x: 184, y: 96 },
-      { id: 'm1', team: 'P', x: 160, y: 62 },
-      { id: 'm2', team: 'P', x: 162, y: 138 },
-      { id: 'o1', team: 'O', x: 202, y: 100 },
-      { id: 'o2', team: 'O', x: 165, y: 112 },
-      { id: 'o3', team: 'O', x: 225, y: 70 },
-    ],
-    ballStart: 'g',
     beats: [
       { label: 'Uittrap op de spits', ms: 1300, ball: 's', moves: { o1: [196, 104] } },
       { label: 'De spits legt af', ms: 600, ball: 'm2', moves: { m2: [168, 132], o2: [176, 120] } },
@@ -1772,17 +1008,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Van kant wisselen via de keeper: 4 + K tegen 3
   obswitch: {
-    actors: [
-      { id: 'g', team: 'P', x: 24, y: 100 },
-      { id: 'c1', team: 'P', x: 68, y: 72 },
-      { id: 'c2', team: 'P', x: 68, y: 128 },
-      { id: 'b1', team: 'P', x: 116, y: 52 },
-      { id: 'b2', team: 'P', x: 116, y: 148 },
-      { id: 'o1', team: 'O', x: 128, y: 62 },
-      { id: 'o2', team: 'O', x: 88, y: 84 },
-      { id: 'o3', team: 'O', x: 140, y: 110 },
-    ],
-    ballStart: 'b1',
     beats: [
       { label: 'Druk op de flank: bal terug naar de keeper', ms: 1000, ball: 'g', moves: { o1: [104, 62], o2: [60, 88] } },
       { label: 'De keeper speelt de andere centrale verdediger aan', ms: 800, ball: 'c2', moves: { o2: [58, 108] } },
@@ -1792,15 +1017,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Verticale pass op de spits en de kaatsbal
   obwall: {
-    actors: [
-      { id: 'c', team: 'P', x: 50, y: 100 },
-      { id: 's', team: 'P', x: 100, y: 120 },
-      { id: 'f', team: 'P', x: 190, y: 100 },
-      { id: 'w', team: 'P', x: 268, y: 56 },
-      { id: 'd', team: 'O', x: 206, y: 100 },
-      { id: 'm', team: 'O', x: 120, y: 74 },
-    ],
-    ballStart: 'c',
     beats: [
       { label: 'Verticale pass op de spits; de zes sluit aan', ms: 900, ball: 'f', moves: { s: [140, 122] } },
       { label: 'De spits kaatst in één keer naar de zes', ms: 600, ball: 's', moves: { d: [202, 106], m: [126, 92] } },
@@ -1809,17 +1025,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Kort of lang: de keeper beslist
   obkeeper: {
-    actors: [
-      { id: 'g', team: 'P', x: 24, y: 100 },
-      { id: 'c1', team: 'P', x: 62, y: 68 },
-      { id: 'c2', team: 'P', x: 62, y: 132 },
-      { id: 's', team: 'P', x: 106, y: 122 },
-      { id: 'f', team: 'P', x: 245, y: 70 },
-      { id: 'd1', team: 'O', x: 84, y: 62 },
-      { id: 'd2', team: 'O', x: 84, y: 128 },
-      { id: 'd3', team: 'O', x: 124, y: 102 },
-    ],
-    ballStart: 'g',
     beats: [
       { label: 'De drukzetters zakken terug naar het midden', ms: 900, ball: 'g', moves: { d1: [130, 70], d2: [130, 130], d3: [150, 100] } },
       { label: 'Dan kort op de verdediger', ms: 700, ball: 'c1' },
@@ -1837,15 +1042,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Loskomen van de 3 en de 10: K + 2 tegen 2
   obfree: {
-    actors: [
-      { id: 'g', team: 'P', label: 'K', x: 24, y: 100 },
-      { id: 't', team: 'P', label: '3', x: 96, y: 122 },
-      { id: 'ten', team: 'P', label: '10', x: 176, y: 92 },
-      { id: 'n', team: 'P', label: '9', x: 284, y: 100 },
-      { id: 'd3', team: 'O', x: 116, y: 112 },
-      { id: 'd10', team: 'O', x: 196, y: 100 },
-    ],
-    ballStart: 'g',
     beats: [
       { label: 'Loskomen: de 3 en de 10 bewegen diagonaal van elkaar weg, richting keeper', ms: 900, ball: 'g', moves: { t: [70, 138], ten: [152, 70], d3: [94, 128], d10: [172, 86] } },
       { label: 'De keeper speelt diep op de 10', ms: 1000, ball: 'ten' },
@@ -1857,15 +1053,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Terugspeelbal en uitbouwen: 3 + K tegen 2
   obback: {
-    actors: [
-      { id: 'g', team: 'P', x: 32, y: 100 },
-      { id: 'lb', team: 'P', x: 70, y: 42 },
-      { id: 'cv', team: 'P', x: 110, y: 100 },
-      { id: 'rb', team: 'P', x: 70, y: 158 },
-      { id: 'a1', team: 'O', x: 110, y: 128 },
-      { id: 'a2', team: 'O', x: 110, y: 72 },
-    ],
-    ballStart: 'cv',
     beats: [
       { label: 'De centrale verdediger speelt terug: de ene aanvaller zet druk op de keeper, de andere sluit de centrale verdediger af', ms: 1000, ball: 'g', moves: { a1: [56, 110], a2: [114, 88], lb: [76, 36], rb: [76, 164] } },
       { label: 'De keeper neemt aan weg van de druk', ms: 600, ball: 'g', moves: { g: [34, 90], a1: [44, 104] } },
@@ -1876,17 +1063,8 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Rustig uitspelen: 3 + K tegen 2 met terugtreklijn
   obline: {
-    actors: [
-      { id: 'g', team: 'P', x: 32, y: 100 },
-      { id: 'd1', team: 'P', x: 60, y: 60 },
-      { id: 'd2', team: 'P', x: 60, y: 140 },
-      { id: 'd3', team: 'P', x: 70, y: 100 },
-      { id: 'a1', team: 'O', x: 76, y: 78 },
-      { id: 'a2', team: 'O', x: 78, y: 124 },
-    ],
-    ballStart: 'g',
     beats: [
-      { label: 'De keeper heeft de bal: de aanvallers lopen terug achter de terugtreklijn', ms: 900, ball: 'g', moves: { a1: [104, 80], a2: [104, 122] } },
+      { label: 'De keeper heeft de bal: de aanvallers wachten achter de terugtreklijn', ms: 900, ball: 'g' },
       { label: 'De keeper speelt een vrije verdediger aan: nu mogen ze druk zetten', ms: 800, ball: 'd2', moves: { a2: [86, 132] } },
       { label: 'Dribbel naar voren', ms: 1100, ball: 'd2', moves: { d2: [170, 138], a2: [140, 134] } },
       { label: 'Scoren in een doeltje', ms: 700, ball: [272, 128] },
@@ -1894,16 +1072,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Opbouwen tegen druk: 4 + K tegen 2
   psbuild: {
-    actors: [
-      { id: 'g', team: 'P', x: 28, y: 100 },
-      { id: 'c1', team: 'P', x: 70, y: 70 },
-      { id: 'c2', team: 'P', x: 70, y: 130 },
-      { id: 'b1', team: 'P', x: 120, y: 50 },
-      { id: 'b2', team: 'P', x: 120, y: 150 },
-      { id: 'a1', team: 'O', x: 92, y: 100 },
-      { id: 'a2', team: 'O', x: 130, y: 100 },
-    ],
-    ballStart: 'g',
     beats: [
       { label: 'De keeper speelt in', ms: 800, ball: 'c2', moves: { a1: [84, 118] } },
       { label: 'Druk: naar de andere centrale verdediger', ms: 900, ball: 'c1', moves: { a1: [82, 86], a2: [120, 82] } },
@@ -1913,20 +1081,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Schaduwopbouw: patronen zonder tegenstander
   psshadow: {
-    actors: [
-      { id: 'g', team: 'P', x: 24, y: 100 },
-      { id: 'c1', team: 'P', x: 60, y: 80 },
-      { id: 'c2', team: 'P', x: 60, y: 120 },
-      { id: 'b1', team: 'P', x: 80, y: 45 },
-      { id: 'b2', team: 'P', x: 80, y: 155 },
-      { id: 'm1', team: 'P', x: 120, y: 100 },
-      { id: 'm2', team: 'P', x: 150, y: 70 },
-      { id: 'm3', team: 'P', x: 150, y: 130 },
-      { id: 'w1', team: 'P', x: 220, y: 50 },
-      { id: 'w2', team: 'P', x: 220, y: 150 },
-      { id: 'st', team: 'P', x: 250, y: 100 },
-    ],
-    ballStart: 'g',
     beats: [
       { label: 'De keeper speelt in', ms: 700, ball: 'c1' },
       { label: 'Via de centrale verdediger naar de back', ms: 800, ball: 'b1', moves: { b1: [96, 46], m1: [128, 96], m2: [158, 66] } },
@@ -1936,16 +1090,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Driehoek op de flank: back, flankspeler en middenvelder
   psflank: {
-    actors: [
-      { id: 'b', team: 'P', x: 120, y: 75 },
-      { id: 'w', team: 'P', x: 190, y: 55 },
-      { id: 'm', team: 'P', x: 160, y: 98 },
-      { id: 's', team: 'P', x: 270, y: 112 },
-      { id: 'd1', team: 'O', x: 180, y: 74 },
-      { id: 'd2', team: 'O', x: 214, y: 64 },
-      { id: 'k', team: 'O', x: 292, y: 100 },
-    ],
-    ballStart: 'b',
     beats: [
       { label: 'De back speelt de flankspeler aan', ms: 800, ball: 'w', moves: { d2: [204, 58] } },
       { label: 'Kaatsen via de middenvelder', ms: 700, ball: 'm', moves: { m: [166, 90], d1: [178, 78] } },
@@ -1956,22 +1100,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Positiespel 5 tegen 5 + 3
   positional: {
-    actors: [
-      { id: 'n1', team: 'N', x: 30, y: 100 },
-      { id: 'n2', team: 'N', x: 290, y: 100 },
-      { id: 'n3', team: 'N', x: 160, y: 180 },
-      { id: 'p1', team: 'P', x: 60, y: 50 },
-      { id: 'p2', team: 'P', x: 60, y: 150 },
-      { id: 'p3', team: 'P', x: 160, y: 40 },
-      { id: 'p4', team: 'P', x: 160, y: 160 },
-      { id: 'p5', team: 'P', x: 250, y: 100 },
-      { id: 'o1', team: 'O', x: 95, y: 85 },
-      { id: 'o2', team: 'O', x: 95, y: 125 },
-      { id: 'o3', team: 'O', x: 185, y: 72 },
-      { id: 'o4', team: 'O', x: 185, y: 130 },
-      { id: 'o5', team: 'O', x: 140, y: 105 },
-    ],
-    ballStart: 'n1',
     beats: [
       { label: 'De kaatser speelt in', ms: 800, ball: 'p1', moves: { o1: [80, 66] } },
       { label: 'Via de middenzone', ms: 900, ball: 'p3', moves: { o5: [148, 76], o3: [180, 64] } },
@@ -1981,20 +1109,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Positiespel 4 tegen 4 + 3 jokers
   ps43: {
-    actors: [
-      { id: 'j1', team: 'N', x: 60, y: 100 },
-      { id: 'j2', team: 'N', x: 160, y: 100 },
-      { id: 'j3', team: 'N', x: 260, y: 100 },
-      { id: 'p1', team: 'P', x: 100, y: 65 },
-      { id: 'p2', team: 'P', x: 120, y: 135 },
-      { id: 'p3', team: 'P', x: 200, y: 60 },
-      { id: 'p4', team: 'P', x: 215, y: 130 },
-      { id: 'o1', team: 'O', x: 130, y: 112 },
-      { id: 'o2', team: 'O', x: 180, y: 72 },
-      { id: 'o3', team: 'O', x: 170, y: 140 },
-      { id: 'o4', team: 'O', x: 235, y: 90 },
-    ],
-    ballStart: 'j1',
     beats: [
       { label: 'De zijjoker speelt in', ms: 800, ball: 'p1', moves: { o1: [114, 92] } },
       { label: 'Pass naar de middenjoker', ms: 800, ball: 'j2', moves: { o2: [176, 84] } },
@@ -2004,19 +1118,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Overspelen in drie vakken
   ps3z: {
-    actors: [
-      { id: 'l1', team: 'P', x: 40, y: 70 },
-      { id: 'l2', team: 'P', x: 90, y: 65 },
-      { id: 'l3', team: 'P', x: 60, y: 135 },
-      { id: 'ol', team: 'O', x: 70, y: 100 },
-      { id: 'm', team: 'P', x: 160, y: 110 },
-      { id: 'om', team: 'O', x: 150, y: 80 },
-      { id: 'r1', team: 'P', x: 220, y: 70 },
-      { id: 'r2', team: 'P', x: 275, y: 80 },
-      { id: 'r3', team: 'P', x: 245, y: 135 },
-      { id: 'or', team: 'O', x: 250, y: 100 },
-    ],
-    ballStart: 'l1',
     beats: [
       { label: 'De bal gaat rond in het buitenvak', ms: 700, ball: 'l2', moves: { ol: [74, 84] } },
       { label: 'Nog eens rond: de verdediger schuift mee', ms: 800, ball: 'l3', moves: { ol: [76, 124] } },
@@ -2026,20 +1127,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Positiespel 6 tegen 4 met vaste posities
   psshape: {
-    actors: [
-      { id: 'g', team: 'P', x: 28, y: 100 },
-      { id: 'c1', team: 'P', x: 70, y: 70 },
-      { id: 'c2', team: 'P', x: 70, y: 130 },
-      { id: 'b1', team: 'P', x: 110, y: 48 },
-      { id: 'b2', team: 'P', x: 110, y: 152 },
-      { id: 'm1', team: 'P', x: 135, y: 85 },
-      { id: 'm2', team: 'P', x: 135, y: 120 },
-      { id: 'o1', team: 'O', x: 155, y: 60 },
-      { id: 'o2', team: 'O', x: 160, y: 140 },
-      { id: 'o3', team: 'O', x: 105, y: 100 },
-      { id: 'o4', team: 'O', x: 180, y: 100 },
-    ],
-    ballStart: 'g',
     beats: [
       { label: 'De keeper speelt in op een centrale verdediger', ms: 800, ball: 'c1', moves: { o3: [86, 88] } },
       { label: 'Bal naar de brede back', ms: 800, ball: 'b1', moves: { o1: [138, 52] } },
@@ -2049,19 +1136,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Van kant wisselen: 4 tegen 4 + 2 op vier doeltjes
   psswitch: {
-    actors: [
-      { id: 'p1', team: 'P', x: 200, y: 60 },
-      { id: 'p2', team: 'P', x: 170, y: 90 },
-      { id: 'p3', team: 'P', x: 130, y: 130 },
-      { id: 'p4', team: 'P', x: 230, y: 140 },
-      { id: 'o1', team: 'O', x: 215, y: 75 },
-      { id: 'o2', team: 'O', x: 240, y: 62 },
-      { id: 'o3', team: 'O', x: 185, y: 55 },
-      { id: 'o4', team: 'O', x: 150, y: 120 },
-      { id: 'j1', team: 'N', x: 120, y: 80 },
-      { id: 'j2', team: 'N', x: 250, y: 105 },
-    ],
-    ballStart: 'p1',
     beats: [
       { label: 'Lokken: korte pass aan de kant van de bal', ms: 700, ball: 'p2', moves: { o1: [196, 80], o2: [232, 72], o3: [176, 70], o4: [158, 106] } },
       { label: 'Kantwissel: pass naar de vrije verre kant', ms: 900, ball: 'p4' },
@@ -2071,19 +1145,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Kwadrantenspel: maximaal twee per vak
   psquad: {
-    actors: [
-      { id: 'p1', team: 'P', x: 90, y: 70 },
-      { id: 'p2', team: 'P', x: 140, y: 80 },
-      { id: 'p3', team: 'P', x: 125, y: 130 },
-      { id: 'p4', team: 'P', x: 195, y: 70 },
-      { id: 'p5', team: 'P', x: 235, y: 125 },
-      { id: 'o1', team: 'O', x: 110, y: 95 },
-      { id: 'o2', team: 'O', x: 180, y: 120 },
-      { id: 'o3', team: 'O', x: 210, y: 90 },
-      { id: 'o4', team: 'O', x: 80, y: 130 },
-      { id: 'o5', team: 'O', x: 250, y: 70 },
-    ],
-    ballStart: 'p1',
     beats: [
       { label: 'Pass naar een ander kwadrant', ms: 900, ball: 'p4', moves: { o3: [212, 78] } },
       { label: 'Een speler loopt naar een vrij kwadrant: nooit drie van één ploeg in hetzelfde vak', ms: 900, ball: 'p4', moves: { p3: [196, 128], o2: [182, 118] } },
@@ -2092,19 +1153,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Spelen tussen de linies: middenzone
   psline: {
-    actors: [
-      { id: 'p1', team: 'P', x: 80, y: 70 },
-      { id: 'p2', team: 'P', x: 110, y: 130 },
-      { id: 'p3', team: 'P', x: 220, y: 60 },
-      { id: 'p4', team: 'P', x: 250, y: 130 },
-      { id: 'pm', team: 'P', x: 160, y: 95 },
-      { id: 'o1', team: 'O', x: 100, y: 100 },
-      { id: 'o2', team: 'O', x: 70, y: 120 },
-      { id: 'o3', team: 'O', x: 215, y: 105 },
-      { id: 'o4', team: 'O', x: 245, y: 80 },
-      { id: 'om', team: 'O', x: 160, y: 130 },
-    ],
-    ballStart: 'p1',
     beats: [
       { label: 'Pass naar de middenspeler', ms: 900, ball: 'pm', moves: { o1: [96, 86], om: [160, 114] } },
       { label: 'De middenspeler draait open', ms: 500, ball: 'pm', moves: { pm: [166, 92] } },
@@ -2113,19 +1161,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Tienpassenspel 5 tegen 5
   tenpass: {
-    actors: [
-      { id: 'p1', team: 'P', x: 90, y: 70 },
-      { id: 'p2', team: 'P', x: 150, y: 60 },
-      { id: 'p3', team: 'P', x: 210, y: 80 },
-      { id: 'p4', team: 'P', x: 120, y: 130 },
-      { id: 'p5', team: 'P', x: 235, y: 135 },
-      { id: 'o1', team: 'O', x: 130, y: 92 },
-      { id: 'o2', team: 'O', x: 180, y: 100 },
-      { id: 'o3', team: 'O', x: 95, y: 105 },
-      { id: 'o4', team: 'O', x: 200, y: 125 },
-      { id: 'o5', team: 'O', x: 165, y: 142 },
-    ],
-    ballStart: 'p1',
     beats: [
       { label: 'Eén: de ploeg telt luidop de passes', ms: 700, ball: 'p2', moves: { o1: [140, 76] } },
       { label: 'Twee', ms: 700, ball: 'p3', moves: { o2: [202, 100] } },
@@ -2136,19 +1171,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Partijvorm 5 tegen 5 op grote doelen
   smallgame: {
-    actors: [
-      { id: 'g', team: 'P', x: 24, y: 100 },
-      { id: 'd', team: 'P', x: 70, y: 100 },
-      { id: 'l', team: 'P', x: 125, y: 50 },
-      { id: 'r', team: 'P', x: 125, y: 150 },
-      { id: 's', team: 'P', x: 185, y: 100 },
-      { id: 'ko', team: 'O', x: 296, y: 100 },
-      { id: 'od', team: 'O', x: 250, y: 100 },
-      { id: 'ol', team: 'O', x: 200, y: 64 },
-      { id: 'or', team: 'O', x: 200, y: 136 },
-      { id: 'os', team: 'O', x: 140, y: 100 },
-    ],
-    ballStart: 'g',
     beats: [
       { label: 'Elke aanval start bij de keeper, die kort inspeelt', ms: 700, ball: 'd', moves: { os: [112, 100] } },
       { label: 'Via de verdediger naar een flankspeler', ms: 800, ball: 'l', moves: { l: [130, 50], os: [100, 86] } },
@@ -2159,15 +1181,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Funino: 3 tegen 3 op vier doeltjes
   sgfunino: {
-    actors: [
-      { id: 'p1', team: 'P', x: 120, y: 70 },
-      { id: 'p2', team: 'P', x: 150, y: 120 },
-      { id: 'p3', team: 'P', x: 190, y: 85 },
-      { id: 'o1', team: 'O', x: 212, y: 128 },
-      { id: 'o2', team: 'O', x: 255, y: 110 },
-      { id: 'o3', team: 'O', x: 160, y: 60 },
-    ],
-    ballStart: 'p2',
     beats: [
       { label: 'Pass naar een vrije ploegmaat', ms: 700, ball: 'p3', moves: { o1: [206, 110] } },
       { label: 'Dribbel naar het vrije doeltje, tot in de scoringszone', ms: 900, ball: 'p3', moves: { p3: [242, 74], o2: [262, 100], o3: [200, 66] } },
@@ -2176,17 +1189,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Poortjesspel 4 tegen 4
   sggates: {
-    actors: [
-      { id: 'p1', team: 'P', x: 190, y: 78 },
-      { id: 'p2', team: 'P', x: 252, y: 74 },
-      { id: 'p3', team: 'P', x: 130, y: 125 },
-      { id: 'p4', team: 'P', x: 80, y: 90 },
-      { id: 'o1', team: 'O', x: 172, y: 108 },
-      { id: 'o2', team: 'O', x: 150, y: 70 },
-      { id: 'o3', team: 'O', x: 205, y: 142 },
-      { id: 'o4', team: 'O', x: 120, y: 100 },
-    ],
-    ballStart: 'p1',
     beats: [
       { label: 'Pass door een poortje naar een ploegmaat: punt', ms: 800, ball: 'p2', moves: { o2: [172, 74] } },
       { label: 'De passer zoekt het volgende poortje', ms: 900, ball: 'p2', moves: { p1: [234, 126], o1: [204, 116], o3: [222, 146] } },
@@ -2196,17 +1198,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Eindzonespel 4 tegen 4
   sgend: {
-    actors: [
-      { id: 'p1', team: 'P', x: 150, y: 80 },
-      { id: 'p2', team: 'P', x: 190, y: 120 },
-      { id: 'p3', team: 'P', x: 120, y: 130 },
-      { id: 'p4', team: 'P', x: 210, y: 70 },
-      { id: 'o1', team: 'O', x: 232, y: 102 },
-      { id: 'o2', team: 'O', x: 180, y: 92 },
-      { id: 'o3', team: 'O', x: 140, y: 110 },
-      { id: 'o4', team: 'O', x: 100, y: 70 },
-    ],
-    ballStart: 'p2',
     beats: [
       { label: 'Niemand wacht in de eindzone', ms: 500, ball: 'p2', moves: { p2: [194, 118] } },
       { label: 'De aanvaller loopt de eindzone in zodra de pass vertrekt', ms: 900, ball: 'p4', moves: { p4: [262, 80], o1: [246, 92] } },
@@ -2216,20 +1207,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Partijvorm 4 tegen 4 + 2 flankjokers
   sgwing: {
-    actors: [
-      { id: 'k', team: 'P', x: 24, y: 100 },
-      { id: 'p1', team: 'P', x: 120, y: 100 },
-      { id: 'p2', team: 'P', x: 190, y: 120 },
-      { id: 'p3', team: 'P', x: 262, y: 98 },
-      { id: 'j1', team: 'N', x: 180, y: 50 },
-      { id: 'j2', team: 'N', x: 140, y: 150 },
-      { id: 'ko', team: 'O', x: 296, y: 100 },
-      { id: 'o1', team: 'O', x: 236, y: 118 },
-      { id: 'o2', team: 'O', x: 205, y: 84 },
-      { id: 'o3', team: 'O', x: 150, y: 112 },
-      { id: 'o4', team: 'O', x: 274, y: 124 },
-    ],
-    ballStart: 'p1',
     beats: [
       { label: 'Pass naar de joker op de flank', ms: 800, ball: 'j1' },
       { label: 'Een verdediger stapt de flankzone in: de joker moet snel beslissen', ms: 800, ball: 'j1', moves: { j1: [222, 50], o2: [230, 62], p2: [226, 112] } },
@@ -2239,11 +1216,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Werpen en terugspelen in duo's (één duo)
   wthrow: {
-    actors: [
-      { id: 'p1', team: 'P', x: 110, y: 100 },
-      { id: 'p2', team: 'P', x: 200, y: 100 },
-    ],
-    ballStart: 'p1',
     beats: [
       { label: 'De werper gooit de bal onderhands', ms: 800, ball: 'p2' },
       { label: 'In één keer terug in de handen, met de binnenkant', ms: 700, ball: 'p1' },
@@ -2253,11 +1225,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Vallende bal: reageren voor de tweede stuit (één duo)
   cdrop: {
-    actors: [
-      { id: 'p', team: 'P', x: 120, y: 100 },
-      { id: 'n', team: 'N', x: 210, y: 100 },
-    ],
-    ballStart: 'n',
     beats: [
       { label: 'De bal wordt zonder aankondiging losgelaten', ms: 300, ball: [202, 104] },
       { label: 'Sprinten en aannemen voor de tweede stuit', ms: 600, moves: { p: [196, 100] } },
@@ -2267,20 +1234,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Aanval tegen verdediging: 6 tegen 4 + K
   sgavv: {
-    actors: [
-      { id: 'a1', team: 'P', x: 90, y: 100 },
-      { id: 'a2', team: 'P', x: 95, y: 145 },
-      { id: 'a3', team: 'P', x: 150, y: 60 },
-      { id: 'a4', team: 'P', x: 150, y: 140 },
-      { id: 'a5', team: 'P', x: 190, y: 100 },
-      { id: 'a6', team: 'P', x: 230, y: 145 },
-      { id: 'k', team: 'O', x: 292, y: 100 },
-      { id: 'd1', team: 'O', x: 200, y: 78 },
-      { id: 'd2', team: 'O', x: 205, y: 122 },
-      { id: 'd3', team: 'O', x: 245, y: 100 },
-      { id: 'd4', team: 'O', x: 258, y: 132 },
-    ],
-    ballStart: 'a1',
     beats: [
       { label: 'De bal naar de centrale middenvelder', ms: 900, ball: 'a5', moves: { d1: [204, 88] } },
       { label: 'De flankspeler loopt achter de verdediging', ms: 800, ball: 'a5', moves: { a3: [226, 56] } },
@@ -2290,21 +1243,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Balwinst op eigen helft en counteren: 6 tegen 6
   omcounter: {
-    actors: [
-      { id: 'g', team: 'P', x: 24, y: 100 },
-      { id: 'p1', team: 'P', x: 100, y: 120 },
-      { id: 'p2', team: 'P', x: 80, y: 70 },
-      { id: 'p3', team: 'P', x: 130, y: 90 },
-      { id: 'p4', team: 'P', x: 150, y: 140 },
-      { id: 'p5', team: 'P', x: 200, y: 60 },
-      { id: 'k', team: 'O', x: 296, y: 100 },
-      { id: 'o1', team: 'O', x: 112, y: 100 },
-      { id: 'o2', team: 'O', x: 140, y: 60 },
-      { id: 'o3', team: 'O', x: 185, y: 120 },
-      { id: 'o4', team: 'O', x: 220, y: 90 },
-      { id: 'o5', team: 'O', x: 250, y: 150 },
-    ],
-    ballStart: 'o1',
     beats: [
       { label: 'Paars wint de bal op eigen helft', ms: 500, ball: 'p1', moves: { p1: [104, 114] } },
       { label: 'Eerste pass vooruit: meteen diep naar de spits', ms: 900, ball: 'p5', moves: { p4: [180, 134] } },
@@ -2315,20 +1253,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // K + 5 tegen K + 4: opbouwen in golven
   obwave: {
-    actors: [
-      { id: 'g', team: 'P', label: 'K', x: 24, y: 100 },
-      { id: 'f5', team: 'P', label: '5', x: 100, y: 22 },
-      { id: 'f2', team: 'P', label: '2', x: 100, y: 178 },
-      { id: 't', team: 'P', label: '3', x: 96, y: 112 },
-      { id: 'ten', team: 'P', label: '10', x: 140, y: 94 },
-      { id: 'n', team: 'P', label: '9', x: 190, y: 100 },
-      { id: 'ko', team: 'O', label: 'K', x: 296, y: 100 },
-      { id: 'o7', team: 'O', label: '7', x: 116, y: 36 },
-      { id: 'o11', team: 'O', label: '11', x: 116, y: 164 },
-      { id: 'o9', team: 'O', label: '9', x: 118, y: 106 },
-      { id: 'o10', team: 'O', label: '10', x: 162, y: 108 },
-    ],
-    ballStart: 'g',
     beats: [
       { label: 'Loskomen: de 3 en de 10 bewegen diagonaal van elkaar weg', ms: 900, ball: 'g', moves: { t: [76, 88], ten: [128, 126], o9: [98, 100], o10: [150, 118] } },
       { label: 'Ruimte maken: de 2 en de 5 schuiven hoger, de 9 biedt zich aan', ms: 900, ball: 'g', moves: { f5: [144, 22], f2: [144, 178], n: [170, 74] } },
@@ -2341,18 +1265,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Positiespel in twee vakken: opbouw via de keeper
   obzones: {
-    actors: [
-      { id: 'g', team: 'P', label: 'K', x: 24, y: 100 },
-      { id: 'f5', team: 'P', label: '5', x: 130, y: 18 },
-      { id: 'f2', team: 'P', label: '2', x: 130, y: 182 },
-      { id: 't', team: 'P', label: '3', x: 98, y: 124 },
-      { id: 'ten', team: 'P', label: '10', x: 172, y: 100 },
-      { id: 'ko', team: 'O', label: 'K', x: 296, y: 100 },
-      { id: 'o9', team: 'O', label: '9', x: 116, y: 114 },
-      { id: 'o2', team: 'O', label: '2', x: 180, y: 36 },
-      { id: 'o5', team: 'O', label: '5', x: 180, y: 164 },
-    ],
-    ballStart: 'g',
     beats: [
       { label: 'Loskomen: de 3 en de 10 bewegen diagonaal van elkaar weg, richting keeper', ms: 900, ball: 'g', moves: { t: [72, 138], ten: [160, 80], o9: [100, 116], o2: [172, 58] } },
       { label: 'De keeper speelt de 3 aan', ms: 700, ball: 't', moves: { o9: [88, 128] } },
@@ -2363,19 +1275,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Doorlopend 4 tegen 4 op grote doelen
   omrestart: {
-    actors: [
-      { id: 'kp', team: 'P', x: 52, y: 100 },
-      { id: 'p1', team: 'P', x: 110, y: 70 },
-      { id: 'p2', team: 'P', x: 120, y: 132 },
-      { id: 'p3', team: 'P', x: 170, y: 95 },
-      { id: 'p4', team: 'P', x: 210, y: 60 },
-      { id: 'ko', team: 'O', x: 268, y: 100 },
-      { id: 'o1', team: 'O', x: 150, y: 58 },
-      { id: 'o2', team: 'O', x: 150, y: 142 },
-      { id: 'o3', team: 'O', x: 200, y: 112 },
-      { id: 'o4', team: 'O', x: 232, y: 80 },
-    ],
-    ballStart: 'p4',
     beats: [
       { label: 'Paars scoort', ms: 600, ball: [284, 96], moves: { ko: [272, 96] } },
       { label: 'De keeper start meteen een nieuwe bal', ms: 800, ball: 'o3', newBall: 'ko', moves: { ko: [268, 100] } },
@@ -2386,21 +1285,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Partijvorm 6 tegen 6 met opbouwzone
   sgbuild: {
-    actors: [
-      { id: 'g', team: 'P', x: 24, y: 100 },
-      { id: 'c1', team: 'P', x: 60, y: 60 },
-      { id: 'c2', team: 'P', x: 60, y: 140 },
-      { id: 'm', team: 'P', x: 140, y: 100 },
-      { id: 'p5', team: 'P', x: 200, y: 140 },
-      { id: 'p6', team: 'P', x: 185, y: 55 },
-      { id: 'ko', team: 'O', x: 296, y: 100 },
-      { id: 'o1', team: 'O', x: 126, y: 60 },
-      { id: 'o2', team: 'O', x: 128, y: 150 },
-      { id: 'o3', team: 'O', x: 220, y: 90 },
-      { id: 'o4', team: 'O', x: 245, y: 55 },
-      { id: 'o5', team: 'O', x: 250, y: 140 },
-    ],
-    ballStart: 'g',
     beats: [
       { label: 'De keeper speelt een brede verdediger aan', ms: 800, ball: 'c1' },
       { label: 'Nu mag de tegenstander de zone in; pass naar de afzakkende middenvelder', ms: 800, ball: 'm', moves: { m: [130, 98], o1: [92, 64] } },
@@ -2411,14 +1295,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Inworp: loskomen en doorspelen
   inworp: {
-    actors: [
-      { id: 'w', team: 'P', x: 100, y: 157 },
-      { id: 'a', team: 'P', x: 110, y: 104 },
-      { id: 'b', team: 'P', x: 176, y: 92 },
-      { id: 'o1', team: 'O', x: 126, y: 118 },
-      { id: 'o2', team: 'O', x: 190, y: 106 },
-    ],
-    ballStart: 'w',
     beats: [
       { label: 'Eerst weglopen van je man', ms: 800, ball: 'w', moves: { a: [90, 82], b: [200, 78], o1: [108, 98], o2: [198, 94] } },
       { label: 'Dan kort komen: de werper gooit naar de voet', ms: 900, ball: 'a', moves: { a: [96, 124], o1: [110, 110] } },
@@ -2440,14 +1316,6 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
   },
   // Vrij rondpassen en de bal volgen
   pfollow: {
-    actors: [
-      { id: 'a', team: 'P', x: 120, y: 66 },
-      { id: 'b', team: 'P', x: 200, y: 60 },
-      { id: 'c', team: 'P', x: 214, y: 120 },
-      { id: 'd', team: 'P', x: 152, y: 142 },
-      { id: 'e', team: 'P', x: 112, y: 116 },
-    ],
-    ballStart: 'a',
     beats: [
       { label: 'Pass naar een ploegmaat en sprint je bal achterna', ms: 1000, ball: 'b', moves: { a: [180, 72], e: [118, 110] } },
       { label: 'Speel een andere ploegmaat aan, niet wie je de bal gaf', ms: 1100, ball: 'e', moves: { b: [146, 98], a: [188, 126], c: [210, 80], d: [150, 146] } },
@@ -2457,3 +1325,8 @@ export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = {
     ],
   },
 };
+
+/** Every animation, with the lineup it starts from. */
+export const ANIMATIONS: Partial<Record<Variant, PitchAnimationDef>> = Object.fromEntries(
+  Object.entries(BEATS).map(([variant, { beats }]) => [variant, { ...LINEUPS[variant as Variant]!, beats }]),
+);
