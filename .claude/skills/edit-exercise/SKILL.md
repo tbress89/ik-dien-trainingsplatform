@@ -14,6 +14,7 @@ All paths are relative to `codebase/`:
 - `src/data/exercises.ts` — the `Exercise` type (list data: title, type, ages, players, duration, materials, …), allowed values, and the `EXERCISES` array.
 - `src/data/exerciseDetails.ts` — the detail-page text per exercise id (`summary`, `steps`, `easier`, `harder`, `objectives`, `coaching`, `diagramSteps`, `related`). It loads as a separate chunk; an exercise's fields are split across both files under the same id.
 - `src/components/Pitch.tsx` — one diagram per `Variant`.
+- `src/data/lineups.ts` — the players and ball of every diagram that has an animation (`src/data/animations.ts`). Such a diagram says `LINEUP` in `Pitch.tsx` instead of `P`/`O`/`N`/`Ball` calls, so to move, add, remove or relabel one of its players, edit the lineup: the diagram and the animation's start change together. Then check the animation's beats still make sense from the new spots (their `moves` are absolute positions, and every id they name must still exist).
 - Trainings are stored in the user's browser (`ikdien:trainingen` in localStorage, see `src/data/training.tsx`), not in the code; with an optional account they are also synced to Supabase. When they're loaded, plan items for exercise ids that no longer exist are dropped, so a delete or id rename can't crash the builder — but renamed ids do disappear from saved trainings.
 - Saved ("bewaarde") exercises are also stored in the browser (`ikdien:bewaard`, synced to the account when signed in); ids that no longer exist are dropped on load.
 - `src/data/referenceTrainings.ts` — the example trainings per age group on the Trainingen page (`[block, exercise id, minutes]` items). A rename must update the id there; a delete must replace the exercise with a comparable one of the same age and minutes, since each block has to keep adding up.
@@ -35,7 +36,7 @@ Typical knock-on effects to check:
 
 | If this changes… | …also check |
 |---|---|
-| Players or formation | `pmin`, `players`, `playersDetail`, the setup step, coaching points that name positions, and the diagram (right number of `P`/`O`, positions matching the formation) |
+| Players or formation | `pmin`, `players`, `playersDetail`, the setup step, coaching points that name positions, and the diagram (right number of `P`/`O`, positions matching the formation; in `lineups.ts` for an animated diagram) |
 | Duration (`min`) | It must stay a multiple of 5 (round to the nearest 5 if asked for e.g. 12). The `Ritme.` step: series × minutes + rest should roughly add up |
 | Age range | `ages` must cover the whole new `ageLabel` range |
 | Phase | Tags follow automatically. `'Algemeen'` has no filter checkbox on the dashboard. Mention that if you switch to it |
@@ -59,7 +60,7 @@ Deleting touches other pages, so confirm before doing it. First list what will h
 
 - the exercise entry is removed from `EXERCISES`, its text from `EXERCISE_DETAILS` and its id from `RECOMMENDED`;
 - any reference training in `referenceTrainings.ts` that uses it gets a comparable replacement (name it), so its blocks still add up;
-- its diagram variant is removed too, if no other exercise uses it (union member in `exercises.ts` and entry in `Pitch.tsx`);
+- its diagram variant is removed too, if no other exercise uses it (union member in `exercises.ts`, entry in `Pitch.tsx`, and its animation and lineup in `animations.ts` and `lineups.ts` if it has them);
 - the exercises that list it under "Past goed bij" (name them), plus the replacement you'd put in each of those slots, so their pages still show four related exercises;
 - trainings saved in people's browsers that use it lose that plan item automatically when they're next loaded; mention this, since their minutes change;
 - bookmarks of it in people's browsers are dropped automatically on the next load.

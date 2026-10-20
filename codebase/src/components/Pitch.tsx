@@ -1,5 +1,6 @@
-import { useId, type ReactNode } from 'react';
+import { Fragment, useId, type ReactNode } from 'react';
 import type { Variant } from '../data/exercises';
+import { LINEUPS } from '../data/lineups';
 
 export const PURPLE = '#5B2BC4';
 export const ORANGE = '#F2A541';
@@ -89,6 +90,20 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
     </g>
   );
   const Ball = (x: number, y: number) => <circle key={`b${x}-${y}`} cx={x} cy={y} r={4} fill="#fff" stroke={INK} strokeWidth={1.5} />;
+  // Stands in for the players and the ball of a diagram that has an animation: they come from its lineup
+  // (lineups.ts), so the diagram and the animation can't drift apart.
+  const LINEUP = <Fragment key="lineup" />;
+  const lineup = (): ReactNode[] => {
+    const def = LINEUPS[variant];
+    if (!def) return [];
+    const players = def.actors.map((a) => {
+      const joinsAt = a.waiting ? Infinity : a.joinsAt;
+      return a.team === 'N' ? N(a.x, a.y, a.label) : (a.team === 'P' ? P : O)(a.x, a.y, a.label, joinsAt);
+    });
+    const holder = def.actors.find((a) => a.id === (def.diagramBall?.at ?? def.ballStart));
+    const [dx, dy] = def.diagramBall?.offset ?? [6, 4];
+    return holder ? [...players, Ball(holder.x + dx, holder.y + dy)] : players;
+  };
   const Cone = (x: number, y: number) => (
     <polygon key={`c${x}-${y}`} points={`${x},${y} ${x + 5},${y + 10} ${x - 5},${y + 10}`} fill={CONE} />
   );
@@ -140,9 +155,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Box(90, 30, 140, 140, ZONE),
       Pass(160, 30, 230, 100),
       Pass(230, 100, 160, 170),
-      P(160, 30), P(230, 100), P(160, 170), P(90, 100),
-      O(155, 92),
-      Ball(170, 36),
+      LINEUP,
       Cone(90, 24), Cone(230, 24), Cone(230, 164), Cone(90, 164),
     ],
     positional: [
@@ -151,10 +164,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Line(203, 20, 203, 180, true),
       Pass(60, 50, 160, 40),
       Pass(160, 40, 250, 100),
-      P(60, 50), P(60, 150), P(160, 40), P(160, 160), P(250, 100),
-      O(95, 85), O(95, 125), O(185, 72), O(185, 130), O(140, 105),
-      N(30, 100), N(290, 100), N(160, 180),
-      Ball(166, 46),
+      LINEUP,
     ],
     finishing: [
       Box(250, 50, 60, 100),
@@ -164,18 +174,14 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(152, 62, 222, 108),
       Run('M150 140 Q190 135 224 114'),
       Run('M232 108 L300 92'),
-      P(60, 100), P(150, 60), P(150, 140),
-      O(292, 100),
-      Ball(66, 96),
+      LINEUP,
     ],
     transition: [
       Box(34, 20, 252, 160, ZONE),
       Goal(24, 48, 10, 26), Goal(24, 126, 10, 26), Goal(286, 48, 10, 26), Goal(286, 126, 10, 26),
       Run('M165 95 Q205 70 250 62'),
       Pass(120, 120, 165, 95),
-      P(120, 120), P(165, 95), P(90, 60), P(210, 140),
-      O(140, 70), O(195, 110), O(230, 80), O(80, 140),
-      Ball(171, 90),
+      LINEUP,
     ],
     coordination: [
       Box(40, 85, 100, 30),
@@ -194,9 +200,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       ORun('M120 50 L70 56', 2),
       ORun('M104 100 L80 97', 2),
       Pass(58, 60, 58, 140),
-      O(120, 50), O(120, 150), O(104, 100), O(150, 75), O(150, 125), O(180, 100),
-      P(58, 54), P(58, 146), P(68, 98), P(36, 120), P(22, 100),
-      Ball(64, 104),
+      LINEUP,
     ],
     game: [
       Line(160, 10, 160, 190),
@@ -210,12 +214,11 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Ball(186, 114),
     ],
     passing: [
-      Pass(100, 40, 214, 40),
-      Pass(220, 46, 220, 154),
-      Run('M110 50 Q160 70 210 50'),
+      Pass(98, 50, 224, 47),
+      Pass(240, 54, 240, 150),
+      Run('M92 58 Q156 76 218 62'),
       Cone(100, 34), Cone(220, 34), Cone(220, 154), Cone(100, 154),
-      P(90, 34), P(106, 26), P(230, 34), P(230, 166), P(90, 166), P(106, 176), P(212, 28), P(236, 150),
-      Ball(108, 44),
+      LINEUP,
     ],
     duel: [
       Box(70, 50, 180, 100, ZONE),
@@ -224,9 +227,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(101, 79, 217, 116),
       Run('M225 120 Q160 128 80 104'),
       Run('M101 80 Q125 100 150 112'),
-      P(40, 90), P(40, 110), P(95, 75),
-      O(280, 90), O(280, 110), O(225, 120),
-      Ball(101, 80),
+      LINEUP,
     ],
     smallgame: [
       Line(160, 10, 160, 190),
@@ -237,17 +238,14 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(75, 95, 118, 58),
       Run('M131 50 Q185 38 232 56'),
       Run('M191 100 Q228 108 262 96'),
-      P(24, 100), P(70, 100), P(125, 50), P(125, 150), P(185, 100),
-      O(296, 100), O(250, 100), O(200, 64), O(200, 136), O(140, 100),
-      Ball(31, 104),
+      LINEUP,
     ],
     gkserve: [
       Box(250, 50, 60, 100),
       Goal(304, 78, 10, 44),
       Pass(187, 100, 262, 100),
       Run('M282 100 L268 100'),
-      N(180, 100), P(290, 100),
-      Ball(187, 94),
+      LINEUP,
     ],
     gkdive: [
       Box(250, 50, 60, 100),
@@ -256,8 +254,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M290 92 Q296 82 288 74', 1),
       Pass(196, 103, 276, 124, 2),
       Run('M290 108 Q296 118 288 126', 2),
-      N(190, 100), P(288, 100),
-      Ball(197, 94),
+      LINEUP,
     ],
     gkshot: [
       Box(250, 50, 60, 100),
@@ -266,8 +263,8 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(201, 62, 276, 88, 1),
       Pass(192, 100, 276, 100, 2),
       Pass(201, 138, 276, 112, 3),
-      P(195, 60), P(185, 100), P(195, 140), O(286, 100),
-      Ball(201, 66), Ball(191, 105), Ball(201, 145),
+      LINEUP,
+      Ball(191, 105), Ball(201, 145),
     ],
     gkangle: [
       Box(250, 50, 60, 100),
@@ -276,8 +273,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(176, 70, 176, 128, 1),
       ORun('M280 90 Q285 101 280 112', 2),
       Pass(183, 138, 274, 114, 3),
-      P(176, 62), P(176, 136), O(282, 88),
-      Ball(182, 66),
+      LINEUP,
     ],
     gk1v1: [
       Box(250, 50, 60, 100),
@@ -285,16 +281,15 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Cone(96, 78), Cone(96, 122),
       ORun('M122 100 L205 100', 1),
       ORun('M278 100 L234 100', 2),
-      P(60, 90), P(60, 110), P(112, 100), O(286, 100),
-      Ball(119, 105),
+      LINEUP,
     ],
     gkcross: [
       Box(250, 50, 60, 100),
       Goal(304, 78, 10, 44),
       Pass(231, 56, 266, 88),
       ORun('M288 96 Q280 90 272 88', 2),
-      P(225, 50), P(225, 150), O(292, 100),
-      Ball(231, 54), Ball(231, 146),
+      LINEUP,
+      Ball(231, 146),
     ],
     gkdist: [
       Box(10, 50, 60, 100),
@@ -303,8 +298,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Goal(248, 48, 8, 24),
       Pass(40, 106, 134, 134, 1),
       Pass(40, 94, 244, 62, 2),
-      P(34, 100),
-      Ball(41, 101),
+      LINEUP,
     ],
     gkback: [
       Box(10, 50, 60, 100),
@@ -316,9 +310,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M128 52 Q180 44 232 58', 3),
       Run('M128 148 Q200 154 236 134', 3),
       Pass(240, 62, 278, 68, 3),
-      P(120, 146), P(120, 54), O(120, 100), P(34, 100),
-      P(136, 164, undefined, Infinity), P(152, 174, undefined, Infinity),
-      Ball(114, 142),
+      LINEUP,
     ],
     gkrebound: [
       Box(250, 50, 60, 100),
@@ -326,24 +318,21 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(188, 100, 276, 114, 1),
       ORun('M288 106 Q294 118 284 126', 2),
       Pass(241, 60, 282, 84, 3),
-      P(180, 100), P(235, 54), O(286, 100),
-      Ball(187, 104), Ball(241, 58),
+      LINEUP,
+      Ball(241, 58),
     ],
     rondo31: [
       Box(105, 45, 110, 110, ZONE),
       Cone(105, 39), Cone(215, 39), Cone(215, 149), Cone(105, 149),
       Pass(166, 49, 209, 94, 1),
       Run('M108 108 Q110 145 150 153', 2),
-      P(160, 45), P(215, 100), P(105, 100), O(160, 110),
-      Ball(166, 49),
+      LINEUP,
     ],
     rcircle: [
       <circle key="ring" cx={160} cy={100} r={55} fill="none" stroke={ZONE} strokeWidth={1.5} strokeDasharray="5 4" />,
       Pass(166, 48, 197, 63, 1),
       Pass(208, 109, 123, 69, 2),
-      P(160, 45), P(203, 66), P(214, 112), P(184, 150), P(136, 150), P(106, 112), P(117, 66),
-      O(176, 74), O(148, 122),
-      Ball(166, 49),
+      LINEUP,
     ],
     rondo52: [
       Box(105, 45, 110, 110, ZONE),
@@ -352,18 +341,14 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M128 50 Q110 60 110 80', 1),
       Pass(209, 116, 166, 150, 2),
       Run('M219 102 Q222 70 206 54', 2),
-      P(135, 45), P(190, 45), P(215, 110), P(160, 155), P(105, 100),
-      O(150, 92), O(178, 112),
-      Ball(141, 49),
+      LINEUP,
     ],
     rondo412: [
       Box(105, 45, 110, 110, ZONE),
       Cone(105, 39), Cone(215, 39), Cone(215, 149), Cone(105, 149),
       Pass(160, 51, 160, 88, 1),
       Pass(168, 100, 208, 100, 2),
-      P(160, 45), P(215, 100), P(160, 155), P(105, 100), P(160, 98),
-      O(135, 80), O(188, 126),
-      Ball(166, 49),
+      LINEUP,
     ],
     rondo22: [
       Box(105, 45, 110, 110, ZONE),
@@ -371,27 +356,21 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(132, 114, 111, 104, 1),
       Run('M186 76 Q200 66 202 58', 2),
       Pass(111, 96, 196, 62, 3),
-      N(160, 45), N(215, 100), N(160, 155), N(105, 100),
-      P(138, 118), P(182, 80), O(150, 96), O(178, 116),
-      Ball(131, 123),
+      LINEUP,
     ],
     rondo42: [
       Box(105, 45, 110, 110, ZONE),
       Cone(105, 39), Cone(215, 39), Cone(215, 149), Cone(105, 149),
       Pass(166, 49, 209, 95, 1),
       Run('M178 108 Q196 104 204 102', 2),
-      P(160, 45), P(215, 100), P(160, 155), P(105, 100),
-      O(148, 90), O(170, 110),
-      Ball(166, 49),
+      LINEUP,
     ],
     rcolor: [
       Box(95, 45, 130, 110, ZONE),
       Cone(95, 39), Cone(225, 39), Cone(225, 149), Cone(95, 149),
       Pass(130, 51, 100, 104, 1),
       Pass(101, 114, 158, 152, 2),
-      P(130, 45), P(225, 85), P(165, 155), N(190, 45), N(95, 110), N(225, 138),
-      O(140, 92), O(175, 90), O(160, 122),
-      Ball(136, 49),
+      LINEUP,
     ],
     rpress: [
       Box(105, 45, 110, 110, ZONE),
@@ -399,9 +378,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Goal(88, 52, 8, 24), Goal(224, 124, 8, 24),
       Pass(166, 49, 209, 95, 1),
       Run('M176 112 Q200 124 220 134', 2),
-      P(160, 45), P(215, 100), P(160, 155), P(105, 100),
-      O(150, 90), O(170, 110),
-      Ball(166, 49),
+      LINEUP,
     ],
     rdeep: [
       Box(60, 55, 90, 90, ZONE),
@@ -409,9 +386,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(111, 59, 144, 76, 1),
       Pass(156, 82, 252, 98, 2),
       Run('M152 90 Q192 124 236 114', 3),
-      P(105, 55), P(150, 80), P(150, 125), P(105, 145), P(60, 100), P(260, 100),
-      O(95, 95), O(122, 108),
-      Ball(111, 59),
+      LINEUP,
     ],
     rtrans: [
       Box(40, 55, 100, 90, ZONE), Box(180, 55, 100, 90, ZONE),
@@ -419,9 +394,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(113, 112, 222, 120, 2),
       Run('M84 88 Q150 60 214 72', 3),
       Run('M146 104 Q170 112 200 104', 3),
-      P(90, 55), P(140, 100), P(90, 145), P(40, 100),
-      O(80, 95), O(106, 112), O(230, 78), O(230, 122),
-      Ball(96, 59),
+      LINEUP,
     ],
     dbox: [
       Box(70, 45, 180, 110, ZONE),
@@ -437,15 +410,14 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M78 70 L204 70', 1),
       Run('M78 110 L204 110', 1),
       Run('M210 106 Q232 110 214 124 Q180 128 150 126', 2),
-      P(64, 70), P(64, 110), P(64, 150),
-      Ball(71, 74), Ball(71, 114), Ball(71, 154),
+      P(64, 70), LINEUP, P(64, 150),
+      Ball(71, 74), Ball(71, 154),
     ],
     dfeint: [
       Cone(220, 56), Cone(220, 76), Cone(220, 124), Cone(220, 144),
       Run('M72 100 L150 100', 1),
       Run('M152 104 Q158 112 168 76 Q176 62 216 66', 2),
-      P(60, 100), O(170, 100),
-      Ball(67, 104),
+      LINEUP,
     ],
     dking: [
       Box(95, 45, 130, 110, ZONE),
@@ -461,8 +433,8 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Cone(95, 124), Cone(113, 124), Cone(200, 124), Cone(218, 124),
       Run('M134 84 Q170 74 199 62', 1),
       Run('M156 96 Q178 88 190 76', 2),
-      P(125, 86), O(150, 100), P(120, 124), O(142, 132),
-      Ball(131, 90), Ball(126, 128),
+      LINEUP, P(120, 124), O(142, 132),
+      Ball(126, 128),
     ],
     dchase: [
       Box(250, 50, 60, 100),
@@ -470,8 +442,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M92 92 Q170 90 240 96', 1),
       Run('M66 108 Q150 112 226 108', 2),
       Pass(244, 96, 298, 88, 3),
-      P(80, 90), O(60, 104), O(292, 100),
-      Ball(87, 94),
+      LINEUP,
     ],
     dshield: [
       Box(80, 60, 70, 70, ZONE), Box(180, 60, 70, 70, ZONE),
@@ -487,8 +458,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M96 132 Q160 142 208 134', 2),
       Pass(176, 98, 212, 128, 2),
       Pass(220, 128, 298, 108, 3),
-      P(90, 80), P(90, 130), O(190, 100), O(292, 100),
-      Ball(97, 84),
+      LINEUP,
     ],
     dback: [
       Box(250, 50, 60, 100),
@@ -496,8 +466,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(117, 100, 160, 100, 1),
       Run('M172 108 Q196 132 236 116', 2),
       Pass(240, 112, 298, 104, 3),
-      N(110, 100), P(170, 100), O(186, 100), O(292, 100),
-      Ball(116, 104),
+      LINEUP,
     ],
     dline: [
       Box(60, 45, 200, 110, ZONE),
@@ -514,15 +483,13 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M124 74 Q158 82 186 70', 2),
       Pass(204, 68, 212, 112, 3),
       Run('M196 70 Q190 92 202 112', 3),
-      P(120, 66), P(200, 60), P(214, 120), P(152, 142), P(112, 116),
-      Ball(126, 70),
+      LINEUP,
     ],
     pline: [
       Cone(80, 112), Cone(240, 112),
       Pass(88, 100, 230, 100, 1),
       Run('M86 120 Q160 148 234 122', 2),
-      P(80, 100), P(62, 100), P(44, 100), P(240, 100), P(258, 100),
-      Ball(87, 105),
+      LINEUP,
     ],
     pgates: [
       Box(70, 45, 180, 110, ZONE),
@@ -530,8 +497,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Cone(95, 124), Cone(113, 124), Cone(205, 116), Cone(223, 116),
       Pass(126, 90, 174, 116, 1),
       Run('M186 112 Q206 94 192 72', 2),
-      P(120, 82), P(180, 120), P(215, 80), P(232, 132),
-      Ball(126, 86),
+      LINEUP, P(215, 80), P(232, 132),
     ],
     passy: [
       Cone(196, 56), Cone(160, 56), Cone(124, 56),
@@ -541,8 +507,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(80, 98, 222, 66, 3),
       Run('M224 66 Q214 48 196 48 Q178 50 178 64 Q176 78 160 78 Q142 78 142 64 Q142 48 124 48 Q106 48 104 66 Q100 84 80 92', 4),
       Run('M74 112 Q110 124 144 112', 5),
-      P(70, 100), P(52, 100), P(34, 100), P(150, 100), P(230, 62), P(230, 138),
-      Ball(77, 105),
+      LINEUP,
     ],
     diamond: [
       Goal(284, 62, 8, 20),
@@ -553,8 +518,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M168 58 Q204 58 226 72', 4),
       Pass(246, 94, 234, 80, 4),
       Pass(238, 74, 282, 72, 5),
-      P(70, 100, 'A'), P(52, 100, 'A'), P(160, 55, 'B'), P(160, 145, 'C'), P(250, 100, 'D'),
-      Ball(77, 105),
+      LINEUP,
     ],
     diamondpoles: [
       Cone(110, 94), Cone(160, 94), Cone(210, 94),
@@ -566,8 +530,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M258 90 Q248 50 174 47', 2),
       Run('M146 47 Q82 50 64 90', 2),
       Run('M62 112 Q78 162 146 164', 2),
-      P(160, 145, 'A'), P(160, 163), P(250, 100, 'B'), P(160, 55, 'C'), P(70, 100, 'D'),
-      Ball(167, 149),
+      LINEUP,
     ],
     // Variant 2: B kaatst terug, A speelt tussen de palen door naar C (de andere kant gaat net zo).
     diamondpoles2: [
@@ -578,8 +541,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(198, 122, 166, 62, 3),
       Run('M207 134 Q236 130 246 112', 4),
       Run('M258 90 Q248 50 174 47', 4),
-      P(160, 145, 'A'), P(160, 163), P(250, 100, 'B'), P(160, 55, 'C'), P(70, 100, 'D'),
-      Ball(167, 149),
+      LINEUP,
     ],
     // Variant 3: na het kaatsen draait B rond de paal en krijgt de bal in de loop.
     diamondpoles3: [
@@ -591,8 +553,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(204, 121, 230, 72, 3),
       Pass(228, 62, 168, 56, 4),
       Run('M207 134 Q236 130 246 112', 4),
-      P(160, 145, 'A'), P(160, 163), P(250, 100, 'B'), P(160, 55, 'C'), P(70, 100, 'D'),
-      Ball(167, 149),
+      LINEUP,
     ],
     // Variant 4: derde man. D kaatst, C speelt diep op A, A legt af op de inlopende D, D speelt diagonaal naar B.
     diamondpoles4: [
@@ -605,8 +566,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(152, 147, 114, 151, 4),
       Pass(116, 144, 242, 104, 5),
       Pass(244, 93, 168, 59, 5),
-      P(160, 145, 'A'), P(160, 163), P(250, 100, 'B'), P(160, 55, 'C'), P(70, 100, 'D'),
-      Ball(155, 60),
+      LINEUP,
     ],
     wallpass: [
       Line(20, 105, 300, 105, true),
@@ -617,23 +577,21 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M150 90 Q180 98 214 82', 3),
       Pass(166, 52, 214, 76, 3),
       Pass(224, 80, 280, 78, 4),
-      P(60, 82), P(42, 82), P(24, 82), P(160, 46),
+      LINEUP,
       O(60, 136), O(42, 136), O(24, 136), O(160, 160),
-      Ball(67, 86), Ball(67, 140),
+      Ball(67, 140),
     ],
     scan: [
       Pass(78, 100, 150, 100, 1),
       Run('M164 108 Q174 116 182 110', 2),
       Pass(168, 100, 242, 100, 3),
-      P(70, 100), P(160, 100), P(250, 100), N(184, 64),
-      Ball(77, 104),
+      LINEUP,
     ],
     longpass: [
       Box(40, 80, 40, 40, ZONE), Box(240, 80, 40, 40, ZONE),
       Pass(68, 96, 252, 96, 1),
       Pass(252, 106, 68, 106, 2),
-      P(60, 100), P(260, 100),
-      Ball(67, 104),
+      LINEUP,
     ],
     longpoints: [
       Box(44, 62, 40, 34, ZONE), Box(236, 62, 40, 34, ZONE),
@@ -642,8 +600,8 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(245, 84, 75, 84, 2),
       Pass(75, 120, 245, 120, 1),
       Pass(245, 130, 75, 130, 2),
-      P(64, 79), P(256, 79), P(64, 125), P(256, 125),
-      Ball(71, 83), Ball(71, 129),
+      LINEUP,
+      Ball(71, 129),
     ],
     through: [
       Box(250, 50, 60, 100),
@@ -652,17 +610,14 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M146 136 Q190 130 228 110', 1),
       Pass(118, 100, 228, 102, 2),
       Pass(236, 102, 298, 94, 3),
-      P(110, 100), P(140, 140), O(292, 100),
-      Ball(117, 104),
+      LINEUP,
     ],
     tenpass: [
       Box(50, 45, 220, 110, ZONE),
       Pass(96, 72, 142, 62, 1),
       Pass(156, 64, 204, 78, 2),
       Run('M122 124 Q140 110 158 108', 2),
-      P(90, 70), P(150, 60), P(210, 80), P(120, 130), P(235, 135),
-      O(130, 92), O(180, 100), O(95, 105), O(200, 125), O(165, 142),
-      Ball(96, 74),
+      LINEUP,
     ],
     relay: [
       Cone(90, 62), Cone(90, 80), Cone(150, 62), Cone(150, 80), Cone(210, 62), Cone(210, 80),
@@ -674,9 +629,9 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(128, 125, 172, 125, 2),
       Run('M248 70 Q272 46 290 70 Q296 96 250 84', 3),
       Pass(232, 75, 188, 75, 4),
-      P(60, 75), P(120, 75), P(180, 75), P(240, 75),
+      LINEUP,
       O(60, 125), O(120, 125), O(180, 125), O(240, 125),
-      Ball(67, 80), Ball(67, 130),
+      Ball(67, 130),
     ],
     fshot: [
       Box(250, 50, 60, 100),
@@ -685,16 +640,14 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M118 124 Q150 118 186 106', 2),
       Pass(176, 67, 190, 96, 3),
       Pass(198, 102, 298, 110, 4),
-      N(170, 60), P(110, 120), P(92, 132), O(292, 100),
-      Ball(117, 124),
+      LINEUP,
     ],
     fvolley: [
       Box(250, 50, 60, 100),
       Goal(304, 78, 10, 44),
       Pass(212, 78, 168, 102, 1),
       Pass(168, 104, 298, 100, 2),
-      N(210, 70), P(160, 110), P(140, 124), O(292, 100),
-      Ball(216, 74),
+      LINEUP,
     ],
     fcross: [
       Box(250, 50, 60, 100),
@@ -703,8 +656,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M158 94 Q220 86 262 88', 2),
       Run('M158 132 Q230 128 270 116', 2),
       Pass(238, 58, 264, 84, 3),
-      P(175, 48), P(150, 95), P(150, 130), O(292, 100),
-      Ball(181, 52),
+      LINEUP,
     ],
     fcorner: [
       Box(250, 50, 60, 100),
@@ -714,9 +666,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M238 130 Q254 128 268 118', 1),
       Pass(286, 60, 266, 82, 2),
       Pass(268, 90, 301, 98, 3),
-      P(238, 70), P(240, 102), P(238, 130), P(294, 52),
-      O(276, 70), O(282, 94), O(280, 122), O(296, 100),
-      Ball(288, 58),
+      LINEUP,
     ],
     fturn: [
       Goal(304, 78, 10, 44),
@@ -724,10 +674,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(122, 100, 184, 100, 1),
       Run('M192 108 Q198 128 218 126', 2),
       Pass(226, 122, 300, 108, 3),
-      P(114, 100), P(98, 76), P(98, 124), P(192, 100),
-      O(208, 98),
-      N(296, 100, 'K'),
-      Ball(121, 104),
+      LINEUP,
     ],
     defline: [
       Goal(304, 78, 10, 44),
@@ -741,10 +688,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       ORun('M212 88 L194 88', 3),
       ORun('M212 114 L194 114', 3),
       ORun('M212 140 L194 140', 3),
-      O(222, 62), O(222, 88), O(222, 114), O(222, 140),
-      P(130, 70), P(104, 100), P(150, 128),
-      N(296, 100, 'K'),
-      Ball(137, 74),
+      LINEUP,
     ],
     fcutback: [
       Box(250, 50, 60, 100),
@@ -753,8 +697,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M168 108 Q226 100 246 100', 2),
       Pass(284, 66, 252, 98, 3),
       Pass(252, 104, 298, 112, 4),
-      P(170, 48), P(160, 110), O(292, 100),
-      Ball(176, 52),
+      LINEUP,
     ],
     frebound: [
       Box(250, 50, 60, 100),
@@ -763,8 +706,8 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M160 108 Q210 116 246 112', 2),
       Pass(230, 140, 252, 118, 3),
       Pass(256, 112, 300, 104, 4),
-      P(150, 100), N(226, 146), O(292, 100),
-      Ball(157, 104), Ball(232, 142),
+      LINEUP,
+      Ball(232, 142),
     ],
     fcircuit: [
       Box(250, 50, 60, 100),
@@ -779,8 +722,8 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M124 148 Q170 152 200 126', 4),
       Pass(168, 104, 192, 116, 4),
       Pass(204, 120, 296, 108, 4),
-      P(110, 55), P(92, 55), P(70, 100), P(52, 100), P(110, 145), P(92, 145), P(160, 100), O(292, 100),
-      Ball(116, 59), Ball(77, 104), Ball(116, 141),
+      LINEUP, P(160, 100),
+      Ball(116, 59), Ball(116, 141),
     ],
     fheader: [
       Box(250, 50, 60, 100),
@@ -788,8 +731,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M180 100 L230 100', 1),
       Pass(252, 142, 240, 106, 1),
       Pass(240, 98, 300, 86, 2),
-      N(256, 148), P(170, 100), O(292, 100),
-      Ball(250, 142),
+      LINEUP,
     ],
     fcounter: [
       Box(250, 50, 60, 100),
@@ -799,8 +741,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M88 145 Q150 148 214 140', 2),
       Pass(172, 96, 206, 64, 3),
       Pass(214, 66, 296, 92, 4),
-      P(80, 100), P(80, 55), P(80, 145), O(200, 84), O(200, 118), O(292, 100),
-      Ball(87, 104),
+      LINEUP,
     ],
     fgame: [
       Box(40, 45, 240, 110, ZONE),
@@ -808,9 +749,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(134, 84, 154, 52, 1),
       Pass(166, 52, 196, 112, 2),
       Pass(208, 118, 276, 104, 3),
-      P(46, 100), P(130, 85), P(200, 120), O(274, 100), O(170, 80), O(140, 120),
-      N(160, 45), N(160, 155), N(100, 45), N(220, 155),
-      Ball(136, 89),
+      LINEUP,
     ],
     fplace: [
       Box(250, 50, 60, 100),
@@ -818,24 +757,21 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Cone(298, 82), Cone(298, 108),
       Pass(208, 98, 300, 84, 1),
       Pass(208, 104, 300, 116, 2),
-      P(200, 100), O(284, 100),
-      Ball(207, 104),
+      LINEUP,
     ],
     pr1v1: [
       Box(80, 55, 160, 90, ZONE),
       Cone(80, 49), Cone(240, 49), Cone(240, 139), Cone(80, 139),
       Pass(103, 100, 217, 100, 1),
       Run('M104 108 Q150 114 196 106', 2),
-      P(95, 100), O(225, 100),
-      Ball(102, 104),
+      LINEUP,
     ],
     prcurve: [
       Box(90, 45, 140, 110, ZONE),
       Cone(90, 39), Cone(230, 39), Cone(230, 149), Cone(90, 149),
       Pass(137, 62, 192, 60, 1),
       ORun('M168 124 Q146 88 186 72', 2),
-      P(130, 60), P(200, 60), O(165, 130),
-      Ball(136, 64),
+      LINEUP,
     ],
     pr2v2: [
       Box(60, 45, 200, 110, ZONE),
@@ -843,8 +779,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       ORun('M174 82 Q150 74 136 72', 1),
       ORun('M194 116 Q176 104 166 96', 2),
       Pass(124, 80, 122, 120, 3),
-      P(120, 70), P(120, 130), O(180, 85), O(200, 120),
-      Ball(126, 74),
+      LINEUP,
     ],
     prhunt: [
       Box(70, 45, 180, 110, ZONE),
@@ -865,9 +800,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       ORun('M180 72 Q174 80 170 84', 1),
       ORun('M198 122 Q206 112 208 106', 2),
       ORun('M96 76 Q104 104 104 122', 2),
-      P(160, 90), P(215, 95), P(110, 132), P(230, 140),
-      O(130, 100), O(185, 66), O(195, 128), O(90, 70),
-      Ball(167, 94),
+      LINEUP,
     ],
     prshift: [
       Box(80, 14, 160, 172),
@@ -878,10 +811,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       ORun('M228 104 L208 104', 2),
       Pass(154, 30, 110, 48, 3),
       Pass(106, 60, 162, 122, 4),
-      O(92, 100), O(130, 100), O(190, 100), O(228, 100),
-      P(160, 26), P(104, 52), P(216, 52), P(160, 72),
-      P(160, 174), P(104, 148), P(216, 148), P(166, 128),
-      Ball(216, 60),
+      LINEUP,
     ],
     prtrig: [
       Box(10, 50, 60, 100),
@@ -891,9 +821,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       ORun('M164 66 Q120 58 80 60', 2),
       ORun('M144 96 Q106 90 72 92', 2),
       ORun('M164 134 Q120 142 80 140', 2),
-      P(70, 60), P(70, 140), P(110, 80), P(110, 120), P(28, 100),
-      O(170, 70), O(170, 130), O(150, 100), O(190, 100),
-      Ball(64, 64),
+      LINEUP,
     ],
     prunder: [
       Box(250, 50, 60, 100),
@@ -902,9 +830,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       ORun('M204 80 Q180 70 164 66', 2),
       ORun('M204 112 Q198 102 196 96', 2),
       ORun('M58 146 Q140 150 188 132', 3),
-      P(100, 60), P(100, 100), P(100, 140),
-      O(200, 85), O(200, 118), O(50, 150), O(292, 100),
-      Ball(107, 104),
+      LINEUP,
     ],
     przone: [
       Box(14, 14, 146, 172, ZONE),
@@ -925,9 +851,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       ORun('M124 98 Q84 106 62 82', 2),
       ORun('M134 56 Q106 52 82 56', 2),
       ORun('M136 136 Q120 118 114 104', 3),
-      P(28, 100), P(70, 60), P(70, 140),
-      O(130, 100), O(140, 60), O(140, 140),
-      Ball(34, 104),
+      LINEUP,
     ],
     wprev: [
       Cone(240, 52), Cone(240, 92), Cone(240, 132),
@@ -949,7 +873,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Cone(100, 42), Cone(220, 42), Cone(220, 136), Cone(100, 136),
       Run('M152 98 Q128 76 108 58', 1),
       Run('M170 102 Q140 84 114 64', 2),
-      P(152, 106), O(168, 110), N(160, 150),
+      LINEUP,
     ],
     wshadow: [
       Cone(80, 54), Cone(240, 54), Cone(240, 134), Cone(80, 134),
@@ -968,14 +892,13 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(191, 93, 144, 128, 1),
       Pass(132, 124, 123, 97, 2),
       Pass(129, 81, 151, 64, 2),
-      P(160, 58), P(200, 87), P(185, 134), P(135, 134), P(120, 87),
-      Ball(180, 64),
+      LINEUP,
     ],
     wthrow: [
       Pass(118, 98, 192, 98, 1),
       Pass(192, 106, 118, 106, 2),
-      P(110, 100), P(200, 100), P(110, 145), P(200, 145),
-      Ball(117, 96), Ball(117, 141),
+      LINEUP, P(110, 145), P(200, 145),
+      Ball(117, 141),
     ],
     whand: [
       Box(50, 45, 220, 110, ZONE),
@@ -994,9 +917,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(206, 84, 232, 112, 1),
       Run('M96 82 Q84 104 100 126', 2),
       Run('M214 72 Q236 58 252 64', 2),
-      P(100, 70), P(148, 112), P(206, 80), P(236, 118),
-      O(128, 92), O(178, 100), O(215, 100),
-      Ball(106, 74),
+      LINEUP,
     ],
     wtennis: [
       Box(60, 55, 200, 90, ZONE),
@@ -1013,8 +934,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(216, 108, 112, 92, 1),
       Run('M104 92 Q122 148 160 144 Q198 148 212 118', 2),
       Run('M218 88 Q198 52 160 56 Q122 52 108 74', 2),
-      P(100, 80), P(72, 112), P(62, 78), P(212, 100), P(246, 78), P(244, 124),
-      Ball(106, 84),
+      LINEUP,
     ],
     wduel: [
       Box(60, 45, 220, 110, ZONE),
@@ -1022,8 +942,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(88, 146, 160, 104, 1),
       Run('M88 90 Q124 94 152 100', 2),
       Run('M88 116 Q122 112 150 108', 2),
-      P(80, 90), O(80, 116), N(80, 150),
-      Ball(87, 145),
+      LINEUP,
     ],
     wmatch: [
       Box(40, 50, 90, 70, ZONE),
@@ -1042,20 +961,14 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(106, 70, 152, 96, 2),
       Pass(168, 104, 208, 126, 3),
       Pass(222, 126, 252, 104, 4),
-      N(60, 100), N(160, 100), N(260, 100),
-      P(100, 65), P(120, 135), P(200, 60), P(215, 130),
-      O(130, 112), O(180, 72), O(170, 140), O(235, 90),
-      Ball(66, 104),
+      LINEUP,
     ],
     ps3z: [
       Box(30, 55, 80, 90, ZONE), Box(120, 55, 80, 90, ZONE), Box(210, 55, 80, 90, ZONE),
       Pass(46, 72, 84, 66, 1),
       Pass(96, 70, 154, 104, 2),
       Pass(166, 108, 238, 132, 3),
-      P(40, 70), P(90, 65), P(60, 135), O(70, 100),
-      P(160, 110), O(150, 80),
-      P(220, 70), P(275, 80), P(245, 135), O(250, 100),
-      Ball(47, 74),
+      LINEUP,
     ],
     psshape: [
       Box(10, 50, 60, 100),
@@ -1065,9 +978,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(74, 64, 104, 54, 2),
       Pass(114, 56, 130, 78, 3),
       Run('M140 86 Q170 72 202 70', 4),
-      P(28, 100), P(70, 70), P(70, 130), P(110, 48), P(110, 152), P(135, 85), P(135, 120),
-      O(155, 60), O(160, 140), O(105, 100), O(180, 100),
-      Ball(34, 104),
+      LINEUP,
     ],
     psswitch: [
       Box(40, 45, 240, 110, ZONE),
@@ -1075,10 +986,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(196, 66, 176, 84, 1),
       Pass(176, 96, 224, 134, 2),
       Run('M236 138 Q254 142 266 140', 3),
-      P(200, 60), P(170, 90), P(130, 130), P(230, 140),
-      O(215, 75), O(240, 62), O(185, 55), O(150, 120),
-      N(120, 80), N(250, 105),
-      Ball(206, 64),
+      LINEUP,
     ],
     psquad: [
       Box(40, 45, 240, 110, ZONE),
@@ -1086,9 +994,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Goal(32, 60, 8, 20), Goal(32, 120, 8, 20), Goal(280, 60, 8, 20), Goal(280, 120, 8, 20),
       Pass(96, 74, 188, 72, 1),
       Run('M132 126 Q170 118 196 126', 2),
-      P(90, 70), P(140, 80), P(125, 130), P(195, 70), P(235, 125),
-      O(110, 95), O(180, 120), O(210, 90), O(80, 130), O(250, 70),
-      Ball(96, 74),
+      LINEUP,
     ],
     psbuild: [
       Box(10, 50, 60, 100),
@@ -1097,9 +1003,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(34, 96, 64, 76, 1),
       Pass(74, 66, 114, 54, 2),
       Run('M126 50 Q170 46 220 52', 3),
-      P(28, 100), P(70, 70), P(70, 130), P(120, 50), P(120, 150),
-      O(92, 100), O(130, 100),
-      Ball(34, 104),
+      LINEUP,
     ],
     psshadow: [
       Line(160, 10, 160, 190),
@@ -1108,9 +1012,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(62, 74, 76, 52, 2),
       Pass(86, 50, 144, 68, 3),
       Pass(156, 72, 244, 98, 4),
-      P(24, 100), P(60, 80), P(60, 120), P(80, 45), P(80, 155), P(120, 100), P(150, 70), P(150, 130),
-      P(220, 50), P(220, 150), P(250, 100),
-      Ball(30, 104),
+      LINEUP,
     ],
     psline: [
       Box(40, 45, 240, 110, ZONE),
@@ -1118,9 +1020,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(88, 74, 152, 93, 1),
       Run('M166 102 Q176 106 178 98', 2),
       Pass(168, 94, 214, 64, 3),
-      P(80, 70), P(110, 130), P(220, 60), P(250, 130), P(160, 95),
-      O(100, 100), O(70, 120), O(215, 105), O(245, 80), O(160, 130),
-      Ball(86, 74),
+      LINEUP,
     ],
     psflank: [
       Box(250, 50, 60, 100),
@@ -1131,17 +1031,14 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(168, 90, 230, 62, 3),
       Run('M126 64 Q180 36 234 54', 3),
       Pass(240, 62, 264, 104, 4),
-      P(120, 75), P(190, 55), P(160, 98), P(270, 112),
-      O(180, 74), O(214, 64), O(292, 100),
-      Ball(126, 79),
+      LINEUP,
     ],
     omduel: [
       Box(80, 60, 160, 80, ZONE),
       Goal(72, 88, 8, 24), Goal(240, 88, 8, 24),
       Run('M150 106 Q180 124 206 110', 1),
       Run('M190 106 Q150 126 92 106', 2),
-      P(140, 100), O(185, 100),
-      Ball(147, 104),
+      LINEUP,
     ],
     omwaves: [
       Box(40, 45, 240, 110, ZONE),
@@ -1151,8 +1048,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(186, 122, 276, 116, 2),
       Run('M196 94 Q140 72 62 86', 3),
       Run('M262 60 Q200 50 116 62', 3),
-      P(100, 70), P(100, 130), O(200, 100), O(268, 60),
-      Ball(106, 74),
+      LINEUP,
     ],
     om32: [
       Line(160, 10, 160, 190),
@@ -1161,18 +1057,15 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(196, 100, 300, 96, 2),
       Run('M214 76 Q150 60 62 78', 3),
       Run('M214 124 Q150 140 62 120', 3),
-      P(24, 100), P(120, 60), P(120, 100), P(120, 140),
-      O(296, 100), O(220, 80), O(220, 120),
-      Ball(126, 104),
+      LINEUP,
     ],
     omwinner: [
       Box(70, 50, 180, 100, ZONE),
       Goal(62, 62, 8, 20), Goal(62, 118, 8, 20), Goal(250, 62, 8, 20), Goal(250, 118, 8, 20),
       Pass(146, 80, 244, 72, 1),
       Run('M176 50 Q190 62 198 74', 2),
-      P(130, 80), P(140, 125), O(190, 95), O(200, 125),
-      N(150, 40), N(175, 42),
-      Ball(146, 84), Ball(182, 46),
+      LINEUP,
+      Ball(182, 46),
     ],
     omrestart: [
       Box(40, 45, 240, 110, ZONE),
@@ -1180,18 +1073,14 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(216, 66, 276, 94, 1),
       Pass(262, 104, 208, 114, 2),
       Run('M194 116 Q150 124 112 114', 3),
-      P(52, 100), P(110, 70), P(120, 132), P(170, 95), P(210, 60),
-      O(268, 100), O(150, 58), O(150, 142), O(200, 112), O(232, 80),
-      Ball(216, 64),
+      LINEUP,
     ],
     omrecover: [
       Box(250, 50, 60, 100),
       Goal(304, 78, 10, 44),
       Run('M122 100 L170 100', 1),
       Run('M76 106 Q150 160 226 124', 2),
-      P(120, 60), P(110, 100), P(120, 140),
-      O(210, 85), O(210, 118), O(70, 100), O(292, 100),
-      Ball(116, 104),
+      LINEUP,
     ],
     omcounter: [
       Line(160, 10, 160, 190),
@@ -1200,9 +1089,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M156 136 Q210 130 250 112', 2),
       Pass(206, 66, 246, 106, 3),
       Pass(254, 108, 300, 100, 4),
-      P(24, 100), P(100, 120), P(80, 70), P(130, 90), P(150, 140), P(200, 60),
-      O(296, 100), O(112, 100), O(140, 60), O(185, 120), O(220, 90), O(250, 150),
-      Ball(106, 124),
+      LINEUP,
     ],
     omkeeper: [
       Box(10, 50, 60, 100),
@@ -1213,8 +1100,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M96 148 Q130 156 168 152', 2),
       Pass(34, 94, 162, 52, 3),
       Run('M176 54 Q220 60 266 70', 4),
-      P(28, 100), P(90, 48), P(90, 152), N(130, 100), O(150, 72),
-      Ball(124, 104),
+      LINEUP,
     ],
     omback: [
       Line(160, 10, 160, 190),
@@ -1234,9 +1120,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M190 110 Q130 116 80 104', 2),
       Run('M164 128 Q120 142 84 124', 3),
       Pass(76, 104, 34, 100, 4),
-      P(215, 55), P(170, 85), P(170, 125), P(215, 145), P(260, 100), P(28, 100),
-      O(225, 95), O(198, 110),
-      Ball(192, 114),
+      LINEUP,
     ],
     sgfunino: [
       Box(40, 45, 240, 110),
@@ -1245,37 +1129,30 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(156, 114, 184, 92, 1),
       Run('M196 90 Q224 76 242 74', 2),
       Pass(250, 72, 278, 64, 3),
-      P(120, 70), P(150, 120), P(190, 85),
-      O(212, 128), O(255, 110), O(160, 60),
-      Ball(157, 115),
+      LINEUP,
     ],
     sgnum: [
       Box(70, 60, 180, 80),
       Goal(62, 88, 8, 24), Goal(250, 88, 8, 24),
-      Pass(44, 72, 122, 96, 1),
-      Run('M138 104 Q190 126 238 106', 2),
-      P(115, 46), P(140, 46), P(165, 46), P(190, 46), P(130, 100),
-      O(130, 154), O(155, 154), O(180, 154), O(205, 154), O(185, 110),
-      N(36, 64),
-      Ball(42, 70),
+      Pass(44, 72, 122, 98, 1),
+      Run('M163 56 Q152 74 134 88', 1),
+      ORun('M155 144 Q154 124 140 110', 1),
+      Run('M134 104 Q190 126 238 106', 2),
+      LINEUP,
     ],
     sggates: [
       Box(40, 45, 240, 110),
       Cone(100, 58), Cone(100, 80), Cone(165, 112), Cone(165, 134), Cone(220, 58), Cone(220, 80), Cone(250, 118), Cone(250, 140), Cone(75, 115), Cone(75, 137),
       Pass(198, 78, 242, 74, 1),
       Run('M196 88 Q228 112 240 126', 2),
-      P(190, 78), P(252, 74), P(130, 125), P(80, 90),
-      O(172, 108), O(150, 70), O(205, 142), O(120, 100),
-      Ball(197, 82),
+      LINEUP,
     ],
     sgend: [
       Box(40, 45, 240, 110),
       Line(70, 45, 70, 155, true), Line(250, 45, 250, 155, true),
       Run('M214 72 Q240 62 262 76', 1),
       Pass(198, 114, 258, 84, 2),
-      P(150, 80), P(190, 120), P(120, 130), P(210, 70),
-      O(232, 102), O(180, 92), O(140, 110), O(100, 70),
-      Ball(196, 116),
+      LINEUP,
     ],
     sgwing: [
       Line(10, 62, 310, 62, true), Line(10, 138, 310, 138, true),
@@ -1284,10 +1161,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M188 50 Q208 46 224 50', 2),
       ORun('M212 76 Q222 66 232 60', 2),
       Pass(230, 56, 256, 90, 3),
-      P(24, 100), P(120, 100), P(190, 120), P(262, 98),
-      N(180, 50), N(140, 150),
-      O(296, 100), O(236, 118), O(205, 84), O(150, 112), O(274, 124),
-      Ball(127, 95),
+      LINEUP,
     ],
     sgman: [
       Box(50, 45, 220, 110),
@@ -1304,9 +1178,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(32, 98, 54, 68, 1),
       Pass(66, 64, 132, 96, 2),
       Pass(146, 106, 194, 136, 3),
-      P(24, 100), P(60, 60), P(60, 140), P(140, 100), P(200, 140), P(185, 55),
-      O(296, 100), O(126, 60), O(128, 150), O(220, 90), O(245, 55), O(250, 140),
-      Ball(31, 104),
+      LINEUP,
     ],
     sgavv: [
       Box(250, 50, 60, 100),
@@ -1315,9 +1187,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(98, 100, 182, 100, 1),
       Run('M158 56 Q220 44 268 78', 2),
       Pass(196, 96, 262, 80, 3),
-      P(90, 100), P(95, 145), P(150, 60), P(150, 140), P(190, 100), P(230, 145),
-      O(292, 100), O(200, 78), O(205, 122), O(245, 100), O(258, 132),
-      Ball(97, 104),
+      LINEUP,
     ],
     sgblock: [
       Line(160, 10, 160, 190),
@@ -1353,7 +1223,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M154 58 L114 58', 2),
       Run('M112 66 L206 66', 3),
       Run('M204 74 L168 130', 4),
-      P(160, 152), P(184, 152),
+      LINEUP,
     ],
     cjump: [
       Cone(80, 96), Cone(110, 96), Cone(140, 96), Cone(170, 96), Cone(200, 96), Cone(262, 94),
@@ -1365,7 +1235,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Cone(160, 44), Cone(212, 80), Cone(194, 136), Cone(126, 136), Cone(108, 80),
       Run('M160 92 L160 60', 1),
       Run('M168 106 L188 128', 2),
-      P(160, 100), N(250, 110),
+      LINEUP,
     ],
     cbalance: [
       Box(60, 45, 200, 110, ZONE),
@@ -1381,8 +1251,8 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M52 66 Q78 50 102 62 Q128 76 152 60 L238 56 Q264 58 258 80', 1),
       Run('M244 86 L66 86', 2),
       Pass(62, 84, 48, 76, 3),
-      P(40, 70), P(22, 70), O(40, 130), O(22, 130),
-      Ball(48, 74), Ball(48, 134),
+      LINEUP, O(40, 130), O(22, 130),
+      Ball(48, 134),
     ],
     cmastery: [
       Box(60, 45, 200, 110, ZONE),
@@ -1418,8 +1288,8 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
     cdrop: [
       Run('M128 100 L188 100', 1),
       Run('M188 112 Q158 126 130 112', 2),
-      P(120, 100), N(210, 100), P(120, 148), N(210, 148),
-      Ball(203, 92), Ball(203, 140),
+      LINEUP, P(120, 148), N(210, 148),
+      Ball(203, 140),
     ],
     obsplit: [
       Box(10, 50, 60, 100),
@@ -1429,8 +1299,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M58 120 Q66 136 74 144', 1),
       Pass(32, 106, 68, 138, 2),
       Run('M82 144 L130 144', 3),
-      P(24, 100), P(54, 86), P(54, 114), O(100, 100),
-      Ball(31, 104),
+      LINEUP,
     ],
     obsix: [
       Box(10, 50, 60, 100),
@@ -1439,10 +1308,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M134 116 L146 102', 1),
       Pass(76, 66, 140, 96, 2),
       Pass(156, 98, 246, 100, 3),
-      P(24, 100), P(70, 60), P(70, 140), P(128, 122),
-      O(100, 94), O(112, 136),
-      N(256, 100),
-      Ball(77, 64),
+      LINEUP,
     ],
     obdrop: [
       Box(10, 50, 60, 100),
@@ -1454,9 +1320,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M126 156 L176 156', 1),
       Pass(28, 106, 64, 128, 2),
       Pass(76, 134, 170, 154, 3),
-      P(24, 100), P(70, 70), P(70, 130), P(116, 100), P(118, 44), P(118, 156),
-      O(104, 80), O(104, 122), O(150, 100),
-      Ball(31, 104),
+      LINEUP,
     ],
     obdrive: [
       Box(30, 45, 230, 110),
@@ -1464,9 +1328,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(72, 80, 70, 120, 1),
       Run('M78 132 Q120 142 170 128', 2),
       Pass(178, 124, 272, 102, 3),
-      P(70, 70), P(70, 130), O(98, 92), P(200, 75), O(220, 92),
-      N(280, 100),
-      Ball(76, 76),
+      LINEUP,
     ],
     oblong: [
       Box(10, 50, 60, 100),
@@ -1475,9 +1337,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(32, 98, 176, 96, 1),
       Pass(184, 104, 168, 130, 2),
       Run('M170 140 Q210 148 244 130', 3),
-      P(24, 100), P(184, 96), P(160, 62), P(162, 138),
-      O(202, 100), O(165, 112), O(225, 70),
-      Ball(31, 104),
+      LINEUP,
     ],
     obswitch: [
       Box(10, 50, 60, 100),
@@ -1487,9 +1347,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(30, 108, 62, 126, 2),
       Pass(74, 132, 108, 146, 3),
       Pass(124, 153, 204, 156, 4),
-      P(24, 100), P(68, 72), P(68, 128), P(116, 52), P(116, 148),
-      O(128, 62), O(88, 84), O(140, 110),
-      Ball(111, 56),
+      LINEUP,
     ],
     obgame: [
       Box(10, 50, 60, 100),
@@ -1510,9 +1368,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(38, 106, 56, 134, 1),
       Run('M68 144 Q120 150 170 136', 2),
       Pass(176, 132, 266, 128, 2),
-      P(32, 100), P(60, 60), P(60, 140), P(70, 100),
-      O(104, 80), O(104, 122),
-      Ball(39, 104),
+      LINEUP,
     ],
     obwall: [
       Cone(230, 56), Cone(230, 78),
@@ -1520,9 +1376,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M104 126 Q122 132 138 124', 2),
       Pass(184, 106, 146, 120, 2),
       Pass(152, 116, 262, 58, 3),
-      P(50, 100), P(100, 120), P(190, 100), P(268, 56),
-      O(206, 100), O(120, 74),
-      Ball(57, 104),
+      LINEUP,
     ],
     obkeeper: [
       Box(10, 50, 60, 100),
@@ -1530,9 +1384,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Box(220, 45, 50, 50, ZONE),
       Pass(30, 96, 56, 72, 1),
       Pass(32, 94, 238, 72, 2),
-      P(24, 100), P(62, 68), P(62, 132), P(106, 122), P(245, 70),
-      O(84, 62), O(84, 128), O(124, 102),
-      Ball(31, 104),
+      LINEUP,
     ],
     obzones: [
       Line(160, 10, 160, 190, true),
@@ -1544,9 +1396,8 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M78 144 Q130 156 196 138', 4),
       ORun('M100 22 Q106 40 104 58', 5),
       ORun('M100 178 Q106 160 104 142', 5),
-      P(24, 100, 'K'), P(130, 18, '5'), P(130, 182, '2'), P(98, 124, '3'), P(172, 100, '10'),
-      O(296, 100, 'K'), O(116, 114, '9'), O(180, 36, '2'), O(180, 164, '5'), O(96, 14, '7', 5), O(96, 186, '11', 5),
-      Ball(31, 104),
+      LINEUP,
+      O(96, 14, '7', 5), O(96, 186, '11', 5),
     ],
     obwave: [
       Line(160, 10, 160, 190),
@@ -1558,9 +1409,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M184 94 Q176 82 170 74', 2),
       Pass(30, 96, 70, 88, 3),
       Pass(82, 82, 138, 28, 4),
-      P(24, 100, 'K'), P(100, 22, '5'), P(100, 178, '2'), P(96, 112, '3'), P(140, 94, '10'), P(190, 100, '9'),
-      O(296, 100, 'K'), O(116, 36, '7'), O(116, 164, '11'), O(118, 106, '9'), O(162, 108, '10'),
-      Ball(31, 104),
+      LINEUP,
     ],
     obback: [
       Box(20, 35, 250, 130),
@@ -1571,9 +1420,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       ORun('M112 80 Q104 60 90 48', 2),
       Run('M78 40 Q130 34 176 48', 3),
       Pass(182, 50, 266, 62, 3),
-      P(32, 100), P(70, 42), P(110, 100), P(70, 158),
-      O(110, 128), O(110, 72),
-      Ball(103, 100),
+      LINEUP,
     ],
     obfree: [
       Line(150, 10, 150, 190, true),
@@ -1586,9 +1433,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M166 70 Q210 56 240 60', 5),
       Pass(278, 90, 248, 66, 5),
       Pass(254, 62, 278, 64, 5),
-      P(24, 100, 'K'), P(96, 122, '3'), P(176, 92, '10'), P(284, 100, '9'),
-      O(116, 112), O(196, 100),
-      Ball(31, 104),
+      LINEUP,
     ],
     gs11: [
       Cone(60, 64), Cone(100, 64), Cone(140, 64), Cone(180, 64), Cone(220, 64), Cone(260, 64),
@@ -1634,7 +1479,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Cone(50, 64), Cone(50, 128), Cone(150, 64), Cone(150, 128), Cone(260, 64), Cone(260, 128),
       Run('M48 100 L142 100', 1),
       Run('M156 100 L254 100', 2),
-      P(32, 100), P(32, 128), P(32, 72),
+      LINEUP,
     ],
     krepeat: [
       Box(250, 50, 60, 100),
@@ -1643,9 +1488,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M70 100 L164 100', 1),
       Pass(172, 132, 176, 110, 2),
       Pass(186, 100, 284, 100, 3),
-      P(56, 100), P(38, 100), P(56, 124), P(38, 124), O(292, 100),
-      N(172, 144),
-      Ball(172, 136),
+      LINEUP,
     ],
     omwave2: [
       Box(70, 50, 180, 100),
@@ -1658,10 +1501,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M50 116 L90 124', 4),
       ORun('M270 96 L230 90', 4),
       ORun('M270 116 L230 124', 4),
-      P(120, 70), P(120, 130), O(196, 84), O(196, 126),
-      P(40, 96, undefined, 4), P(40, 116, undefined, 4), O(280, 96, undefined, 4), O(280, 116, undefined, 4),
-      N(160, 168),
-      Ball(160, 160),
+      LINEUP,
     ],
     omwave2k: [
       Box(70, 50, 180, 100),
@@ -1675,11 +1515,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M48 150 L92 136', 4),
       ORun('M272 50 L230 68', 4),
       ORun('M272 150 L230 134', 4),
-      P(120, 70), P(120, 130), O(196, 84), O(196, 126),
-      P(264, 100, 'Ka'), O(56, 100, 'Ka'),
-      P(40, 44, undefined, 4), P(40, 156, undefined, 4), O(280, 44, undefined, 4), O(280, 156, undefined, 4),
-      N(160, 168),
-      Ball(160, 160),
+      LINEUP,
     ],
     omright: [
       Box(20, 40, 280, 120),
@@ -1690,10 +1526,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M118 66 Q180 52 236 80', 3),
       Pass(242, 86, 294, 98, 3),
       ORun('M226 126 Q150 150 60 120', 4),
-      P(100, 130), P(110, 70), P(200, 110),
-      O(130, 100), O(165, 94), O(230, 130),
-      N(33, 100), N(288, 100, 'K'),
-      Ball(106, 134),
+      LINEUP,
     ],
     game11: [
       Line(160, 10, 160, 190),
@@ -1725,11 +1558,11 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(136, 130, 204, 84, 4),
       Pass(214, 84, 230, 98, 4),
       ORun('M118 126 Q80 132 44 106', 5),
-      P(100, 157), P(110, 104), P(176, 92),
-      O(126, 118), O(190, 106),
-      Ball(106, 151),
+      LINEUP,
     ],
   };
+
+  const nodes = content[variant].flatMap((n): ReactNode[] => (n === LINEUP ? lineup() : [n]));
 
   return (
     <svg
@@ -1757,7 +1590,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
           <path d="M0 0L10 5L0 10z" fill={ORANGE} />
         </marker>
       </defs>
-      {hideActors ? withoutActors(content[variant]) : content[variant]}
+      {hideActors ? withoutActors(nodes) : nodes}
     </svg>
   );
 }

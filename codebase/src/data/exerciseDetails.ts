@@ -3384,8 +3384,8 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       'Ben je met twee? Roep je ploegmaat en speel samen.',
     ],
     diagramSteps: [
-      ['Organisatie', 'Twee ploegen langs de zijlijnen, een duel in het veld'],
-      ['Inspelen', 'De trainer speelt de bal in'],
+      ['Organisatie', 'Twee ploegen langs de zijlijnen, de trainer met de bal'],
+      ['Inspelen', 'De trainer roept een nummer en speelt de bal in'],
       ['Duel', 'Dribbel naar het doeltje'],
     ],
     related: [

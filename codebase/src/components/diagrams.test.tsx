@@ -4,6 +4,7 @@ import { ANIMATIONS } from '../data/animations';
 import { DEMOS, type Joint } from '../data/demos';
 import { EXERCISES } from '../data/exercises';
 import { EXERCISE_DETAILS } from '../data/exerciseDetails';
+import { LINEUPS } from '../data/lineups';
 import { BodyDemo } from './BodyDemo';
 import { ORANGE, Pitch, QUEUE_VARIANTS } from './Pitch';
 import { PitchAnimation } from './PitchAnimation';
@@ -82,11 +83,17 @@ describe('pitch animations', () => {
     expect(entries.map(([v]) => v).filter((v) => !variants.includes(v as never))).toEqual([]);
   });
 
+  it('start from a lineup, and every lineup has an animation', () => {
+    expect(entries.filter(([v]) => !LINEUPS[v as never]).map(([v]) => v)).toEqual([]);
+    expect(Object.keys(LINEUPS).filter((v) => !ANIMATIONS[v as never])).toEqual([]);
+  });
+
   it.each(entries)('%s only refers to its own players', (_, def) => {
     const ids = new Set(def.actors.map((a) => a.id));
     expect(ids.size).toBe(def.actors.length);
     const refs = [
       def.ballStart,
+      def.diagramBall?.at,
       ...def.beats.flatMap((b) => [
         ...Object.keys(b.moves ?? {}),
         ...Object.keys(b.labels ?? {}),
@@ -103,6 +110,35 @@ describe('pitch animations', () => {
   // before purple wins it (their diagrams show purple on the ball).
   it.each(entries.filter(([v]) => v !== 'transition' && v !== 'omcounter'))('%s starts with the ball at purple or a neutral player', (_, def) => {
     expect(def.actors.find((a) => a.id === def.ballStart)?.team).not.toBe('O');
+  });
+
+  // The diagram is the animation's first frame: the same players (team, spot, label, waiting) and the ball at the
+  // same player, unless the diagram shows a later moment (`diagramBall.at`). The diagram may show more, e.g. a
+  // second group doing the same drill.
+  it.each(entries)('%s starts from the players and ball in its diagram', (variant, def) => {
+    const svg = renderToStaticMarkup(<Pitch variant={variant as never} />);
+    const drawn = [
+      ...svg.matchAll(
+        /<g><circle cx="([\d.-]+)" cy="([\d.-]+)" r="([78])" fill="([^"]+)" stroke="([^"]+)"[^>]*?( stroke-dasharray="2.5 2")?><\/circle>(?:<text[^>]*>([^<]*)<\/text>)?<\/g>/g,
+      ),
+    ].map((m) => ({
+      team: m[3] === '7' ? 'N' : (m[6] ? m[5] : m[4]) === ORANGE ? 'O' : 'P',
+      x: +m[1],
+      y: +m[2],
+      label: m[7],
+      waiting: !!m[6],
+    }));
+    const key = (p: { team: string; x: number; y: number; label?: string; waiting?: boolean }) =>
+      `${p.team} ${p.x},${p.y}${p.label ? ` '${p.label}'` : ''}${p.waiting ? ' wachtend' : ''}`;
+    const keys = drawn.map(key);
+    expect(def.actors.map(key).filter((k) => !keys.includes(k))).toEqual([]);
+
+    const balls = [...svg.matchAll(/<circle cx="([\d.-]+)" cy="([\d.-]+)" r="4" fill="#fff"/g)].map((m) => ({ x: +m[1], y: +m[2] }));
+    const nearest = (b: { x: number; y: number }) =>
+      key(drawn.reduce((best, p) => (Math.hypot(p.x - b.x, p.y - b.y) < Math.hypot(best.x - b.x, best.y - b.y) ? p : best)));
+    const holder = def.actors.find((a) => a.id === (def.diagramBall?.at ?? def.ballStart));
+    if (holder) expect(balls.map(nearest)).toContain(key(holder));
+    else expect(balls).toEqual([]);
   });
 
   it.each(entries)('%s renders', (variant, def) => {

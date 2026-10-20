@@ -7,13 +7,14 @@ Usage (from anywhere):
 
 What it updates:
   * design/Pitch.dc.html  – regenerated from the diagrams in codebase/src/components/Pitch.tsx
-                            (every variant, with all arrows shown).
+                            (every variant, with all arrows shown), with the players and ball of
+                            animated diagrams from codebase/src/data/lineups.ts.
   * design/Main.dc.html   – the `var EX = [...]` exercise list, plus the board height so every card fits.
   * design/Builder.dc.html – the `var EX = [...]` library list (with themes and materials).
   * design/canvas.json    – the Main board height; the "Bouwstenen" note and the Nav/Pitch component
                             boards below it move along so they keep the same distance.
 
-The source of truth is codebase/src/data/exercises.ts and Pitch.tsx; nothing in codebase/ is changed.
+The source of truth is codebase/src/data/exercises.ts, Pitch.tsx and lineups.ts; nothing in codebase/ is changed.
 It also checks that every exercise has its detail-page text in exerciseDetails.ts (and nothing is left
 over there), since a missing entry would only show up as an empty detail page.
 Running it twice in a row changes nothing the second time.
@@ -33,6 +34,7 @@ REFERENCE_TS = ROOT / 'codebase/src/data/referenceTrainings.ts'
 # Minutes per block for each training duration; mirrors BLOCK_TARGETS in training.tsx.
 BLOCK_TARGETS = {60: {'wu': 10, 'kern': 30, 'pv': 20}, 75: {'wu': 15, 'kern': 40, 'pv': 20}, 90: {'wu': 15, 'kern': 50, 'pv': 25}}
 PITCH_TSX = ROOT / 'codebase/src/components/Pitch.tsx'
+LINEUPS_TS = ROOT / 'codebase/src/data/lineups.ts'
 DESIGN = ROOT / 'design'
 
 # ---------------------------------------------------------------------------
@@ -271,17 +273,54 @@ def parse_args(text):
 CIRCLE_JSX = (r'<circle key="\w+" cx=\{(\d+)\} cy=\{(\d+)\} r=\{(\d+)\} fill="none" stroke=(?:"#fff"|\{(ZONE)\}) '
               r'strokeWidth=\{([\d.]+)\}(?: strokeDasharray="([^"]+)")? />')
 CALL = r'(\w+)\(((?:[^()\']|\'[^\']*\')*)\)'
+LINEUP_ACTOR = (r"\{ id: '([^']+)', team: '([PON])'(?:, label: '([^']+)')?, x: (-?[\d.]+), y: (-?[\d.]+)"
+                r"(, waiting: true)?(?:, joinsAt: (\d+))? \}")
+# Where the diagram draws the ball next to its holder; mirrors the default in Pitch.tsx.
+BALL_OFFSET = (6, 4)
+
+
+def number(text):
+    return int(text) if re.fullmatch(r'-?\d+', text) else float(text)
+
+
+def read_lineups():
+    """SVG markup for the players and ball of each lineup in lineups.ts, drawn where a diagram says LINEUP."""
+    lineups = {}
+    for m in re.finditer(r'\n  (\w+): \{\n    actors: \[\n(.*?)\n    \],(.*?)\n  \},', LINEUPS_TS.read_text(), re.S):
+        actors = {}
+        parts = []
+        for line in m.group(2).split('\n'):
+            a = re.fullmatch(LINEUP_ACTOR, line.strip().rstrip(','))
+            if not a:
+                raise SystemExit(f'Could not parse lineup {m.group(1)} in lineups.ts: {line.strip()}')
+            actor_id, team, label, x, y, waiting, joins_at = a.groups()
+            actors[actor_id] = (number(x), number(y))
+            parts.append(svg_primitive(team, [number(x), number(y), label, float('inf') if waiting else joins_at]))
+        ball_start = re.search(r"\n    ballStart: '(\w+)',", m.group(3))
+        at = re.search(r"at: '(\w+)'", m.group(3))
+        offset = re.search(r'offset: \[(-?\d+), (-?\d+)\]', m.group(3))
+        holder = at.group(1) if at else ball_start.group(1) if ball_start else None
+        if holder:
+            dx, dy = (int(offset.group(1)), int(offset.group(2))) if offset else BALL_OFFSET
+            parts.append(svg_primitive('Ball', [actors[holder][0] + dx, actors[holder][1] + dy]))
+        lineups[m.group(1)] = ''.join(parts)
+    if not lineups:
+        raise SystemExit('Could not find any lineups in lineups.ts')
+    return lineups
 
 
 def read_diagrams():
+    lineups = read_lineups()
     src = PITCH_TSX.read_text()
     body = src[src.index('const content: Record<Variant, ReactNode[]> = {'):]
     body = body[body.index('{') + 1:body.index('\n  };')]
     diagrams = {}
     for m in re.finditer(r'\n    (\w+): \[(.*?)\n    \],', body, re.S):
         parts = []
-        for tok in re.finditer(f'{CIRCLE_JSX}|{CALL}', m.group(2)):
-            if tok.group(1):  # a literal <circle> (centre circles, the circle-rondo ring)
+        for tok in re.finditer(rf'{CIRCLE_JSX}|{CALL}|\bLINEUP\b', m.group(2)):
+            if tok.group(0) == 'LINEUP':  # the players and ball from lineups.ts
+                parts.append(lineups[m.group(1)])
+            elif tok.group(1):  # a literal <circle> (centre circles, the circle-rondo ring)
                 cx, cy, r, zone, width, dash = tok.group(1, 2, 3, 4, 5, 6)
                 dash_attr = f' stroke-dasharray="{dash}"' if dash else ''
                 parts.append(f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="{ZONE if zone else WHITE}" '
