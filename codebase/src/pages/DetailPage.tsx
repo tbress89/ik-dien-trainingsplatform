@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { BodyDemo } from '../components/BodyDemo';
+import { FeedbackForm } from '../components/FeedbackForm';
 import { Pitch, QUEUE_VARIANTS } from '../components/Pitch';
 import { PitchAnimation } from '../components/PitchAnimation';
 import { VideoEmbed } from '../components/VideoEmbed';
@@ -25,6 +26,7 @@ import {
   type ExerciseDetail,
 } from '../data/exercises';
 import { BLOCKS, clampMinutes, formatTrainingDate, trainingPath, useTraining } from '../data/training';
+import { countUsage } from '../data/usage';
 import { TRAINING_BUILDER } from '../features';
 
 export function DetailPage() {
@@ -60,6 +62,11 @@ export function DetailPage() {
     setAdded(null);
     window.scrollTo(0, 0);
   }, [id, e?.min]);
+
+  // Anonymous view count per exercise (see data/usage.ts).
+  useEffect(() => {
+    if (e) countUsage('oefening', e.id);
+  }, [e]);
 
   // Each exercise and version opens on its default diagram stage.
   useEffect(() => setStep(defaultStep), [id, versionIdx, defaultStep]);
@@ -451,6 +458,8 @@ export function DetailPage() {
               ))}
             </div>
           </section>
+
+          <FeedbackForm key={e.id} exerciseId={e.id} version={versions.length > 1 && version ? `${versionIdx + 1}. ${version.name}` : null} />
         </aside>
       </div>
 
