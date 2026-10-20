@@ -173,4 +173,22 @@ describe('reference trainings', () => {
     expect(sums).toEqual(BLOCK_TARGETS[r.duration]);
     expect(r.items.filter(([, , min]) => min % 5 !== 0)).toEqual([]);
   });
+
+  it.each(REFERENCE_TRAININGS.map((r) => [r.id, r] as const))('%s only uses exercises that suit its ages and squad', (_, r) => {
+    const band = ageRange(r.ages);
+    expect(band).not.toBeNull();
+    const [lo, hi] = band!;
+    const needed = AGES.filter((a) => BUCKET[a][0] <= hi && BUCKET[a][1] >= lo);
+    // A usual squad at this age; every exercise must be playable with it.
+    const squad = lo <= 7 ? 8 : lo <= 9 ? 10 : lo <= 13 ? 12 : 16;
+    const misfits = r.items
+      .map(([, ex]) => EXERCISE_BY_ID[ex])
+      .filter((e) => {
+        const range = ageRange(e.ageLabel);
+        const labelFits = !range || (range[0] <= hi && range[1] >= lo);
+        return !needed.every((a) => e.ages.includes(a)) || !labelFits || e.pmin > squad;
+      })
+      .map((e) => `${e.id} (${e.ageLabel}, ${e.pmin} spelers)`);
+    expect(misfits).toEqual([]);
+  });
 });
