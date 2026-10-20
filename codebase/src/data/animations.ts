@@ -1356,7 +1356,7 @@ const BEATS: Partial<Record<Variant, { beats: AnimBeat[] }>> = {
         ms: 1300,
         ball: 'o1',
         newBall: 'o1',
-        moves: { p1: [140, 150], p2: [156, 150], k: [292, 100] },
+        moves: { p1: [140, 164], p2: [156, 164], k: [292, 100] },
       },
       { label: 'Oranje dribbelt naar doel', ms: 900, ball: 'o1', moves: { o1: [240, 86], o2: [250, 118] } },
       { label: 'Schot: de keeper redt, oranje moet opnieuw proberen', ms: 600, ball: 'k', moves: { k: [290, 92] } },
@@ -1367,7 +1367,7 @@ const BEATS: Partial<Record<Variant, { beats: AnimBeat[] }>> = {
     beats: [
       { label: 'De trainer roept een kleur: het doeltje rechts telt', ms: 900, ball: 'p1', moves: { p3: [204, 76], o3: [238, 92] } },
       { label: 'Pass naar de vrije ploegmaat', ms: 700, ball: 'p3' },
-      { label: 'Opdribbelen naar het doeltje dat telt', ms: 1000, ball: 'p3', moves: { p3: [240, 82], o3: [244, 98], o2: [226, 114] } },
+      { label: 'Opdribbelen naar het doeltje dat telt', ms: 1000, ball: 'p3', moves: { p3: [240, 82], o3: [236, 104], o2: [218, 120] } },
       { label: 'Doelpunt', ms: 500, ball: [262, 96] },
       { label: 'Nieuwe kleur: het doeltje onderaan. De trainer speelt in bij oranje', ms: 1000, ball: 'o1', newBall: 't' },
       { label: 'Oranje dribbelt naar het doeltje onderaan', ms: 1000, ball: 'o1', moves: { o1: [160, 136], p2: [138, 138], p1: [146, 116] } },
