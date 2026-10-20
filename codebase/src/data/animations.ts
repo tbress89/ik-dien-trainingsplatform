@@ -1324,6 +1324,67 @@ const BEATS: Partial<Record<Variant, { beats: AnimBeat[] }>> = {
       { label: 'Pass en volg', ms: 1100, ball: 'b', moves: { d: [142, 92], c: [176, 140] } },
     ],
   },
+  // Kegelbowling
+  pbowl: {
+    beats: [
+      { label: 'Paars mikt laag over de grond op een kegel', ms: 800, ball: [158, 80] },
+      { label: 'Kegel om: punt voor paars. De bal rolt door naar oranje', ms: 900, ball: 'o1' },
+      { label: 'Oranje neemt aan en mikt meteen terug', ms: 900, ball: [162, 104] },
+      { label: 'Ook raak: punt voor oranje. Paars neemt de bal aan', ms: 900, ball: 'p2' },
+      { label: 'Paars mikt op de volgende kegel', ms: 900, ball: [158, 126] },
+      { label: 'Mis: oranje neemt de bal aan en mikt opnieuw', ms: 900, ball: 'o2' },
+    ],
+  },
+  // Schietduel vanaf de eigen helft
+  fhalves: {
+    beats: [
+      { label: 'Paars legt de bal klaar op de eigen helft', ms: 700, ball: 'p1', moves: { p1: [140, 116] } },
+      { label: 'Schot laag in de hoek, naast de keeper', ms: 600, ball: [262, 122], moves: { ok: [248, 110] } },
+      { label: 'Oranje neemt een nieuwe bal en legt klaar', ms: 900, ball: 'o1', newBall: 'o1', moves: { o1: [190, 90], ok: [246, 100] } },
+      { label: 'Oranje schiet terug; de paarse keeper redt', ms: 700, ball: 'pk', moves: { pk: [72, 94] } },
+      { label: 'De keeper rolt naar de ploegmaat: paars mag weer schieten', ms: 800, ball: 'p1', moves: { pk: [74, 100] } },
+    ],
+  },
+  // Wereldbeker
+  fworld: {
+    beats: [
+      { label: 'Paars speelt de duomaat aan', ms: 800, ball: 'p2', moves: { o1: [186, 82] } },
+      { label: 'Paars dribbelt op, oranje zet druk', ms: 1000, ball: 'p2', moves: { p2: [236, 118], o2: [228, 102], p1: [196, 94] } },
+      { label: 'Doelpunt: paars is door naar de volgende ronde', ms: 600, ball: [304, 112], moves: { k: [290, 108] } },
+      {
+        label: 'Paars wacht naast het veld; de trainer gooit een nieuwe bal in',
+        ms: 1300,
+        ball: 'o1',
+        newBall: 'o1',
+        moves: { p1: [140, 150], p2: [156, 150], k: [292, 100] },
+      },
+      { label: 'Oranje dribbelt naar doel', ms: 900, ball: 'o1', moves: { o1: [240, 86], o2: [250, 118] } },
+      { label: 'Schot: de keeper redt, oranje moet opnieuw proberen', ms: 600, ball: 'k', moves: { k: [290, 92] } },
+    ],
+  },
+  // Kleurdoeltjes 3 tegen 3
+  sgcolor: {
+    beats: [
+      { label: 'De trainer roept een kleur: het doeltje rechts telt', ms: 900, ball: 'p1', moves: { p3: [204, 76], o3: [238, 92] } },
+      { label: 'Pass naar de vrije ploegmaat', ms: 700, ball: 'p3' },
+      { label: 'Opdribbelen naar het doeltje dat telt', ms: 1000, ball: 'p3', moves: { p3: [240, 82], o3: [244, 98], o2: [226, 114] } },
+      { label: 'Doelpunt', ms: 500, ball: [262, 96] },
+      { label: 'Nieuwe kleur: het doeltje onderaan. De trainer speelt in bij oranje', ms: 1000, ball: 'o1', newBall: 't' },
+      { label: 'Oranje dribbelt naar het doeltje onderaan', ms: 1000, ball: 'o1', moves: { o1: [160, 136], p2: [138, 138], p1: [146, 116] } },
+      { label: 'Doelpunt voor oranje', ms: 500, ball: [160, 154] },
+    ],
+  },
+  // Kasteelvoetbal 3 tegen 3
+  sgcastle: {
+    beats: [
+      { label: 'Paars speelt de vrije ploegmaat aan', ms: 800, ball: 'p3', moves: { o1: [168, 106] } },
+      { label: 'Oranje zakt terug voor het kasteel; niemand mag erin', ms: 900, ball: 'p3', moves: { o2: [212, 82], o3: [214, 118], p3: [190, 94] } },
+      { label: 'Schot tussen de verdedigers door: kegel om, punt', ms: 600, ball: [238, 100] },
+      { label: 'Oranje zet de kegel recht en speelt meteen verder', ms: 900, ball: 'o3', newBall: 'o3' },
+      { label: 'Oranje speelt naar voren', ms: 900, ball: 'o1', moves: { o1: [140, 96], p1: [128, 112] } },
+      { label: 'Schot op het paarse kasteel: net naast', ms: 700, ball: [78, 128] },
+    ],
+  },
 };
 
 /** Every animation, with the lineup it starts from. */

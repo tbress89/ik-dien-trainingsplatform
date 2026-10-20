@@ -39,14 +39,18 @@ export const RECOMMENDED: string[] = [
   'fcross', // Afwerken na voorzet
   'dfeint', // Schijnbewegingen: passeren en versnellen
   'omwinner', // Winnaar blijft: 2 tegen 2 met wisselende duo's
+  'sg2v2j', // 2 tegen 2 voor de jongsten
+  'fworld', // Wereldbeker
   'omwave2', // Omschakel-waves 2 tegen 2 op vier doeltjes
   'omwave2k', // Omschakel-waves 2 tegen 2 met kaatsers
   'rcircle', // Kringrondo 7 tegen 2
   'sgnum', // Nummerspel: 1 tegen 1 tot 3 tegen 3
+  'fgoals', // Doeltjesjacht
   'pr2v2', // 2 tegen 2: druk en dekking
   'py', // Passvorm in Y met kaatsbal
   'fcounter', // 3 tegen 2 afwerken na omschakeling
   'sggates', // Poortjesspel 4 tegen 4
+  'sgcolor', // Kleurdoeltjes 3 tegen 3
   'gkhand', // Vangen in W-vorm
   'psswitch', // Van kant wisselen: 4 tegen 4 + 2 op vier doeltjes
   'dturns', // Draaibewegingen aan de kegel
@@ -57,11 +61,13 @@ export const RECOMMENDED: string[] = [
   'pscan', // Aannemen met schouderblik
   'frebound', // Schieten en opvolgen
   'sgend', // Eindzonespel 4 tegen 4
+  'sgcastle', // Kasteelvoetbal 3 tegen 3
   'r31', // Rondo 3 tegen 1
   'dline', // Dribbelvoetbal 3 tegen 3 over de lijn
   'obsplit', // Doeltrap: splitsen en uitspelen 2 + K tegen 1
   'fcutback', // Terugleggen vanaf de achterlijn
   'wchain', // Kettingtikkertje
+  'dtag', // Dribbeltikkertje
   'cladder', // Loopladder: voetpatronen met kaatsbal
   'gs11', // Preventie-opwarming voor groeiende spelers
   'gk1v1', // 1 tegen 1: uitkomen en blokken
@@ -101,9 +107,12 @@ export const RECOMMENDED: string[] = [
   'prshift', // Verschuiven als blok: over de rivier
   'obsix', // Vrijlopen van de zes: opbouw 3 + K tegen 2
   'fplace', // Plaatsen in de hoeken
+  'fhalves', // Schietduel vanaf de eigen helft
   'omduel', // Omschakelduel 1 tegen 1
   'pgates', // Passen door poortjes
+  'pclean', // Ruim je tuin op
   'dking', // Koning van het vak
+  'dshark', // Haaien en visjes
   'gkangle', // Positie kiezen: de hoek verkleinen
   'sgblock', // Partijvorm 5 tegen 5: doorschuiven als blok
   'omcounter', // Balwinst op eigen helft en counteren: 6 tegen 6
@@ -113,13 +122,16 @@ export const RECOMMENDED: string[] = [
   'psflank', // Driehoek op de flank
   'prtrig', // Pressing op de trigger: terugspeelbal
   'crelay', // Hindernisestafette met bal
+  'dtail', // Staartjesroof met bal
   'pline', // Passen in lijnen: pass en volg
+  'pbowl', // Kegelbowling
   'pfollow', // Vrij rondpassen en de bal volgen
   'ppoles', // Ruitpassen rond de palen
   'gkdist', // Uitworp en uittrap naar doeltjes
   'obline', // Rustig uitspelen: 3 + K tegen 2 met terugtreklijn
   'obback', // Terugspeelbal en uitbouwen: 3 + K tegen 2
   'sg2v2', // Intervalpartijtjes 2 tegen 2
+  'sg2ball', // 4 tegen 4 met twee ballen
   'krepeat', // Herhaalde sprints met afwerking
   'omback', // Na balverlies achter de bal: 5 tegen 5
   'fgame', // Schietspel 2 tegen 2 met kaatsers
@@ -131,6 +143,7 @@ export const RECOMMENDED: string[] = [
   'gsland', // Afremmen en draaien met kniecontrole
   'gkdive', // Leren vallen: van knielend naar staand
   'prhunt', // Jagers en dribbelaars
+  'dpirate', // Schatten roven: vier kampen
   'rdeep', // Rondo 5 tegen 2 met diepe pass naar de spits
   'omrecover', // Terugsprinten achter de bal: 3 tegen 2 + 1
   'psshape', // Positiespel 6 tegen 4 met vaste posities

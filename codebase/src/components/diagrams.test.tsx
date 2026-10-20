@@ -147,8 +147,9 @@ describe('diagram layout', () => {
     ).toEqual([]);
   });
 
-  // dking: the arrow kicks someone's ball out of the square, to no one.
-  const PASS_INTO_NOWHERE = new Set(['dking']);
+  // dking and dshark: the arrow kicks someone's ball out of the square, to no one. pclean: balls are kicked into
+  // the other team's half, not to a player.
+  const PASS_INTO_NOWHERE = new Set(['dking', 'dshark', 'pclean']);
   it.each(variants)('%s has passes from the ball to a player', (variant) => {
     expect(
       issuesIn(variant, ({ players, balls, goals, cones, passes, runs }) =>
