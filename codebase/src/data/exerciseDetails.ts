@@ -15,7 +15,7 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { title: 'Wisselen.', text: 'Wie de bal verliest of buiten het vierkant speelt, wisselt met de middenspeler.' },
       { title: 'Ritme.', text: 'Speel 2 reeksen van 2 minuten met 1 minuut rust. Tel het aantal passes op rij als uitdaging.' },
     ],
-    easier: 'Speel 5 tegen 1 of laat vrij aantal balcontacten toe. Vergroot het vierkant tot 15 × 15 m.',
+    easier: 'Speel 5 tegen 1 of laat vrij aantal balcontacten toe. Vergroot het vierkant tot 15 × 15 m. Bij U8–U9 is dat de standaardvorm.',
     harder: 'Speel met één balcontact. Tien passes op rij levert een punt op voor de buitenploeg.',
     objectives: ['Balcirculatie', 'Aanspeelbaar staan', 'Lichaamshouding', 'Snel beslissen'],
     coaching: [
@@ -1071,7 +1071,7 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { title: 'Achtervolgen.', text: 'De verdediger probeert de aanvaller in te halen en het schot te verhinderen. Scoort de aanvaller, dan is het een punt.' },
       { title: 'Ritme.', text: 'Speel 3 reeksen van 6 duels, met 1 minuut rust. Wissel de rijen na elke reeks.' },
     ],
-    easier: 'Geef de aanvaller 5 meter voorsprong.',
+    easier: 'Geef de aanvaller 5 meter voorsprong. Bij U8–U9: start op 15 meter van een klein doel zonder keeper.',
     harder: 'Laat de verdediger naast de aanvaller starten in plaats van erachter.',
     objectives: ['Dribbelen op snelheid', 'Lichaam tussen bal en verdediger', 'Afwerken onder druk', 'Snelheid'],
     coaching: [
@@ -1102,7 +1102,7 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { title: 'Punten.', text: 'Houdt hij de bal 30 seconden, dan is het een punt. Verovert de verdediger de bal of gaat die uit het vak, dan wisselen de rollen meteen.' },
       { title: 'Ritme.', text: 'Speel 10 reeksen van 30 seconden, met 30 seconden rust tussen de reeksen.' },
     ],
-    easier: 'Maak het vak groter, zodat er meer ruimte is om weg te dribbelen.',
+    easier: 'Maak het vak groter, zodat er meer ruimte is om weg te dribbelen. Bij U8–U9: noem het “bescherm je schat” en houd de bal 15 seconden bij je in een vak van 7 × 7 m.',
     harder: 'Verklein het vak tot 4 × 4 m of verleng de tijd tot 45 seconden.',
     objectives: ['Afschermen', 'Lichaamsgebruik', 'Balbeheersing onder druk', 'Duelkracht'],
     coaching: [
@@ -1132,7 +1132,7 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { title: 'Afwerken.', text: 'De aanval moet binnen 10 seconden eindigen met een schot. Een doelpunt na een dribbel telt dubbel.' },
       { title: 'Ritme.', text: 'Speel 3 reeksen van 6 aanvallen, met 1 minuut rust. Wissel de verdediger na elke reeks.' },
     ],
-    easier: 'Laat de verdediger pas vertrekken als de balbezitter aan het dribbelen is.',
+    easier: 'Laat de verdediger pas vertrekken als de balbezitter aan het dribbelen is. Bij U8–U9: speel op een klein doel zonder keeper, op 20 × 15 m.',
     harder: 'Laat een tweede verdediger van achteren meelopen, zodat het snel 2 tegen 2 wordt.',
     objectives: ['Beslissen: dribbelen of passen', 'Verdediger vastzetten', 'Timing van de pass', 'Afwerken'],
     coaching: [
@@ -1588,7 +1588,7 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { title: 'Regels.', text: 'Terugspelen naar de speler van wie je de bal kreeg, telt niet. Bij balverlies begint de tegenstander opnieuw bij nul.' },
       { title: 'Ritme.', text: 'Speel 3 reeksen van 4 minuten met 1 minuut rust.' },
     ],
-    easier: 'Maak het veld groter of voeg een joker toe die altijd met de balbezitter meespeelt.',
+    easier: 'Maak het veld groter of voeg een joker toe die altijd met de balbezitter meespeelt. Bij U8–U9: vijf passes op rij is al een punt.',
     harder: 'Speel met maximaal twee balcontacten, of verklein het veld.',
     objectives: ['Vrijlopen', 'Passen onder druk', 'Geduld in balbezit', 'Druk zetten na balverlies'],
     coaching: [
@@ -1868,7 +1868,7 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { title: 'Opvolgen.', text: 'Meteen na het schot sprint hij richting doel. De trainer speelt een tweede bal in de zestien, die hij in één keer afwerkt.' },
       { title: 'Ritme.', text: 'Speel 3 reeksen van 6 herhalingen, met 1 minuut rust.' },
     ],
-    easier: 'Speel de tweede bal rustig en over de grond in.',
+    easier: 'Speel de tweede bal rustig en over de grond in. Bij U8–U9: schiet van 10 meter op een doel met een keeper van de eigen groep, en rol de tweede bal met de hand in.',
     harder: 'Laat de schutter reageren op de echte rebound van de keeper, zonder tweede bal van de trainer.',
     objectives: ['Opvolgen', 'Afwerken in één keer', 'Reactiesnelheid', 'Doorzetting'],
     coaching: [
@@ -3434,7 +3434,7 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { title: 'Doorspelen.', text: 'Na een punt blijft de scorende ploeg in balbezit en valt ze aan op de andere eindzone.' },
       { title: 'Ritme.', text: 'Speel 4 reeksen van 4 minuten met 1 minuut rust.' },
     ],
-    easier: 'Laat ook indribbelen in de eindzone tellen, of maak de zones 8 meter diep.',
+    easier: 'Laat ook indribbelen in de eindzone tellen, of maak de zones 8 meter diep. Bij U8–U9 telt alleen indribbelen in de eindzone: één eenvoudige regel.',
     harder: 'Speel met maximaal twee balcontacten, of laat een punt alleen tellen als de ontvanger de bal in één keer terugkaatst naar een ploegmaat.',
     objectives: ['Diepgang zoeken', 'Timing van de loopactie', 'Steekpass', 'Breedte en diepte'],
     coaching: [
@@ -3618,7 +3618,7 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { title: 'Rust.', text: 'Rust is echte rust: wandelen en drinken. Wissel na elke twee reeksen van tegenstander.' },
       { title: 'Ritme.', text: 'Speel 6 reeksen van 1 minuut met 1 minuut rust. Houd de reeksen kort, zodat de intensiteit maximaal blijft.' },
     ],
-    easier: 'Speel reeksen van 45 seconden, of met een joker die bij de balbezitter hoort.',
+    easier: 'Speel reeksen van 45 seconden, of met een joker die bij de balbezitter hoort. Bij U8–U9: speel 4 reeksen van 1 minuut op een veld van 25 × 20 m.',
     harder: 'Speel 8 reeksen, of maak het veld groter zodat er meer gelopen moet worden.',
     objectives: ['Uithouding met bal', 'Duels', 'Snel omschakelen', 'Samenwerken in duo'],
     coaching: [
@@ -4612,7 +4612,7 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { title: 'Vliegende wissel.', text: 'De vier spelers sprinten meteen het veld uit en twee nieuwe spelers van elke ploeg sprinten erin. De trainer speelt meteen een nieuwe bal in: na een doelpunt bij de ploeg die scoorde (als beloning), na een uitbal bij de ploeg die de inworp zou krijgen.' },
       { title: 'Ritme.', text: 'Speel tot een ploeg 10 punten heeft en begin dan een nieuwe wedstrijd. Houd zo 20 minuten vol, met een korte pauze tussen de wedstrijden.' },
     ],
-    easier: 'Maak het veld breder of langer, zodat de aanvallers meer ruimte hebben om kansen te creëren.',
+    easier: 'Maak het veld breder of langer, zodat de aanvallers meer ruimte hebben om kansen te creëren. Bij U8–U9: speel op 25 × 20 m met hooguit drie duo’s per ploeg, zodat niemand lang wacht.',
     harder: 'Maak het veld smaller of korter, of laat een doelpunt alleen tellen na een pass tussen de twee aanvallers.',
     objectives: ['Kansen creëren', 'Omschakelen', 'Meteen scherp zijn', 'Afwerken op doeltjes'],
     coaching: [
@@ -4849,6 +4849,400 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'pass', fit: 'Kern' },
       { id: 'rondo', fit: 'Als vervolg' },
       { id: 'pten', fit: 'Als afsluiter' },
+    ],
+  },
+  dtag: {
+    summary:
+      'Iedereen dribbelt met een bal in een vak, ook de twee tikkers: zij tikken met de hand terwijl ze hun eigen bal meenemen. Een tikspel waarin de jongsten heel veel balcontacten maken en leren dribbelen met de kop omhoog.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet een vak van 20 × 15 m uit. Elke speler heeft een bal; twee tikkers dragen een hesje in de hand.' },
+      { title: 'Tikken.', text: 'De tikkers dribbelen met hun bal en tikken een speler met hun vrije hand. Een tik telt alleen als de tikker zijn bal bij zich heeft.' },
+      { title: 'Wisselen.', text: 'Wie getikt wordt, krijgt het hesje en is nu tikker. Een nieuwe tikker telt eerst luidop tot drie, zodat er niet meteen teruggetikt wordt.' },
+      { title: 'Ritme.', text: 'Speel 4 rondes van 2 minuten met 30 seconden rust. Wie in een ronde nooit tikker was, mag kiezen wie de volgende ronde begint.' },
+    ],
+    easier: 'Speel met één tikker in een groter vak, of laat de tikkers zonder bal lopen.',
+    harder: 'Een getikte speler wordt ook tikker (wie het hesje heeft, blijft tikker), tot er nog drie vrije spelers over zijn.',
+    objectives: ['Dribbelen met de kop omhoog', 'Wenden met de bal', 'Plezier en beweging', 'Veel balcontacten'],
+    coaching: [
+      'Kijk op: waar is de tikker, waar is de ruimte?',
+      'Kleine tikjes, zodat je snel kunt wegdraaien.',
+      'Tikker: laat je bal niet achter, neem hem mee.',
+      'Draai weg met de bal aan de kant weg van de tikker.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Iedereen heeft een bal, ook de twee tikkers'],
+      ['Tikken', 'Een tikker dribbelt naar een speler toe'],
+      ['Ontsnappen', 'De speler draait weg naar de vrije ruimte'],
+    ],
+    related: [
+      { id: 'dbox', fit: 'Zelfde thema' },
+      { id: 'dshark', fit: 'Als vervolg' },
+      { id: 'fgoals', fit: 'Kern' },
+      { id: 'sg2v2j', fit: 'Als afsluiter' },
+    ],
+  },
+  dshark: {
+    summary:
+      'De visjes dribbelen met hun bal van de ene lijn naar de overkant, terwijl de haaien in het midden hun bal proberen af te pakken of uit het vak te trappen. Een klassiek spel voor de jongsten dat dribbelen op snelheid, afschermen en durven traint.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet een vak van 25 × 20 m uit met een startlijn aan elke kopse kant. De visjes staan met een bal achter één lijn, twee haaien zonder bal in het midden.' },
+      { title: 'Oversteken.', text: 'Roept de trainer “haaien!”, dan dribbelen alle visjes tegelijk naar de overkant. Wie met zijn bal over de lijn komt, is veilig.' },
+      { title: 'Haaien.', text: 'De haaien pakken een bal af of trappen hem uit het vak. Wie zijn bal verliest, legt hem naast het vak en wordt ook haai. Wie als laatste visje overblijft, wint.' },
+      { title: 'Ritme.', text: 'Steek over tot er nog één of twee visjes zijn (3 à 4 minuten) en begin dan opnieuw met twee nieuwe haaien. Speel 3 rondes met 30 seconden rust.' },
+    ],
+    easier: 'Begin met één haai, of laat een visje dat zijn bal verliest 5 keer de zool op de bal zetten en weer meedoen in plaats van haai te worden.',
+    harder: 'De haaien dribbelen zelf ook met een bal, of maak het vak smaller.',
+    objectives: ['Dribbelen op snelheid', 'Bal afschermen', 'Kop omhoog', 'Durven'],
+    coaching: [
+      'Kijk waar de haaien staan en kies de vrije weg.',
+      'Vrije weg? Grote tikken en versnellen.',
+      'Komt een haai dichtbij? Kleine tikjes en weg draaien.',
+      'Haaien: werk samen en sluit een visje in tegen de zijlijn.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Visjes met bal achter de lijn, twee haaien in het midden'],
+      ['Oversteken', 'Alle visjes dribbelen tegelijk naar de overkant'],
+      ['Haaien', 'Een haai valt een visje aan'],
+      ['Uittrappen', 'De haai trapt de bal uit het vak: het visje wordt haai'],
+    ],
+    related: [
+      { id: 'dtag', fit: 'Als warming-up' },
+      { id: 'dking', fit: 'Zelfde thema' },
+      { id: 'duel', fit: 'Als vervolg' },
+      { id: 'funino', fit: 'Als afsluiter' },
+    ],
+  },
+  dtail: {
+    summary:
+      'Elke speler dribbelt met een bal en heeft een hesje als staartje achter in de broek. Pak zoveel mogelijk staartjes van de anderen, zonder je eigen bal of staartje te verliezen: zo leren de jongsten dribbelen, opkijken en hun bal beschermen.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet een vak van 20 × 15 m uit. Elke speler heeft een bal en stopt een hesje achter in zijn broek, zodat het staartje voor de helft uithangt.' },
+      { title: 'Roven.', text: 'Iedereen dribbelt en probeert staartjes van anderen te pakken. Je mag alleen roven als je bal dicht bij je voet is; een speler zonder bal bij zich mag niet roven.' },
+      { title: 'Doorspelen.', text: 'Een gepakt staartje stop je bij het jouwe. Wie zijn staartje kwijt is, speelt gewoon verder en blijft roven: niemand valt af.' },
+      { title: 'Ritme.', text: 'Speel 4 rondes van 90 seconden met 30 seconden rust. Tel na elke ronde de staartjes en geef ze terug.' },
+    ],
+    easier: 'Speel zonder bal voor één ronde, zodat ze het spel snappen, of speel in twee ploegen en pak alleen staartjes van de andere kleur.',
+    harder: 'Verklein het vak, of laat alleen roven met de hand aan de kant van je zwakke voet.',
+    objectives: ['Dribbelen met de kop omhoog', 'Bal beschermen', 'Wenden en keren', 'Plezier'],
+    coaching: [
+      'Kijk op: wie komt er naar je toe?',
+      'Draai je staartje weg van de rover, met de bal aan je verste voet.',
+      'Bal dicht bij je voet, ook als je zelf gaat roven.',
+      'Kies een speler die niet kijkt.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Iedereen dribbelt met een bal en een staartje'],
+      ['Roven', 'Een speler dribbelt achter een staartje aan'],
+      ['Wegdraaien', 'De andere speler draait weg met zijn bal'],
+    ],
+    related: [
+      { id: 'dtag', fit: 'Zelfde thema' },
+      { id: 'dbox', fit: 'Als warming-up' },
+      { id: 'dshield', fit: 'Als vervolg' },
+      { id: 'sg2v2j', fit: 'Als afsluiter' },
+    ],
+  },
+  dpirate: {
+    summary:
+      'Vier ploegen hebben elk een kamp in een hoek van het vak; in het midden ligt de schat: een hoop ballen. De spelers dribbelen één bal tegelijk naar hun kamp en mogen ook ballen uit andere kampen roven, wat zorgt voor veel dribbels, kijken en beslissen.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet een vak van 20 × 20 m uit met in elke hoek een kamp van 4 × 4 m. In de middencirkel liggen 12 à 15 ballen. Elke ploeg van twee à vier spelers start in haar kamp.' },
+      { title: 'Schat halen.', text: 'Op het signaal dribbelen de spelers naar het midden, nemen één bal en dribbelen hem naar hun kamp. Je mag maar één bal tegelijk meenemen; gooien of hard wegschieten mag niet.' },
+      { title: 'Roven.', text: 'Is het midden leeg, dan rooft iedereen ballen uit de andere kampen. Je eigen kamp verdedigen mag niet: alleen dribbelen telt.' },
+      { title: 'Ritme.', text: 'Speel 4 rondes van 90 seconden met 1 minuut rust. Op het eindsignaal telt elke ploeg de ballen in haar kamp.' },
+    ],
+    easier: 'Speel met twee kampen en twee ploegen, of laat de spelers de bal met de hand meenemen in de eerste ronde.',
+    harder: 'Een bal moet in het kamp aankomen met een stop met de zool, of een kamp mag één verdediger hebben.',
+    objectives: ['Dribbelen met richting', 'Kop omhoog', 'Snel beslissen', 'Plezier en wedstrijdgevoel'],
+    coaching: [
+      'Kijk eerst: welk kamp heeft de meeste ballen?',
+      'Kleine tikjes rond de anderen, grote tikken in de vrije ruimte.',
+      'Stop de bal in je kamp en ga meteen opnieuw.',
+      'Blijf niet staan wachten: er is altijd een bal te halen.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Vier kampen in de hoeken, de schat in het midden'],
+      ['Schat halen', 'Een speler dribbelt een bal naar zijn kamp'],
+      ['Opnieuw', 'Een speler van een andere ploeg haalt de volgende bal'],
+      ['Roven', 'Een speler rooft een bal uit een ander kamp'],
+    ],
+    related: [
+      { id: 'dbox', fit: 'Als warming-up' },
+      { id: 'dking', fit: 'Zelfde thema' },
+      { id: 'dgates', fit: 'Als vervolg' },
+      { id: 'funino', fit: 'Als afsluiter' },
+    ],
+  },
+  pclean: {
+    summary:
+      'Twee ploegen hebben elk hun eigen helft, hun tuin, en daar liggen overal ballen. Iedereen probeert alle ballen over de middenlijn naar de tuin van de andere ploeg te passen of te schieten, zodat ieder kind tegelijk heel vaak tegen de bal trapt.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet een veld van 30 × 20 m uit met een middenlijn van kegels. Elke ploeg staat in haar eigen helft; leg in beide helften evenveel ballen, minstens één per speler.' },
+      { title: 'Opruimen.', text: 'Op het signaal speelt iedereen de ballen uit zijn tuin over de middenlijn. Alleen trappen met de voet, laag over de grond, en je blijft in je eigen helft.' },
+      { title: 'Winnen.', text: 'Op het eindsignaal (“stop, zool op de bal!”) telt elke ploeg de ballen in haar tuin. De ploeg met de minste ballen heeft het best opgeruimd en wint.' },
+      { title: 'Ritme.', text: 'Speel 5 rondes van 1 minuut met 30 seconden rust. Leg de ballen na elke ronde weer eerlijk verdeeld.' },
+    ],
+    easier: 'Maak het veld korter, zodat elke trap de overkant haalt.',
+    harder: 'Alleen met de binnenkant of alleen met de zwakke voet, of een bal telt pas als hij tussen twee kegels door de middenlijn over gaat.',
+    objectives: ['Passen en trappen', 'Bal aannemen en meteen spelen', 'Kop omhoog', 'Veel balcontacten'],
+    coaching: [
+      'Stop de bal eerst en trap hem dan laag weg.',
+      'Kijk op: waar is een gat bij de andere ploeg?',
+      'Trap met de binnenkant voor een rechte pass, met de wreef voor een verre bal.',
+      'Ren naar de bal die het dichtst bij je ligt.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Twee tuinen met overal ballen'],
+      ['Overspelen', 'Paars trapt een bal naar de andere tuin'],
+      ['Terug', 'Oranje speelt meteen een bal terug'],
+    ],
+    related: [
+      { id: 'pgates', fit: 'Als vervolg' },
+      { id: 'pbowl', fit: 'Zelfde thema' },
+      { id: 'fgoals', fit: 'Kern' },
+      { id: 'game5', fit: 'Als afsluiter' },
+    ],
+  },
+  pbowl: {
+    summary:
+      'Twee ploegen staan tegenover elkaar achter een lijn, met in het midden een rij kegels. Wie met een pass over de grond een kegel omver speelt, scoort een punt: een speelse vorm om de jongsten te leren passen met de binnenkant en mikken.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet twee passlijnen op 15 meter van elkaar. Zet in het midden vijf kegels op een rij. Elke ploeg staat achter haar lijn, met een bal per speler.' },
+      { title: 'Mikken.', text: 'Iedereen passt tegelijk vanachter zijn lijn naar de kegels. Rolt de bal door, dan neemt de andere ploeg hem aan en passt meteen terug.' },
+      { title: 'Punten.', text: 'Een omgespeelde kegel is een punt voor jouw ploeg. De trainer zet de kegels meteen recht en roept de stand.' },
+      { title: 'Ritme.', text: 'Speel 4 rondes van 2 minuten met 30 seconden rust. Zet de lijnen na elke ronde een stap verder uit elkaar.' },
+    ],
+    easier: 'Zet de lijnen dichter bij de kegels, of gebruik grotere kegels of ballen op een kegel.',
+    harder: 'Alleen met de zwakke voet, of eerst aannemen met de zool en dan pas passen.',
+    objectives: ['Passen met de binnenkant', 'Mikken', 'Aannemen', 'Concentratie'],
+    coaching: [
+      'Steunvoet naast de bal, teen naar de kegel.',
+      'Raak de bal met de binnenkant, midden in de bal.',
+      'Kijk naar de bal als je trapt, en daarna naar de kegel.',
+      'Stop de bal die naar je toe rolt eerst.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Twee ploegen achter hun lijn, de kegels in het midden'],
+      ['Paars mikt', 'Een pass laag over de grond naar een kegel'],
+      ['Oranje mikt', 'Oranje speelt terug naar een andere kegel'],
+    ],
+    related: [
+      { id: 'pclean', fit: 'Zelfde thema' },
+      { id: 'pgates', fit: 'Als vervolg' },
+      { id: 'cmastery', fit: 'Als warming-up' },
+      { id: 'sgcastle', fit: 'Als afsluiter' },
+    ],
+  },
+  fgoals: {
+    summary:
+      'Alle spelers dribbelen met een bal in een vak met zes doeltjes en proberen in zoveel mogelijk verschillende doeltjes te scoren. Geen rijen en geen wachten: elk kind werkt voortdurend af, eerst vrij en daarna met een verdediger erbij.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet een vak van 25 × 20 m uit met zes doeltjes verspreid over het vak, met de opening naar verschillende kanten. Elke speler heeft een bal.' },
+      { title: 'Scoren.', text: 'Dribbel naar een doeltje en schiet erin, haal je bal en zoek een ander doeltje: twee keer na elkaar in hetzelfde doeltje telt niet. Iedereen telt zijn doelpunten luidop.' },
+      { title: 'Verdedigers.', text: 'Vanaf de derde ronde komen er één of twee verdedigers in een hesje bij. Zij pakken ballen af en schieten ze zelf in een doeltje; wie zijn bal verliest, wordt de nieuwe verdediger.' },
+      { title: 'Ritme.', text: 'Speel 5 rondes van 1 minuut met 30 seconden rust. Wie meer scoort dan in de vorige ronde, verdient een applaus.' },
+    ],
+    easier: 'Maak de doeltjes breder, of laat in de eerste rondes scoren vanaf maximaal 3 meter.',
+    harder: 'Scoor alleen met je zwakke voet, of eerst een schijnbeweging voor het schot.',
+    objectives: ['Afwerken op doeltjes', 'Dribbelen met de kop omhoog', 'Scoren met links en rechts', 'Veel balcontacten'],
+    coaching: [
+      'Kijk op: welk doeltje is vrij?',
+      'Dicht bij het doeltje: plaatsen met de binnenkant.',
+      'Gescoord? Haal je bal en kies meteen een nieuw doeltje.',
+      'Komt de verdediger? Draai weg naar een ander doeltje.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Iedereen met een bal, zes doeltjes in het vak'],
+      ['Scoren', 'Een speler werkt af in een doeltje'],
+      ['Volgend doeltje', 'Een andere speler dribbelt naar een vrij doeltje'],
+      ['Verdediger', 'Vanaf de derde ronde komt er een verdediger bij'],
+    ],
+    related: [
+      { id: 'dbox', fit: 'Als warming-up' },
+      { id: 'fplace', fit: 'Zelfde thema' },
+      { id: 'fhalves', fit: 'Als vervolg' },
+      { id: 'funino', fit: 'Als afsluiter' },
+    ],
+  },
+  fhalves: {
+    summary:
+      'Twee duo’s spelen op een klein veldje met elk een breed doel; je mag alleen schieten vanaf je eigen helft. Eén speler van het duo staat in doel, de andere schiet, zodat beide duo’s om de paar seconden een schot of een redding hebben.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet per veldje een vak van 20 × 15 m uit met een middenlijn en aan elke kopse kant een breed doel van 5 meter tussen twee kegels. Leg naast elk doel een paar ballen.' },
+      { title: 'Schieten.', text: 'Elk duo blijft op de eigen helft. Wie de bal heeft, legt hem klaar en schiet over de grond naar het doel aan de overkant. De keeper van het andere duo probeert te redden.' },
+      { title: 'Doorspelen.', text: 'Na een redding of een bal naast speelt het andere duo meteen verder met die bal of een nieuwe bal naast het doel. Na elk doelpunt wisselen schutter en keeper binnen het duo.' },
+      { title: 'Ritme.', text: 'Speel 4 rondes van 2 minuten met 30 seconden rust. Wissel na elke ronde van tegenstander.' },
+    ],
+    easier: 'Speel 1 tegen 1 zonder keeper op een breder doel, of maak het veldje korter.',
+    harder: 'Schiet in één keer na een pass van je duomaat, of maak het doel smaller.',
+    objectives: ['Schieten over de grond', 'Plaatsen naast de keeper', 'Bal klaarleggen', 'Reageren als keeper'],
+    coaching: [
+      'Leg de bal met één tik voor je goede voet.',
+      'Schiet laag en naast de keeper, niet op hem.',
+      'Keeper: sta klaar op je voorvoeten, handen voor je.',
+      'Snel herstarten: hoe meer schoten, hoe meer kansen.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Twee duo’s, elk op de eigen helft voor het eigen doel'],
+      ['Schot paars', 'Paars schiet vanaf de eigen helft'],
+      ['Schot oranje', 'Oranje schiet meteen terug'],
+    ],
+    related: [
+      { id: 'fgoals', fit: 'Als warming-up' },
+      { id: 'fplace', fit: 'Zelfde thema' },
+      { id: 'fworld', fit: 'Als vervolg' },
+      { id: 'sg2v2j', fit: 'Als afsluiter' },
+    ],
+  },
+  fworld: {
+    summary:
+      'Alle duo’s spelen tegelijk op één groot doel met een keeper: wie scoort, gaat door naar de volgende ronde en wacht even naast het veld. Het duo dat als laatste niet scoort, ligt eruit tot de volgende wereldbeker; een geliefd spel bij jonge spelers dat afwerken onder druk traint.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet een vak van 25 × 20 m uit voor een groot doel met een keeper (een speler of de trainer). Maak duo’s, elk met een eigen kleur hesje, en geef de trainer een voorraad ballen.' },
+      { title: 'Spelen.', text: 'De trainer gooit een bal in. Alle duo’s spelen tegen elkaar en proberen te scoren; elk duo valt aan en verdedigt tegelijk. Gaat de bal uit, dan gooit de trainer meteen een nieuwe in.' },
+      { title: 'Door naar de volgende ronde.', text: 'Een duo dat scoort, is door en wacht naast het veld. Het laatste duo dat overblijft zonder doelpunt, ligt eruit. De volgende ronde begint met de duo’s die door zijn, tot er een wereldkampioen is.' },
+      { title: 'Ritme.', text: 'Een ronde duurt 1 à 2 minuten; een hele wereldbeker zo’n 5 minuten. Speel 3 wereldbekers. Duo’s die eruit liggen, oefenen naast het veld met 10 keer de bal tegen een kegel passen.' },
+    ],
+    easier: 'Speel zonder afvallen: elk doelpunt is een punt en na 2 minuten wint het duo met de meeste punten.',
+    harder: 'Een doelpunt telt alleen na een pass binnen het duo, of speel in trio’s.',
+    objectives: ['Afwerken onder druk', 'Samenspelen in duo', 'Snel schieten', 'Wedstrijdgevoel'],
+    coaching: [
+      'Zie je het doel? Schiet!',
+      'Speel je duomaat aan als je zelf niet kunt schieten.',
+      'Volg elk schot: de keeper kan de bal laten vallen.',
+      'Balverlies? Meteen terug op de bal.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Alle duo’s tegelijk op één doel'],
+      ['Samenspelen', 'Pass naar de duomaat'],
+      ['Scoren', 'Schot op doel: het duo is door'],
+    ],
+    related: [
+      { id: 'fgoals', fit: 'Als warming-up' },
+      { id: 'fhalves', fit: 'Zelfde thema' },
+      { id: 'duel', fit: 'Kern' },
+      { id: 'game5', fit: 'Als vervolg' },
+    ],
+  },
+  sg2v2j: {
+    summary:
+      'Op kleine veldjes spelen telkens twee duo’s een echte wedstrijd 2 tegen 2 op twee doeltjes, zonder keepers. De trainer speelt na elke uitbal of elk doelpunt meteen een nieuwe bal in, zodat de jongsten zoveel mogelijk balcontacten, duels en doelpunten hebben.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet veldjes van 15 × 10 m uit met een doeltje op elke korte kant. Per veldje twee duo’s en een volwassene met een mand ballen aan de zijlijn.' },
+      { title: 'Spelen.', text: 'Speel 2 tegen 2 zonder keepers. Geen inworpen of uittrappen: gaat de bal uit of valt er een doelpunt, dan rolt de trainer meteen een nieuwe bal in, naar het duo dat niet scoorde.' },
+      { title: 'Doordraaien.', text: 'Na elke wedstrijd schuiven de winnaars een veldje op en de verliezers een veldje terug, zodat iedereen tegen wisselende duo’s speelt.' },
+      { title: 'Ritme.', text: 'Speel wedstrijdjes van 3 minuten met 1 minuut rust en drinken, 4 à 5 keer na elkaar.' },
+    ],
+    easier: 'Speel 2 tegen 1 met de sterkste speler alleen, of zet de doeltjes breder.',
+    harder: 'Speel 3 tegen 3 op een veldje van 20 × 15 m, of laat alleen scoren vanaf de helft van de tegenstander.',
+    objectives: ['Plezier in het spel', 'Dribbelen en scoren', 'Samenspelen in duo', 'Veel balcontacten'],
+    coaching: [
+      'Durf te dribbelen: ga op het doeltje af.',
+      'Staat je duomaat vrij? Speel hem aan.',
+      'Bal kwijt? Meteen terug om hem af te pakken.',
+      'Moedig aan en geef geen tactische opdrachten: laat ze spelen.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Twee tegen twee op twee doeltjes'],
+      ['Samenspel', 'Pass naar de duomaat'],
+      ['Doorbreken', 'Dribbel naar het doeltje'],
+    ],
+    related: [
+      { id: 'dtag', fit: 'Als warming-up' },
+      { id: 'fgoals', fit: 'Kern' },
+      { id: 'funino', fit: 'Als vervolg' },
+      { id: 'sgnum', fit: 'Zelfde thema' },
+    ],
+  },
+  sgcolor: {
+    summary:
+      'Twee ploegen spelen 3 tegen 3 in een vak met aan elke kant een doeltje in een andere kleur. Er telt telkens maar één doeltje, en dat is het doeltje waarvan de trainer de kleur roept, zodat de spelers moeten opkijken, snel omschakelen en de vrije ruimte kiezen.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet een vak van 25 × 20 m uit met in het midden van elke zijde een doeltje, elk aangeduid met een eigen kleur kegel: rood, geel, blauw en groen. De trainer staat aan de zijlijn met ballen.' },
+      { title: 'Spelen.', text: 'De trainer speelt een bal in en roept een kleur. Beide ploegen mogen alleen in dat doeltje scoren: de ene ploeg valt erop aan, de andere verdedigt het.' },
+      { title: 'Nieuwe kleur.', text: 'Na een doelpunt, een uitbal of na ongeveer 20 seconden roept de trainer een nieuwe kleur. Een doelpunt in het verkeerde doeltje telt niet.' },
+      { title: 'Ritme.', text: 'Speel 4 reeksen van 3 minuten met 1 minuut rust. Wissel na elke reeks een speler van ploeg als het niveau ongelijk is.' },
+    ],
+    easier: 'Laat twee doeltjes tegelijk tellen, of speel met een joker die altijd bij de balbezitter hoort.',
+    harder: 'Roep de kleur pas als de bal al in het spel is, of laat een doelpunt na een pass dubbel tellen.',
+    objectives: ['Kop omhoog', 'Snel omschakelen', 'Dribbelen naar de ruimte', 'Afwerken op doeltjes'],
+    coaching: [
+      'Luister naar de kleur en kijk meteen waar dat doeltje is.',
+      'Ver weg van het doeltje? Speel je ploegmaat aan.',
+      'Verdedig het doeltje dat telt, niet de bal alleen.',
+      'Nieuwe kleur: wie het eerst reageert, wint.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Drie tegen drie, aan elke kant een kleurdoeltje'],
+      ['Kleur roepen', 'De trainer roept het doeltje rechts: pass naar de vrije ploegmaat'],
+      ['Scoren', 'Opdribbelen en scoren in het doeltje dat telt'],
+    ],
+    related: [
+      { id: 'dbox', fit: 'Als warming-up' },
+      { id: 'funino', fit: 'Zelfde thema' },
+      { id: 'sgcastle', fit: 'Tegenhanger' },
+      { id: 'game5', fit: 'Als vervolg' },
+    ],
+  },
+  sgcastle: {
+    summary:
+      'Twee ploegen van drie verdedigen elk een kasteel: een klein vak met een kegel erin, waar niemand in mag. Je scoort door de kegel van de andere ploeg om te spelen, wat goed mikken, samenspelen en schieten tussen de verdedigers door vraagt.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet een veld van 25 × 20 m uit. Zet bij elke kopse kant een kasteel van 3 × 3 m met een grote kegel in het midden. Elke ploeg verdedigt haar eigen kasteel.' },
+      { title: 'Spelen.', text: 'Speel 3 tegen 3. Een kegel omspelen is een punt. Niemand mag in een kasteel lopen, ook de verdedigers niet: zij mogen alleen ervoor staan.' },
+      { title: 'Herstarten.', text: 'Na een punt zet de verdedigende ploeg de kegel recht en speelt meteen verder met een bal van naast het kasteel. Gaat de bal uit, dan speelt de trainer een nieuwe bal in.' },
+      { title: 'Ritme.', text: 'Speel 4 reeksen van 3 minuten met 1 minuut rust.' },
+    ],
+    easier: 'Maak het kasteel groter met twee kegels erin, of speel met een joker voor de balbezitter.',
+    harder: 'Speel elke ploeg met twee kastelen, of laat een punt alleen tellen na een pass.',
+    objectives: ['Mikken en passen', 'Samenspelen', 'Kijken waar het kasteel open is', 'Verdedigen voor je kasteel'],
+    coaching: [
+      'Staat er iemand voor het kasteel? Speel naar de andere kant.',
+      'Mik laag met de binnenkant.',
+      'Verdedigers: sta tussen de bal en je kegel.',
+      'Mis? Volg je bal en probeer opnieuw.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Drie tegen drie, elke ploeg met een kasteel'],
+      ['Vrijspelen', 'Pass naar de vrije ploegmaat'],
+      ['Kegel om', 'Schot tussen de verdedigers door op de kegel'],
+    ],
+    related: [
+      { id: 'pbowl', fit: 'Als warming-up' },
+      { id: 'sggates', fit: 'Zelfde thema' },
+      { id: 'sgcolor', fit: 'Tegenhanger' },
+      { id: 'game5', fit: 'Als vervolg' },
+    ],
+  },
+  sg2ball: {
+    summary:
+      'Twee ploegen van vier spelen een gewone partij op twee doeltjes, maar met twee ballen tegelijk in het spel. Iedereen heeft vaker de bal, moet voortdurend opkijken en kiezen tussen aanvallen en verdedigen: een drukke, vrolijke partijvorm met heel veel acties.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet een veld van 30 × 20 m uit met een doeltje op elke korte kant. Twee ploegen van vier; de trainer staat aan de zijlijn met ballen.' },
+      { title: 'Spelen.', text: 'De trainer speelt twee ballen tegelijk in, één bij elke ploeg. Er wordt gewoon voetbal gespeeld met beide ballen: elke ploeg mag met elke bal scoren.' },
+      { title: 'Herstarten.', text: 'Na een doelpunt of een uitbal speelt de trainer meteen een nieuwe bal in, zodat er altijd twee ballen in het veld zijn. Tel alle doelpunten.' },
+      { title: 'Ritme.', text: 'Speel 3 reeksen van 4 minuten met 1 minuut rust.' },
+    ],
+    easier: 'Speel 4 tegen 4 met één bal en voeg pas in de tweede reeks de tweede bal toe.',
+    harder: 'Een ploeg mag pas met de tweede bal scoren als ze met de eerste gescoord heeft, of speel met drie ballen.',
+    objectives: ['Kop omhoog', 'Snel beslissen', 'Afwerken op doeltjes', 'Omschakelen'],
+    coaching: [
+      'Kijk op: waar zijn de twee ballen?',
+      'Heeft je ploeg de andere bal? Verdedig jij deze.',
+      'Vrije ruimte? Ga op het doeltje af.',
+      'Gescoord? Meteen terug, de andere bal is nog in het spel.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Vier tegen vier met twee ballen'],
+      ['Passen', 'Paars speelt een ploegmaat aan met de eerste bal'],
+      ['Doorbreken', 'Opdribbelen naar het doeltje'],
+      ['Tweede bal', 'Tegelijk valt oranje aan met de tweede bal'],
+    ],
+    related: [
+      { id: 'dbox', fit: 'Als warming-up' },
+      { id: 'game5', fit: 'Zelfde thema' },
+      { id: 'sgcolor', fit: 'Kern' },
+      { id: 'sggates', fit: 'Als vervolg' },
     ],
   },
 };

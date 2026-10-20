@@ -1614,4 +1614,61 @@ export const LINEUPS: Partial<Record<Variant, Lineup>> = {
     ],
     ballStart: 'a',
   },
+  // Kegelbowling
+  pbowl: {
+    actors: [
+      { id: 'p1', team: 'P', x: 76, y: 62 },
+      { id: 'p2', team: 'P', x: 76, y: 100 },
+      { id: 'p3', team: 'P', x: 76, y: 138 },
+      { id: 'o1', team: 'O', x: 244, y: 80 },
+      { id: 'o2', team: 'O', x: 244, y: 120 },
+    ],
+    ballStart: 'p1',
+  },
+  // Schietduel vanaf de eigen helft
+  fhalves: {
+    actors: [
+      { id: 'pk', team: 'P', x: 74, y: 100 },
+      { id: 'p1', team: 'P', x: 130, y: 120 },
+      { id: 'o1', team: 'O', x: 196, y: 80 },
+      { id: 'ok', team: 'O', x: 246, y: 100 },
+    ],
+    ballStart: 'p1',
+  },
+  // Wereldbeker
+  fworld: {
+    actors: [
+      { id: 'p1', team: 'P', x: 170, y: 90 },
+      { id: 'p2', team: 'P', x: 200, y: 130 },
+      { id: 'o1', team: 'O', x: 190, y: 66 },
+      { id: 'o2', team: 'O', x: 214, y: 108 },
+      { id: 'k', team: 'O', label: 'K', x: 292, y: 100 },
+    ],
+    ballStart: 'p1',
+  },
+  // Kleurdoeltjes 3 tegen 3
+  sgcolor: {
+    actors: [
+      { id: 'p1', team: 'P', x: 120, y: 80 },
+      { id: 'p2', team: 'P', x: 110, y: 125 },
+      { id: 'p3', team: 'P', x: 190, y: 70 },
+      { id: 'o1', team: 'O', x: 150, y: 102 },
+      { id: 'o2', team: 'O', x: 200, y: 122 },
+      { id: 'o3', team: 'O', x: 230, y: 78 },
+      { id: 't', team: 'N', label: 'T', x: 36, y: 146 },
+    ],
+    ballStart: 'p1',
+  },
+  // Kasteelvoetbal 3 tegen 3
+  sgcastle: {
+    actors: [
+      { id: 'p1', team: 'P', x: 130, y: 120 },
+      { id: 'p2', team: 'P', x: 120, y: 72 },
+      { id: 'p3', team: 'P', x: 180, y: 94 },
+      { id: 'o1', team: 'O', x: 160, y: 112 },
+      { id: 'o2', team: 'O', x: 180, y: 56 },
+      { id: 'o3', team: 'O', x: 210, y: 128 },
+    ],
+    ballStart: 'p1',
+  },
 };

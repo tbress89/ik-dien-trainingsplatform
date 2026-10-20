@@ -21,6 +21,20 @@ export interface ReferenceTraining {
 
 export const REFERENCE_TRAININGS: ReferenceTraining[] = [
   {
+    id: 'ref-u6-spel',
+    name: 'Spelen, dribbelen en scoren',
+    ages: 'U6 – U7',
+    duration: 60,
+    theme: 'Dribbelen',
+    items: [
+      ['wu', 'dtag', 10], // Dribbeltikkertje
+      ['kern', 'fgoals', 10], // Doeltjesjacht
+      ['kern', 'dshark', 10], // Haaien en visjes
+      ['kern', 'fhalves', 10], // Schietduel vanaf de eigen helft
+      ['pv', 'sg2v2j', 20], // 2 tegen 2 voor de jongsten
+    ],
+  },
+  {
     id: 'ref-u8-dribbel',
     name: 'Dribbelen en scoren',
     ages: 'U8 – U9',
