@@ -36,7 +36,7 @@ const BEATS: Partial<Record<Variant, { beats: AnimBeat[] }>> = {
       { label: 'Recht van de aanval: paars speelt eerst de kaatser aan', ms: 1100, ball: 'n', moves: { o1: [86, 112], p2: [104, 74] } },
       { label: 'De kaatser legt terug', ms: 1000, ball: 'p2', moves: { p2: [116, 66], o2: [144, 82] } },
       { label: 'Paars mag nu scoren en dribbelt op', ms: 1400, ball: 'p2', moves: { p2: [196, 72], o2: [182, 86], p3: [236, 112], o3: [226, 124], o1: [140, 104] } },
-      { label: 'Oranje onderschept de pass', ms: 800, ball: 'o3', moves: { o3: [230, 116] } },
+      { label: 'Oranje onderschept de pass', ms: 800, ball: 'o3', moves: { o3: [226, 121] } },
       { label: 'Oranje moet eerst terug naar de kaatser', ms: 1500, ball: 'o3', moves: { o3: [150, 130], p3: [172, 124], p2: [150, 88], o1: [104, 98] } },
       { label: 'Pass op de kaatser: recht van de aanval voor oranje', ms: 900, ball: 'n', moves: { p3: [130, 122] } },
       { label: 'De kaatser legt terug', ms: 900, ball: 'o1' },
@@ -85,22 +85,22 @@ const BEATS: Partial<Record<Variant, { beats: AnimBeat[] }>> = {
   // Passvierkant met doorbewegen: one round of the square, after which it looks like the start again.
   passing: {
     beats: [
-      { label: 'Pass naar de volgende kegel en volg je pass', ms: 900, ball: 'b1', moves: { a1: [160, 46] } },
-      { label: 'Aannemen in de loop en doorspelen', ms: 900, ball: 'c1', moves: { a1: [250, 38], b2: [234, 46], b1: [234, 102], a2: [86, 46] } },
-      { label: 'De bal gaat rond, iedereen volgt zijn pass', ms: 900, ball: 'd1', moves: { b1: [250, 166], c2: [234, 158], c1: [160, 158] } },
-      { label: 'Terug naar de eerste kegel', ms: 900, ball: 'a2', moves: { c1: [70, 166], d2: [86, 158], d1: [86, 102] } },
-      { label: 'Aansluiten achteraan in de nieuwe rij', ms: 700, ball: 'a2', moves: { d1: [70, 38] } },
+      { label: 'Pass naar de volgende kegel en volg je pass', ms: 900, ball: 'b1', moves: { a1: [160, 57] } },
+      { label: 'Aannemen in de loop en doorspelen', ms: 900, ball: 'c1', moves: { a1: [250, 50], b2: [234, 57], b1: [234, 102], a2: [86, 57] } },
+      { label: 'De bal gaat rond, iedereen volgt zijn pass', ms: 900, ball: 'd1', moves: { b1: [250, 153], c2: [234, 146], c1: [160, 146] } },
+      { label: 'Terug naar de eerste kegel', ms: 900, ball: 'a2', moves: { c1: [70, 153], d2: [86, 146], d1: [86, 102] } },
+      { label: 'Aansluiten achteraan in de nieuwe rij', ms: 700, ball: 'a2', moves: { d1: [70, 50] } },
     ],
   },
   // Rondo 4 tegen 1
   rondo: {
     beats: [
-      { label: 'Pass naar een vrije zijde', ms: 800, ball: 'r', moves: { o: [192, 80] } },
-      { label: 'Verder rond: de middenspeler jaagt, links schuift mee', ms: 800, ball: 'b', moves: { o: [182, 130], l: [90, 122] } },
-      { label: 'Splitpass door het midden', ms: 900, ball: 't', moves: { o: [176, 108] } },
-      { label: 'Snel naar de andere kant', ms: 900, ball: 'l', moves: { o: [135, 95] } },
-      { label: 'Onderschept!', ms: 700, ball: 'o', moves: { o: [125, 145] } },
-      { label: 'Wissel: wie de bal verliest, gaat in het midden', ms: 1200, ball: 'o', moves: { l: [160, 100], o: [90, 100] } },
+      { label: 'Pass naar een vrije zijde', ms: 800, ball: 'r', moves: { o: [185, 84] } },
+      { label: 'Verder rond: de middenspeler jaagt, links schuift mee', ms: 800, ball: 'b', moves: { o: [177, 124], l: [105, 117] } },
+      { label: 'Splitpass door het midden', ms: 900, ball: 't', moves: { o: [173, 106] } },
+      { label: 'Snel naar de andere kant', ms: 900, ball: 'l', moves: { o: [140, 96] } },
+      { label: 'Onderschept!', ms: 700, ball: 'o', moves: { o: [132, 135] } },
+      { label: 'Wissel: wie de bal verliest, gaat in het midden', ms: 1200, ball: 'o', moves: { l: [160, 100], o: [105, 100] } },
     ],
   },
   // Rondo 5 tegen 2: na elke pass naar een andere zijde, maximaal twee per zijde
@@ -231,7 +231,7 @@ const BEATS: Partial<Record<Variant, { beats: AnimBeat[] }>> = {
       { label: 'De eerste speler speelt de bal over het net', ms: 800, ball: 'r1' },
       { label: 'Hij loopt rond het net; de overkant speelt terug', ms: 1100, ball: 'l2', moves: { l1: [160, 144], l2: [104, 86], r1: [160, 58] } },
       { label: 'Ook die speler loopt rond het net; de bal gaat weer over', ms: 1100, ball: 'r2', moves: { l1: [232, 112], l2: [160, 144], r1: [96, 76], r2: [212, 100], r3: [248, 130] } },
-      { label: 'Zo gaat de rally door: tel hardop mee en probeer het record te breken', ms: 1200, ball: 'l3', moves: { r2: [160, 58], l3: [104, 86], l2: [240, 126], l1: [224, 98] } },
+      { label: 'Zo gaat de rally door: tel hardop mee en probeer het record te breken', ms: 1200, ball: 'l3', moves: { r2: [160, 58], l3: [104, 86], l2: [236, 128], l1: [224, 98] } },
     ],
   },
   // Samen hoog houden in de kring
@@ -275,7 +275,7 @@ const BEATS: Partial<Record<Variant, { beats: AnimBeat[] }>> = {
   defline: {
     beats: [
       { label: 'De bal wisselt naar de andere kant: de lijn schuift mee', ms: 1000, ball: 'o3', moves: { d1: [222, 70], d2: [222, 96], d3: [222, 122], d4: [222, 148] } },
-      { label: 'De bal gaat zijwaarts: de leider roept “nu” en de lijn stapt samen uit', ms: 900, ball: 'o3', moves: { d1: [206, 70], d2: [206, 96], d3: [206, 122], d4: [206, 148], o2: [200, 100] } },
+      { label: 'De bal gaat zijwaarts: de leider roept “nu” en de lijn stapt samen uit', ms: 900, ball: 'o3', moves: { d1: [206, 70], d2: [206, 96], d3: [206, 122], d4: [206, 148], o2: [196, 104] } },
       { label: 'De aanvaller die al was weggelopen staat buitenspel', ms: 900, ball: 'o3', moves: { o3: [160, 124] } },
       { label: 'Vrije trap voor de verdedigers: de lijn zakt weer terug', ms: 900, ball: 'd2', newBall: 'd2', moves: { d1: [222, 62], d2: [222, 88], d3: [222, 114], d4: [222, 140], o2: [104, 100], o3: [150, 128] } },
     ],

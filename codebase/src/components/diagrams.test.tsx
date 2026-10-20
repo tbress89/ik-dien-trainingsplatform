@@ -14,15 +14,45 @@ const variants = [...new Set(EXERCISES.flatMap((e) => [e.variant, ...(EXERCISE_D
 const versionStages = (variant: string) =>
   Object.values(EXERCISE_DETAILS).flatMap((d) => (d.versions ?? []).filter((v) => v.variant === variant).map((v) => v.diagramSteps?.length ?? 1));
 const noop = () => {};
+const stageCount = (variant: string) =>
+  Math.max(
+    1,
+    ...EXERCISES.filter((e) => e.variant === variant).map((e) => EXERCISE_DETAILS[e.id]?.diagramSteps?.length ?? 1),
+    ...versionStages(variant),
+  );
+
+interface Spot {
+  x: number;
+  y: number;
+}
+const dist = (a: Spot, b: Spot) => Math.hypot(a.x - b.x, a.y - b.y);
+const at = (p: Spot) => `(${p.x}, ${p.y})`;
+
+/** The players, balls, goals, cones and arrows a rendered diagram draws, with their coordinates. */
+function parseDiagram(svg: string) {
+  const players = [
+    ...svg.matchAll(/<g><circle cx="([\d.-]+)" cy="([\d.-]+)" r="([78])"([^>]*)><\/circle>(?:<text[^>]*font-size="([\d.]+)"[^>]*>([^<]*)<\/text>)?<\/g>/g),
+  ].map((m) => ({ x: +m[1], y: +m[2], r: +m[3], waiting: m[4].includes('stroke-dasharray'), fontSize: m[5] ? +m[5] : 0, label: m[6] ?? '' }));
+  const balls = [...svg.matchAll(/<circle cx="([\d.-]+)" cy="([\d.-]+)" r="4"/g)].map((m) => ({ x: +m[1], y: +m[2] }));
+  const goals = [...svg.matchAll(/<rect x="([\d.-]+)" y="([\d.-]+)" width="([\d.]+)" height="([\d.]+)" fill="#fff" stroke="#1A1033"/g)].map(
+    (m) => ({ x: +m[1], y: +m[2], w: +m[3], h: +m[4] }),
+  );
+  // A cone is a triangle with its tip at (x, y); its middle is 6 lower.
+  const cones = [...svg.matchAll(/<polygon points="([\d.-]+),([\d.-]+) /g)].map((m) => ({ x: +m[1], y: +m[2] + 6 }));
+  const passes = [...svg.matchAll(/<line x1="([\d.-]+)" y1="([\d.-]+)" x2="([\d.-]+)" y2="([\d.-]+)" stroke="#1A1033"/g)].map((m) => ({
+    from: { x: +m[1], y: +m[2] },
+    to: { x: +m[3], y: +m[4] },
+  }));
+  const runs = [...svg.matchAll(/<path d="([^"]+)" fill="none" stroke="#(?:5B2BC4|F2A541)"/g)].map((m) => {
+    const n = m[1].match(/-?[\d.]+/g)!.map(Number);
+    return { d: m[1], from: { x: n[0], y: n[1] }, to: { x: n[n.length - 2], y: n[n.length - 1] } };
+  });
+  return { players, balls, goals, cones, passes, runs };
+}
 
 describe('diagrams', () => {
   it.each(variants)('%s renders every stage', (variant) => {
-    const stages = Math.max(
-      1,
-      ...EXERCISES.filter((e) => e.variant === variant).map((e) => EXERCISE_DETAILS[e.id]?.diagramSteps?.length ?? 1),
-      ...versionStages(variant),
-    );
-    for (let step = 0; step < stages; step++) {
+    for (let step = 0; step < stageCount(variant); step++) {
       const svg = renderToStaticMarkup(<Pitch variant={variant} step={step} />);
       expect(svg).toContain('<svg');
       expect(svg).not.toContain('NaN');
@@ -73,6 +103,98 @@ describe('diagrams', () => {
   // Only players who wait in every stage stay hollow in the full diagram; the legend's "Wachtrij" follows this list.
   it.each(variants)('%s is in QUEUE_VARIANTS only if it shows a queue', (variant) => {
     expect(renderToStaticMarkup(<Pitch variant={variant} />).includes('stroke-dasharray="2.5 2"')).toBe(QUEUE_VARIANTS.has(variant));
+  });
+});
+
+// Geometry checks, so a moved player or a new diagram can't leave dots on top of each other, a ball on a label or
+// an arrow hanging in the air. Each lists what's wrong with its coordinates.
+describe('diagram layout', () => {
+  // Stages only hide arrows and draw late players hollow, so the full diagram has every spot and arrow to check
+  // (the 'renders every stage' test above renders the stages themselves).
+  const issuesIn = (variant: string, check: (d: ReturnType<typeof parseDiagram>) => string[]) =>
+    check(parseDiagram(renderToStaticMarkup(<Pitch variant={variant as never} />)));
+
+  it.each(variants)('%s has no players on top of each other', (variant) => {
+    expect(
+      issuesIn(variant, ({ players }) =>
+        players.flatMap((a, i) =>
+          players
+            .slice(i + 1)
+            // Two dots may touch with their outlines (2 px); closer than that and one hides part of the other.
+            .filter((b) => dist(a, b) < a.r + b.r - 2)
+            .map((b) => `${at(a)} and ${at(b)}`),
+        ),
+      ),
+    ).toEqual([]);
+  });
+
+  it.each(variants)("%s has no ball over a player's label", (variant) => {
+    expect(
+      issuesIn(variant, ({ players, balls }) =>
+        players
+          .filter((p) => p.label)
+          .flatMap((p) => {
+            // A label is about 0.6 em per bold character wide and 0.7 em tall: half of the larger one is its reach.
+            const reach = Math.max(0.3 * p.fontSize * p.label.length, 0.35 * p.fontSize);
+            return (
+              balls
+                // The ball (r 4) may graze the label by 1 px, as with the default offset [6, 4]; any closer covers it.
+                .filter((b) => dist(b, p) < reach + 3)
+                .map((b) => `ball ${at(b)} on '${p.label}' ${at(p)}`)
+            );
+          }),
+      ),
+    ).toEqual([]);
+  });
+
+  // dking: the arrow kicks someone's ball out of the square, to no one.
+  const PASS_INTO_NOWHERE = new Set(['dking']);
+  it.each(variants)('%s has passes from the ball to a player', (variant) => {
+    expect(
+      issuesIn(variant, ({ players, balls, goals, cones, passes, runs }) =>
+        passes.flatMap(({ from, to }) => {
+          // A pass starts within a dot's width (16) of the ball or a player, or of the spot where a run or an
+          // earlier pass arrives (a player who runs onto the ball, a first-time pass).
+          const starts = [...balls, ...players, ...runs.map((r) => r.to), ...passes.map((p) => p.to)].some((s) => dist(s, from) < 16);
+          // It ends at a player, a cone, a goal or an empty spot a run goes to (a pass into space). Arrows stop short
+          // so the head stays visible: the end may be 10 px from the dot's edge (8 + 10).
+          const ends =
+            PASS_INTO_NOWHERE.has(variant) ||
+            [...players, ...cones, ...runs.map((r) => r.to)].some((s) => dist(s, to) < 18) ||
+            goals.some((g) => to.x > g.x - 18 && to.x < g.x + g.w + 18 && to.y > g.y - 18 && to.y < g.y + g.h + 18);
+          return [
+            ...(starts ? [] : [`pass ${at(from)} → ${at(to)} starts away from the ball`]),
+            ...(ends ? [] : [`pass ${at(from)} → ${at(to)} ends at no one`]),
+          ];
+        }),
+      ),
+    ).toEqual([]);
+  });
+
+  it.each(variants)('%s stays on the pitch', (variant) => {
+    expect(
+      issuesIn(variant, ({ players, balls, goals }) => [
+        // The outline runs 10–310 × 10–190: players and balls stand on it or inside.
+        ...[...players, ...balls].filter((p) => p.x < 10 || p.x > 310 || p.y < 10 || p.y > 190).map((p) => `${at(p)} off the pitch`),
+        // Goals sit on the line, so half of one may stick out, but they stay in the 320 × 200 picture.
+        ...goals.filter((g) => g.x < 0 || g.y < 0 || g.x + g.w > 320 || g.y + g.h > 200).map((g) => `goal ${at(g)} out of the picture`),
+      ]),
+    ).toEqual([]);
+  });
+
+  // Diagrams that need the whole pitch: positional, prshift and game11 are games on (nearly) the full field, and
+  // obzones and obwave have substitutes waiting on the side lines until they come in.
+  const FULL_PITCH = new Set(['positional', 'prshift', 'game11', 'obzones', 'obwave']);
+  it.each(variants.filter((v) => !FULL_PITCH.has(v)))('%s keeps its players in the middle that is never cropped', (variant) => {
+    expect(
+      issuesIn(variant, ({ players, balls }) =>
+        // The wide, short plan cards show only about x 30–290, y 45–155: a dot entirely outside that is lost there.
+        // A queue (hollow dots) waits aside on purpose.
+        [...players.filter((p) => !p.waiting), ...balls.map((b) => ({ ...b, r: 4 }))]
+          .filter((p) => p.x + p.r < 30 || p.x - p.r > 290 || p.y + p.r < 45 || p.y - p.r > 155)
+          .map((p) => `${at(p)} cropped away`),
+      ),
+    ).toEqual([]);
   });
 });
 
@@ -139,6 +261,23 @@ describe('pitch animations', () => {
     const holder = def.actors.find((a) => a.id === (def.diagramBall?.at ?? def.ballStart));
     if (holder) expect(balls.map(nearest)).toContain(key(holder));
     else expect(balls).toEqual([]);
+  });
+
+  it.each(entries)('%s never moves a player onto another', (_, def) => {
+    const spots = new Map(def.actors.map((a) => [a.id, { x: a.x, y: a.y }]));
+    const clashes: string[] = [];
+    def.beats.forEach((beat, i) => {
+      for (const [id, [x, y]] of Object.entries(beat.moves ?? {})) spots.set(id, { x, y });
+      for (const id of Object.keys(beat.moves ?? {})) {
+        for (const [other, spot] of spots) {
+          // Closer than 10, one dot covers half of the other. (Less strict than the diagram's 14: in a duel the
+          // defender stands shoulder to shoulder with the attacker.)
+          if (other !== id && (!(other in (beat.moves ?? {})) || other > id) && dist(spot, spots.get(id)!) < 10)
+            clashes.push(`beat ${i + 1}: ${id} ${at(spots.get(id)!)} on ${other} ${at(spot)}`);
+        }
+      }
+    });
+    expect(clashes).toEqual([]);
   });
 
   it.each(entries)('%s renders', (variant, def) => {
