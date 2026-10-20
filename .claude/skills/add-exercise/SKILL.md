@@ -94,6 +94,13 @@ Drawing rules (viewBox is 320 × 200; the pitch outline runs 10–310 × 10–19
 - Purple (the team in B+) attacks from left to right: its own goal, if any, is on the left and the goal it attacks on the right. A test checks this for the big goals. Exercises without a direction (rondos, coordination) are free.
 - Keep the key action inside roughly x 30–290, y 45–155. The SVG is cropped to fill different boxes (the builder's plan cards are very wide and short, the library thumbnails narrow), so content near the edges gets cut off.
 - Each primitive derives its React key from its coordinates, so don't place two of the same primitive at identical coordinates.
+- The `diagram layout` tests in `src/components/diagrams.test.tsx` check the geometry of every diagram, and print the coordinates of what's wrong:
+  - no two players overlap: centres at least 14 apart (12 for two neutrals, 13 for one), so dots only touch with their outlines;
+  - no ball covers a player's label: keep it at least the default offset [6, 4] from a one-letter label, further from a two-character one;
+  - every `Pass` starts within 16 of the ball, a player, or where a run or an earlier pass arrives, and ends within 18 of a player, a cone, a goal or the end of a `Run` (a pass into space). After moving a player, move the arrows that start or end at them too;
+  - players and balls stand on or inside the pitch outline (10–310 × 10–190), and no dot lies entirely outside x 30–290, y 45–155 (a queue of hollow players may);
+  - in an animation, no beat ends with a player less than 10 from another (a defender may stand shoulder to shoulder, not on top).
+  When a failure is really intended (a full-pitch game, a ball kicked out to no one), add the variant to that test's commented allowlist instead of loosening the check.
 
 ## Step 4 — Verify
 

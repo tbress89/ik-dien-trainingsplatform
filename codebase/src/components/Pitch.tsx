@@ -152,11 +152,11 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
 
   const content: Record<Variant, ReactNode[]> = {
     rondo: [
-      Box(90, 30, 140, 140, ZONE),
-      Pass(160, 30, 230, 100),
-      Pass(230, 100, 160, 170),
+      Box(105, 45, 110, 110, ZONE),
+      Pass(160, 45, 215, 100),
+      Pass(215, 100, 160, 155),
       LINEUP,
-      Cone(90, 24), Cone(230, 24), Cone(230, 164), Cone(90, 164),
+      Cone(105, 39), Cone(215, 39), Cone(215, 149), Cone(105, 149),
     ],
     positional: [
       Box(30, 20, 260, 160, ZONE),
@@ -214,10 +214,10 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Ball(186, 114),
     ],
     passing: [
-      Pass(98, 50, 224, 47),
-      Pass(240, 54, 240, 150),
-      Run('M92 58 Q156 76 218 62'),
-      Cone(100, 34), Cone(220, 34), Cone(220, 154), Cone(100, 154),
+      Pass(98, 60, 224, 58),
+      Pass(240, 63, 240, 140),
+      Run('M92 66 Q156 81 218 70'),
+      Cone(100, 46), Cone(220, 46), Cone(220, 142), Cone(100, 142),
       LINEUP,
     ],
     duel: [
@@ -1358,7 +1358,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M156 88 Q200 90 236 100', 3),
       Pass(242, 100, 278, 100, 4),
       P(24, 100), P(64, 70), P(64, 130), P(112, 46), P(112, 154), P(150, 85), P(160, 125),
-      O(100, 52), O(96, 112), O(138, 146), O(200, 62), O(212, 132), O(250, 74),
+      O(98, 56), O(96, 112), O(138, 146), O(200, 62), O(212, 132), O(250, 74),
       Ball(31, 104),
     ],
     obline: [
@@ -1493,7 +1493,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
     omwave2: [
       Box(70, 50, 180, 100),
       Goal(62, 58, 8, 20), Goal(62, 122, 8, 20), Goal(250, 58, 8, 20), Goal(250, 122, 8, 20),
-      Pass(156, 160, 126, 136, 1),
+      Pass(156, 150, 128, 134, 1),
       Pass(124, 122, 124, 78, 2),
       Run('M128 70 Q180 56 232 64', 3),
       Pass(236, 64, 252, 66, 3),
@@ -1506,7 +1506,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
     omwave2k: [
       Box(70, 50, 180, 100),
       Goal(62, 58, 8, 20), Goal(62, 122, 8, 20), Goal(250, 58, 8, 20), Goal(250, 122, 8, 20),
-      Pass(156, 160, 126, 136, 1),
+      Pass(156, 150, 128, 134, 1),
       Pass(128, 126, 254, 102, 2),
       Run('M128 70 Q180 64 222 80', 2),
       Pass(258, 96, 230, 84, 3),
