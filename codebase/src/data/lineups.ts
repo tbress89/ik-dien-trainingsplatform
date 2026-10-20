@@ -1666,7 +1666,7 @@ export const LINEUPS: Partial<Record<Variant, Lineup>> = {
       { id: 'p2', team: 'P', x: 120, y: 72 },
       { id: 'p3', team: 'P', x: 180, y: 94 },
       { id: 'o1', team: 'O', x: 160, y: 112 },
-      { id: 'o2', team: 'O', x: 200, y: 70 },
+      { id: 'o2', team: 'O', x: 180, y: 56 },
       { id: 'o3', team: 'O', x: 210, y: 128 },
     ],
     ballStart: 'p1',

@@ -1378,7 +1378,7 @@ const BEATS: Partial<Record<Variant, { beats: AnimBeat[] }>> = {
   sgcastle: {
     beats: [
       { label: 'Paars speelt de vrije ploegmaat aan', ms: 800, ball: 'p3', moves: { o1: [168, 106] } },
-      { label: 'Oranje zakt terug voor het kasteel; niemand mag erin', ms: 900, ball: 'p3', moves: { o2: [212, 82], o3: [214, 118], p3: [190, 94] } },
+      { label: 'Oranje zakt terug voor het kasteel; niemand mag erin', ms: 900, ball: 'p3', moves: { o2: [212, 80], o3: [214, 118], p3: [190, 94] } },
       { label: 'Schot tussen de verdedigers door: kegel om, punt', ms: 600, ball: [238, 100] },
       { label: 'Oranje zet de kegel recht en speelt meteen verder', ms: 900, ball: 'o3', newBall: 'o3' },
       { label: 'Oranje speelt naar voren', ms: 900, ball: 'o1', moves: { o1: [140, 96], p1: [128, 112] } },

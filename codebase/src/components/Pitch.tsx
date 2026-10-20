@@ -516,11 +516,11 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
     dpirate: [
       Box(50, 45, 220, 110, ZONE),
       Box(56, 50, 30, 24), Box(234, 50, 30, 24), Box(56, 126, 30, 24), Box(234, 126, 30, 24),
-      Run('M138 90 Q110 82 90 70', 1),
+      Run('M116 86 Q100 78 90 70', 1),
       ORun('M218 78 Q194 90 176 98', 2),
       Run('M104 134 Q170 152 230 142', 3),
-      P(130, 82, 'A'), O(224, 70, 'B'), P(96, 130, 'C'), O(224, 130, 'D'),
-      Ball(136, 86), Ball(156, 96), Ball(166, 106), Ball(170, 92), Ball(156, 110),
+      P(132, 84, 'A'), O(224, 70, 'B'), P(96, 130, 'C'), O(224, 130, 'D'),
+      Ball(122, 90), Ball(156, 96), Ball(166, 106), Ball(170, 92), Ball(156, 110),
       Ball(66, 58), Ball(76, 66), Ball(244, 58), Ball(66, 140), Ball(246, 138), Ball(254, 144),
     ],
     pclean: [
@@ -542,12 +542,12 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
     fgoals: [
       Box(60, 45, 200, 110, ZONE),
       Goal(96, 52, 20, 6), Goal(200, 52, 20, 6), Goal(96, 142, 20, 6), Goal(200, 142, 20, 6), Goal(66, 90, 6, 20), Goal(248, 90, 6, 20),
-      Pass(116, 84, 108, 64, 1),
+      Pass(126, 100, 110, 64, 1),
       Run('M196 84 Q226 92 238 100', 2),
       ORun('M168 104 Q150 112 138 118', 3),
-      P(110, 80), P(190, 80), P(130, 120), P(200, 116),
+      P(120, 96), P(190, 80), P(130, 120), P(200, 116),
       O(172, 100, undefined, 3),
-      Ball(116, 84), Ball(196, 84), Ball(136, 124), Ball(206, 120),
+      Ball(126, 100), Ball(196, 84), Ball(136, 124), Ball(206, 120),
     ],
     fhalves: [
       Box(60, 45, 200, 110),
@@ -558,7 +558,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       LINEUP,
     ],
     fworld: [
-      Box(130, 45, 180, 110, ZONE),
+      Box(130, 50, 120, 100, ZONE),
       Box(250, 50, 60, 100),
       Goal(304, 78, 10, 44),
       Pass(176, 94, 194, 126, 1),
@@ -578,7 +578,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Cone(81, 94), Cone(239, 94),
       Pass(136, 124, 174, 98, 1),
       Pass(186, 98, 234, 100, 2),
-      ORun('M204 76 Q216 78 214 84', 2),
+      ORun('M186 60 Q212 62 212 72', 2),
       LINEUP,
     ],
     sg2ball: [
