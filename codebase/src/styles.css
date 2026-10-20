@@ -3078,6 +3078,47 @@ a:focus-visible,
   flex-direction: column;
   gap: 8px;
 }
+.reference-ages {
+  display: flex;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 10px;
+  background: var(--purple-tint);
+}
+.reference-ages button {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 32px;
+  padding: 0 4px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.reference-ages button[aria-pressed='true'] {
+  background: var(--card);
+  color: var(--purple-dark);
+  box-shadow: 0 1px 3px rgba(26, 16, 51, 0.1);
+}
+.reference-group.is-featured .reference-ages {
+  align-self: flex-start;
+}
+.reference-group.is-featured .reference-ages button {
+  flex: none;
+  padding: 0 14px;
+}
+@media (max-width: 600px) {
+  .reference-group.is-featured .reference-ages {
+    align-self: stretch;
+  }
+  .reference-group.is-featured .reference-ages button {
+    flex: 1 1 0;
+    padding: 0 4px;
+  }
+}
 .reference-list {
   display: flex;
   flex-direction: column;
