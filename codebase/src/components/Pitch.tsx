@@ -1259,7 +1259,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Run('M98 138 L124 138', 1),
       Run('M238 74 L250 88 L262 70', 2),
       P(90, 70), P(160, 70), P(230, 70), P(90, 130), P(160, 130), P(230, 130),
-      N(40, 100),
+      N(40, 100, 'T'),
       Ball(97, 76), Ball(167, 76), Ball(237, 76), Ball(97, 136), Ball(167, 136), Ball(237, 136),
     ],
     ctwoball: [
@@ -1460,7 +1460,7 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
     ],
     gscool: [
       P(215, 100), P(199, 139), P(160, 155), P(121, 139), P(105, 100), P(121, 61), P(160, 45), P(199, 61),
-      N(160, 100),
+      N(160, 100, 'T'),
     ],
     kcircuit: [
       Cone(100, 52), Cone(160, 38), Cone(220, 52), Cone(220, 136), Cone(160, 150), Cone(100, 136),
