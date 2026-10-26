@@ -1,0 +1,9 @@
+// Build settings for both apps (the watch app and the iPhone app that carries it). Your own values come
+// from Local.xcconfig, which is not in git: copy Local.xcconfig.example. It holds the signing team for a
+// real device, and the Supabase address and public anon key (the same values as VITE_SUPABASE_URL and
+// VITE_SUPABASE_ANON_KEY on the site). Without it the apps still build for the simulator, but "Code"
+// can't fetch trainings.
+SUPABASE_URL =
+SUPABASE_ANON_KEY =
+
+#include? "Local.xcconfig"

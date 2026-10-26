@@ -6,7 +6,7 @@ struct HandoffClient {
     let baseURL: URL?
     let anonKey: String
 
-    /// The address and key built into the app (Config/Watch.xcconfig → Info.plist).
+    /// The address and key built into the app (Config/Shared.xcconfig → Info.plist).
     static let live: HandoffClient = {
         var url = Bundle.main.object(forInfoDictionaryKey: "SupabaseURL") as? String ?? ""
         var key = Bundle.main.object(forInfoDictionaryKey: "SupabaseAnonKey") as? String ?? ""

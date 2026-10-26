@@ -7,7 +7,7 @@
 	<array>
 		<string>workout-processing</string>
 	</array>
-	<!-- From Config/Watch.xcconfig: where "Code" fetches trainings (see Services/HandoffClient.swift). -->
+	<!-- From Config/Shared.xcconfig: where "Code" fetches trainings (see Services/HandoffClient.swift). -->
 	<key>SupabaseURL</key>
 	<string>$(SUPABASE_URL)</string>
 	<key>SupabaseAnonKey</key>

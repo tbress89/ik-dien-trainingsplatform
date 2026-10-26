@@ -33,3 +33,12 @@ jobs:
           -scheme IkDienWatch
           -destination 'generic/platform=watchOS Simulator'
           CODE_SIGNING_ALLOWED=NO
+
+      # The iPhone app that carries the watch app (and builds it again, embedded).
+      - name: Build the iPhone app
+        run: >
+          xcodebuild build
+          -project IkDienWatch.xcodeproj
+          -scheme IkDien
+          -destination 'generic/platform=iOS Simulator'
+          CODE_SIGNING_ALLOWED=NO

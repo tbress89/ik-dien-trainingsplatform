@@ -27,7 +27,7 @@ animations (too small to be useful), player lists or attendance.
 | Topic | Decision | Why |
 | --- | --- | --- |
 | Tech | Native SwiftUI watchOS app, watchOS 11+, Swift 6, no third-party dependencies | The platform is a web app; watchOS has no browser runtime, so this is a separate native target. |
-| App shape | **Standalone** watch app (no iPhone app required) | There is no iOS app today; a companion app would double the work for no v1 benefit. |
+| App shape | Watch app that **runs on its own**, carried by a one-screen iPhone app | Everything happens on the watch (`WKRunsIndependentlyOfCompanionApp`). The iPhone app only installs it: Xcode can't reach a watch-only app on a real watch when the watch isn't on the Mac's network, while an iPhone app installs its watch app through the iPhone. |
 | Getting a training onto the watch | **4-digit code** shown on the site ("Naar horloge" in Training geven), typed on the watch | No account or Apple sign-in needed on the watch; works for shared links and saved trainings alike. Accounts can come later. |
 | What travels | A **self-contained JSON**: titles, block, minutes, coaching points, organisation line | The watch never needs the 200+ exercise catalogue, and exercise changes on the site can't break it. |
 | Staying alive | `HKWorkoutSession` (activity type soccer) while a training runs | The only reliable way to keep a watch app in the foreground with the wrist down for 60–90 min. It also logs the training as a workout for the coach (opt-in HealthKit permission). |
@@ -139,4 +139,4 @@ crown adjustments, re-planning, relaunch mid-training — testable without a sim
 3. When re-planning, which exercise gives way first: the partijvorm (kids love it, but it's the most
    elastic) or the kern?
 4. Should the workout be saved to Apple Health by default, or only when the coach opts in?
-5. Is it worth a small iPhone companion later (e.g. for sending a training straight from the site on the phone)?
+5. The iPhone app is a carrier for now (one screen). Is it worth giving it a job later, e.g. sending a training straight from the site on the phone?

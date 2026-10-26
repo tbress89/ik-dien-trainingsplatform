@@ -5,4 +5,4 @@ DerivedData/
 build/
 xcuserdata/
 *.xcuserstate
-Config/Supabase.local.xcconfig
+Config/Local.xcconfig

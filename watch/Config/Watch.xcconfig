@@ -1,7 +1,0 @@
-// Build settings for the watch app. The Supabase address and public anon key (the same values as
-// VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY on the site) come from Supabase.local.xcconfig, which is
-// not in git: copy Supabase.local.xcconfig.example. Without it the app works, but "Code" can't fetch.
-SUPABASE_URL =
-SUPABASE_ANON_KEY =
-
-#include? "Supabase.local.xcconfig"
