@@ -1,0 +1,35 @@
+# Tests the Apple Watch app's timekeeping (watch/Engine) and checks that the app builds, whenever
+# something under watch/ changes. Needs a macOS runner; the web app's workflows stay on Linux.
+name: Watch app
+
+on:
+  pull_request:
+    paths: ['watch/**', '.github/workflows/watch.yml']
+  push:
+    branches-ignore: [main]
+    paths: ['watch/**', '.github/workflows/watch.yml']
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: watch
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Engine tests
+        run: swift test --package-path Engine
+
+      # A generic simulator destination only needs the watchOS SDK, no installed simulator. Without a
+      # developer account there is nothing to sign with, so signing is off.
+      - name: Build the watch app
+        run: >
+          xcodebuild build
+          -project IkDienWatch.xcodeproj
+          -scheme IkDienWatch
+          -destination 'generic/platform=watchOS Simulator'
+          CODE_SIGNING_ALLOWED=NO
