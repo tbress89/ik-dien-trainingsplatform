@@ -103,6 +103,7 @@
 				1D0000000000000000000063 /* Frameworks */,
 				1D0000000000000000000064 /* Resources */,
 				1D0000000000000000000065 /* Embed Watch Content */,
+				1D0000000000000000000074 /* Debug build number */,
 			);
 			buildRules = (
 			);
@@ -124,6 +125,7 @@
 				1D0000000000000000000021 /* Sources */,
 				1D0000000000000000000020 /* Frameworks */,
 				1D0000000000000000000022 /* Resources */,
+				1D0000000000000000000075 /* Debug build number */,
 			);
 			buildRules = (
 			);
@@ -197,6 +199,50 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1D0000000000000000000074 /* Debug build number */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(TARGET_BUILD_DIR)/$(INFOPLIST_PATH)",
+				"$(TARGET_BUILD_DIR)/$(CONTENTS_FOLDER_PATH)/Watch/IkDienWatch.app/Info.plist",
+			);
+			name = "Debug build number";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Debug builds: the iPhone app takes the build number the watch app just got (see the watch target),\n# as the iPhone app and its watch app must carry the same number.\n[ \"$CONFIGURATION\" = \"Debug\" ] || exit 0\nversion=$(/usr/libexec/PlistBuddy -c \"Print :CFBundleVersion\" \"$TARGET_BUILD_DIR/$CONTENTS_FOLDER_PATH/Watch/IkDienWatch.app/Info.plist\")\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $version\" \"$TARGET_BUILD_DIR/$INFOPLIST_PATH\"\n";
+		};
+		1D0000000000000000000075 /* Debug build number */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(TARGET_BUILD_DIR)/$(INFOPLIST_PATH)",
+			);
+			name = "Debug build number";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Debug builds get a new build number every time (1.YYMMDD.HHMMSS), so installing the iPhone app\n# always replaces the watch app on the watch; with an unchanged number the watch keeps the old one.\n# It edits the processed Info.plist, which is why Debug builds of this target run scripts unsandboxed.\n[ \"$CONFIGURATION\" = \"Debug\" ] || exit 0\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion 1.$(date +%y%m%d.%H%M%S)\" \"$TARGET_BUILD_DIR/$INFOPLIST_PATH\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1D0000000000000000000062 /* Sources */ = {
@@ -277,6 +323,7 @@
 		1D0000000000000000000052 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Config/IkDienWatch.entitlements;
@@ -341,6 +388,7 @@
 		1D0000000000000000000072 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;

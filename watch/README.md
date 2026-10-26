@@ -24,7 +24,9 @@ swift test --package-path watch/Engine
 On your own watch: copy `Config/Local.xcconfig.example` to `Config/Local.xcconfig` (ignored by git) and
 set `DEVELOPMENT_TEAM` to your team ID (Xcode › Settings › Accounts). Then pick the **IkDien** scheme
 and your iPhone (with the watch paired) and run: the iPhone installs the watch app onto the watch, where
-Ik Dien appears in the app list. Running the IkDienWatch scheme straight on a real watch only works
+Ik Dien appears in the app list. Debug builds get a new build number every time (`1.YYMMDD.HHMMSS`,
+the same for both apps), so each Run replaces the watch app; Release builds keep
+`CURRENT_PROJECT_VERSION`. Running the IkDienWatch scheme straight on a real watch only works
 when Xcode can reach the watch over Wi-Fi. The watch app uses HealthKit (a workout session keeps it
 running with the wrist down), which Xcode adds to the app's ID on your team the first time.
 
