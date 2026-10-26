@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "date": "2026-10-27",
+  "team": "U11",
+  "theme": "Positiespel",
+  "items": [
+    {
+      "id": "i1",
+      "exercise": "rondo",
+      "block": "wu",
+      "title": "Rondo 4 tegen 1",
+      "minutes": 15,
+      "coaching": [
+        "Open lichaamshouding: ontvang de bal met de voet die het verst van de druk staat.",
+        "Beweeg langs de lijn om een passlijn te openen.",
+        "Speel de bal in de loop, niet in de voeten.",
+        "Middenspeler: loop schuin in en sluit de passlijn door het midden af."
+      ],
+      "players": "5 (4 + 1)",
+      "field": "12 × 12 m"
+    },
+    {
+      "id": "i2",
+      "exercise": "pass",
+      "block": "kern",
+      "title": "Passvierkant met doorbewegen",
+      "minutes": 15,
+      "coaching": [
+        "Pass met de binnenkant van de voet, enkel strak.",
+        "Kijk naar je ploegmaat voor je speelt.",
+        "Neem aan naar de richting waar je naartoe wil spelen.",
+        "Volg je pass meteen: niet blijven kijken."
+      ],
+      "players": "8 (2 per kegel)",
+      "field": "15 × 15 m"
+    },
+    {
+      "id": "i3",
+      "exercise": "pos",
+      "block": "kern",
+      "title": "Positiespel 5 tegen 5 + 3",
+      "minutes": 15,
+      "coaching": [
+        "Sta nooit op één lijn met je ploegmaat: vorm driehoeken.",
+        "Draai open naar het veld als je in de middenzone de bal krijgt.",
+        "Speel via de kaatser om van kant te wisselen.",
+        "Verdedigers: sluit de middenzone compact af."
+      ],
+      "players": "13 (5 × 2 + 3)",
+      "field": "40 × 30 m"
+    },
+    {
+      "id": "i4",
+      "exercise": "fin",
+      "block": "kern",
+      "title": "Afwerken na combinatie",
+      "minutes": 10,
+      "coaching": [
+        "Kijk naar de keeper vóór je trapt: kies de hoek.",
+        "Standbeen naast de bal, knie over de bal.",
+        "De diepe loper vertrekt pas op het moment van de kaatsbal.",
+        "Na het schot: volg altijd op voor de terugspringende bal."
+      ],
+      "players": "8–12",
+      "field": "Halve veld"
+    },
+    {
+      "id": "i5",
+      "exercise": "game5",
+      "block": "pv",
+      "title": "Partijvorm 5 tegen 5 op grote doelen",
+      "minutes": 20,
+      "coaching": [
+        "Keeper: speel kort in op de verdediger of een flankspeler.",
+        "Flankspelers: blijf breed tegen de zijlijn, zo maak je het veld groot.",
+        "Spits: bied je diep aan en loop in voor doel bij een voorzet.",
+        "Balverlies? Iedereen snel terug naar zijn plaats in de ruit."
+      ],
+      "players": "10 (2 × 4 + K)",
+      "field": "35 × 25 m"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<title>Schema van de training</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&amp;family=Figtree:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div style="width: 416px; height: 496px; box-sizing: border-box; background: #000; color: #fff; font-family: Figtree, system-ui, sans-serif; padding: 30px 28px 0; display: flex; flex-direction: column; gap: 10px; overflow: hidden">
+<div style="display: flex; justify-content: space-between; align-items: baseline; padding: 0 16px">
+<span style="font-size: 30px; font-weight: 700; color: #a78bef">Schema</span>
+<span style="font-size: 30px; font-weight: 600">18:25</span>
+</div>
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="5">
+<div style="display: flex; align-items: center; gap: 16px; background: #141414; border-radius: 24px; padding: 14px 18px">
+<span style="width: 8px; align-self: stretch; border-radius: 4px; background: {{r.color}}" aria-hidden="true"></span>
+<div style="display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0">
+<span style="font-size: 22px; font-weight: 600; color: {{r.color}}">{{r.time}} · {{r.min}}′</span>
+<span style="font-size: 26px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{r.title}}</span>
+</div>
+</div>
+</sc-for>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":416,"height":496}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const wu = '#f2a541', kern = '#2fc4a3', pv = '#a78bef';
+    return {
+      rows: [
+        { time: '18:30', min: 15, title: 'Rondo 4 tegen 1', color: wu },
+        { time: '18:45', min: 15, title: 'Passvierkant met doorbewegen', color: kern },
+        { time: '19:00', min: 15, title: 'Positiespel 5 tegen 5 + 3', color: kern },
+        { time: '19:15', min: 10, title: 'Afwerken na combinatie', color: kern },
+        { time: '19:25', min: 20, title: 'Partijvorm 5 tegen 5', color: pv },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

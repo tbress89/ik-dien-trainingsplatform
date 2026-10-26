@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<title>Tijd om</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&amp;family=Figtree:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div style="width: 416px; height: 496px; box-sizing: border-box; background: #2a0c0a; color: #fff; font-family: Figtree, system-ui, sans-serif; padding: 30px 30px 26px; display: flex; flex-direction: column; gap: 10px; overflow: hidden">
+<div style="display: flex; justify-content: space-between; align-items: baseline; padding: 0 16px">
+<span style="font-size: 30px; font-weight: 700; color: #ff7a66">Tijd om</span>
+<span style="font-size: 30px; font-weight: 600">19:17</span>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; justify-content: center">
+<span style="font-size: 24px; color: #e6b8b0">overtijd</span>
+<span role="timer" style="font-family: 'Barlow Condensed', sans-serif; font-size: 132px; font-weight: 700; line-height: 0.9; color: #ff7a66; font-variant-numeric: tabular-nums">+0:38</span>
+<span style="font-size: 22px; color: #e6b8b0">schema schuift naar 19:48</span>
+</div>
+<a href="Loopt.dc.html" style="height: 88px; border-radius: 44px; background: #2fc4a3; color: #000; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 28px; font-weight: 700; padding: 0 24px">
+<span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Volgende: Afwerken</span>
+<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg>
+</a>
+<div style="display: flex; gap: 12px">
+<button type="button" style="flex: 1; height: 68px; border: 0; border-radius: 34px; background: rgba(255,255,255,0.12); color: #fff; font-family: Figtree, system-ui, sans-serif; font-size: 26px; font-weight: 700">+1′</button>
+<button type="button" style="flex: 1; height: 68px; border: 0; border-radius: 34px; background: rgba(255,255,255,0.12); color: #fff; font-family: Figtree, system-ui, sans-serif; font-size: 26px; font-weight: 700">+3′</button>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":416,"height":496}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<title>Training ophalen met code</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&amp;family=Figtree:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div style="width: 416px; height: 496px; box-sizing: border-box; background: #000; color: #fff; font-family: Figtree, system-ui, sans-serif; padding: 30px 34px 30px; display: flex; flex-direction: column; gap: 12px; overflow: hidden">
+<div style="display: flex; justify-content: space-between; align-items: baseline; padding: 0 10px">
+<span style="font-size: 30px; font-weight: 700; color: #a78bef">Code</span>
+<span style="font-size: 30px; font-weight: 600">18:21</span>
+</div>
+<span style="font-size: 22px; line-height: 1.3; color: #b8aed2; padding: 0 10px">Zie ‘Naar horloge’ bij Training geven op de site</span>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px">
+<span style="height: 62px; border-radius: 16px; background: #1c1530; display: flex; align-items: center; justify-content: center; font-family: 'Barlow Condensed', sans-serif; font-size: 44px; font-weight: 700">4</span>
+<span style="height: 62px; border-radius: 16px; background: #1c1530; display: flex; align-items: center; justify-content: center; font-family: 'Barlow Condensed', sans-serif; font-size: 44px; font-weight: 700">8</span>
+<span style="height: 62px; border-radius: 16px; background: #1c1530; box-shadow: inset 0 0 0 3px #a78bef; display: flex; align-items: center; justify-content: center; font-family: 'Barlow Condensed', sans-serif; font-size: 44px; font-weight: 700; color: #a78bef">_</span>
+<span style="height: 62px; border-radius: 16px; background: #1c1530"></span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; flex: 1">
+<sc-for list="{{keys}}" as="k" hint-placeholder-count="12">
+<button type="button" aria-label="{{k.label}}" style="border: 0; border-radius: 14px; background: {{k.bg}}; color: #fff; font-family: Figtree, system-ui, sans-serif; font-size: 30px; font-weight: 600">{{k.text}}</button>
+</sc-for>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":416,"height":496}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const digits = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
+    const keys = digits.map((d) => ({ text: d, label: d, bg: '#262130' }));
+    keys.push({ text: '⌫', label: 'Wissen', bg: '#191919' });
+    keys.push({ text: '0', label: '0', bg: '#262130' });
+    keys.push({ text: '✓', label: 'Ophalen', bg: '#6f42e0' });
+    return { keys };
+  }
+}
+</script>
+</body>
+</html>

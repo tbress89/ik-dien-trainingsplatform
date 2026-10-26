@@ -1,0 +1,7 @@
+# Swift package and Xcode build output
+Engine/.build/
+Engine/.swiftpm/
+DerivedData/
+build/
+xcuserdata/
+*.xcuserstate

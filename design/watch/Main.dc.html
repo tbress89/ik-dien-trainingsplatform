@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<title>Vandaag</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&amp;family=Figtree:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div style="width: 416px; height: 496px; box-sizing: border-box; background: #000; color: #fff; font-family: Figtree, system-ui, sans-serif; padding: 30px 30px 26px; display: flex; flex-direction: column; gap: 14px; overflow: hidden">
+<div style="display: flex; justify-content: space-between; align-items: baseline; padding: 0 14px">
+<span style="font-size: 30px; font-weight: 700; color: {{accent}}">Ik Dien</span>
+<span style="font-size: 30px; font-weight: 600">18:24</span>
+</div>
+<div style="background: #1c1530; border-radius: 34px; padding: 22px 24px; display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 24px; font-weight: 600; color: #b8aed2; text-transform: uppercase; letter-spacing: 0.04em">Vandaag · 18:30</span>
+<span style="font-family: 'Barlow Condensed', sans-serif; font-size: 48px; font-weight: 700; line-height: 1">U11 · Positiespel</span>
+<span style="font-size: 26px; color: #d9d1ee">75 min · 5 oefeningen</span>
+<div style="display: flex; gap: 4px; height: 10px; margin-top: 4px" aria-hidden="true">
+<span style="flex: 15; background: #f2a541; border-radius: 5px"></span>
+<span style="flex: 40; background: #2fc4a3; border-radius: 5px"></span>
+<span style="flex: 20; background: #a78bef; border-radius: 5px"></span>
+</div>
+</div>
+<button type="button" style="height: 88px; border: 0; border-radius: 44px; background: {{accent}}; color: #fff; font-family: Figtree, system-ui, sans-serif; font-size: 32px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 14px">
+<svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z" fill="#fff"></path></svg>
+Start training
+</button>
+<div style="display: flex; gap: 12px">
+<button type="button" style="flex: 1; height: 72px; border: 0; border-radius: 36px; background: #222; color: #fff; font-family: Figtree, system-ui, sans-serif; font-size: 26px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px">
+<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"></path></svg>
+Andere
+</button>
+<button type="button" style="flex: 1; height: 72px; border: 0; border-radius: 36px; background: #222; color: #fff; font-family: Figtree, system-ui, sans-serif; font-size: 26px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px">
+<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1"></rect><rect x="14" y="4" width="6" height="6" rx="1"></rect><rect x="4" y="14" width="6" height="6" rx="1"></rect><path d="M14 14h6v6"></path></svg>
+Code
+</button>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#6f42e0","options":["#6f42e0","#8d67e8","#5b2bc4"]},"$preview":{"width":416,"height":496}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { accent: this.props.accent ?? '#6f42e0' };
+  }
+}
+</script>
+</body>
+</html>
