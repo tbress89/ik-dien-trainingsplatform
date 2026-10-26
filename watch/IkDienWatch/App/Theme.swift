@@ -23,6 +23,12 @@ enum Theme {
     static func timer(size: CGFloat, weight: Font.Weight = .bold) -> Font {
         .system(size: size, weight: weight, design: .rounded).monospacedDigit()
     }
+
+    /// The largest timer font size at which `characters` (e.g. 5 for "14:58") fit in `width` points.
+    /// Rounded digits are about 0.6 em wide and the colon much less, so 0.58 em per character still fits.
+    static func timerSize(fitting width: CGFloat, characters: Int, max: CGFloat = 40) -> CGFloat {
+        Swift.min(max, Swift.max(16, width / (CGFloat(characters) * 0.58)))
+    }
 }
 
 extension TrainingPlan {

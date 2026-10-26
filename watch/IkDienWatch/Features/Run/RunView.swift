@@ -89,18 +89,22 @@ private struct TimerPage: View {
                     .trim(from: 0, to: 1 - t.progress)
                     .stroke(ringColor.opacity(dimmed ? 0.6 : 1), style: StrokeStyle(lineWidth: dimmed ? 3 : 6, lineCap: .round))
                     .rotationEffect(.degrees(-90))
-                VStack(spacing: 0) {
-                    Countdown(timeline: t)
-                        .font(Theme.timer(size: 30, weight: dimmed ? .medium : .bold))
-                        .minimumScaleFactor(0.6)
-                        .lineLimit(1)
-                        .foregroundStyle(t.phase == .lastMinute ? Theme.warning : .primary)
-                        .opacity(dimmed ? 0.75 : 1)
-                    Text(t.phase == .paused ? "pauze" : "tot \(ClockFormat.time(t.itemEndsAt))")
-                        .font(.system(size: 11))
-                        .foregroundStyle(.secondary)
+                // The countdown is sized from the ring, so "14:58" fits on a 40 mm watch as well as a 49 mm one.
+                // (A timer text doesn't shrink to fit by itself; it cuts off the seconds instead.)
+                GeometryReader { geo in
+                    let inner = min(geo.size.width, geo.size.height) - 20
+                    VStack(spacing: 0) {
+                        Countdown(timeline: t)
+                            .font(Theme.timer(size: Theme.timerSize(fitting: inner, characters: 5), weight: dimmed ? .medium : .bold))
+                            .lineLimit(1)
+                            .foregroundStyle(t.phase == .lastMinute ? Theme.warning : .primary)
+                            .opacity(dimmed ? 0.75 : 1)
+                        Text(t.phase == .paused ? "pauze" : "tot \(ClockFormat.time(t.itemEndsAt))")
+                            .font(.system(size: 11))
+                            .foregroundStyle(.secondary)
+                    }
+                    .frame(width: geo.size.width, height: geo.size.height)
                 }
-                .padding(.horizontal, 12)
             }
             .aspectRatio(1, contentMode: .fit)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -219,17 +223,25 @@ private struct TimeUpView: View {
                 Text("Tijd om")
                     .font(.footnote.weight(.bold))
                     .foregroundStyle(Theme.overtime)
-                // Counts up from the moment time ran out.
-                HStack(spacing: 0) {
-                    Text("+")
-                    Text(timerInterval: timeline.itemEndsAt...Date.distantFuture, countsDown: false, showsHours: false)
-                        .fixedSize()
+                // Counts up from the moment time ran out, sized to the screen width like the countdown.
+                GeometryReader { geo in
+                    HStack(spacing: 0) {
+                        Text("+")
+                        Text(timerInterval: timeline.itemEndsAt...Date.distantFuture, countsDown: false, showsHours: false)
+                    }
+                    // "+14:58", or one more digit once overtime passes 100 minutes.
+                    .font(Theme.timer(size: Theme.timerSize(fitting: geo.size.width - 8, characters: timeline.overtime >= 6000 ? 7 : 6, max: 44)))
+                    .lineLimit(1)
+                    .foregroundStyle(Theme.overtime)
+                    .frame(width: geo.size.width, height: geo.size.height)
                 }
-                .font(Theme.timer(size: 40))
-                .foregroundStyle(Theme.overtime)
+                .frame(height: 48)
+                .accessibilityElement(children: .combine)
                 .accessibilityLabel("Overtijd")
                 Text("einde schuift naar \(ClockFormat.time(timeline.expectedEnd))")
                     .font(.caption2)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.75)
                     .foregroundStyle(Theme.overtimeMuted)
             }
             .frame(maxHeight: .infinity)
