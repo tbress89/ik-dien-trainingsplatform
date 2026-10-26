@@ -7,6 +7,8 @@ enum Theme {
     static let card = Color(red: 0x1C / 255, green: 0x15 / 255, blue: 0x30 / 255)
     static let muted = Color(red: 0xB8 / 255, green: 0xAE / 255, blue: 0xD2 / 255)
     static let overtime = Color(red: 0xFF / 255, green: 0x7A / 255, blue: 0x66 / 255)
+    static let overtimeMuted = Color(red: 0xE6 / 255, green: 0xB8 / 255, blue: 0xB0 / 255)
+    static let overtimeBackground = Color(red: 0x2A / 255, green: 0x0C / 255, blue: 0x0A / 255)
     static let warning = Color(red: 0xF2 / 255, green: 0xA5 / 255, blue: 0x41 / 255)
 
     static func color(for block: BlockID) -> Color {
@@ -18,8 +20,8 @@ enum Theme {
     }
 
     /// Big countdown numerals; tabular so the digits don't jump while counting.
-    static func timer(size: CGFloat) -> Font {
-        .system(size: size, weight: .bold, design: .rounded).monospacedDigit()
+    static func timer(size: CGFloat, weight: Font.Weight = .bold) -> Font {
+        .system(size: size, weight: weight, design: .rounded).monospacedDigit()
     }
 }
 

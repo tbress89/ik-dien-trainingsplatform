@@ -4,7 +4,8 @@ import SwiftUI
 /// "Vandaag": the training that's ready to give, with Start and its schedule.
 struct TodayView: View {
     let plan: TrainingPlan
-    @State private var session: RunSession?
+    /// The training being given, shown full screen over this one.
+    @Binding var session: RunSession?
 
     var body: some View {
         ScrollView {
@@ -27,7 +28,7 @@ struct TodayView: View {
                 .background(Theme.card, in: RoundedRectangle(cornerRadius: 18))
 
                 Button {
-                    session = RunSession(plan: plan, startedAt: .now)
+                    session = RunSession.start(plan: plan)
                 } label: {
                     Label("Start training", systemImage: "play.fill")
                         .font(.body.weight(.bold))
@@ -74,6 +75,6 @@ struct BlockBar: View {
 
 #Preview {
     NavigationStack {
-        TodayView(plan: .sample)
+        TodayView(plan: .sample, session: .constant(nil))
     }
 }

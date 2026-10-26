@@ -32,7 +32,7 @@ public struct Timeline: Sendable, Equatable {
     public let overtime: TimeInterval
     /// Part of the current exercise that has passed, 0...1.
     public let progress: Double
-    /// When the current exercise ends if nothing changes.
+    /// When the current exercise ends if nothing changes; in overtime, the moment its time ran out.
     public let itemEndsAt: Date
     public let elapsed: TimeInterval
     /// When the training would end as planned at the start.
@@ -60,7 +60,7 @@ public struct Timeline: Sendable, Equatable {
         remaining = max(0, left)
         overtime = max(0, -left)
         progress = duration > 0 ? min(1, inItem / duration) : 1
-        itemEndsAt = reference.addingTimeInterval(max(0, left))
+        itemEndsAt = reference.addingTimeInterval(left)
 
         // Finished exercises at the clock time they really started; the current one when it started;
         // the rest one after another from the moment the current one is expected to end.
@@ -72,7 +72,8 @@ public struct Timeline: Sendable, Equatable {
                 start = start.addingTimeInterval(state.actuals[i])
             } else if i == index {
                 entries.append(Entry(item: item, startsAt: state.itemStartedAt, duration: state.durations[i], isDone: false, isCurrent: true))
-                start = itemEndsAt
+                // In overtime the next exercise can start no earlier than now.
+                start = max(itemEndsAt, reference)
             } else {
                 entries.append(Entry(item: item, startsAt: start, duration: state.durations[i], isDone: false, isCurrent: false))
                 start = start.addingTimeInterval(state.durations[i])
