@@ -18,6 +18,11 @@ command line:
 swift test --package-path watch/Engine
 ```
 
-A real watch needs a development team set under Signing & Capabilities; the simulator doesn't.
+To try the warnings and overtime without waiting, add the launch argument `-shortTraining` to the scheme
+(Debug builds only): every exercise then lasts 2 minutes.
+
+A real watch needs a development team set under Signing & Capabilities; the simulator doesn't. The app
+uses HealthKit (a workout session keeps it running with the wrist down), so that team needs the HealthKit
+capability too.
 The GitHub workflow `.github/workflows/watch.yml` runs the Engine tests and builds the app on every
 change under `watch/`.

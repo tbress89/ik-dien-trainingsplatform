@@ -35,6 +35,7 @@ private func at(_ minutes: Double) -> Date { start.addingTimeInterval(minutes * 
         #expect(t.remaining == 0)
         #expect(t.overtime == 60)
         #expect(t.progress == 1)
+        #expect(t.itemEndsAt == at(10), "overtime counts from the moment time ran out")
         // The rest of the schedule moves along with the overtime.
         #expect(t.expectedEnd == at(21))
         #expect(t.drift == 60)
