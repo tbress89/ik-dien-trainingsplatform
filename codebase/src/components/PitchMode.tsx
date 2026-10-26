@@ -8,6 +8,7 @@ import { ChevronLeftIcon, ChevronRightIcon, CloseIcon, PauseIcon, PlayIcon, Plus
 import { Pitch } from './Pitch';
 import { PitchAnimation } from './PitchAnimation';
 import { useAnimations, useExerciseDetails } from './useExerciseData';
+import { WatchHandoff } from './WatchHandoff';
 
 const pad = (n: number) => String(n).padStart(2, '0');
 /** 83000 ms → "1:23"; rounds up, so the clock only shows 0:00 when time is really up. */
@@ -182,6 +183,7 @@ export function PitchMode({ training, backTo }: { training: SharedTraining; back
             Oefening {index + 1} van {items.length} · {starts[index]}′–{starts[index] + item.min}′ van {total}′
           </span>
         </div>
+        <WatchHandoff training={training} />
       </header>
       <div className="pm-steps" aria-hidden="true">
         {items.map((it, i) => (

@@ -18,6 +18,12 @@ command line:
 swift test --package-path watch/Engine
 ```
 
+To fetch trainings with Code ("Naar horloge" on the site), copy `Config/Supabase.local.xcconfig.example`
+to `Config/Supabase.local.xcconfig` (ignored by git) and fill in the same public values as the site's
+`VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`. The database needs
+`supabase/migrations/0003_watch_handoff.sql`. Debug builds also accept `-supabaseURL …` and
+`-supabaseAnonKey …` as launch arguments.
+
 To try the warnings and overtime without waiting, add the launch argument `-shortTraining` to the scheme
 (Debug builds only): every exercise then lasts 2 minutes.
 

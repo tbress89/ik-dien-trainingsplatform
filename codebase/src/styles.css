@@ -3756,6 +3756,86 @@ a:focus-visible,
   flex-direction: column;
   min-width: 0;
 }
+.pm-watch {
+  margin-left: auto;
+  height: 40px;
+  flex-shrink: 0;
+  padding: 0 12px;
+  border-radius: 12px;
+  border: 1px solid var(--line-strong);
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+.pm-watch:hover {
+  border-color: var(--line-hover);
+  background: var(--tint-hover);
+}
+/* On a phone the header keeps room for the training's progress; the icon alone is enough there. */
+@media (max-width: 480px) {
+  .pm-watch {
+    width: 40px;
+    padding: 0;
+    justify-content: center;
+  }
+  .pm-watch-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+.watch-dialog-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.watch-dialog-close {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  border: 1px solid var(--line-strong);
+  background: none;
+  color: var(--ink);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+.watch-code {
+  margin: 4px 0;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.watch-code span {
+  width: 64px;
+  height: 80px;
+  border-radius: 14px;
+  background: var(--purple-soft);
+  color: var(--purple-dark);
+  font-family: var(--font-display);
+  font-size: 56px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  font-variant-numeric: tabular-nums;
+}
+.watch-valid {
+  margin: 0;
+  text-align: center;
+  font-size: 14px;
+  color: var(--muted);
+}
 .pm-top-title {
   font-size: 12px;
   font-weight: 700;

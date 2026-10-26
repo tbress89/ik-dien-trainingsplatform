@@ -14,7 +14,7 @@ public enum BlockID: String, Codable, Sendable, CaseIterable {
 }
 
 /// One exercise in the training, with everything the watch shows about it.
-public struct PlanItem: Codable, Sendable, Equatable, Identifiable {
+public struct PlanItem: Codable, Sendable, Hashable, Identifiable {
     /// Unique within the plan (the same exercise can appear twice).
     public var id: String
     /// Exercise id on the site, e.g. "rondo".
@@ -46,7 +46,7 @@ public struct PlanItem: Codable, Sendable, Equatable, Identifiable {
  * catalogue. The payload is versioned; a watch build only accepts versions it knows, so the site can
  * change the format without breaking older watches silently.
  */
-public struct TrainingPlan: Codable, Sendable, Equatable {
+public struct TrainingPlan: Codable, Sendable, Hashable {
     public static let supportedVersion = 1
 
     public var version: Int

@@ -11,6 +11,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1D0000000000000000000013 /* Watch.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Watch.xcconfig; path = Config/Watch.xcconfig; sourceTree = "<group>"; };
 		1D0000000000000000000010 /* IkDienWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IkDienWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -38,6 +39,7 @@
 			isa = PBXGroup;
 			children = (
 				1D0000000000000000000011 /* IkDienWatch */,
+				1D0000000000000000000013 /* Watch.xcconfig */,
 				1D0000000000000000000012 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -184,6 +186,7 @@
 		};
 		1D0000000000000000000052 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1D0000000000000000000013 /* Watch.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -214,6 +217,7 @@
 		};
 		1D0000000000000000000053 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1D0000000000000000000013 /* Watch.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

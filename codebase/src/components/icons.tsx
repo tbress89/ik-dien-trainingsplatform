@@ -194,6 +194,13 @@ export const WhistleIcon = (p: IconProps) => (
   </svg>
 );
 
+export const WatchIcon = (p: IconProps) => (
+  <svg {...base(p)}>
+    <rect x="6" y="6" width="12" height="12" rx="3" />
+    <path d="M9 6V3h6v3M9 18v3h6v-3M12 10v2l1.5 1.5" />
+  </svg>
+);
+
 export const PrinterIcon = (p: IconProps) => (
   <svg {...base(p)}>
     <path d="M7 9V3h10v6M7 18H5a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />

@@ -26,6 +26,11 @@ enum Theme {
 }
 
 extension TrainingPlan {
+    /// "U11 · Positiespel", or just the theme for a training without a team name.
+    var title: String {
+        team.isEmpty ? theme : "\(team) · \(theme)"
+    }
+
     /// "dinsdag 27 oktober"
     var formattedDate: String {
         let parser = DateFormatter()

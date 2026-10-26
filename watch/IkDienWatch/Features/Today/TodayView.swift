@@ -1,35 +1,24 @@
 import IkDienEngine
 import SwiftUI
 
-/// "Vandaag": the training that's ready to give, with Start and its schedule.
+/// "Vandaag": the training that's ready to give, with Start, its schedule (tap the card), another
+/// training from the watch (Andere) and fetching one from the site (Code).
 struct TodayView: View {
-    let plan: TrainingPlan
-    /// The training being given, shown full screen over this one.
-    @Binding var session: RunSession?
+    @Bindable var model: AppModel
 
     var body: some View {
+        let plan = model.currentPlan
         ScrollView {
             VStack(spacing: 10) {
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(plan.formattedDate.uppercased())
-                        .font(.caption2.weight(.semibold))
-                        .foregroundStyle(Theme.muted)
-                    Text("\(plan.team) · \(plan.theme)")
-                        .font(.headline)
-                        .lineLimit(2)
-                    Text("\(plan.totalMinutes) min · \(plan.items.count) oefeningen")
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
-                    BlockBar(plan: plan)
-                        .padding(.top, 4)
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(12)
-                .background(Theme.card, in: RoundedRectangle(cornerRadius: 18))
-
-                Button {
-                    session = RunSession.start(plan: plan)
+                NavigationLink {
+                    ScheduleView(plan: plan)
                 } label: {
+                    TrainingCard(plan: plan)
+                }
+                .buttonStyle(.plain)
+                .accessibilityHint("Toont het schema")
+
+                Button(action: model.start) {
                     Label("Start training", systemImage: "play.fill")
                         .font(.body.weight(.bold))
                         .frame(maxWidth: .infinity)
@@ -37,18 +26,53 @@ struct TodayView: View {
                 .tint(Theme.accent)
                 .buttonStyle(.borderedProminent)
 
-                NavigationLink {
-                    ScheduleView(plan: plan)
-                } label: {
-                    Label("Schema", systemImage: "list.bullet")
-                        .frame(maxWidth: .infinity)
+                HStack(spacing: 8) {
+                    NavigationLink {
+                        TrainingsView(model: model)
+                    } label: {
+                        Label("Andere", systemImage: "list.bullet")
+                            .labelStyle(.titleAndIcon)
+                            .font(.footnote.weight(.semibold))
+                            .frame(maxWidth: .infinity)
+                    }
+                    NavigationLink {
+                        CodeView(model: model)
+                    } label: {
+                        Label("Code", systemImage: "number")
+                            .font(.footnote.weight(.semibold))
+                            .frame(maxWidth: .infinity)
+                    }
                 }
             }
         }
         .navigationTitle("Ik Dien")
-        .fullScreenCover(item: $session) { session in
+        .fullScreenCover(item: $model.session) { session in
             RunView(session: session)
         }
+    }
+}
+
+/// Date, team and theme, length and the block bar of a training.
+struct TrainingCard: View {
+    let plan: TrainingPlan
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(plan.formattedDate.uppercased())
+                .font(.caption2.weight(.semibold))
+                .foregroundStyle(Theme.muted)
+            Text(plan.title)
+                .font(.headline)
+                .lineLimit(2)
+            Text("\(plan.totalMinutes) min · \(plan.items.count) oefeningen")
+                .font(.footnote)
+                .foregroundStyle(.secondary)
+            BlockBar(plan: plan)
+                .padding(.top, 4)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(12)
+        .background(Theme.card, in: RoundedRectangle(cornerRadius: 18))
     }
 }
 
@@ -75,6 +99,6 @@ struct BlockBar: View {
 
 #Preview {
     NavigationStack {
-        TodayView(plan: .sample, session: .constant(nil))
+        TodayView(model: AppModel())
     }
 }
