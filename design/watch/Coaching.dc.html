@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<title>Coachingspunten</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&amp;family=Figtree:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div style="width: 416px; height: 496px; box-sizing: border-box; background: #000; color: #fff; font-family: Figtree, system-ui, sans-serif; padding: 30px 30px 0; display: flex; flex-direction: column; gap: 14px; overflow: hidden">
+<div style="display: flex; justify-content: space-between; align-items: center; padding: 0 16px">
+<span style="font-family: 'Barlow Condensed', sans-serif; font-size: 44px; font-weight: 700; color: #2fc4a3; font-variant-numeric: tabular-nums">7:42</span>
+<span style="font-size: 30px; font-weight: 600">19:09</span>
+</div>
+<span style="font-size: 24px; font-weight: 700; color: #b5b5b5; text-transform: uppercase; letter-spacing: 0.04em; padding: 0 16px">Coaching</span>
+<sc-for list="{{points}}" as="p" hint-placeholder-count="3">
+<div style="display: flex; gap: 14px; align-items: flex-start; background: #141414; border-radius: 22px; padding: 16px 18px">
+<span style="flex: none; width: 36px; height: 36px; border-radius: 18px; background: #12392f; color: #2fc4a3; font-size: 22px; font-weight: 700; display: flex; align-items: center; justify-content: center">{{p.n}}</span>
+<span style="font-size: 26px; line-height: 1.25; font-weight: 500">{{p.text}}</span>
+</div>
+</sc-for>
+<span style="font-size: 22px; color: #b5b5b5; padding: 0 16px">30 × 25 m · 13 spelers · 3 kleuren hesjes</span>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":416,"height":496}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      points: [
+        { n: 1, text: 'Open staan: zie twee kanten van het veld' },
+        { n: 2, text: 'Kaatsers spelen in één keer' },
+        { n: 3, text: 'Balverlies? Vijf tellen jagen' },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

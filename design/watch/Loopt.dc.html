@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<title>Oefening loopt</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&amp;family=Figtree:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div style="width: 416px; height: 496px; box-sizing: border-box; background: #000; color: #fff; font-family: Figtree, system-ui, sans-serif; padding: 30px 30px 24px; display: flex; flex-direction: column; gap: 6px; overflow: hidden">
+<div style="display: flex; justify-content: space-between; align-items: baseline; padding: 0 16px">
+<span style="font-size: 28px; font-weight: 700; color: {{color}}">Kern · 3/5</span>
+<span style="font-size: 30px; font-weight: 600">19:09</span>
+</div>
+<span style="font-size: 28px; font-weight: 600; padding: 0 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Positiespel 5 tegen 5 + 3</span>
+<div style="position: relative; width: 240px; height: 240px; align-self: center">
+<svg width="240" height="240" viewBox="0 0 240 240" style="position: absolute; inset: 0" aria-hidden="true">
+<circle cx="120" cy="120" r="108" fill="none" stroke="#1f2a27" stroke-width="16"></circle>
+<circle cx="120" cy="120" r="108" fill="none" stroke="{{color}}" stroke-width="16" stroke-linecap="round" stroke-dasharray="{{dash}}" transform="rotate(-90 120 120)"></circle>
+</svg>
+<div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center">
+<span role="timer" style="font-family: 'Barlow Condensed', sans-serif; font-size: 104px; font-weight: 700; line-height: 0.9; font-variant-numeric: tabular-nums">7:42</span>
+<span style="font-size: 22px; color: #b5b5b5; margin-top: 6px">tot 19:17</span>
+</div>
+</div>
+<div style="display: flex; align-items: center; justify-content: space-between; margin-top: 4px">
+<button type="button" aria-label="Pauze" style="width: 84px; height: 84px; border: 0; border-radius: 42px; background: #262626; display: flex; align-items: center; justify-content: center">
+<svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="5" height="16" rx="1.5" fill="#fff"></rect><rect x="14" y="4" width="5" height="16" rx="1.5" fill="#fff"></rect></svg>
+</button>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 6px">
+<span style="font-size: 24px; font-weight: 600; font-variant-numeric: tabular-nums">39′ van 75′</span>
+<span style="font-size: 20px; font-weight: 700; color: #000; background: #f2a541; border-radius: 14px; padding: 3px 12px">+2′ · einde 19:47</span>
+</div>
+<button type="button" aria-label="Volgende oefening" style="width: 84px; height: 84px; border: 0; border-radius: 42px; background: {{color}}; display: flex; align-items: center; justify-content: center">
+<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg>
+</button>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"progress":{"editor":"range","default":0.51,"min":0,"max":1,"step":0.01},"$preview":{"width":416,"height":496}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const c = 2 * Math.PI * 108;
+    const p = this.props.progress ?? 0.51;
+    return { color: '#2fc4a3', dash: `${(c * p).toFixed(1)} ${c.toFixed(1)}` };
+  }
+}
+</script>
+</body>
+</html>

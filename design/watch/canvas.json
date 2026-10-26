@@ -1,0 +1,46 @@
+{
+  "v": 3,
+  "createdOnFiles": { "v": 1, "at": "2026-10-26T14:30:00Z" },
+  "title": "Ik Dien Watch – trainingstimer",
+  "launch": { "view": "canvas" },
+  "pages": [],
+  "boards": {
+    "Main.dc.html": { "x": 0, "y": 300, "w": 416, "h": 496, "radius": 84, "title": "1 · Vandaag" },
+    "Koppelen.dc.html": { "x": 496, "y": 300, "w": 416, "h": 496, "radius": 84, "title": "2 · Training ophalen met code" },
+    "Overzicht.dc.html": { "x": 992, "y": 300, "w": 416, "h": 496, "radius": 84, "title": "3 · Schema van de training" },
+    "Loopt.dc.html": { "x": 0, "y": 1196, "w": 416, "h": 496, "radius": 84, "title": "4 · Oefening loopt" },
+    "Coaching.dc.html": { "x": 496, "y": 1196, "w": 416, "h": 496, "radius": 84, "title": "5 · Coachingspunten (scroll omlaag)" },
+    "Bijna.dc.html": { "x": 992, "y": 1196, "w": 416, "h": 496, "radius": 84, "title": "6 · Nog 1 minuut" },
+    "Tijdom.dc.html": { "x": 1488, "y": 1196, "w": 416, "h": 496, "radius": 84, "title": "7 · Tijd om: overtijd telt op" },
+    "Kroon.dc.html": { "x": 1984, "y": 1196, "w": 416, "h": 496, "radius": 84, "title": "8 · Tijd aanpassen met de Digital Crown" },
+    "Herplannen.dc.html": { "x": 0, "y": 2092, "w": 416, "h": 496, "radius": 84, "title": "9 · Achter op schema: herplannen" },
+    "Partijvorm.dc.html": { "x": 496, "y": 2092, "w": 416, "h": 496, "radius": 84, "title": "10 · Partijvorm: helften en wissels" },
+    "AlwaysOn.dc.html": { "x": 992, "y": 2092, "w": 416, "h": 496, "radius": 84, "title": "11 · Pols omlaag (Always On)" },
+    "Widget.dc.html": { "x": 1488, "y": 2092, "w": 416, "h": 496, "radius": 84, "title": "12 · Smart Stack en complicaties" },
+    "Samenvatting.dc.html": { "x": 1984, "y": 2092, "w": 416, "h": 496, "radius": 84, "title": "13 · Na de training" }
+  },
+  "order": [
+    "Main.dc.html",
+    "Koppelen.dc.html",
+    "Overzicht.dc.html",
+    "Loopt.dc.html",
+    "Coaching.dc.html",
+    "Bijna.dc.html",
+    "Tijdom.dc.html",
+    "Kroon.dc.html",
+    "Herplannen.dc.html",
+    "Partijvorm.dc.html",
+    "AlwaysOn.dc.html",
+    "Widget.dc.html",
+    "Samenvatting.dc.html"
+  ],
+  "notes": {
+    "t1": { "x": 0, "y": 20, "text": "Voor de training", "kind": "title1", "maxW": 1408 },
+    "t2": { "x": 0, "y": 916, "text": "Tijdens de training", "kind": "title1", "maxW": 2400 },
+    "t3": { "x": 0, "y": 1812, "text": "Slim tijdbeheer en na afloop", "kind": "title1", "maxW": 2400 },
+    "s1": { "x": 1488, "y": 300, "w": 400, "fill": "purple", "text": "Schermen getekend op 2× voor Apple Watch 46 mm (208 × 248 pt). Donkere achtergrond, merkpaars als accent, blokkleuren lichter gezet zodat ze op zwart leesbaar zijn: warming-up oranje, kern groen, partijvorm lila." },
+    "s2": { "x": 2480, "y": 1196, "w": 400, "fill": "orange", "text": "Haptiek per moment:\n• 1 min voor einde: 1 tik\n• Tijd om: 3 sterke tikken, herhaald elke 30 s zolang overtijd\n• Helft / wissel: 2 tikken\nDubbeltik (Series 9+) of Action-knop (Ultra) = volgende oefening." },
+    "s3": { "x": 2480, "y": 2092, "w": 400, "fill": "green", "text": "Alle tijden worden afgeleid van vaste tijdstippen (start, pauzes), niet van een tikkende teller: het horloge mag de app pauzeren, de klok klopt altijd. Een workout-sessie houdt de app actief met de pols omlaag." }
+  },
+  "designSystems": []
+}
