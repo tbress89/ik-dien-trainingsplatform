@@ -2534,7 +2534,7 @@ export const EXERCISES: Exercise[] = [
     field: 'Halve veld',
     materials: [
       { name: 'Groot doel', qty: '1' },
-      { name: 'Kegels', qty: '4' },
+      { name: 'Kegels', qty: '5' },
       { name: 'Ballen', qty: '10' },
       { name: 'Hesjes', qty: '3' },
     ],

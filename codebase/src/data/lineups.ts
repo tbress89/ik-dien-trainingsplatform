@@ -1011,10 +1011,11 @@ export const LINEUPS: Partial<Record<Variant, Lineup>> = {
       { id: 'p3', team: 'P', x: 120, y: 140 },
       { id: 'd1', team: 'O', x: 210, y: 85 },
       { id: 'd2', team: 'O', x: 210, y: 118 },
-      { id: 'd3', team: 'O', x: 70, y: 100 },
+      { id: 'd3', team: 'O', x: 200, y: 162 },
       { id: 'k', team: 'O', x: 292, y: 100 },
     ],
-    ballStart: 'p2',
+    ballStart: 'd3',
+    diagramBall: { at: 'p2' },
   },
   // Snelle counter via de keeper
   omkeeper: {
