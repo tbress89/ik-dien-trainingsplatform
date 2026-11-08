@@ -917,8 +917,10 @@ const BEATS: Partial<Record<Variant, { beats: AnimBeat[] }>> = {
   // Terugsprinten achter de bal: 3 tegen 2 + 1
   omrecover: {
     beats: [
-      { label: 'Op het signaal: de aanvallers vallen aan, de derde verdediger sprint terug', ms: 1000, ball: 'p2', moves: { p2: [160, 100], p1: [166, 62], p3: [166, 138], d3: [130, 152] } },
-      { label: 'De kortste weg naar het eigen doel, tussen bal en doel', ms: 1000, ball: 'p2', moves: { p2: [186, 100], p1: [196, 64], p3: [196, 140], d3: [216, 126], d1: [204, 90], d2: [206, 112] } },
+      { label: 'De derde verdediger speelt de bal naar de aanvallers', ms: 700, ball: 'p2' },
+      { label: 'Meteen sprinten naar de kegel; de aanvallers vallen aan', ms: 900, ball: 'p2', moves: { p2: [140, 100], p1: [146, 62], p3: [146, 134], d3: [126, 180] } },
+      { label: 'Eerst rond de kegel', ms: 500, ball: 'p2', moves: { p2: [160, 100], p1: [166, 62], p3: [166, 138], d3: [104, 166] } },
+      { label: 'De kortste weg naar het eigen doel, tussen bal en doel', ms: 1300, ball: 'p2', moves: { p2: [186, 100], p1: [196, 64], p3: [196, 140], d3: [214, 128], d1: [204, 90], d2: [206, 112] } },
       { label: 'Samen de balbezitter afstoppen', ms: 700, ball: 'p2', moves: { p2: [194, 102], d2: [202, 110], d1: [204, 94] } },
       { label: 'Balwinst', ms: 400, ball: 'd1', moves: { d1: [204, 90] } },
       { label: 'Over de middenlijn dribbelen', ms: 1200, ball: 'd1', moves: { d1: [70, 92], p2: [100, 98] } },

@@ -1184,8 +1184,10 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
     omrecover: [
       Box(250, 50, 60, 100),
       Goal(304, 78, 10, 44),
+      Pass(194, 157, 118, 104, 1),
       Run('M122 100 L170 100', 1),
-      Run('M76 106 Q150 160 226 124', 2),
+      Cone(116, 168),
+      ORun('M192 166 L126 180 Q102 182 106 166 Q150 140 222 124', 2),
       LINEUP,
     ],
     omcounter: [

@@ -3180,15 +3180,15 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
   },
   omrecover: {
     summary:
-      'Drie aanvallers vallen aan tegen twee verdedigers; een derde verdediger start 10 meter achter de aanvallers en sprint terug om het overtal op te heffen. Traint terugsprinten na balverlies: de kortste weg naar het eigen doel, achter de bal.',
+      'Drie aanvallers vallen aan tegen twee verdedigers; een derde verdediger start aan de zijlijn, speelt de bal in, loopt eerst rond een kegel en sprint dan terug om het overtal op te heffen. Traint terugsprinten na balverlies: de kortste weg naar het eigen doel, achter de bal.',
     steps: [
-      { title: 'Opstelling.', text: 'Speel op een half veld met groot doel en keeper. Drie aanvallers starten met bal op 35 meter, twee verdedigers op 20 meter. De derde verdediger start 10 meter achter de aanvallers.' },
-      { title: 'Start.', text: 'Op het signaal van de trainer vallen de aanvallers aan en sprint de derde verdediger terug.' },
+      { title: 'Opstelling.', text: 'Speel op een half veld met groot doel en keeper. Drie aanvallers starten op 35 meter, twee verdedigers op 20 meter. De derde verdediger start met bal tegen de zijlijn ter hoogte van de verdedigers. Tegen de zijlijn, op dezelfde lijn als de aanvallers, staat een kegel.' },
+      { title: 'Start.', text: 'De derde verdediger speelt de bal naar de aanvallers en start meteen zijn sprint rond de kegel. Vanaf de pass vallen de aanvallers aan.' },
       { title: 'Terugsprinten.', text: 'De teruglopende verdediger neemt de kortste weg naar het eigen doel, tussen bal en doel, en helpt dan de balbezitter af te stoppen. Na balwinst scoren de verdedigers door over de middenlijn te dribbelen.' },
       { title: 'Ritme.', text: 'Speel 3 reeksen van 5 aanvallen, met 1 minuut rust. Wissel de rollen na elke reeks.' },
     ],
-    easier: 'Laat de derde verdediger 5 meter achter de aanvallers starten.',
-    harder: 'Laat de derde verdediger 15 meter achter de aanvallers starten, of speel 4 tegen 2 + 1.',
+    easier: 'Zet de kegel halfweg tussen de derde verdediger en de startlijn van de aanvallers.',
+    harder: 'Zet de kegel 5 meter achter de startlijn van de aanvallers, of speel 4 tegen 2 + 1.',
     objectives: ['Terugsprinten', 'Kortste weg naar het doel', 'Vertragen in ondertal', 'Overtal opheffen'],
     coaching: [
       'Terugsprinten: loop naar je eigen doel, niet naar de bal.',
@@ -3197,9 +3197,9 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       'Hulp aangekomen? Nu samen druk zetten.',
     ],
     diagramSteps: [
-      ['Organisatie', 'Drie aanvallers, twee verdedigers, één terugsprinter'],
-      ['Aanval', 'De aanvallers vallen aan'],
-      ['Terugsprinten', 'De derde verdediger sprint terug achter de bal'],
+      ['Organisatie', 'Drie aanvallers, twee verdedigers, één terugsprinter aan de zijlijn'],
+      ['Aanval', 'De derde verdediger speelt in, de aanvallers vallen aan'],
+      ['Terugsprinten', 'De derde verdediger rondt de kegel en sprint terug achter de bal'],
     ],
     related: [
       { id: 'pr2v2', fit: 'Als warming-up' },
