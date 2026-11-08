@@ -104,6 +104,7 @@ export type Variant =
   | 'omwinner'
   | 'omrestart'
   | 'omrecover'
+  | 'omrecover21'
   | 'omcounter'
   | 'omkeeper'
   | 'omback'

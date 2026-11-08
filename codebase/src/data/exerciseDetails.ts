@@ -3185,6 +3185,7 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { title: 'Opstelling.', text: 'Speel op een half veld met groot doel en keeper. Drie aanvallers starten op 35 meter, twee verdedigers op 20 meter. De derde verdediger start met bal tegen de zijlijn ter hoogte van de verdedigers. Tegen de zijlijn, op dezelfde lijn als de aanvallers, staat een kegel.' },
       { title: 'Start.', text: 'De derde verdediger speelt de bal naar de aanvallers en start meteen zijn sprint rond de kegel. Vanaf de pass vallen de aanvallers aan.' },
       { title: 'Terugsprinten.', text: 'De teruglopende verdediger neemt de kortste weg naar het eigen doel, tussen bal en doel, en helpt dan de balbezitter af te stoppen. Na balwinst scoren de verdedigers door over de middenlijn te dribbelen.' },
+      { title: 'Varianten.', text: 'Kies boven het schema tussen 3 tegen 2 + 1 en 2 tegen 1 + 1. In 2 tegen 1 + 1 vallen twee aanvallers aan tegen één verdediger, die moet vertragen tot de derde verdediger er is: handig voor jongere spelers of een kleinere groep.' },
       { title: 'Ritme.', text: 'Speel 3 reeksen van 5 aanvallen, met 1 minuut rust. Wissel de rollen na elke reeks.' },
     ],
     easier: 'Zet de kegel halfweg tussen de derde verdediger en de startlijn van de aanvallers.',
@@ -3206,6 +3207,19 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'prunder', fit: 'Zelfde thema' },
       { id: 'om32', fit: 'Tegenhanger' },
       { id: 'omback', fit: 'Als afsluiter' },
+    ],
+    versions: [
+      { name: '3 tegen 2 + 1', text: 'Drie aanvallers tegen twee verdedigers; de derde verdediger speelt in vanaf de zijlijn, loopt rond de kegel en sprint terug om het overtal op te heffen.', variant: 'omrecover' },
+      {
+        name: '2 tegen 1 + 1',
+        text: 'Twee aanvallers tegen één verdediger. De derde verdediger speelt in vanaf de zijlijn, loopt rond de kegel en sprint terug. De verdediger vertraagt en houdt de pass dicht tot de hulp er is; daarna zetten ze samen druk.',
+        variant: 'omrecover21',
+        diagramSteps: [
+          ['Organisatie', 'Twee aanvallers, één verdediger, één terugsprinter aan de zijlijn'],
+          ['Aanval', 'De derde verdediger speelt in, de aanvallers vallen aan'],
+          ['Terugsprinten', 'De derde verdediger rondt de kegel en sprint terug achter de bal'],
+        ],
+      },
     ],
   },
   omcounter: {

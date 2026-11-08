@@ -1017,6 +1017,18 @@ export const LINEUPS: Partial<Record<Variant, Lineup>> = {
     ballStart: 'd3',
     diagramBall: { at: 'p2' },
   },
+  // Terugsprinten achter de bal: 2 tegen 1 + 1
+  omrecover21: {
+    actors: [
+      { id: 'p1', team: 'P', x: 120, y: 80 },
+      { id: 'p2', team: 'P', x: 120, y: 120 },
+      { id: 'd1', team: 'O', x: 210, y: 100 },
+      { id: 'd3', team: 'O', x: 200, y: 162 },
+      { id: 'k', team: 'O', x: 292, y: 100 },
+    ],
+    ballStart: 'd3',
+    diagramBall: { at: 'p2' },
+  },
   // Snelle counter via de keeper
   omkeeper: {
     actors: [

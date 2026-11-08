@@ -230,9 +230,9 @@ describe('pitch animations', () => {
   });
 
   // Purple is the team in B+: orange may only start with the ball in transition animations that open just
-  // before purple wins it, and in omrecover, where an orange defender plays the ball in to start (their diagrams
+  // before purple wins it, and in omrecover(21), where an orange defender plays the ball in to start (their diagrams
   // show purple on the ball).
-  it.each(entries.filter(([v]) => v !== 'transition' && v !== 'omcounter' && v !== 'omrecover'))('%s starts with the ball at purple or a neutral player', (_, def) => {
+  it.each(entries.filter(([v]) => v !== 'transition' && v !== 'omcounter' && v !== 'omrecover' && v !== 'omrecover21'))('%s starts with the ball at purple or a neutral player', (_, def) => {
     expect(def.actors.find((a) => a.id === def.ballStart)?.team).not.toBe('O');
   });
 

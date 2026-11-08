@@ -926,6 +926,18 @@ const BEATS: Partial<Record<Variant, { beats: AnimBeat[] }>> = {
       { label: 'Over de middenlijn dribbelen', ms: 1200, ball: 'd1', moves: { d1: [70, 92], p2: [100, 98] } },
     ],
   },
+  // Terugsprinten achter de bal: 2 tegen 1 + 1
+  omrecover21: {
+    beats: [
+      { label: 'De derde verdediger speelt de bal naar de aanvallers', ms: 700, ball: 'p2' },
+      { label: 'Meteen sprinten naar de kegel; de aanvallers vallen aan', ms: 900, ball: 'p2', moves: { p2: [140, 116], p1: [148, 80], d3: [126, 180] } },
+      { label: 'Eerst rond de kegel', ms: 500, ball: 'p2', moves: { p2: [160, 112], p1: [170, 82], d3: [104, 166] } },
+      { label: 'De verdediger vertraagt; de hulp sprint terug tussen bal en doel', ms: 1300, ball: 'p2', moves: { p2: [184, 108], p1: [196, 84], d1: [206, 100], d3: [210, 128] } },
+      { label: 'Samen de balbezitter afstoppen', ms: 700, ball: 'p2', moves: { p2: [192, 110], d1: [204, 102], d3: [202, 122] } },
+      { label: 'Balwinst', ms: 400, ball: 'd1' },
+      { label: 'Over de middenlijn dribbelen', ms: 1200, ball: 'd1', moves: { d1: [70, 98], p2: [100, 104] } },
+    ],
+  },
   // Snelle counter via de keeper
   omkeeper: {
     beats: [
