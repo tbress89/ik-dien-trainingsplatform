@@ -5300,4 +5300,43 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       youtube: { id: '9LBF2eJS_4U' },
     },
   },
+  pdrive: {
+    summary:
+      'S dribbelt op door een poort en speelt door een tweede poort in op T, die de bal breed wisselt naar een flankspeler. Die neemt goed aan en speelt de bal in de voeten van de volgende S, en de volgende beurt gaat via de andere flank: een doorlopende passvorm met opdribbelen, inspelen, van kant wisselen en zuiver passen.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet twee poortjes van kegels (of poppen) achter elkaar in het midden, op 10 meter van elkaar. Aan de ene kant staat de rij met ballen (S), aan de andere kant T. Op beide flanken, ter hoogte van het midden tussen de poortjes en 12 meter opzij, staat een flankspeler (L en R).' },
+      { title: 'Opdribbelen en inspelen.', text: 'S dribbelt met snelheid op naar het eerste poortje en speelt de bal door het tweede poortje in op T. Daarna volgt S zijn pass.' },
+      { title: 'Wisselen en terugspelen.', text: 'T speelt de bal breed naar L. L neemt aan in de looprichting en speelt de bal in de voeten van de volgende S aan de start, die meteen weer opdribbelt. De volgende beurt gaat via R, zodat de kant elke beurt wisselt. Iedereen volgt zijn pass: S wordt T, T gaat naar de flank, en de flankspeler sluit aan in de rij.' },
+      { title: 'Ritme.', text: 'Speel 3 reeksen van 4 minuten met 1 minuut rust. Laat de volgende S pas vertrekken als de flankspeler de bal heeft.' },
+    ],
+    easier: 'Laat de flankspeler twee balcontacten nemen en verklein de afstanden.',
+    harder: 'T en de flankspelers spelen in één keer; zet een tijdslimiet van 1 minuut en tel de beurten.',
+    objectives: ['Opdribbelen met snelheid', 'Inspelen door een poort', 'Van kant wisselen', 'Zuivere pass in de voeten'],
+    coaching: [
+      'S: drijf de bal met snelheid op en kijk op voor je inspeelt.',
+      'Stap in de pass: neem de bal aan in de looprichting.',
+      'Flankspeler: goede eerste aanname, dan hard en zuiver in de voeten van S.',
+      'Na je pass meteen weg en doorschuiven naar je volgende plek.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Twee poortjes in het midden, S en T aan de uiteinden, een flankspeler aan elke kant'],
+      ['Opdribbelen', 'S dribbelt op naar het eerste poortje'],
+      ['Inspelen', 'S speelt door het tweede poortje in op T'],
+      ['Volgen', 'S volgt zijn pass'],
+      ['Wisselen', 'T speelt breed naar L'],
+      ['Terugspelen', 'L speelt in de voeten van de volgende S'],
+    ],
+    related: [
+      { id: 'pgates', fit: 'Als warming-up' },
+      { id: 'playoff', fit: 'Zelfde thema' },
+      { id: 'plong', fit: 'Als vervolg' },
+      { id: 'pten', fit: 'Als afsluiter' },
+    ],
+    source: {
+      label: 'Tony Colbert: Technical activation - Drill 19',
+      url: 'https://www.youtube.com/shorts/H5hWRrxs1tg',
+      channel: 'FIFA Training Centre',
+      youtube: { id: 'H5hWRrxs1tg' },
+    },
+  },
 };

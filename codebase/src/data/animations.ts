@@ -1431,6 +1431,29 @@ const BEATS: Partial<Record<Variant, { beats: AnimBeat[] }>> = {
       },
     ],
   },
+  // Ruitpassen: opdribbelen, inspelen en breed wisselen
+  pdrive: {
+    beats: [
+      { label: 'S dribbelt op naar het eerste poortje', ms: 900, ball: 's', moves: { s: [112, 100] } },
+      { label: 'S speelt door het tweede poortje in op T', ms: 800, ball: 't' },
+      { label: 'S volgt zijn pass', ms: 900, moves: { s: [230, 108] } },
+      { label: 'T speelt breed naar L', ms: 900, ball: 'l' },
+      { label: 'L neemt aan in de looprichting…', ms: 500, ball: 'l', moves: { l: [158, 62] } },
+      { label: '…en speelt in de voeten van de volgende S', ms: 1000, ball: 'q1', moves: { q1: [70, 100], q2: [52, 100] } },
+      {
+        label: 'Doorschuiven: S wordt T, T gaat naar de flank, L sluit aan in de rij',
+        ms: 1300,
+        ball: 'q1',
+        moves: { s: [250, 100], t: [165, 52], l: [34, 100] },
+        labels: { s: 'T', t: 'L', l: '', q1: 'S' },
+      },
+      { label: 'Volgende beurt via R: de nieuwe S dribbelt op', ms: 700, ball: 'q1', moves: { q1: [120, 100] } },
+      { label: 'Inspelen op T', ms: 800, ball: 's' },
+      { label: 'S volgt zijn pass', ms: 900, moves: { q1: [230, 108] } },
+      { label: 'T speelt breed naar R', ms: 900, ball: 'r' },
+      { label: 'R speelt in de voeten van de volgende S', ms: 1000, ball: 'q2', moves: { q2: [70, 100], l: [52, 100] } },
+    ],
+  },
 };
 
 /** Every animation, with the lineup it starts from. */

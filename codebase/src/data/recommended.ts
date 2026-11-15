@@ -49,6 +49,7 @@ export const RECOMMENDED: string[] = [
   'pr2v2', // 2 tegen 2: druk en dekking
   'py', // Passvorm in Y met kaatsbal
   'playoff', // Ruitpassen: kaatsen en één-twee
+  'pdrive', // Ruitpassen: opdribbelen, inspelen en breed wisselen
   'fcounter', // 3 tegen 2 afwerken na omschakeling
   'sggates', // Poortjesspel 4 tegen 4
   'sgcolor', // Kleurdoeltjes 3 tegen 3

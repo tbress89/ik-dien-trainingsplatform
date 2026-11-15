@@ -169,7 +169,8 @@ export type Variant =
   | 'sgcolor'
   | 'sgcastle'
   | 'sg2ball'
-  | 'playoff';
+  | 'playoff'
+  | 'pdrive';
 
 export type ExerciseType = 'Warming-up' | 'Technisch' | 'Tactisch' | 'Fysiek' | 'Partijvorm';
 
@@ -4013,6 +4014,27 @@ export const EXERCISES: Exercise[] = [
     min: 15,
     intensity: 3,
     field: '25 × 20 m',
+    materials: [
+      { name: 'Kegels', qty: '4' },
+      { name: 'Ballen', qty: '6' },
+    ],
+  },
+  {
+    id: 'pdrive',
+    title: 'Ruitpassen: opdribbelen, inspelen en breed wisselen',
+    variant: 'pdrive',
+    type: 'Technisch',
+    phase: 'Aanvallen',
+    themes: ['Passing & aanname', 'Opbouw van achteruit'],
+    ages: ['U10–13', 'U14–15', 'U16–21'],
+    ageLabel: 'U10 – U21',
+    diff: 2,
+    pmin: 5,
+    players: '5–8',
+    playersDetail: '(4 posities)',
+    min: 15,
+    intensity: 3,
+    field: '30 × 20 m',
     materials: [
       { name: 'Kegels', qty: '4' },
       { name: 'Ballen', qty: '6' },

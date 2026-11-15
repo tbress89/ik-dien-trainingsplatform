@@ -1697,4 +1697,16 @@ export const LINEUPS: Partial<Record<Variant, Lineup>> = {
     ],
     ballStart: 'a',
   },
+  // Ruitpassen: opdribbelen, inspelen en breed wisselen
+  pdrive: {
+    actors: [
+      { id: 's', team: 'P', label: 'S', x: 70, y: 100 },
+      { id: 'q1', team: 'P', x: 52, y: 100 },
+      { id: 'q2', team: 'P', x: 34, y: 100 },
+      { id: 't', team: 'P', label: 'T', x: 250, y: 100 },
+      { id: 'l', team: 'P', label: 'L', x: 165, y: 52 },
+      { id: 'r', team: 'P', label: 'R', x: 165, y: 148 },
+    ],
+    ballStart: 's',
+  },
 };
