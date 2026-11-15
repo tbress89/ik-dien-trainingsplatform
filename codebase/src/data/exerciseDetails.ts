@@ -5379,4 +5379,44 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       youtube: { id: 'eGZ6B6ez8PU' },
     },
   },
+  phex123: {
+    summary:
+      'Speler 1 speelt een rechte bal door een zeshoek van palen naar speler 2 en volgt. Daarna spelen ze twee keer na elkaar een één-twee: speler 2 loopt telkens buiten de zeshoek rond een paal en krijgt de bal tussen de palen door terug, en speelt dan naar de volgende in de rij. De palen zijn verdedigers die je uitspeelt: passen in één keer, met beide voeten.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet zes palen (of kegels) in een zeshoek van ongeveer 10 meter breed: een poort aan elk uiteinde en een paal op elke zijkant. Aan de ene kant staat de rij met ballen (speler 1), in de poort aan de overkant speler 2.' },
+      { title: 'Rechte bal en volgen.', text: 'Speler 1 speelt een rechte bal door beide poorten naar speler 2 en volgt zijn pass tot in het midden van de zeshoek.' },
+      { title: 'Twee keer één-twee.', text: 'Speler 2 legt de bal schuin af naar speler 1 en loopt buiten de zeshoek rond de paal van zijn poort, alsof het een verdediger is. Speler 1 speelt de bal tussen die paal en de zijpaal door in zijn loop. Meteen volgt de tweede één-twee: speler 2 speelt opnieuw op speler 1, loopt buiten de zeshoek rond de zijpaal en krijgt de bal weer tussen de palen door terug. Dan speelt speler 2 naar de volgende speler in de rij. Daarna wordt speler 1 de nieuwe speler 2, en speler 2 sluit aan in de rij.' },
+      { title: 'Links en rechts.', text: 'Wissel elke beurt van kant: langs rechts speel je met rechts, langs links met links.' },
+      { title: 'Ritme.', text: 'Speel 3 reeksen van 4 minuten met 1 minuut rust.' },
+    ],
+    easier: 'Laat twee balcontacten toe en verklein de zeshoek tot 8 meter.',
+    harder: 'Alles in één keer, en tel hoeveel beurten de groep in 1 minuut haalt zonder slechte pass.',
+    objectives: ['Passen in één keer', 'Pass en volg', 'Beide voeten', 'Timing van de loopactie'],
+    coaching: [
+      'Rechte bal: hard en laag, door het midden van beide poorten.',
+      'Speler 2: leg af en vertrek meteen rond de paal.',
+      'De palen zijn verdedigers: speel ertussendoor, niet erlangs.',
+      'Langs rechts met rechts, langs links met links.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Zes palen in een zeshoek: de rij met speler 1 aan de ene kant, speler 2 in de poort aan de overkant'],
+      ['Inspelen', 'Speler 1 speelt een rechte bal door beide poorten naar speler 2'],
+      ['Volgen', 'Speler 1 volgt tot in het midden'],
+      ['Eén-twee 1', 'Speler 2 legt af, loopt rond de paal van zijn poort en krijgt de bal tussen de palen door terug'],
+      ['Eén-twee 2', 'Speler 2 speelt opnieuw op speler 1, loopt rond de zijpaal en krijgt de bal weer tussen de palen door terug'],
+      ['Naar de rij', 'Speler 2 speelt naar de volgende in de rij'],
+    ],
+    related: [
+      { id: 'pgates', fit: 'Als warming-up' },
+      { id: 'phex', fit: 'Zelfde thema' },
+      { id: 'playoff', fit: 'Als vervolg' },
+      { id: 'pten', fit: 'Als afsluiter' },
+    ],
+    source: {
+      label: 'Technical activation - low player numbers',
+      url: 'https://www.youtube.com/shorts/IgediOka254',
+      channel: 'FIFA Training Centre',
+      youtube: { id: 'IgediOka254' },
+    },
+  },
 };

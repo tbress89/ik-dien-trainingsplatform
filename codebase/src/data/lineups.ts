@@ -1718,4 +1718,14 @@ export const LINEUPS: Partial<Record<Variant, Lineup>> = {
     ],
     ballStart: 'a',
   },
+  // Zeshoek: twee keer één-twee rond de palen
+  hex123: {
+    actors: [
+      { id: 'p1', team: 'P', label: '1', x: 60, y: 100 },
+      { id: 'q1', team: 'P', x: 42, y: 100 },
+      { id: 'q2', team: 'P', x: 26, y: 100 },
+      { id: 'p2', team: 'P', label: '2', x: 208, y: 100 },
+    ],
+    ballStart: 'p1',
+  },
 };

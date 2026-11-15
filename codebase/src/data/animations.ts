@@ -1471,6 +1471,25 @@ const BEATS: Partial<Record<Variant, { beats: AnimBeat[] }>> = {
       { label: 'B speelt buiten de zeshoek door naar C', ms: 900, ball: 'b' },
     ],
   },
+  // Zeshoek: twee keer één-twee rond de palen
+  hex123: {
+    beats: [
+      { label: 'Speler 1 speelt een rechte bal door beide poorten naar speler 2', ms: 1000, ball: 'p2' },
+      { label: 'Speler 1 volgt tot in het midden', ms: 800, moves: { p1: [148, 116] } },
+      { label: 'Eén-twee 1: speler 2 legt af en loopt rond de paal van zijn poort…', ms: 1100, ball: 'p1', moves: { p2: [194, 152] } },
+      { label: '…en krijgt de bal tussen de palen door terug', ms: 700, ball: 'p2' },
+      { label: 'Eén-twee 2: speler 2 speelt opnieuw op speler 1 en loopt rond de zijpaal…', ms: 1200, ball: 'p1', moves: { p1: [136, 128], p2: [128, 158] } },
+      { label: '…en krijgt de bal weer tussen de palen door terug', ms: 600, ball: 'p2' },
+      { label: 'Speler 2 speelt naar de volgende in de rij', ms: 1000, ball: 'q1', moves: { q1: [60, 100], q2: [42, 100] } },
+      {
+        label: 'Doorschuiven: speler 1 wordt de nieuwe speler 2, speler 2 sluit aan in de rij',
+        ms: 1300,
+        ball: 'q1',
+        moves: { p1: [208, 100], p2: [26, 100] },
+        labels: { p1: '2', p2: '', q1: '1' },
+      },
+    ],
+  },
 };
 
 /** Every animation, with the lineup it starts from. */

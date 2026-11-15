@@ -171,7 +171,8 @@ export type Variant =
   | 'sg2ball'
   | 'playoff'
   | 'pdrive'
-  | 'hexturn';
+  | 'hexturn'
+  | 'hex123';
 
 export type ExerciseType = 'Warming-up' | 'Technisch' | 'Tactisch' | 'Fysiek' | 'Partijvorm';
 
@@ -4060,6 +4061,27 @@ export const EXERCISES: Exercise[] = [
     materials: [
       { name: 'Kegels', qty: '6 per groepje' },
       { name: 'Ballen', qty: '1 per groepje' },
+    ],
+  },
+  {
+    id: 'phex123',
+    title: 'Zeshoek: twee keer één-twee rond de palen',
+    variant: 'hex123',
+    type: 'Technisch',
+    phase: 'Aanvallen',
+    themes: ['Passing & aanname'],
+    ages: ['U10–13', 'U14–15', 'U16–21'],
+    ageLabel: 'U10 – U21',
+    diff: 2,
+    pmin: 3,
+    players: '3–6',
+    playersDetail: '(één groepje)',
+    min: 15,
+    intensity: 3,
+    field: '20 × 15 m',
+    materials: [
+      { name: 'Kegels', qty: '6 (of palen)' },
+      { name: 'Ballen', qty: '6' },
     ],
   },
 ];

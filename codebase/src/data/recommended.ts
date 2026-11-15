@@ -62,6 +62,7 @@ export const RECOMMENDED: string[] = [
   'przone', // Partijvorm met pressingzone
   'pscan', // Aannemen met schouderblik
   'phex', // Zeshoek: vrijlopen, aannemen en draaien
+  'phex123', // Zeshoek: twee keer één-twee rond de palen
   'frebound', // Schieten en opvolgen
   'sgend', // Eindzonespel 4 tegen 4
   'sgcastle', // Kasteelvoetbal 3 tegen 3
