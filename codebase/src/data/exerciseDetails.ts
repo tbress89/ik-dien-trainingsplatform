@@ -5259,4 +5259,45 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'sggates', fit: 'Als vervolg' },
     ],
   },
+  playoff: {
+    summary:
+      'Vier kegels in een ruit: B komt naar A toe en kaatst, A speelt door naar C opzij, en C combineert met een één-twee met B voor hij de bal naar D aan de overkant speelt. Daarna gaat het meteen in de andere richting verder, via de kegel aan de andere kant: een doorlopende passvorm die inspelen, kaatsen en de één-twee op tempo traint.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet vier kegels in een ruit van ongeveer 15 × 15 meter: een kegel voor de rij met ballen (A en de volgende spelers), aan de overkant de startkegel met B en D erachter, en op elke zijkant in het midden een kegel met één speler (C).' },
+      { title: 'Inspelen en kaatsen.', text: 'B loopt van zijn startkegel in een rechte lijn naar A toe, tot in het midden van de ruit; D schuift op naar de startkegel. A speelt in op B, en B kaatst in één keer terug naar A. A speelt de bal meteen door naar C.' },
+      { title: 'Eén-twee en wisselen.', text: 'C speelt een één-twee met B: C speelt op B, B legt terug in de loop van C. C speelt de bal naar D aan de startkegel. Dan schuift iedereen door: B neemt de plaats van C in, C sluit aan achter D, en A wordt de loper voor de volgende beurt. Die begint meteen in de andere richting: A loopt recht naar D toe, D speelt in en krijgt de kaatsbal, en nu gaat de bal via de kegel aan de andere kant en eindigt bij de volgende speler in de rij. Zo wisselt de kant elke beurt.' },
+      { title: 'Ritme.', text: 'Speel 3 reeksen van 4 minuten met 1 minuut rust.' },
+    ],
+    easier: 'Laat twee balcontacten toe en verklein de ruit tot 10 × 10 meter.',
+    harder: 'Alles in één keer en op tijd: hoeveel beurten haalt de groep in 1 minuut zonder slechte pass?',
+    objectives: ['Inspelen op de voet', 'Kaatsen in één keer', 'De één-twee', 'Tempo in de combinatie'],
+    coaching: [
+      'Elke pass moet goed zijn: hard, laag en zuiver.',
+      'B: kom recht naar de bal toe en kaats met de binnenkant.',
+      'B: leg in de één-twee terug in de loop van C, niet in zijn voeten.',
+      'A: na je pass naar C ben jij de volgende loper, vertrek zodra D de bal heeft.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Vier kegels in een ruit: de rij bij A, B en D aan de startkegel, C opzij'],
+      ['Aanbieden', 'B loopt van zijn startkegel recht naar A toe'],
+      ['Inspelen', 'A speelt in op B'],
+      ['Kaatsen', 'B kaatst terug naar A'],
+      ['Naar C', 'A speelt door naar C en volgt zijn pass'],
+      ['Eén-twee', 'C en B spelen een één-twee'],
+      ['Naar D', 'C speelt naar D aan de startkegel'],
+      ['Volgende beurt', 'B neemt de plaats van C in; A loopt recht naar D toe en de bal gaat via de kegel aan de andere kant'],
+    ],
+    related: [
+      { id: 'pline', fit: 'Als warming-up' },
+      { id: 'py', fit: 'Zelfde thema' },
+      { id: 'pdiamond', fit: 'Als vervolg' },
+      { id: 'pten', fit: 'Als afsluiter' },
+    ],
+    source: {
+      label: 'Tony Colbert: FIRST-TIME PASS, LAY-OFF AND PASS',
+      url: 'https://www.youtube.com/shorts/9LBF2eJS_4U',
+      channel: 'FIFA Training Centre',
+      youtube: { id: '9LBF2eJS_4U' },
+    },
+  },
 };

@@ -168,7 +168,8 @@ export type Variant =
   | 'fworld'
   | 'sgcolor'
   | 'sgcastle'
-  | 'sg2ball';
+  | 'sg2ball'
+  | 'playoff';
 
 export type ExerciseType = 'Warming-up' | 'Technisch' | 'Tactisch' | 'Fysiek' | 'Partijvorm';
 
@@ -3994,6 +3995,27 @@ export const EXERCISES: Exercise[] = [
       { name: 'Kegels', qty: '4' },
       { name: 'Ballen', qty: '8' },
       { name: 'Hesjes', qty: '5' },
+    ],
+  },
+  {
+    id: 'playoff',
+    title: 'Ruitpassen: kaatsen en één-twee',
+    variant: 'playoff',
+    type: 'Technisch',
+    phase: 'Aanvallen',
+    themes: ['Passing & aanname', 'Opbouw van achteruit'],
+    ages: ['U10–13', 'U14–15', 'U16–21'],
+    ageLabel: 'U10 – U21',
+    diff: 2,
+    pmin: 6,
+    players: '6–10',
+    playersDetail: '(4 kegels)',
+    min: 15,
+    intensity: 3,
+    field: '25 × 20 m',
+    materials: [
+      { name: 'Kegels', qty: '4' },
+      { name: 'Ballen', qty: '6' },
     ],
   },
 ];

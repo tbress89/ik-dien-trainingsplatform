@@ -1399,6 +1399,38 @@ const BEATS: Partial<Record<Variant, { beats: AnimBeat[] }>> = {
       { label: 'Schot op het paarse kasteel: net naast', ms: 700, ball: [78, 128] },
     ],
   },
+  // Ruitpassen: kaatsen en één-twee
+  playoff: {
+    beats: [
+      { label: 'B loopt van de startkegel recht naar A toe; D schuift op naar de kegel', ms: 900, moves: { b: [160, 100], d: [250, 100] } },
+      { label: 'A speelt in op B', ms: 700, ball: 'b' },
+      { label: 'B kaatst in één keer terug naar A', ms: 700, ball: 'a' },
+      { label: 'A speelt naar C', ms: 800, ball: 'c' },
+      { label: 'Eén-twee: C speelt op B…', ms: 700, ball: 'b' },
+      { label: '…en B legt terug in de loop van C', ms: 700, ball: 'c' },
+      { label: 'C speelt naar D aan de startkegel', ms: 900, ball: 'd' },
+      {
+        label: 'Doorschuiven: B neemt de plaats van C in, C sluit aan achter D',
+        ms: 1200,
+        ball: 'd',
+        moves: { b: [160, 146], c: [268, 100] },
+        labels: { b: 'C', c: '' },
+      },
+      { label: 'Volgende beurt in de andere richting: A loopt recht naar D toe', ms: 900, moves: { a: [160, 100], q1: [70, 100], q2: [52, 100] } },
+      { label: 'D speelt in op A', ms: 700, ball: 'a' },
+      { label: 'A kaatst in één keer terug naar D', ms: 700, ball: 'd' },
+      { label: 'D speelt naar de kegel aan de andere kant', ms: 800, ball: 'e' },
+      { label: 'Eén-twee met A…', ms: 700, ball: 'a' },
+      { label: '…en A legt terug', ms: 700, ball: 'e' },
+      { label: 'Pass naar de volgende speler in de rij', ms: 900, ball: 'q1' },
+      {
+        label: 'Doorschuiven: A naar de kegel opzij, die speler sluit aan in de rij; D is nu de loper',
+        ms: 1300,
+        ball: 'q1',
+        moves: { a: [160, 56], e: [34, 100] },
+      },
+    ],
+  },
 };
 
 /** Every animation, with the lineup it starts from. */

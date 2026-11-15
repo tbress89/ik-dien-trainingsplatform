@@ -1684,4 +1684,17 @@ export const LINEUPS: Partial<Record<Variant, Lineup>> = {
     ],
     ballStart: 'p1',
   },
+  // Ruitpassen: kaatsen en één-twee
+  playoff: {
+    actors: [
+      { id: 'a', team: 'P', label: 'A', x: 70, y: 100 },
+      { id: 'q1', team: 'P', x: 52, y: 100 },
+      { id: 'q2', team: 'P', x: 34, y: 100 },
+      { id: 'b', team: 'P', label: 'B', x: 250, y: 100 },
+      { id: 'd', team: 'P', label: 'D', x: 268, y: 100 },
+      { id: 'c', team: 'P', label: 'C', x: 160, y: 146 },
+      { id: 'e', team: 'P', x: 160, y: 56, joinsAt: 7 },
+    ],
+    ballStart: 'a',
+  },
 };
