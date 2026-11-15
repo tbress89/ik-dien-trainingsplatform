@@ -5339,4 +5339,44 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       youtube: { id: 'H5hWRrxs1tg' },
     },
   },
+  phex: {
+    summary:
+      'Een speler loopt vanaf een uiteinde een zeshoek van kegels in en combineert met A: kaatsen, de bal meenemen naar de andere kant van de poort en daar terugspelen, en dan buiten de zeshoek aan de zijkegel aannemen, opendraaien en doorspelen naar C. Traint kaatsen, de aanname in de looprichting en het opendraaien onder tempo.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet zes kegels in een zeshoek van ongeveer 10 meter breed. De twee kegels aan de kant van A en de twee aan de kant van C vormen elk een poort; de twee andere kegels staan opzij (de zijkegels). A en C staan op 8 meter van hun poort; A heeft de bal. De middenspeler (B) start naast C.' },
+      { title: 'Kaatsen.', text: 'B loopt vanaf C naar de rechterkant van de poort bij A, net buiten de poort. A speelt buiten de poort in, en B kaatst in één keer terug.' },
+      { title: 'Door de poort.', text: 'B komt in de poort, en A speelt de bal recht door de poort in. B neemt de bal mee naar links, buiten de poort, en speelt daar terug naar A.' },
+      { title: 'Draaien en doorspelen.', text: 'B loopt buiten de zeshoek naar de zijkegel links en krijgt daar de bal van A. Hij draait open en speelt, ook buiten de zeshoek, door naar C. Daarna doet B hetzelfde in de andere richting, met C als inspeler.' },
+      { title: 'Ritme.', text: 'Speel 3 reeksen van 4 minuten met 1 minuut rust. Wissel de middenspeler om de 45 seconden met een eindspeler.' },
+    ],
+    easier: 'Laat B bij het kaatsen twee balcontacten nemen en verklein de afstand tot de eindspelers.',
+    harder: 'Alles op tempo: B speelt na het opendraaien in één keer door, en de eindspelers spelen in zodra B zijn kegel bereikt.',
+    objectives: ['Kaatsen in één keer', 'Meenemen in de eerste aanname', 'Opendraaien', 'Tempo en timing'],
+    coaching: [
+      'Kaats in één keer, hard en op de voet van A.',
+      'Neem de bal mee naar de kant van de poort, weg van je voeten.',
+      'Kijk over je schouder voor de bal komt: weet waar je naartoe draait.',
+      'Eindspelers: speel in zodra B klaarstaat, hard en op de voet.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Zes kegels: een poort voor A, een poort voor C en twee zijkegels; B start naast C'],
+      ['Inlopen', 'B loopt naar de rechterkant van de poort bij A, net buiten de poort'],
+      ['Kaatsen', 'A speelt buiten de poort in, B kaatst in één keer terug'],
+      ['Door de poort', 'A speelt recht door de poort; B neemt mee naar links buiten de poort en speelt terug'],
+      ['Zijkegel', 'B loopt buiten de zeshoek naar de zijkegel links en krijgt de bal van A'],
+      ['Draaien', 'B draait open en speelt buiten de zeshoek door naar C'],
+    ],
+    related: [
+      { id: 'pgates', fit: 'Als warming-up' },
+      { id: 'pscan', fit: 'Zelfde thema' },
+      { id: 'fturn', fit: 'Als vervolg' },
+      { id: 'rondo', fit: 'Kern' },
+    ],
+    source: {
+      label: 'Tony Colbert: Technical activation - Drill 18',
+      url: 'https://www.youtube.com/shorts/eGZ6B6ez8PU',
+      channel: 'FIFA Training Centre',
+      youtube: { id: 'eGZ6B6ez8PU' },
+    },
+  },
 };

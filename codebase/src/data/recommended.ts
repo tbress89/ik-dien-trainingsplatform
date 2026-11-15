@@ -61,6 +61,7 @@ export const RECOMMENDED: string[] = [
   'rduo', // Rondo 4 tegen 2 in duo's
   'przone', // Partijvorm met pressingzone
   'pscan', // Aannemen met schouderblik
+  'phex', // Zeshoek: vrijlopen, aannemen en draaien
   'frebound', // Schieten en opvolgen
   'sgend', // Eindzonespel 4 tegen 4
   'sgcastle', // Kasteelvoetbal 3 tegen 3

@@ -1454,6 +1454,21 @@ const BEATS: Partial<Record<Variant, { beats: AnimBeat[] }>> = {
       { label: 'R speelt in de voeten van de volgende S', ms: 1000, ball: 'q2', moves: { q2: [70, 100], l: [52, 100] } },
     ],
   },
+  // Zeshoek: vrijlopen, aannemen en draaien
+  hexturn: {
+    beats: [
+      { label: 'B loopt vanaf C naar de rechterkant van de poort bij A, net buiten de poort', ms: 1200, moves: { m: [132, 70] } },
+      { label: 'A speelt buiten de poort in', ms: 700, ball: 'm' },
+      { label: 'B kaatst in één keer terug naar A', ms: 700, ball: 'a' },
+      { label: 'B komt in de poort en A speelt erdoor in', ms: 900, ball: 'm', moves: { m: [136, 100] } },
+      { label: 'B neemt de bal mee naar links, buiten de poort…', ms: 700, ball: 'm', moves: { m: [130, 134] } },
+      { label: '…en speelt buiten de poort terug naar A', ms: 700, ball: 'a' },
+      { label: 'B loopt buiten de zeshoek naar de zijkegel links', ms: 800, moves: { m: [150, 154] } },
+      { label: 'A speelt buiten de zeshoek in op B', ms: 800, ball: 'm' },
+      { label: 'B neemt aan en draait open', ms: 500, ball: 'm', moves: { m: [158, 152] } },
+      { label: 'B speelt buiten de zeshoek door naar C', ms: 900, ball: 'b' },
+    ],
+  },
 };
 
 /** Every animation, with the lineup it starts from. */

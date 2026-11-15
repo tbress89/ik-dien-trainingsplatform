@@ -1709,4 +1709,13 @@ export const LINEUPS: Partial<Record<Variant, Lineup>> = {
     ],
     ballStart: 's',
   },
+  // Zeshoek: vrijlopen, aannemen en draaien
+  hexturn: {
+    actors: [
+      { id: 'a', team: 'P', label: 'A', x: 50, y: 100 },
+      { id: 'b', team: 'P', label: 'C', x: 270, y: 100 },
+      { id: 'm', team: 'P', label: 'B', x: 270, y: 124 },
+    ],
+    ballStart: 'a',
+  },
 };

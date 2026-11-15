@@ -170,7 +170,8 @@ export type Variant =
   | 'sgcastle'
   | 'sg2ball'
   | 'playoff'
-  | 'pdrive';
+  | 'pdrive'
+  | 'hexturn';
 
 export type ExerciseType = 'Warming-up' | 'Technisch' | 'Tactisch' | 'Fysiek' | 'Partijvorm';
 
@@ -4038,6 +4039,27 @@ export const EXERCISES: Exercise[] = [
     materials: [
       { name: 'Kegels', qty: '4' },
       { name: 'Ballen', qty: '6' },
+    ],
+  },
+  {
+    id: 'phex',
+    title: 'Zeshoek: vrijlopen, aannemen en draaien',
+    variant: 'hexturn',
+    type: 'Technisch',
+    phase: 'Aanvallen',
+    themes: ['Passing & aanname', 'Positiespel'],
+    ages: ['U10–13', 'U14–15', 'U16–21'],
+    ageLabel: 'U10 – U21',
+    diff: 2,
+    pmin: 3,
+    players: '3–12',
+    playersDetail: '(groepjes van 3)',
+    min: 15,
+    intensity: 3,
+    field: '25 × 15 m',
+    materials: [
+      { name: 'Kegels', qty: '6 per groepje' },
+      { name: 'Ballen', qty: '1 per groepje' },
     ],
   },
 ];
