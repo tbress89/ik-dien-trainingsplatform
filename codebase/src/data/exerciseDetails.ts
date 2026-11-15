@@ -5261,11 +5261,11 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
   },
   playoff: {
     summary:
-      'Vier kegels in een ruit: B komt naar A toe en kaatst, A speelt door naar C opzij, en C combineert met een één-twee met B voor hij de bal naar D aan de overkant speelt. Daarna gaat het meteen in de andere richting verder, via de kegel aan de andere kant: een doorlopende passvorm die inspelen, kaatsen en de één-twee op tempo traint.',
+      'Vier kegels in een ruit: B komt naar A toe en kaatst, A speelt door naar C opzij, en C speelt met B een één-twee langs zijn kegel, alsof het een verdediger is, voor hij de bal naar D aan de overkant speelt. Daarna gaat het meteen in de andere richting verder, via de kegel aan de andere kant: een doorlopende passvorm die inspelen, kaatsen en de één-twee op tempo traint.',
     steps: [
-      { title: 'Opstelling.', text: 'Zet vier kegels in een ruit van ongeveer 15 × 15 meter: een kegel voor de rij met ballen (A en de volgende spelers), aan de overkant de startkegel met B en D erachter, en op elke zijkant in het midden een kegel met één speler (C).' },
+      { title: 'Opstelling.', text: 'Zet vier kegels in een ruit van ongeveer 15 × 15 meter: een kegel voor de rij met ballen (A en de volgende spelers), aan de overkant de startkegel met B en D erachter, en op elke zijkant in het midden een kegel als verdediger. Daar staat telkens één speler (C) een paar meter vóór de kegel.' },
       { title: 'Inspelen en kaatsen.', text: 'B loopt van zijn startkegel in een rechte lijn naar A toe, tot in het midden van de ruit; D schuift op naar de startkegel. A speelt in op B, en B kaatst in één keer terug naar A. A speelt de bal meteen door naar C.' },
-      { title: 'Eén-twee en wisselen.', text: 'C speelt een één-twee met B: C speelt op B, B legt terug in de loop van C. C speelt de bal naar D aan de startkegel. Dan schuift iedereen door: B neemt de plaats van C in, C sluit aan achter D, en A wordt de loper voor de volgende beurt. Die begint meteen in de andere richting: A loopt recht naar D toe, D speelt in en krijgt de kaatsbal, en nu gaat de bal via de kegel aan de andere kant en eindigt bij de volgende speler in de rij. Zo wisselt de kant elke beurt.' },
+      { title: 'Eén-twee en wisselen.', text: 'C neemt de bal mee richting zijn kegel alsof het een verdediger is, speelt vlak voor de kegel op B en sprint aan de andere kant langs de kegel. B legt de bal terug in de loop van C, achter de kegel. C speelt de bal naar D aan de startkegel. Dan schuift iedereen door: B neemt de plaats van C in, C sluit aan achter D, en A wordt de loper voor de volgende beurt. Die begint meteen in de andere richting: A loopt recht naar D toe, D speelt in en krijgt de kaatsbal, en nu gaat de bal via de kegel aan de andere kant en eindigt bij de volgende speler in de rij. Zo wisselt de kant elke beurt.' },
       { title: 'Ritme.', text: 'Speel 3 reeksen van 4 minuten met 1 minuut rust.' },
     ],
     easier: 'Laat twee balcontacten toe en verklein de ruit tot 10 × 10 meter.',
@@ -5274,16 +5274,16 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
     coaching: [
       'Elke pass moet goed zijn: hard, laag en zuiver.',
       'B: kom recht naar de bal toe en kaats met de binnenkant.',
-      'B: leg in de één-twee terug in de loop van C, niet in zijn voeten.',
+      'C: speel de één-twee vlak voor de kegel en versnel er meteen langs; B legt terug in je loop, achter de kegel.',
       'A: na je pass naar C ben jij de volgende loper, vertrek zodra D de bal heeft.',
     ],
     diagramSteps: [
-      ['Organisatie', 'Vier kegels in een ruit: de rij bij A, B en D aan de startkegel, C opzij'],
+      ['Organisatie', 'Vier kegels in een ruit: de rij bij A, B en D aan de startkegel, C vóór de kegel opzij'],
       ['Aanbieden', 'B loopt van zijn startkegel recht naar A toe'],
       ['Inspelen', 'A speelt in op B'],
       ['Kaatsen', 'B kaatst terug naar A'],
-      ['Naar C', 'A speelt door naar C en volgt zijn pass'],
-      ['Eén-twee', 'C en B spelen een één-twee'],
+      ['Naar C', 'A speelt door naar C'],
+      ['Eén-twee', 'C speelt vlak voor de kegel op B, sprint erlangs en krijgt de bal terug achter de kegel'],
       ['Naar D', 'C speelt naar D aan de startkegel'],
       ['Volgende beurt', 'B neemt de plaats van C in; A loopt recht naar D toe en de bal gaat via de kegel aan de andere kant'],
     ],
