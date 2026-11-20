@@ -174,7 +174,9 @@ export type Variant =
   | 'hexturn'
   | 'hex123'
   | 'thirdman'
-  | 'thirdman2';
+  | 'thirdman2'
+  | 'doubley'
+  | 'doubley2';
 
 export type ExerciseType = 'Warming-up' | 'Technisch' | 'Tactisch' | 'Fysiek' | 'Partijvorm';
 
@@ -4105,6 +4107,27 @@ export const EXERCISES: Exercise[] = [
     materials: [
       { name: 'Kegels', qty: '4 (of palen)' },
       { name: 'Ballen', qty: '6' },
+    ],
+  },
+  {
+    id: 'pdy',
+    title: 'Passvorm in dubbele Y',
+    variant: 'doubley',
+    type: 'Technisch',
+    phase: 'Aanvallen',
+    themes: ['Passing & aanname'],
+    ages: ['U6–9', 'U10–13', 'U14–15', 'U16–21'],
+    ageLabel: 'U8 – U21',
+    diff: 1,
+    pmin: 8,
+    players: '8–12',
+    playersDetail: '(6 posities)',
+    min: 15,
+    intensity: 2,
+    field: '30 × 20 m',
+    materials: [
+      { name: 'Kegels', qty: '6 (of palen)' },
+      { name: 'Ballen', qty: '4' },
     ],
   },
 ];

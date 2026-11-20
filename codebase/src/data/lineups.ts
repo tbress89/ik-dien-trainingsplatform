@@ -1750,4 +1750,32 @@ export const LINEUPS: Partial<Record<Variant, Lineup>> = {
     ],
     ballStart: 'a',
   },
+  // Passvorm in dubbele Y
+  doubley: {
+    actors: [
+      { id: 'a', team: 'P', label: 'A', x: 50, y: 100 },
+      { id: 'a2', team: 'P', x: 32, y: 100 },
+      { id: 'b', team: 'P', label: 'B', x: 120, y: 140 },
+      { id: 'c', team: 'P', label: 'C', x: 200, y: 140 },
+      { id: 'd', team: 'P', label: 'D', x: 270, y: 100 },
+      { id: 'd2', team: 'P', x: 288, y: 100 },
+      { id: 'e', team: 'P', label: 'E', x: 200, y: 60 },
+      { id: 'f', team: 'P', label: 'F', x: 120, y: 60 },
+    ],
+    ballStart: 'a',
+  },
+  // Passvorm in dubbele Y (met kaatsbal)
+  doubley2: {
+    actors: [
+      { id: 'a', team: 'P', label: 'A', x: 50, y: 100 },
+      { id: 'a2', team: 'P', x: 32, y: 100 },
+      { id: 'b', team: 'P', label: 'B', x: 120, y: 140 },
+      { id: 'c', team: 'P', label: 'C', x: 200, y: 140 },
+      { id: 'd', team: 'P', label: 'D', x: 270, y: 100 },
+      { id: 'd2', team: 'P', x: 288, y: 100 },
+      { id: 'e', team: 'P', label: 'E', x: 200, y: 60 },
+      { id: 'f', team: 'P', label: 'F', x: 120, y: 60 },
+    ],
+    ballStart: 'a',
+  },
 };

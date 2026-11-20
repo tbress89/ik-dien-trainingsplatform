@@ -1526,6 +1526,44 @@ const BEATS: Partial<Record<Variant, { beats: AnimBeat[] }>> = {
       },
     ],
   },
+  // Passvorm in dubbele Y
+  doubley: {
+    beats: [
+      { label: 'A speelt schuin rechts naar B en volgt zijn pass', ms: 900, ball: 'b', moves: { a: [104, 128], a2: [50, 100] } },
+      { label: 'B speelt door naar C achter hem en volgt', ms: 900, ball: 'c', moves: { a: [120, 140], b: [184, 136] } },
+      { label: 'C speelt naar de rij bij D en sluit daar aan', ms: 900, ball: 'd', moves: { b: [200, 140], c: [252, 118] } },
+      { label: 'D speelt schuin rechts naar E en volgt', ms: 900, ball: 'e', moves: { d: [216, 72], d2: [270, 100], c: [288, 100] } },
+      { label: 'E speelt door naar F achter hem en volgt', ms: 900, ball: 'f', moves: { d: [200, 60], e: [136, 64] } },
+      {
+        label: 'F speelt terug naar de rij bij A en sluit daar aan',
+        ms: 1000,
+        ball: 'a2',
+        moves: { e: [120, 60], f: [32, 100] },
+        labels: { a2: 'A', a: 'B', b: 'C', d2: 'D', d: 'E', e: 'F', c: '', f: '' },
+      },
+    ],
+  },
+  // Passvorm in dubbele Y (met kaatsbal)
+  doubley2: {
+    beats: [
+      { label: 'A speelt in op B en loopt meteen mee naar voren', ms: 800, ball: 'b', moves: { a: [86, 104] } },
+      { label: 'B kaatst terug in de loop van A', ms: 700, ball: 'a' },
+      { label: 'A speelt lang naar C en volgt zijn pass', ms: 1000, ball: 'c', moves: { a: [150, 124], a2: [50, 100] } },
+      { label: 'C legt terug op B en volgt', ms: 800, ball: 'b', moves: { c: [150, 150], a: [186, 134] } },
+      { label: 'B speelt naar de rij bij D en sluit daar aan', ms: 1000, ball: 'd', moves: { b: [252, 118], c: [120, 140], a: [200, 140] } },
+      { label: 'D speelt in op E en loopt meteen mee naar voren', ms: 800, ball: 'e', moves: { d: [234, 96] } },
+      { label: 'E kaatst terug in de loop van D', ms: 700, ball: 'd' },
+      { label: 'D speelt lang naar F en volgt zijn pass', ms: 1000, ball: 'f', moves: { d: [170, 74], d2: [270, 100], b: [288, 100] } },
+      { label: 'F legt terug op E en volgt', ms: 800, ball: 'e', moves: { f: [166, 50], d: [130, 64] } },
+      {
+        label: 'E speelt naar de rij bij A en sluit daar aan',
+        ms: 1000,
+        ball: 'a2',
+        moves: { e: [32, 100], f: [200, 60], d: [120, 60] },
+        labels: { a2: 'A', e: '', c: 'B', a: 'C', d2: 'D', b: '', f: 'E', d: 'F' },
+      },
+    ],
+  },
 };
 
 /** Every animation, with the lineup it starts from. */

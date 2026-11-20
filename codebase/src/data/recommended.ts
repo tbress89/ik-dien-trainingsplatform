@@ -48,6 +48,7 @@ export const RECOMMENDED: string[] = [
   'fgoals', // Doeltjesjacht
   'pr2v2', // 2 tegen 2: druk en dekking
   'py', // Passvorm in Y met kaatsbal
+  'pdy', // Passvorm in dubbele Y
   'playoff', // Ruitpassen: kaatsen en één-twee
   'pdrive', // Ruitpassen: opdribbelen, inspelen en breed wisselen
   'fcounter', // 3 tegen 2 afwerken na omschakeling
