@@ -76,6 +76,7 @@ export const RECOMMENDED: string[] = [
   'gs11', // Preventie-opwarming voor groeiende spelers
   'gk1v1', // 1 tegen 1: uitkomen en blokken
   'pdiamond', // Ruitpassen met derde man
+  'pthird', // Derde man door twee poortjes
   'om32', // Overtal heen, ondertal terug
   'dchase', // 1 tegen 1 met achtervolger
   'sgwing', // Partijvorm 4 tegen 4 + 2 flankjokers

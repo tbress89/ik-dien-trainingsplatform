@@ -5419,4 +5419,44 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       youtube: { id: 'IgediOka254' },
     },
   },
+  pthird: {
+    summary:
+      'A speelt in op B, die in één keer terugkaatst en meteen de loopactie van de derde man maakt. A speelt door naar C, C legt af in de loop van B buiten zijn poortje, en B speelt door naar D. Traint de derde-mancombinatie: kaatsen, doorspelen en de loopactie op het juiste moment.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet twee poortjes van twee palen (of kegels) achter elkaar, op 10 meter van elkaar en met een opening van 3 à 4 meter. A staat met de rij en de ballen 8 meter voor het eerste poortje, B in het eerste poortje, C in het tweede en D 10 meter achter het tweede poortje.' },
+      { title: 'Inspelen en kaatsen.', text: 'A speelt in op B, en B kaatst de bal in één keer terug naar A.' },
+      { title: 'Derde man.', text: 'Meteen na zijn kaatsbal sprint B buiten de poortjes naar voren. A speelt de bal door het eerste poortje naar C. C legt de bal af in de loop van B, buiten zijn poortje, en B speelt de bal naar D.' },
+      { title: 'Doorschuiven.', text: 'Iedereen schuift een positie op: A gaat naar het eerste poortje, B naar het tweede en C naar D. D speelt de bal terug naar de rij en sluit achteraan aan.' },
+      { title: 'Ritme.', text: 'Speel 3 reeksen van 4 minuten met 1 minuut rust. Wissel na elke reeks de kant waarlangs B loopt.' },
+    ],
+    easier: 'Laat C twee balcontacten nemen en zet de poortjes dichter bij elkaar.',
+    harder: 'Alles in één keer, en A speelt pas door naar C als B al vertrokken is.',
+    objectives: ['Derde man', 'Kaatsen in één keer', 'Timing van de loopactie', 'Afleggen in de loop'],
+    coaching: [
+      'B: kaats en vertrek meteen, je bent de derde man.',
+      'A: speel C aan op het moment dat B zijn sprint inzet.',
+      'C: leg af in de loop van B, vóór zijn voeten.',
+      'Elke pass hard en laag, recht door het poortje.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Twee poortjes achter elkaar: A met de rij, B en C in de poortjes, D aan het einde'],
+      ['Inspelen', 'A speelt in op B'],
+      ['Kaatsen', 'B kaatst in één keer terug naar A'],
+      ['Doorspelen', 'A speelt door naar C; B start de loopactie van de derde man'],
+      ['Derde man', 'C legt af in de loop van B, buiten zijn poortje'],
+      ['Naar D', 'B speelt door naar D'],
+    ],
+    related: [
+      { id: 'pline', fit: 'Als warming-up' },
+      { id: 'pdiamond', fit: 'Zelfde thema' },
+      { id: 'playoff', fit: 'Als vervolg' },
+      { id: 'pten', fit: 'Als afsluiter' },
+    ],
+    source: {
+      label: 'Third Man Combination Drill | 2 Variations | Football/Soccer Training',
+      url: 'https://www.youtube.com/watch?v=zqmXyCYFF3E',
+      channel: 'AD Football Training Videos',
+      youtube: { id: 'zqmXyCYFF3E', start: 3 },
+    },
+  },
 };

@@ -172,7 +172,8 @@ export type Variant =
   | 'playoff'
   | 'pdrive'
   | 'hexturn'
-  | 'hex123';
+  | 'hex123'
+  | 'thirdman';
 
 export type ExerciseType = 'Warming-up' | 'Technisch' | 'Tactisch' | 'Fysiek' | 'Partijvorm';
 
@@ -4081,6 +4082,27 @@ export const EXERCISES: Exercise[] = [
     field: '20 × 15 m',
     materials: [
       { name: 'Kegels', qty: '6 (of palen)' },
+      { name: 'Ballen', qty: '6' },
+    ],
+  },
+  {
+    id: 'pthird',
+    title: 'Derde man door twee poortjes',
+    variant: 'thirdman',
+    type: 'Technisch',
+    phase: 'Aanvallen',
+    themes: ['Passing & aanname', 'Positiespel'],
+    ages: ['U10–13', 'U14–15', 'U16–21'],
+    ageLabel: 'U10 – U21',
+    diff: 2,
+    pmin: 5,
+    players: '5–8',
+    playersDetail: '(4 posities)',
+    min: 15,
+    intensity: 3,
+    field: '30 × 15 m',
+    materials: [
+      { name: 'Kegels', qty: '4 (of palen)' },
       { name: 'Ballen', qty: '6' },
     ],
   },

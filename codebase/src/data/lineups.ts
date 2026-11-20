@@ -1728,4 +1728,15 @@ export const LINEUPS: Partial<Record<Variant, Lineup>> = {
     ],
     ballStart: 'p1',
   },
+  // Derde man door twee poortjes
+  thirdman: {
+    actors: [
+      { id: 'a', team: 'P', label: 'A', x: 60, y: 100 },
+      { id: 'q1', team: 'P', x: 42, y: 100 },
+      { id: 'b', team: 'P', label: 'B', x: 110, y: 100 },
+      { id: 'c', team: 'P', label: 'C', x: 190, y: 100 },
+      { id: 'd', team: 'P', label: 'D', x: 270, y: 100 },
+    ],
+    ballStart: 'a',
+  },
 };

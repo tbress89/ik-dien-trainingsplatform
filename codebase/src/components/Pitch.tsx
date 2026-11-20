@@ -591,6 +591,16 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       O(150, 70), O(200, 58), O(160, 135), O(244, 124),
       Ball(106, 74), Ball(166, 139),
     ],
+    thirdman: [
+      Cone(110, 74), Cone(110, 124), Cone(190, 74), Cone(190, 124),
+      Pass(68, 96, 102, 96, 1),
+      Pass(102, 104, 68, 104, 2),
+      Pass(70, 100, 182, 100, 3),
+      Run('M116 110 Q150 158 206 140', 3),
+      Pass(196, 108, 204, 130, 4),
+      Pass(214, 134, 262, 104, 5),
+      LINEUP,
+    ],
     hex123: [
       Cone(112, 82), Cone(112, 118), Cone(208, 82), Cone(208, 118), Cone(160, 54), Cone(160, 146),
       Pass(68, 100, 198, 100, 1),
