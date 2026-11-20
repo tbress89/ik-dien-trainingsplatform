@@ -173,7 +173,8 @@ export type Variant =
   | 'pdrive'
   | 'hexturn'
   | 'hex123'
-  | 'thirdman';
+  | 'thirdman'
+  | 'thirdman2';
 
 export type ExerciseType = 'Warming-up' | 'Technisch' | 'Tactisch' | 'Fysiek' | 'Partijvorm';
 

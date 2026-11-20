@@ -1508,6 +1508,24 @@ const BEATS: Partial<Record<Variant, { beats: AnimBeat[] }>> = {
       },
     ],
   },
+  // Derde man door twee poortjes (C diagonaal)
+  thirdman2: {
+    beats: [
+      { label: 'A speelt in op B', ms: 800, ball: 'b' },
+      { label: 'B kaatst in één keer terug naar A', ms: 700, ball: 'a' },
+      { label: 'C komt diagonaal naar A toe en A speelt hem aan; B start de loopactie van de derde man', ms: 1000, ball: 'c', moves: { c: [162, 74], b: [150, 146] } },
+      { label: 'C speelt door het tweede poortje in de loop van B', ms: 900, ball: 'b', moves: { b: [216, 142] } },
+      { label: 'B speelt naar D', ms: 800, ball: 'd' },
+      { label: 'D speelt de bal terug naar de rij; A stapt in het eerste poortje', ms: 1100, ball: 'q1', moves: { a: [110, 100], q1: [60, 100] } },
+      {
+        label: 'Doorschuiven: B naar het tweede poortje, C naar D, D sluit achteraan aan in de rij',
+        ms: 1400,
+        ball: 'q1',
+        moves: { b: [190, 100], c: [270, 100], d: [42, 100] },
+        labels: { a: 'B', b: 'C', c: 'D', d: '', q1: 'A' },
+      },
+    ],
+  },
 };
 
 /** Every animation, with the lineup it starts from. */

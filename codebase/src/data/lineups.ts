@@ -1739,4 +1739,15 @@ export const LINEUPS: Partial<Record<Variant, Lineup>> = {
     ],
     ballStart: 'a',
   },
+  // Derde man door twee poortjes (C diagonaal)
+  thirdman2: {
+    actors: [
+      { id: 'a', team: 'P', label: 'A', x: 60, y: 100 },
+      { id: 'q1', team: 'P', x: 42, y: 100 },
+      { id: 'b', team: 'P', label: 'B', x: 110, y: 100 },
+      { id: 'c', team: 'P', label: 'C', x: 190, y: 100 },
+      { id: 'd', team: 'P', label: 'D', x: 270, y: 100 },
+    ],
+    ballStart: 'a',
+  },
 };

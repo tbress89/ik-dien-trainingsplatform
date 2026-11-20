@@ -5427,6 +5427,7 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { title: 'Inspelen en kaatsen.', text: 'A speelt in op B, en B kaatst de bal in één keer terug naar A.' },
       { title: 'Derde man.', text: 'Meteen na zijn kaatsbal sprint B buiten de poortjes naar voren. A speelt de bal door het eerste poortje naar C. C legt de bal af in de loop van B, buiten zijn poortje, en B speelt de bal naar D.' },
       { title: 'Doorschuiven.', text: 'Iedereen schuift een positie op: A gaat naar het eerste poortje, B naar het tweede en C naar D. D speelt de bal terug naar de rij en sluit achteraan aan.' },
+      { title: 'Varianten.', text: 'C diagonaal: na de kaatsbal komt C uit zijn poortje diagonaal naar A toe, naar rechts, en A speelt hem aan. C speelt de bal door het tweede poortje in de loop van B, de derde man.' },
       { title: 'Ritme.', text: 'Speel 3 reeksen van 4 minuten met 1 minuut rust. Wissel na elke reeks de kant waarlangs B loopt.' },
     ],
     easier: 'Laat C twee balcontacten nemen en zet de poortjes dichter bij elkaar.',
@@ -5451,6 +5452,28 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'pdiamond', fit: 'Zelfde thema' },
       { id: 'playoff', fit: 'Als vervolg' },
       { id: 'pten', fit: 'Als afsluiter' },
+    ],
+    versions: [
+      {
+        name: 'Basis',
+        text: 'C staat in het tweede poortje. A speelt recht door naar C, en C legt af in de loop van B, buiten zijn poortje.',
+        variant: 'thirdman',
+        videoStart: 3,
+      },
+      {
+        name: 'C diagonaal',
+        text: 'C start in het tweede poortje. Na de kaatsbal komt hij diagonaal naar A toe, naar rechts, en A speelt hem aan. C speelt de bal door het tweede poortje in de loop van B, de derde man, en B speelt naar D.',
+        variant: 'thirdman2',
+        videoStart: 45,
+        diagramSteps: [
+          ['Organisatie', 'Twee poortjes achter elkaar: A met de rij, B en C in de poortjes, D aan het einde'],
+          ['Inspelen', 'A speelt in op B'],
+          ['Kaatsen', 'B kaatst in één keer terug naar A'],
+          ['Naar C', 'C komt diagonaal naar A toe en A speelt hem aan; B start de loopactie van de derde man'],
+          ['Derde man', 'C speelt door het tweede poortje in de loop van B'],
+          ['Naar D', 'B speelt door naar D'],
+        ],
+      },
     ],
     source: {
       label: 'Third Man Combination Drill | 2 Variations | Football/Soccer Training',
