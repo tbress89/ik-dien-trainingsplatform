@@ -12,33 +12,34 @@
 export const RECOMMENDED: string[] = [
   // 1 · Essentieel: de klassiekers die in elke jeugdwerking thuishoren. Spelecht, breed inzetbaar,
   //     veel balcontacten, eenvoudig te organiseren.
+  'funino', // Funino: 3 tegen 3 op vier doeltjes
+  'pwall', // Kaatsen: één-twee-race naar het doeltje
+  'omwinner', // Winnaar blijft: 2 tegen 2 met wisselende duo's
+  'fshot', // Aannemen en schieten vanaf de zestien
   'rondo', // Rondo 4 tegen 1
+  'dbox', // Dribbelvak met opdrachten
+  'ps43', // Positiespel 4 tegen 4 + 3 jokers
+  'trans', // Omschakelen 4 tegen 4 op vier doeltjes
+  'pten', // Tienpassenspel 5 tegen 5
+  'd2v1', // 2 tegen 1 naar doel
+  'py', // Passvorm in Y met kaatsbal
+  'r52', // Rondo 5 tegen 2
   'game5', // Partijvorm 5 tegen 5 op grote doelen
   'duel', // 1 tegen 1 op kleine doeltjes
   'pass', // Passvierkant met doorbewegen
-  'funino', // Funino: 3 tegen 3 op vier doeltjes
-  'r52', // Rondo 5 tegen 2
-  'fshot', // Aannemen en schieten vanaf de zestien
-  'trans', // Omschakelen 4 tegen 4 op vier doeltjes
-  'pten', // Tienpassenspel 5 tegen 5
-  'dbox', // Dribbelvak met opdrachten
-  'd2v1', // 2 tegen 1 naar doel
   'pos', // Positiespel 5 tegen 5 + 3
-  'cmastery', // Balbeheersing: tikjes, zoolrol en V-beweging
   'prcp', // Tegendruk: voorkom 3 passes na balverlies
   'pr1v1', // 1 tegen 1 verdedigen: aansluiten en afremmen
   'dgates', // Poortjesspel 1 tegen 1
   'psbuild', // Opbouwen tegen druk: 4 + K tegen 2
+
+  // 2 · Sterke basis: bewezen oefeningen die een kernthema goed uitdiepen, voor de meeste leeftijden.
+  'cmastery', // Balbeheersing: tikjes, zoolrol en V-beweging
   'wprev', // Loopscholing en blessurepreventie
   'game', // Partijvorm 8 tegen 8 met zones
   'gkshot', // Schotstoppen vanuit de startpositie
-
-  // 2 · Sterke basis: bewezen oefeningen die een kernthema goed uitdiepen, voor de meeste leeftijden.
-  'pwall', // Kaatsen: één-twee-race naar het doeltje
-  'ps43', // Positiespel 4 tegen 4 + 3 jokers
   'fcross', // Afwerken na voorzet
   'dfeint', // Schijnbewegingen: passeren en versnellen
-  'omwinner', // Winnaar blijft: 2 tegen 2 met wisselende duo's
   'sg2v2j', // 2 tegen 2 voor de jongsten
   'fworld', // Wereldbeker
   'omwave2', // Omschakel-waves 2 tegen 2 op vier doeltjes
@@ -47,7 +48,6 @@ export const RECOMMENDED: string[] = [
   'sgnum', // Nummerspel: 1 tegen 1 tot 3 tegen 3
   'fgoals', // Doeltjesjacht
   'pr2v2', // 2 tegen 2: druk en dekking
-  'py', // Passvorm in Y met kaatsbal
   'pdy', // Passvorm in dubbele Y
   'playoff', // Ruitpassen: kaatsen en één-twee
   'pdrive', // Ruitpassen: opdribbelen, inspelen en breed wisselen
