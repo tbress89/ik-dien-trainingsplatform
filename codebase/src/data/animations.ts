@@ -1564,6 +1564,23 @@ const BEATS: Partial<Record<Variant, { beats: AnimBeat[] }>> = {
       },
     ],
   },
+  // Passvorm in dubbele Y (diagonaal)
+  doubley3: {
+    beats: [
+      { label: 'A speelt schuin naar B en volgt zijn pass', ms: 900, ball: 'b', moves: { a: [104, 128], a2: [50, 100] } },
+      { label: 'B speelt schuin over naar E en volgt', ms: 1000, ball: 'e', moves: { a: [120, 140], b: [176, 84] } },
+      { label: 'E speelt naar de rij bij D en sluit daar aan', ms: 900, ball: 'd', moves: { b: [200, 60], e: [252, 82] } },
+      { label: 'D speelt schuin naar C en volgt', ms: 900, ball: 'c', moves: { d: [216, 128], d2: [270, 100], e: [288, 100] } },
+      { label: 'C speelt schuin over naar F en volgt', ms: 1000, ball: 'f', moves: { d: [200, 140], c: [144, 84] } },
+      {
+        label: 'F speelt naar de rij bij A en sluit daar aan',
+        ms: 1000,
+        ball: 'a2',
+        moves: { c: [120, 60], f: [32, 100] },
+        labels: { a2: 'A', f: '', a: 'B', d: 'C', d2: 'D', e: '', b: 'E', c: 'F' },
+      },
+    ],
+  },
 };
 
 /** Every animation, with the lineup it starts from. */

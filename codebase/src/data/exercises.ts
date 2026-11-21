@@ -176,7 +176,8 @@ export type Variant =
   | 'thirdman'
   | 'thirdman2'
   | 'doubley'
-  | 'doubley2';
+  | 'doubley2'
+  | 'doubley3';
 
 export type ExerciseType = 'Warming-up' | 'Technisch' | 'Tactisch' | 'Fysiek' | 'Partijvorm';
 
