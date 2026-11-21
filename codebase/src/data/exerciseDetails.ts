@@ -5596,4 +5596,34 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'fcounter', fit: 'Als vervolg' },
     ],
   },
+  sgswap: {
+    summary:
+      'Twee ploegen van zes plus keepers spelen op grote doelen, maar telkens staan er twee spelers van één ploeg aan de kant. Elke minuut wisselt dat, zodat er altijd 6 tegen 4 gespeeld wordt en elke ploeg om de minuut moet omschakelen tussen overtal benutten en verdedigen in ondertal.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet een veld van ongeveer 50 × 35 meter uit met een groot doel en een keeper aan elke kant, en een wisselzone naast het veld ter hoogte van de middenlijn. Twee ploegen van zes; ploeg A begint met twee spelers in de wisselzone.' },
+      { title: 'Spelen.', text: 'Er wordt gewone partij gespeeld: 6 tegen 4 in het voordeel van ploeg B. Na een doelpunt of uitbal herneemt de keeper.' },
+      { title: 'Wisselen.', text: 'Na 1 minuut fluit de trainer: de twee spelers van ploeg A komen erin en twee spelers van ploeg B gaan meteen naar de wisselzone, terwijl het spel gewoon doorloopt. Nu speelt ploeg A in overtal. Zo wisselt het elke minuut; laat telkens andere spelers aan de kant gaan.' },
+      { title: 'Ritme.', text: 'Speel 2 reeksen van 8 minuten met 2 minuten rust. Tel de doelpunten per ploeg.' },
+    ],
+    easier: 'Speel 6 tegen 3, zodat het overtal groter is.',
+    harder: 'Laat een doelpunt in ondertal dubbel tellen.',
+    objectives: ['Overtal benutten', 'Verdedigen in ondertal', 'Snel omschakelen', 'Communicatie bij de wissel'],
+    coaching: [
+      'In overtal: maak het veld groot en zoek de vrije man.',
+      'In ondertal: blijf compact en zet het centrum dicht.',
+      'Wie aan de kant gaat, sprint meteen naar de wisselzone.',
+      'Wie erin komt, neemt meteen een vrije man of een zone over.',
+    ],
+    diagramSteps: [
+      ['Organisatie', '6 tegen 6 met keepers op grote doelen; ploeg A begint met twee spelers in de wisselzone'],
+      ['Overtal', 'Ploeg B speelt 6 tegen 4 en zoekt de vrije man'],
+      ['Wissel', 'Na 1 minuut komen de twee van ploeg A erin en gaan er twee van ploeg B naar de wisselzone'],
+    ],
+    related: [
+      { id: 'rondo', fit: 'Als warming-up' },
+      { id: 'press', fit: 'Zelfde thema' },
+      { id: 'pos', fit: 'Kern' },
+      { id: 'game', fit: 'Als afsluiter' },
+    ],
+  },
 };

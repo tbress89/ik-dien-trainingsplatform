@@ -99,6 +99,7 @@ export const RECOMMENDED: string[] = [
   // 3 · Waardevol en gerichter: goede oefeningen voor een specifiek thema, een leeftijd of een
   //     bepaald niveau.
   'press', // Druk zetten in blok 6 tegen 4
+  'sgswap', // Wisselend overtal: 6 tegen 4 op grote doelen
   'fcorner', // Hoekschoppen: aanvallen en verdedigen
   'fturn', // Aannemen en draaien: de spits met de rug naar doel
   'prline', // Verdedigen als lijn: samen opschuiven

@@ -1592,6 +1592,34 @@ const BEATS: Partial<Record<Variant, { beats: AnimBeat[] }>> = {
       },
     ],
   },
+  // Wisselend overtal: 6 tegen 4 op grote doelen
+  sgswap: {
+    beats: [
+      { label: 'Ploeg B speelt in overtal: 6 tegen 4', ms: 900, ball: 'p4', moves: { o4: [168, 66], o3: [214, 100] } },
+      { label: 'Zoek de vrije man', ms: 900, ball: 'p6', moves: { o1: [244, 76], o3: [218, 104] } },
+      { label: 'Afwerken op het grote doel', ms: 600, ball: [292, 86], moves: { ko: [282, 94] } },
+      {
+        label: 'Na 1 minuut: twee van ploeg A komen erin, twee van ploeg B gaan naar de wisselzone',
+        ms: 1600,
+        newBall: 'ko',
+        ball: 'ko',
+        moves: { ob1: [150, 120], ob2: [200, 78], p2: [124, 163], p5: [196, 163], ko: [280, 100] },
+      },
+      { label: 'Nu speelt ploeg A in overtal', ms: 900, ball: 'o3' },
+      { label: 'Ploeg A vindt de vrije man', ms: 900, ball: 'ob1', moves: { p3: [140, 108] } },
+      { label: 'Afwerken op het andere doel', ms: 600, ball: [28, 100], moves: { kp: [36, 98] } },
+      {
+        label: 'Na nog een minuut wisselt het weer',
+        ms: 1600,
+        newBall: 'p3',
+        ball: 'p3',
+        moves: {
+          ob1: [146, 163], ob2: [174, 163], p2: [90, 140], p5: [190, 130], p3: [130, 100],
+          o1: [250, 60], o3: [210, 110], o4: [160, 76], ko: [280, 100], kp: [40, 100],
+        },
+      },
+    ],
+  },
 };
 
 /** Every animation, with the lineup it starts from. */

@@ -1803,4 +1803,24 @@ export const LINEUPS: Partial<Record<Variant, Lineup>> = {
     ],
     ballStart: 'a',
   },
+  // Wisselend overtal: 6 tegen 4 op grote doelen
+  sgswap: {
+    actors: [
+      { id: 'kp', team: 'P', label: 'K', x: 40, y: 100 },
+      { id: 'p1', team: 'P', x: 90, y: 60 },
+      { id: 'p2', team: 'P', x: 90, y: 140 },
+      { id: 'p3', team: 'P', x: 130, y: 100 },
+      { id: 'p4', team: 'P', x: 180, y: 52 },
+      { id: 'p5', team: 'P', x: 190, y: 130 },
+      { id: 'p6', team: 'P', x: 230, y: 92 },
+      { id: 'ko', team: 'O', label: 'K', x: 280, y: 100 },
+      { id: 'o1', team: 'O', x: 250, y: 60 },
+      { id: 'o2', team: 'O', x: 250, y: 130 },
+      { id: 'o3', team: 'O', x: 210, y: 110 },
+      { id: 'o4', team: 'O', x: 160, y: 76 },
+      { id: 'ob1', team: 'O', x: 146, y: 163, joinsAt: 2 },
+      { id: 'ob2', team: 'O', x: 174, y: 163, joinsAt: 2 },
+    ],
+    ballStart: 'p3',
+  },
 };

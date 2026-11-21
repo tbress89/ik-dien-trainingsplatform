@@ -178,7 +178,8 @@ export type Variant =
   | 'thirdman2'
   | 'doubley'
   | 'doubley2'
-  | 'doubley3';
+  | 'doubley3'
+  | 'sgswap';
 
 export type ExerciseType = 'Warming-up' | 'Technisch' | 'Tactisch' | 'Fysiek' | 'Partijvorm';
 
@@ -4152,6 +4153,29 @@ export const EXERCISES: Exercise[] = [
       { name: 'Groot doel', qty: '1' },
       { name: 'Kegels', qty: '3' },
       { name: 'Ballen', qty: '12' },
+    ],
+  },
+  {
+    id: 'sgswap',
+    title: 'Wisselend overtal: 6 tegen 4 op grote doelen',
+    variant: 'sgswap',
+    type: 'Partijvorm',
+    phase: 'Aanvallen',
+    themes: ['Positiespel', 'Druk zetten'],
+    ages: ['U10–13', 'U14–15', 'U16–21'],
+    ageLabel: 'U12 – U21',
+    diff: 2,
+    pmin: 14,
+    players: '12 + 2 K',
+    playersDetail: '(6 × 2 + 2 K)',
+    min: 20,
+    intensity: 4,
+    field: '50 × 35 m',
+    materials: [
+      { name: 'Grote doelen', qty: '2' },
+      { name: 'Hesjes', qty: '6' },
+      { name: 'Ballen', qty: '10' },
+      { name: 'Kegels', qty: '8' },
     ],
   },
 ];
