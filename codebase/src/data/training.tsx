@@ -34,9 +34,6 @@ export const BLOCK_TARGETS: Record<Duration, Record<BlockId, number>> = {
 const DAY_NAMES = ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'];
 export const MONTH_NAMES = ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'];
 
-/** The team's regular training weekdays (0 = Sunday), highlighted in the date picker. */
-export const TRAINING_WEEKDAYS = [2, 4];
-
 /** "2026-09-29" → Date at local midnight. */
 export const parseISODate = (iso: string) => {
   const [y, m, d] = iso.split('-').map(Number);
@@ -104,12 +101,12 @@ const copyPlan = (p: Plan): Plan => ({ wu: [...p.wu], kern: [...p.kern], pv: [..
 /** Unique id that stays unique across page loads (trainings and plan items are stored). */
 const newId = (prefix: string) => `${prefix}${Date.now().toString(36)}${Math.random().toString(36).slice(2, 7)}`;
 
-/** First regular training day from today on that doesn't have a training yet. */
-function nextFreeTrainingDay(busy: string[]): string {
+/** First day from today on that doesn't have a training yet. */
+function nextFreeDay(busy: string[]): string {
   const d = parseISODate(todayISO());
   for (let i = 0; i < 366; i++, d.setDate(d.getDate() + 1)) {
     const iso = toISODate(d);
-    if (TRAINING_WEEKDAYS.includes(d.getDay()) && !busy.includes(iso)) return iso;
+    if (!busy.includes(iso)) return iso;
   }
   return todayISO();
 }
@@ -327,7 +324,7 @@ function storeConcept(t: Training | null) {
 
 const emptyTraining = (trainings: Session[], duration: Duration = 90): Training => ({
   id: null,
-  date: nextFreeTrainingDay(trainings.map((s) => s.date)),
+  date: nextFreeDay(trainings.map((s) => s.date)),
   team: lastTeam(trainings),
   theme: 'Omschakelen',
   duration,

@@ -78,7 +78,6 @@ input:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid #5B2B
 </sc-for>
 </div>
 <div style="display: flex; align-items: center; gap: 14px; padding-top: 10px; border-top: 1px solid #F1EDF9; font-size: 12px; color: #3D3552">
-<span style="display: flex; align-items: center; gap: 6px"><span style="width: 14px; height: 14px; border-radius: 4px; background: #EFE9FB; border: 1px solid #C7B6EF"></span>Trainingsdag</span>
 <span style="display: flex; align-items: center; gap: 6px"><span style="width: 6px; height: 6px; border-radius: 99px; background: #F2A541"></span>Al een training</span>
 <button type="button" onClick="{{closeCal}}" style="margin-left: auto; height: 36px; padding: 0 16px; border: 0; border-radius: 10px; background: #5B2BC4; color: #FFFFFF; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer">Klaar</button>
 </div>
@@ -376,7 +375,6 @@ function timeLabel(d) { var end = 18 * 60 + d; var pad = function (n) { return (
 var uidN = 10;
 var MONTHS = ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'];
 var DAYNAMES = ['Zondag', 'Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag'];
-var TRAINING_DAYS = [2, 4];
 var TODAY = '2026-09-25';
 var BUSY = ['2026-09-10', '2026-09-15', '2026-09-17', '2026-09-22', '2026-10-01', '2026-10-06', '2026-10-08'];
 function iso(y, m, d) { var p = function (n) { return (n < 10 ? '0' : '') + n; }; return y + '-' + p(m + 1) + '-' + p(d); }
@@ -491,17 +489,16 @@ class Component extends DCLogic {
             var key = iso(st.calY, st.calM, d);
             var wd = new Date(st.calY, st.calM, d).getDay();
             var on = key === st.date, past = key < TODAY, busy = BUSY.indexOf(key) >= 0 && !on;
-            var tday = TRAINING_DAYS.indexOf(wd) >= 0, today = key === TODAY;
+            var today = key === TODAY;
             var disabled = past || busy;
             var s;
             if (on) s = 'background:#5B2BC4;color:#FFFFFF;font-weight:700;border:1px solid #5B2BC4;cursor:pointer';
             else if (disabled) s = 'background:transparent;color:#B8B0CC;border:1px solid transparent;cursor:not-allowed' + (busy ? ';font-weight:600' : '');
-            else if (tday) s = 'background:#EFE9FB;color:#2A1464;font-weight:700;border:1px solid #C7B6EF;cursor:pointer';
             else s = 'background:transparent;color:#1A1033;border:1px solid transparent;cursor:pointer';
             if (today && !on) s += ';box-shadow:inset 0 0 0 2px #1A1033';
             out.push({ blank: false, isDay: true, num: d, on: on, busy: busy, disabled: disabled,
               label: DAYNAMES[wd] + ' ' + d + ' ' + MONTHS[st.calM] + (busy ? ', er staat al een training' : '') + (past ? ', voorbij' : ''),
-              hint: busy ? 'Er staat al een training op deze dag' : (past ? 'Deze dag is voorbij' : (tday ? 'Vaste trainingsdag' : '')),
+              hint: busy ? 'Er staat al een training op deze dag' : (past ? 'Deze dag is voorbij' : ''),
               st: s, pick: function () { if (!disabled) self.setState({ date: key, calOpen: false }); } });
           })(d);
         }

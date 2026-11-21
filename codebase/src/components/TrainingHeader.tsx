@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { EXERCISES, THEMES } from '../data/exercises';
 import {
   MONTH_NAMES,
-  TRAINING_WEEKDAYS,
   formatTrainingDate,
   parseISODate,
   toISODate,
@@ -135,13 +134,11 @@ function DatePicker({ label }: { label: string }) {
               const isSelected = iso === date;
               const isPast = iso < today;
               const isBusy = busyDates.includes(iso) && !isSelected;
-              const isTrainingDay = TRAINING_WEEKDAYS.includes(day.getDay());
               const disabled = isPast || isBusy;
               const name = formatTrainingDate(iso);
               const classes = ['calendar-day'];
               if (isSelected) classes.push('is-selected');
               else if (disabled) classes.push('is-disabled');
-              else if (isTrainingDay) classes.push('is-training');
               if (iso === today && !isSelected) classes.push('is-today');
               return (
                 <button
@@ -151,7 +148,7 @@ function DatePicker({ label }: { label: string }) {
                   disabled={disabled}
                   aria-pressed={isSelected}
                   aria-label={`${name}${isBusy ? ', er staat al een training' : ''}${isPast ? ', voorbij' : ''}`}
-                  title={isBusy ? 'Er staat al een training op deze dag' : isPast ? 'Deze dag is voorbij' : isTrainingDay ? 'Vaste trainingsdag' : undefined}
+                  title={isBusy ? 'Er staat al een training op deze dag' : isPast ? 'Deze dag is voorbij' : undefined}
                   onClick={() => {
                     setDate(iso);
                     setOpen(false);
@@ -165,10 +162,6 @@ function DatePicker({ label }: { label: string }) {
             })}
           </div>
           <div className="calendar-legend">
-            <span>
-              <span className="legend-training" />
-              Trainingsdag
-            </span>
             <span>
               <span className="legend-busy" />
               Al een training

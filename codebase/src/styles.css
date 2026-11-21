@@ -1380,12 +1380,6 @@ a:focus-visible,
 .calendar-day:hover:not(:disabled):not(.is-selected) {
   background: var(--purple-tint);
 }
-.calendar-day.is-training {
-  background: var(--purple-soft);
-  border-color: var(--line-accent);
-  color: var(--purple-dark);
-  font-weight: 700;
-}
 .calendar-day.is-selected {
   background: var(--purple);
   border-color: var(--purple);
@@ -1422,13 +1416,6 @@ a:focus-visible,
   display: flex;
   align-items: center;
   gap: 6px;
-}
-.legend-training {
-  width: 14px;
-  height: 14px;
-  border-radius: 4px;
-  background: var(--purple-soft);
-  border: 1px solid var(--line-accent);
 }
 .legend-busy {
   width: 6px;
