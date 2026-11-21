@@ -872,6 +872,18 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       Pass(238, 58, 264, 84, 3),
       LINEUP,
     ],
+    fcombi: [
+      Box(250, 50, 60, 100),
+      Goal(304, 78, 10, 44),
+      Pass(156, 157, 214, 105, 1),
+      Pass(214, 98, 158, 98, 2),
+      Pass(158, 104, 250, 156, 3),
+      Run('M158 166 L254 162', 3),
+      Run('M226 106 Q250 112 266 88', 4),
+      Run('M156 94 Q232 74 262 112', 4),
+      Pass(258, 156, 262, 118, 5),
+      LINEUP,
+    ],
     fcorner: [
       Box(250, 50, 60, 100),
       Goal(304, 78, 10, 44),

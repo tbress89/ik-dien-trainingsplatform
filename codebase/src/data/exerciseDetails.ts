@@ -5563,4 +5563,37 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       youtube: { id: 'oyBY9NllYa8', start: 13 },
     },
   },
+  fcombi: {
+    summary:
+      'De flankspeler speelt de spits aan, die legt af op de middenvelder, en die stuurt de flankspeler met een steekpass diep. De flankspeler geeft de voorzet en spits en middenvelder kruisen naar de eerste en de tweede paal om af te werken. Traint de derdemanscombinatie, de diepe loopactie op de flank en de loopacties in de zestien.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet een groot doel met keeper op een halve veld. Leg drie kegels: de spits (B) net voor de zestien, de middenvelder (C) 15 meter daarachter en de flankspeler (A) op de rechterflank, op dezelfde hoogte als de middenvelder. Zet de overige spelers in een rij achter elke kegel.' },
+      { title: 'Combinatie.', text: 'A speelt B aan, B legt in één keer af op C. Op het moment dat B aflegt, sprint A diep langs de zijlijn en C speelt de steekpass schuin in zijn loop, richting de hoek van de zestien.' },
+      { title: 'Voorzet en afwerken.', text: 'A neemt mee en geeft de voorzet voor doel. B en C kruisen: de ene loopt naar de eerste paal, de andere naar de tweede. Werk in één keer af op doel.' },
+      { title: 'Ritme.', text: 'Speel 3 reeksen van 4 minuten met 1 minuut rust. Elke speler schuift na zijn actie door naar de volgende positie (A → B → C → A). Wissel na twee reeksen van flank.' },
+    ],
+    easier: 'Laat A de bal eerst aannemen en dan voorzetten, en zet geen keeper in doel.',
+    harder: 'Speel alles in één keer, ook de voorzet. Zet een verdediger in de zestien die de voorzet mag onderscheppen.',
+    objectives: ['Derdemanscombinatie', 'Steekpass in de loop', 'Voorzet', 'Kruisende loopacties in de zestien'],
+    coaching: [
+      'A: start je diepe loopactie zodra B aflegt, niet eerder.',
+      'C: speel de steekpass voor de flankspeler uit, in de ruimte, niet in de voeten.',
+      'B en C: kruis je loopacties en spreek af wie naar de eerste paal gaat.',
+      'Voorzet tussen keeper en verdedigers, en werk af in één keer.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Flankspeler A, spits B en middenvelder C'],
+      ['Inspelen', 'A speelt de spits aan'],
+      ['Afleggen', 'B legt af op C'],
+      ['Steekpass', 'C stuurt A diep langs de flank'],
+      ['Inlopen', 'B en C kruisen naar de eerste en de tweede paal'],
+      ['Voorzet', 'A geeft de voorzet voor doel'],
+    ],
+    related: [
+      { id: 'pdy', fit: 'Als warming-up' },
+      { id: 'fcross', fit: 'Zelfde thema' },
+      { id: 'pthird', fit: 'Als warming-up' },
+      { id: 'fcounter', fit: 'Als vervolg' },
+    ],
+  },
 };

@@ -493,6 +493,17 @@ const BEATS: Partial<Record<Variant, { beats: AnimBeat[] }>> = {
       { label: 'In één keer afwerken', ms: 500, ball: [306, 92] },
     ],
   },
+  // Combinatie over de flank: steekpass en voorzet
+  fcombi: {
+    beats: [
+      { label: 'A speelt de spits aan', ms: 700, ball: 'b' },
+      { label: 'B legt in één keer af op C', ms: 700, ball: 'c' },
+      { label: 'Steekpass in de loop van A', ms: 1100, ball: 'a', moves: { a: [256, 160] } },
+      { label: 'B en C kruisen naar de eerste en de tweede paal', ms: 900, ball: 'a', moves: { a: [262, 152], b: [266, 86], c: [262, 114] } },
+      { label: 'Voorzet voor doel', ms: 700, ball: 'c', moves: { k: [294, 108] } },
+      { label: 'In één keer afwerken', ms: 500, ball: [306, 110] },
+    ],
+  },
   // Terugleggen vanaf de achterlijn
   fcutback: {
     beats: [

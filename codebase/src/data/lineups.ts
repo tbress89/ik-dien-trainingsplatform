@@ -533,6 +533,17 @@ export const LINEUPS: Partial<Record<Variant, Lineup>> = {
     ],
     ballStart: 'w',
   },
+  // Combinatie over de flank: steekpass en voorzet
+  fcombi: {
+    actors: [
+      { id: 'a', team: 'P', label: 'A', x: 150, y: 162 },
+      { id: 'c', team: 'P', label: 'C', x: 150, y: 100 },
+      { id: 'b', team: 'P', label: 'B', x: 220, y: 100 },
+      { id: 'k', team: 'O', x: 292, y: 100 },
+    ],
+    ballStart: 'a',
+    diagramBall: { offset: [10, -4] },
+  },
   // Terugleggen vanaf de achterlijn
   fcutback: {
     actors: [

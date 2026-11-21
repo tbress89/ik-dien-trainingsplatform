@@ -56,6 +56,7 @@ export type Variant =
   | 'fshot'
   | 'fvolley'
   | 'fcross'
+  | 'fcombi'
   | 'fcorner'
   | 'fturn'
   | 'defline'
@@ -4129,6 +4130,28 @@ export const EXERCISES: Exercise[] = [
     materials: [
       { name: 'Kegels', qty: '6 (of palen)' },
       { name: 'Ballen', qty: '4' },
+    ],
+  },
+  {
+    id: 'fcombi',
+    title: 'Combinatie over de flank: steekpass en voorzet',
+    variant: 'fcombi',
+    type: 'Tactisch',
+    phase: 'Aanvallen',
+    themes: ['Afwerken', 'Passing & aanname'],
+    ages: ['U10–13', 'U14–15', 'U16–21'],
+    ageLabel: 'U11 – U21',
+    diff: 2,
+    pmin: 4,
+    players: '4–12',
+    playersDetail: '(flankspeler, spits, middenvelder + K)',
+    min: 15,
+    intensity: 3,
+    field: 'Halve veld',
+    materials: [
+      { name: 'Groot doel', qty: '1' },
+      { name: 'Kegels', qty: '3' },
+      { name: 'Ballen', qty: '12' },
     ],
   },
 ];

@@ -39,6 +39,7 @@ export const RECOMMENDED: string[] = [
   'game', // Partijvorm 8 tegen 8 met zones
   'gkshot', // Schotstoppen vanuit de startpositie
   'fcross', // Afwerken na voorzet
+  'fcombi', // Combinatie over de flank: steekpass en voorzet
   'dfeint', // Schijnbewegingen: passeren en versnellen
   'sg2v2j', // 2 tegen 2 voor de jongsten
   'fworld', // Wereldbeker
