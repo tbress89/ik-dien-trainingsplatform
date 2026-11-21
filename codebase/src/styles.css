@@ -1774,6 +1774,15 @@ a:focus-visible,
 .plan-card.is-dragging {
   opacity: 0.4;
 }
+/* Where a dragged exercise will land. The negative margins cancel its height plus the gap, so cards don't shift. */
+.drop-line {
+  flex-shrink: 0;
+  height: 4px;
+  margin: -7px 0;
+  border-radius: 2px;
+  background: var(--purple);
+  box-shadow: 0 0 0 3px var(--tint-hover);
+}
 .plan-card-media {
   position: relative;
   height: 104px;

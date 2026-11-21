@@ -145,10 +145,12 @@ interface TrainingContextValue {
   setDuration: (d: Duration) => void;
   activeBlock: BlockId;
   setActiveBlock: (id: BlockId) => void;
-  addExercise: (block: BlockId, exId: string, min?: number) => void;
+  /** Adds an exercise to a block: at position `at` when given (e.g. where it was dropped), otherwise at the end. */
+  addExercise: (block: BlockId, exId: string, min?: number, at?: number) => void;
   removeItem: (block: BlockId, index: number) => void;
   changeMinutes: (block: BlockId, index: number, delta: number) => void;
-  moveItem: (from: BlockId, index: number, to: BlockId) => void;
+  /** Moves an exercise within its block or to another one (see `movePlanItem`). */
+  moveItem: (from: BlockId, index: number, to: BlockId, at?: number) => void;
   favs: string[];
   toggleFav: (exId: string) => void;
   /** State of the sync with the account; 'idle' also when there is no account. */
@@ -291,6 +293,24 @@ export function sameTraining(a: Omit<Training, 'id'>, b: Omit<Training, 'id'>): 
 }
 
 export const hasExercises = (t: Pick<Training, 'plan'>) => BLOCKS.some((b) => t.plan[b.id].length > 0);
+
+/**
+ * Moves the exercise at `index` in block `from` to position `at` in block `to` (the end when left out). `at` counts
+ * the gaps in the target block as it is before the move, the way a drop line shows them: 0 is above the first
+ * exercise. Dropping an exercise just above or below itself changes nothing and returns the same plan.
+ */
+export function movePlanItem(plan: Plan, from: BlockId, index: number, to: BlockId, at?: number): Plan {
+  const moved = plan[from][index];
+  if (!moved) return plan;
+  let pos = at === undefined ? plan[to].length : Math.max(0, Math.min(at, plan[to].length));
+  if (from === to) {
+    if (pos === index || pos === index + 1) return plan;
+    if (pos > index) pos -= 1;
+  }
+  const next = { ...plan, [from]: plan[from].filter((_, i) => i !== index) };
+  next[to] = [...next[to].slice(0, pos), moved, ...next[to].slice(pos)];
+  return next;
+}
 
 /**
  * A new training that isn't saved yet is kept here as a safety net (a phone may discard the tab in the
@@ -666,9 +686,12 @@ export function TrainingProvider({ children }: { children: ReactNode }) {
     [sessions, updatePending, scheduleFlush],
   );
 
-  const addExercise = useCallback((block: BlockId, exId: string, min?: number) => {
+  const addExercise = useCallback((block: BlockId, exId: string, min?: number, at?: number) => {
     const item = { uid: newId('i'), ex: exId, min: min ?? EXERCISE_BY_ID[exId].min };
-    setPlan((p) => ({ ...p, [block]: [...p[block], item] }));
+    setPlan((p) => {
+      const pos = at === undefined ? p[block].length : Math.max(0, Math.min(at, p[block].length));
+      return { ...p, [block]: [...p[block].slice(0, pos), item, ...p[block].slice(pos)] };
+    });
     setActiveBlock(block);
   }, []);
 
@@ -683,14 +706,8 @@ export function TrainingProvider({ children }: { children: ReactNode }) {
     }));
   }, []);
 
-  const moveItem = useCallback((from: BlockId, index: number, to: BlockId) => {
-    setPlan((p) => {
-      const moved = p[from][index];
-      if (!moved) return p;
-      const next = { ...p, [from]: p[from].filter((_, i) => i !== index) };
-      next[to] = [...next[to], moved];
-      return next;
-    });
+  const moveItem = useCallback((from: BlockId, index: number, to: BlockId, at?: number) => {
+    setPlan((p) => movePlanItem(p, from, index, to, at));
     setActiveBlock(to);
   }, []);
 

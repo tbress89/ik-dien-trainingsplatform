@@ -5,11 +5,13 @@ import {
   formatTrainingDate,
   hasExercises,
   lastTeam,
+  movePlanItem,
   readConcept,
   readFavs,
   readTrainings,
   relativeDay,
   sameTraining,
+  type Plan,
   type Session,
 } from './training';
 
@@ -155,5 +157,38 @@ describe('autosave and the unsaved-training safety net', () => {
     expect(readConcept({ ...base, date: 'morgen' })).toBeNull();
     expect(readConcept(null)).toBeNull();
     expect(readConcept('training')).toBeNull();
+  });
+});
+
+describe('moving an exercise in the plan (drag and drop in the builder)', () => {
+  const item = (uid: string) => ({ uid, ex: 'dbox', min: 10 });
+  const plan = (): Plan => ({ wu: [item('a'), item('b'), item('c')], kern: [item('k')], pv: [] });
+  const uids = (p: Plan) => ({ wu: p.wu.map((i) => i.uid), kern: p.kern.map((i) => i.uid), pv: p.pv.map((i) => i.uid) });
+
+  it('moves an exercise down within its block', () => {
+    expect(uids(movePlanItem(plan(), 'wu', 0, 'wu', 3)).wu).toEqual(['b', 'c', 'a']);
+    expect(uids(movePlanItem(plan(), 'wu', 0, 'wu', 2)).wu).toEqual(['b', 'a', 'c']);
+  });
+
+  it('moves an exercise up within its block', () => {
+    expect(uids(movePlanItem(plan(), 'wu', 2, 'wu', 0)).wu).toEqual(['c', 'a', 'b']);
+    expect(uids(movePlanItem(plan(), 'wu', 2, 'wu', 1)).wu).toEqual(['a', 'c', 'b']);
+  });
+
+  it('changes nothing when dropped just above or below itself', () => {
+    const p = plan();
+    expect(movePlanItem(p, 'wu', 1, 'wu', 1)).toBe(p);
+    expect(movePlanItem(p, 'wu', 1, 'wu', 2)).toBe(p);
+  });
+
+  it('moves an exercise to a position in another block, or to its end', () => {
+    expect(uids(movePlanItem(plan(), 'wu', 1, 'kern', 0))).toEqual({ wu: ['a', 'c'], kern: ['b', 'k'], pv: [] });
+    expect(uids(movePlanItem(plan(), 'wu', 1, 'kern'))).toEqual({ wu: ['a', 'c'], kern: ['k', 'b'], pv: [] });
+    expect(uids(movePlanItem(plan(), 'kern', 0, 'pv', 5))).toEqual({ wu: ['a', 'b', 'c'], kern: [], pv: ['k'] });
+  });
+
+  it('ignores an index that has no exercise', () => {
+    const p = plan();
+    expect(movePlanItem(p, 'pv', 0, 'wu', 0)).toBe(p);
   });
 });

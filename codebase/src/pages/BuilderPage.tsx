@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState, type DragEvent } from 'react';
+import { Fragment, useCallback, useEffect, useRef, useState, type DragEvent } from 'react';
 import { Link, Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Pitch } from '../components/Pitch';
 import { ConfirmDialog } from '../components/ConfirmDialog';
@@ -51,6 +51,10 @@ export function BuilderPage() {
   const [hover, setHover] = useState<BlockId | null>(null);
   const [dragging, setDragging] = useState<DragSource | null>(null);
   const drag = useRef<DragSource | null>(null);
+  /** Where a drop would land: block and gap (0 is above the first exercise), shown as a line between the cards. */
+  const [dropAt, setDropAt] = useState<{ block: BlockId; index: number } | null>(null);
+  const dropAtRef = useRef(dropAt);
+  dropAtRef.current = dropAt;
   const [toast, setToast] = useState<string | null>(null);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [libraryOpen, setLibraryOpen] = useState(false);
@@ -154,15 +158,38 @@ export function BuilderPage() {
     drag.current = null;
     setDragging(null);
     setHover(null);
+    setDropAt(null);
+  };
+  /** Dragging over a block: the drop goes above the first card whose middle is below the pointer, else at the end. */
+  const dragOverBlock = (ev: DragEvent<HTMLElement>, block: BlockId) => {
+    ev.preventDefault();
+    if (hover !== block) setHover(block);
+    const cards = ev.currentTarget.querySelectorAll('.plan-card');
+    let index = cards.length;
+    for (let i = 0; i < cards.length; i++) {
+      const r = cards[i].getBoundingClientRect();
+      if (ev.clientY < r.top + r.height / 2) {
+        index = i;
+        break;
+      }
+    }
+    const cur = dropAtRef.current;
+    if (!cur || cur.block !== block || cur.index !== index) setDropAt({ block, index });
   };
   const drop = (ev: DragEvent, to: BlockId) => {
     ev.preventDefault();
     const d = drag.current;
+    const at = dropAtRef.current?.block === to ? dropAtRef.current.index : undefined;
     endDrag();
     if (!d) return;
-    if (d.src === 'lib') addExercise(to, d.ex);
-    else if (d.from !== to) moveItem(d.from, d.idx, to);
+    if (d.src === 'lib') addExercise(to, d.ex, undefined, at);
+    else moveItem(d.from, d.idx, to, at);
   };
+  /** The drop line, unless dropping there wouldn't change anything (a card just above or below itself). */
+  const showDropLine = (block: BlockId, index: number) =>
+    dropAt?.block === block &&
+    dropAt.index === index &&
+    !(dragging?.src === 'card' && dragging.from === block && (index === dragging.idx || index === dragging.idx + 1));
 
   // Totals
   const used = Object.fromEntries(BLOCKS.map((b) => [b.id, plan[b.id].reduce((s, it) => s + it.min, 0)])) as Record<BlockId, number>;
@@ -458,12 +485,12 @@ export function BuilderPage() {
                 key={b.id}
                 aria-label={b.name}
                 className={`block${isActive ? ' is-active' : ''}${isHover ? ' is-hover' : ''}`}
-                onDragOver={(ev) => {
-                  ev.preventDefault();
-                  if (hover !== b.id) setHover(b.id);
-                }}
+                onDragOver={(ev) => dragOverBlock(ev, b.id)}
                 onDragLeave={(ev) => {
-                  if (!ev.currentTarget.contains(ev.relatedTarget as Node)) setHover((h) => (h === b.id ? null : h));
+                  if (!ev.currentTarget.contains(ev.relatedTarget as Node)) {
+                    setHover((h) => (h === b.id ? null : h));
+                    setDropAt((d) => (d?.block === b.id ? null : d));
+                  }
                 }}
                 onDrop={(ev) => drop(ev, b.id)}
               >
@@ -486,57 +513,61 @@ export function BuilderPage() {
                     const e = EXERCISE_BY_ID[it.ex];
                     const isDragging = dragging?.src === 'card' && dragging.from === b.id && dragging.idx === idx;
                     return (
-                      <article
-                        key={it.uid}
-                        className={`plan-card${isDragging ? ' is-dragging' : ''}`}
-                        draggable
-                        onDragStart={(ev) => startDrag(ev, { src: 'card', from: b.id, idx }, 'move')}
-                        onDragEnd={endDrag}
-                      >
-                        <div className="plan-card-media">
-                          <Pitch variant={e.variant} />
-                          <button
-                            type="button"
-                            className="plan-card-remove"
-                            onClick={() => removeItem(b.id, idx)}
-                            aria-label={`Verwijder ${e.title}`}
-                          >
-                            <CloseIcon />
-                          </button>
-                        </div>
-                        <div className="plan-card-body">
-                          <div className="lib-info" style={{ gap: 3 }}>
-                            <Link to={`/oefeningen/${e.id}`} className="plan-card-title" draggable={false}>
-                              {e.title}
-                            </Link>
-                            <span className="lib-meta">
-                              <span className="dot" style={{ background: TYPE_COLOR[e.type] }} />
-                              {e.type} · {e.players} spelers
-                            </span>
-                          </div>
-                          <div className="stepper">
+                      <Fragment key={it.uid}>
+                        {showDropLine(b.id, idx) && <div className="drop-line" aria-hidden="true" />}
+                        <article
+                          className={`plan-card${isDragging ? ' is-dragging' : ''}`}
+                          title="Sleep om de volgorde te wijzigen"
+                          draggable
+                          onDragStart={(ev) => startDrag(ev, { src: 'card', from: b.id, idx }, 'move')}
+                          onDragEnd={endDrag}
+                        >
+                          <div className="plan-card-media">
+                            <Pitch variant={e.variant} />
                             <button
                               type="button"
-                              onClick={() => changeMinutes(b.id, idx, -5)}
-                              disabled={it.min <= 5}
-                              aria-label="5 minuten korter"
+                              className="plan-card-remove"
+                              onClick={() => removeItem(b.id, idx)}
+                              aria-label={`Verwijder ${e.title}`}
                             >
-                              −
-                            </button>
-                            <span className="stepper-value">{it.min} min</span>
-                            <button
-                              type="button"
-                              onClick={() => changeMinutes(b.id, idx, 5)}
-                              disabled={it.min >= 45}
-                              aria-label="5 minuten langer"
-                            >
-                              +
+                              <CloseIcon />
                             </button>
                           </div>
-                        </div>
-                      </article>
+                          <div className="plan-card-body">
+                            <div className="lib-info" style={{ gap: 3 }}>
+                              <Link to={`/oefeningen/${e.id}`} className="plan-card-title" draggable={false}>
+                                {e.title}
+                              </Link>
+                              <span className="lib-meta">
+                                <span className="dot" style={{ background: TYPE_COLOR[e.type] }} />
+                                {e.type} · {e.players} spelers
+                              </span>
+                            </div>
+                            <div className="stepper">
+                              <button
+                                type="button"
+                                onClick={() => changeMinutes(b.id, idx, -5)}
+                                disabled={it.min <= 5}
+                                aria-label="5 minuten korter"
+                              >
+                                −
+                              </button>
+                              <span className="stepper-value">{it.min} min</span>
+                              <button
+                                type="button"
+                                onClick={() => changeMinutes(b.id, idx, 5)}
+                                disabled={it.min >= 45}
+                                aria-label="5 minuten langer"
+                              >
+                                +
+                              </button>
+                            </div>
+                          </div>
+                        </article>
+                      </Fragment>
                     );
                   })}
+                  {showDropLine(b.id, items.length) && <div className="drop-line" aria-hidden="true" />}
                   {/* Also the drop target for dragging on a computer; the button works everywhere, including touch. */}
                   <button type="button" className={`drop-slot${empty ? ' is-empty' : ''}`} onClick={() => addTo(b.id)}>
                     <PlusIcon size={22} strokeWidth={2} />
