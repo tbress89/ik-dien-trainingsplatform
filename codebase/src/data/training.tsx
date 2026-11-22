@@ -313,6 +313,23 @@ export function movePlanItem(plan: Plan, from: BlockId, index: number, to: Block
 }
 
 /**
+ * Where the up/down buttons move an exercise, as arguments for `movePlanItem`: one place up or down in its block,
+ * or, from the top or bottom of a block, to the end of the previous block or the start of the next one. Null when
+ * there's nowhere to go (the very first exercise going up, the very last going down).
+ */
+export function stepPlanItem(plan: Plan, block: BlockId, index: number, dir: -1 | 1): { to: BlockId; at: number } | null {
+  const bi = BLOCKS.findIndex((b) => b.id === block);
+  if (dir === -1) {
+    if (index > 0) return { to: block, at: index - 1 };
+    const prev = BLOCKS[bi - 1];
+    return prev ? { to: prev.id, at: plan[prev.id].length } : null;
+  }
+  if (index < plan[block].length - 1) return { to: block, at: index + 2 };
+  const next = BLOCKS[bi + 1];
+  return next ? { to: next.id, at: 0 } : null;
+}
+
+/**
  * A new training that isn't saved yet is kept here as a safety net (a phone may discard the tab in the
  * background), so the builder can offer to continue with it. It only joins the saved trainings on "Opslaan".
  */

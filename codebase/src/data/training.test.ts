@@ -6,6 +6,7 @@ import {
   hasExercises,
   lastTeam,
   movePlanItem,
+  stepPlanItem,
   readConcept,
   readFavs,
   readTrainings,
@@ -190,5 +191,27 @@ describe('moving an exercise in the plan (drag and drop in the builder)', () => 
   it('ignores an index that has no exercise', () => {
     const p = plan();
     expect(movePlanItem(p, 'pv', 0, 'wu', 0)).toBe(p);
+  });
+});
+
+describe('the up and down buttons on an exercise', () => {
+  const item = (uid: string) => ({ uid, ex: 'dbox', min: 10 });
+  const plan: Plan = { wu: [item('a'), item('b')], kern: [item('k')], pv: [] };
+
+  it('moves one place within the block', () => {
+    expect(stepPlanItem(plan, 'wu', 1, -1)).toEqual({ to: 'wu', at: 0 });
+    expect(stepPlanItem(plan, 'wu', 0, 1)).toEqual({ to: 'wu', at: 2 });
+    expect(movePlanItem(plan, 'wu', 0, 'wu', 2).wu.map((i) => i.uid)).toEqual(['b', 'a']);
+  });
+
+  it('crosses into the neighbouring block from the top or bottom of a block', () => {
+    expect(stepPlanItem(plan, 'kern', 0, -1)).toEqual({ to: 'wu', at: 2 });
+    expect(stepPlanItem(plan, 'wu', 1, 1)).toEqual({ to: 'kern', at: 0 });
+    expect(stepPlanItem(plan, 'kern', 0, 1)).toEqual({ to: 'pv', at: 0 });
+  });
+
+  it('has nowhere to go for the very first exercise going up or the very last going down', () => {
+    expect(stepPlanItem(plan, 'wu', 0, -1)).toBeNull();
+    expect(stepPlanItem({ ...plan, pv: [item('p')] }, 'pv', 0, 1)).toBeNull();
   });
 });

@@ -6,6 +6,8 @@ import { TrainingHeader } from '../components/TrainingHeader';
 import { useDismiss } from '../components/useDismiss';
 import { trainingTitle } from '../components/TrainingSheet';
 import {
+  ArrowDownIcon,
+  ArrowUpIcon,
   BookmarkIcon,
   CheckIcon,
   CloseIcon,
@@ -21,7 +23,7 @@ import {
 } from '../components/icons';
 import { EXERCISES, EXERCISE_BY_ID, TYPE_COLOR, materialNames, shortAgeLabel, type Exercise, type ExerciseType } from '../data/exercises';
 import { shareUrl } from '../data/share';
-import { BLOCKS, BLOCK_TARGETS, DURATIONS, formatTrainingDate, hasExercises, trainingPath, useTraining, type BlockId } from '../data/training';
+import { BLOCKS, BLOCK_TARGETS, DURATIONS, formatTrainingDate, hasExercises, stepPlanItem, trainingPath, useTraining, type BlockId } from '../data/training';
 
 /** "Bewaard" shows the exercises saved with the bookmark on the dashboard or an exercise page. */
 const TABS: ('Alle' | 'Bewaard' | ExerciseType)[] = ['Alle', 'Bewaard', 'Warming-up', 'Technisch', 'Tactisch', 'Partijvorm'];
@@ -524,6 +526,30 @@ export function BuilderPage() {
                         >
                           <div className="plan-card-media">
                             <Pitch variant={e.variant} />
+                            <div className="plan-card-order">
+                              {([-1, 1] as const).map((dir) => {
+                                const spot = stepPlanItem(plan, b.id, idx, dir);
+                                // From the top or bottom of a block the button moves to the neighbouring block, and says so.
+                                const label =
+                                  spot && spot.to !== b.id
+                                    ? `Naar ${BLOCKS.find((x) => x.id === spot.to)!.name}`
+                                    : dir === -1
+                                      ? 'Omhoog'
+                                      : 'Omlaag';
+                                return (
+                                  <button
+                                    key={dir}
+                                    type="button"
+                                    disabled={!spot}
+                                    onClick={() => spot && moveItem(b.id, idx, spot.to, spot.at)}
+                                    aria-label={`${e.title}: ${label.toLowerCase()}`}
+                                    title={label}
+                                  >
+                                    {dir === -1 ? <ArrowUpIcon size={15} /> : <ArrowDownIcon size={15} />}
+                                  </button>
+                                );
+                              })}
+                            </div>
                             <button
                               type="button"
                               className="plan-card-remove"

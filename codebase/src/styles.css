@@ -1803,6 +1803,35 @@ a:focus-visible,
   justify-content: center;
   box-shadow: 0 1px 3px rgba(26, 16, 51, 0.14);
 }
+/* Up and down buttons: also the way to reorder on touch screens and with the keyboard. */
+.plan-card-order {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.plan-card-order button {
+  width: 32px;
+  height: 28px;
+  border-radius: 9px;
+  border: 0;
+  background: var(--card);
+  color: var(--ink-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(26, 16, 51, 0.14);
+  cursor: pointer;
+}
+.plan-card-order button:hover:not(:disabled) {
+  color: var(--purple);
+}
+.plan-card-order button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
 .plan-card-body {
   padding: 12px;
   display: flex;
