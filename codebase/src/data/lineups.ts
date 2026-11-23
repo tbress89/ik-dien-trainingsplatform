@@ -1823,4 +1823,16 @@ export const LINEUPS: Partial<Record<Variant, Lineup>> = {
     ],
     ballStart: 'p3',
   },
+  // Derde man en afwerken op groot doel
+  fthird: {
+    actors: [
+      { id: 'a', team: 'P', label: 'A', x: 70, y: 100 },
+      { id: 'q1', team: 'P', x: 52, y: 100 },
+      { id: 'b', team: 'P', label: 'B', x: 200, y: 100 },
+      { id: 'c', team: 'P', label: 'C', x: 140, y: 148 },
+      { id: 'd', team: 'P', label: 'D', x: 120, y: 52 },
+      { id: 'k', team: 'O', label: 'K', x: 290, y: 100 },
+    ],
+    ballStart: 'a',
+  },
 };

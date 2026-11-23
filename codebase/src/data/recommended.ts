@@ -60,6 +60,7 @@ export const RECOMMENDED: string[] = [
   'dturns', // Draaibewegingen aan de kegel
   'omrestart', // Doorlopend 4 tegen 4 op grote doelen
   'fin', // Afwerken na combinatie
+  'fthird', // Derde man en afwerken op groot doel
   'rduo', // Rondo 4 tegen 2 in duo's
   'przone', // Partijvorm met pressingzone
   'pscan', // Aannemen met schouderblik

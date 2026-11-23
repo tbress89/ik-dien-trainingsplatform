@@ -5626,4 +5626,43 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'game', fit: 'Als afsluiter' },
     ],
   },
+  fthird: {
+    summary:
+      'A speelt in op B, die kort komt en aflegt naar C. Ondertussen maakt D de loopactie van de derde man, en C stuurt hem met een steekpass door een poortje van poppen naar doel. Traint de derde-mancombinatie richting doel: afleggen, de steekpass in de loop en afwerken.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet een groot doel met keeper. Zet op ongeveer 20 meter van het doel twee poppen (of kegels) als poortje, met B ertussen. A staat met de rij en de ballen 15 meter achter het poortje, C rechts en D links, allebei tussen A en het poortje.' },
+      { title: 'Inspelen en afleggen.', text: 'B komt kort naar de bal en A speelt in. B legt in één keer af naar C aan de rechterkant.' },
+      { title: 'Derde man.', text: 'Zodra B aflegt, start D links zijn loopactie langs de poppen naar voren. C speelt de bal door het poortje in de loop van D, die afwerkt op doel.' },
+      { title: 'Doorschuiven.', text: 'Iedereen volgt zijn pass: A gaat naar B, B naar C en C naar D. D haalt zijn bal op en sluit achteraan aan in de rij. Wissel na een reeks van kant, zodat de derde man ook rechts loopt.' },
+      { title: 'Ritme.', text: 'Speel 3 reeksen van 4 minuten met 1 minuut rust.' },
+    ],
+    easier: 'Laat C eerst aannemen voor de steekpass, en laat de keeper passief staan.',
+    harder: 'Alles in één keer en D werkt af binnen twee balcontacten, of zet een verdediger achter de poppen.',
+    objectives: ['Derde man', 'Afleggen in één keer', 'Steekpass in de loop', 'Afwerken op doel'],
+    coaching: [
+      'B: kom kort naar de bal en leg in één keer af.',
+      'D: vertrek op het moment dat B aflegt, niet eerder.',
+      'C: speel de steekpass vóór D, in zijn loop.',
+      'D: kijk op en kies je hoek voor je schiet.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Een poortje van poppen met B ertussen; A met de rij, C rechts, D links'],
+      ['Inspelen', 'B komt kort en A speelt in'],
+      ['Afleggen', 'B legt af naar C; D start de loopactie van de derde man'],
+      ['Steekpass', 'C speelt door het poortje in de loop van D'],
+      ['Afwerken', 'D werkt af op doel'],
+    ],
+    related: [
+      { id: 'pthird', fit: 'Als warming-up' },
+      { id: 'fin', fit: 'Zelfde thema' },
+      { id: 'fcombi', fit: 'Als vervolg' },
+      { id: 'fgame', fit: 'Als afsluiter' },
+    ],
+    source: {
+      label: 'Shooting Drill | Third-Man Run Pattern (Part 1/2)',
+      url: 'https://www.youtube.com/shorts/-wkMcz5WuKI',
+      channel: 'Maxim Gaydovskiy',
+      youtube: { id: '-wkMcz5WuKI' },
+    },
+  },
 };

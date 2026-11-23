@@ -179,7 +179,8 @@ export type Variant =
   | 'doubley'
   | 'doubley2'
   | 'doubley3'
-  | 'sgswap';
+  | 'sgswap'
+  | 'fthird';
 
 export type ExerciseType = 'Warming-up' | 'Technisch' | 'Tactisch' | 'Fysiek' | 'Partijvorm';
 
@@ -4176,6 +4177,28 @@ export const EXERCISES: Exercise[] = [
       { name: 'Hesjes', qty: '6' },
       { name: 'Ballen', qty: '10' },
       { name: 'Kegels', qty: '8' },
+    ],
+  },
+  {
+    id: 'fthird',
+    title: 'Derde man en afwerken op groot doel',
+    variant: 'fthird',
+    type: 'Technisch',
+    phase: 'Aanvallen',
+    themes: ['Afwerken', 'Passing & aanname'],
+    ages: ['U10–13', 'U14–15', 'U16–21'],
+    ageLabel: 'U10 – U21',
+    diff: 2,
+    pmin: 5,
+    players: '5–10 + K',
+    playersDetail: '(4 posities + K)',
+    min: 15,
+    intensity: 3,
+    field: '30 × 30 m',
+    materials: [
+      { name: 'Groot doel', qty: '1' },
+      { name: 'Kegels', qty: '2 (of poppen)' },
+      { name: 'Ballen', qty: '12' },
     ],
   },
 ];
