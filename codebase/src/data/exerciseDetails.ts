@@ -5634,6 +5634,7 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { title: 'Inspelen en afleggen.', text: 'B komt kort naar de bal en A speelt in. B legt in één keer af naar C aan de rechterkant.' },
       { title: 'Derde man.', text: 'Zodra B aflegt, start D links zijn loopactie langs de poppen naar voren. C speelt de bal door het poortje in de loop van D, die afwerkt op doel.' },
       { title: 'Doorschuiven.', text: 'Iedereen volgt zijn pass: A gaat naar B, B naar C en C naar D. D haalt zijn bal op en sluit achteraan aan in de rij. Wissel na een reeks van kant, zodat de derde man ook rechts loopt.' },
+      { title: 'Varianten.', text: 'Vanaf de flank: de rechtsbuiten (C) start met de bal en speelt in op de spits (B), die terugkaatst op de middenvelder (A). A geeft de steekpass in de loop van de linksbuiten (D).' },
       { title: 'Ritme.', text: 'Speel 3 reeksen van 4 minuten met 1 minuut rust.' },
     ],
     easier: 'Laat C eerst aannemen voor de steekpass, en laat de keeper passief staan.',
@@ -5657,6 +5658,25 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'fin', fit: 'Zelfde thema' },
       { id: 'fcombi', fit: 'Als vervolg' },
       { id: 'fgame', fit: 'Als afsluiter' },
+    ],
+    versions: [
+      {
+        name: 'Basis',
+        text: 'A speelt in op B, B legt af naar C, en C geeft de steekpass door het poortje in de loop van D.',
+        variant: 'fthird',
+      },
+      {
+        name: 'Vanaf de flank',
+        text: 'De oefening start bij de rechtsbuiten (C): hij speelt in op de spits (B), die kort komt en terugkaatst op de middenvelder (A). A geeft de steekpass door het poortje in de loop van de linksbuiten (D), die als derde man vertrekt en afwerkt. Iedereen volgt zijn pass; D sluit aan in de rij bij C.',
+        variant: 'fthird2',
+        diagramSteps: [
+          ['Organisatie', 'De rij met ballen staat bij C op rechts; B in het poortje, A centraal, D links'],
+          ['Inspelen', 'B komt kort en C speelt in vanaf rechts'],
+          ['Terugleggen', 'B legt terug op A; D start de loopactie van de derde man'],
+          ['Steekpass', 'A speelt door het poortje in de loop van D'],
+          ['Afwerken', 'D werkt af op doel'],
+        ],
+      },
     ],
     source: {
       label: 'Shooting Drill | Third-Man Run Pattern (Part 1/2)',

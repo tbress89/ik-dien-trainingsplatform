@@ -1835,4 +1835,16 @@ export const LINEUPS: Partial<Record<Variant, Lineup>> = {
     ],
     ballStart: 'a',
   },
+  // Derde man en afwerken op groot doel (vanaf de flank)
+  fthird2: {
+    actors: [
+      { id: 'a', team: 'P', label: 'A', x: 100, y: 100 },
+      { id: 'b', team: 'P', label: 'B', x: 200, y: 100 },
+      { id: 'c', team: 'P', label: 'C', x: 140, y: 150 },
+      { id: 'c2', team: 'P', x: 122, y: 158 },
+      { id: 'd', team: 'P', label: 'D', x: 120, y: 52 },
+      { id: 'k', team: 'O', label: 'K', x: 290, y: 100 },
+    ],
+    ballStart: 'c',
+  },
 };

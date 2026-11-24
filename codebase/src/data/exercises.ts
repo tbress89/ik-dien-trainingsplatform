@@ -180,7 +180,8 @@ export type Variant =
   | 'doubley2'
   | 'doubley3'
   | 'sgswap'
-  | 'fthird';
+  | 'fthird'
+  | 'fthird2';
 
 export type ExerciseType = 'Warming-up' | 'Technisch' | 'Tactisch' | 'Fysiek' | 'Partijvorm';
 

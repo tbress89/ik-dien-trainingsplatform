@@ -1637,6 +1637,23 @@ const BEATS: Partial<Record<Variant, { beats: AnimBeat[] }>> = {
       },
     ],
   },
+  // Derde man en afwerken op groot doel (vanaf de flank)
+  fthird2: {
+    beats: [
+      { label: 'B komt kort en C speelt in vanaf rechts', ms: 900, ball: 'b', moves: { b: [180, 94] } },
+      { label: 'B legt terug op A; D start de loopactie van de derde man', ms: 900, ball: 'a', moves: { d: [182, 58] } },
+      { label: 'A geeft de steekpass door het poortje in de loop van D', ms: 1000, ball: 'd', moves: { d: [238, 108] } },
+      { label: 'D werkt af', ms: 600, ball: [302, 114], moves: { k: [292, 106] } },
+      {
+        label: 'Doorschuiven: C naar B, B naar A, A naar D; D haalt zijn bal en sluit aan bij C',
+        ms: 1600,
+        newBall: 'c2',
+        ball: 'c2',
+        moves: { c2: [140, 150], c: [200, 100], b: [100, 100], a: [120, 52], d: [122, 158], k: [290, 100] },
+        labels: { c: 'B', b: 'A', a: 'D', d: '', c2: 'C' },
+      },
+    ],
+  },
 };
 
 /** Every animation, with the lineup it starts from. */
