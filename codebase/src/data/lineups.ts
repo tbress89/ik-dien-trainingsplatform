@@ -1823,6 +1823,18 @@ export const LINEUPS: Partial<Record<Variant, Lineup>> = {
     ],
     ballStart: 'p3',
   },
+  // Overlappen op de flank en afwerken
+  foverlap: {
+    actors: [
+      { id: 'a', team: 'P', label: 'A', x: 70, y: 62 },
+      { id: 'q1', team: 'P', x: 52, y: 62 },
+      { id: 'q2', team: 'P', x: 34, y: 62 },
+      { id: 'b', team: 'P', label: 'B', x: 160, y: 70 },
+      { id: 'c', team: 'P', label: 'C', x: 210, y: 136 },
+      { id: 'k', team: 'O', label: 'K', x: 290, y: 100 },
+    ],
+    ballStart: 'a',
+  },
   // Derde man en afwerken op groot doel
   fthird: {
     actors: [

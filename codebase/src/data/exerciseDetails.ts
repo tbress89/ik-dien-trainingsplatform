@@ -5626,6 +5626,42 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'game', fit: 'Als afsluiter' },
     ],
   },
+  foverlap: {
+    summary:
+      'De back (A) speelt in de voeten van de flankspeler (B) en overlapt meteen aan de buitenkant. B neemt de bal mee naar binnen, rond een kegel die de verdediger voorstelt, en speelt A in zijn loop. A geeft de voorzet voor de spits (C), die aan de eerste paal afwerkt. Traint de klassieke overlap: inspelen en vertrekken, de verdediger naar binnen trekken en de pass in de loop.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet een groot doel met keeper. Op de flank, op ongeveer 25 meter van de doellijn, staat de rij met ballen (A, de backs). Een tiental meter verder op dezelfde flank staat B, de flankspeler, met vóór hem een kegel (of pop) als verdediger. De spits (C) staat centraal, op ongeveer 20 meter van doel.' },
+      { title: 'Inspelen en overlappen.', text: 'A speelt in de voeten van B en vertrekt meteen voor de overlap: hij sprint aan de buitenkant rond de rug van B, langs de zijlijn.' },
+      { title: 'Naar binnen en in de loop.', text: 'B neemt de bal mee naar binnen, aan de binnenkant langs de kegel, alsof hij de verdediger met zich meetrekt. Zo komt er ruimte aan de buitenkant, en B speelt A in zijn loop, voorbij de kegel.' },
+      { title: 'Voorzet en afwerken.', text: 'A geeft de voorzet. C loopt op het juiste moment naar de eerste paal en werkt af.' },
+      { title: 'Doorschuiven.', text: 'A wordt flankspeler, B wordt spits, en C haalt zijn bal op en sluit achteraan aan in de rij. Wissel na een reeks van flank, zodat de overlap ook langs de andere kant gaat.' },
+      { title: 'Ritme.', text: 'Speel 3 reeksen van 4 minuten met 1 minuut rust.' },
+    ],
+    easier: 'Laat B eerst aannemen en stilstaan voor hij naar binnen gaat, en laat de keeper passief staan.',
+    harder: 'Vervang de kegel door een echte verdediger die mag kiezen: volgt hij B naar binnen, dan gaat de bal naar de overlap; blijft hij buiten, dan gaat B zelf door of zoekt hij C.',
+    objectives: ['De overlap', 'Inspelen en vertrekken', 'Pass in de loop', 'Voorzet en afwerken'],
+    coaching: [
+      'A: inspelen en meteen weg, je pass is het startsein van je loop.',
+      'A: loop rond de rug van B, aan de buitenkant, en versnel.',
+      'B: neem mee naar binnen, recht op de verdediger af, zodat hij met je meegaat.',
+      'B: speel de bal vóór A, in zijn loop, niet in zijn voeten.',
+      'C: wacht met je loop tot A de bal heeft en kies de eerste paal.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'De rij met A op de flank, B vóór de kegel, C centraal, keeper in doel'],
+      ['Inspelen', 'A speelt in de voeten van B'],
+      ['Overlappen', 'A overlapt aan de buitenkant; B neemt mee naar binnen, langs de kegel'],
+      ['In de loop', 'B speelt A in zijn loop, voorbij de kegel'],
+      ['Voorzet', 'A geeft de voorzet; C loopt naar de eerste paal'],
+      ['Afwerken', 'C werkt af op doel'],
+    ],
+    related: [
+      { id: 'playoff', fit: 'Als warming-up' },
+      { id: 'psflank', fit: 'Zelfde thema' },
+      { id: 'fthird', fit: 'Als vervolg' },
+      { id: 'fgame', fit: 'Als afsluiter' },
+    ],
+  },
   fthird: {
     summary:
       'A speelt in op B, die kort komt en aflegt naar C. Ondertussen maakt D de loopactie van de derde man, en C stuurt hem met een steekpass door een poortje van poppen naar doel. Traint de derde-mancombinatie richting doel: afleggen, de steekpass in de loop en afwerken.',

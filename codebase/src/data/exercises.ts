@@ -181,7 +181,8 @@ export type Variant =
   | 'doubley3'
   | 'sgswap'
   | 'fthird'
-  | 'fthird2';
+  | 'fthird2'
+  | 'foverlap';
 
 export type ExerciseType = 'Warming-up' | 'Technisch' | 'Tactisch' | 'Fysiek' | 'Partijvorm';
 
@@ -4178,6 +4179,28 @@ export const EXERCISES: Exercise[] = [
       { name: 'Hesjes', qty: '6' },
       { name: 'Ballen', qty: '10' },
       { name: 'Kegels', qty: '8' },
+    ],
+  },
+  {
+    id: 'foverlap',
+    title: 'Overlappen op de flank en afwerken',
+    variant: 'foverlap',
+    type: 'Technisch',
+    phase: 'Aanvallen',
+    themes: ['Afwerken', 'Passing & aanname'],
+    ages: ['U10–13', 'U14–15', 'U16–21'],
+    ageLabel: 'U10 – U21',
+    diff: 2,
+    pmin: 5,
+    players: '5–10 + K',
+    playersDetail: '(3 posities + K)',
+    min: 15,
+    intensity: 3,
+    field: '35 × 30 m',
+    materials: [
+      { name: 'Groot doel', qty: '1' },
+      { name: 'Kegels', qty: '1 (of een pop)' },
+      { name: 'Ballen', qty: '12' },
     ],
   },
   {

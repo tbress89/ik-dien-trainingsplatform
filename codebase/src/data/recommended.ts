@@ -61,6 +61,7 @@ export const RECOMMENDED: string[] = [
   'omrestart', // Doorlopend 4 tegen 4 op grote doelen
   'fin', // Afwerken na combinatie
   'fthird', // Derde man en afwerken op groot doel
+  'foverlap', // Overlappen op de flank en afwerken
   'rduo', // Rondo 4 tegen 2 in duo's
   'przone', // Partijvorm met pressingzone
   'pscan', // Aannemen met schouderblik

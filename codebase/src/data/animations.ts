@@ -1620,6 +1620,25 @@ const BEATS: Partial<Record<Variant, { beats: AnimBeat[] }>> = {
       },
     ],
   },
+  // Overlappen op de flank en afwerken
+  foverlap: {
+    beats: [
+      { label: 'A speelt in de voeten van B', ms: 900, ball: 'b' },
+      { label: 'A vertrekt meteen voor de overlap; B neemt mee naar binnen, langs de kegel', ms: 900, ball: 'b', moves: { a: [150, 46], b: [180, 82] } },
+      { label: 'A overlapt aan de buitenkant, rond de rug van B', ms: 700, ball: 'b', moves: { a: [214, 46], b: [200, 92] } },
+      { label: 'B speelt A in zijn loop, voorbij de kegel', ms: 800, ball: 'a', moves: { a: [244, 54] } },
+      { label: 'A geeft de voorzet; C loopt naar de eerste paal', ms: 900, ball: 'c', moves: { c: [260, 114] } },
+      { label: 'C werkt af', ms: 600, ball: [302, 114], moves: { k: [292, 108] } },
+      {
+        label: 'Doorschuiven: A wordt flankspeler, B wordt spits; C haalt zijn bal en sluit aan in de rij',
+        ms: 1600,
+        newBall: 'q1',
+        ball: 'q1',
+        moves: { a: [160, 70], b: [210, 136], c: [34, 62], q1: [70, 62], q2: [52, 62], k: [290, 100] },
+        labels: { a: 'B', b: 'C', c: '', q1: 'A' },
+      },
+    ],
+  },
   // Derde man en afwerken op groot doel
   fthird: {
     beats: [

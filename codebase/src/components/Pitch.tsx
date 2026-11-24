@@ -591,6 +591,18 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       O(150, 70), O(200, 58), O(160, 135), O(244, 124),
       Ball(106, 74), Ball(166, 139),
     ],
+    foverlap: [
+      Goal(304, 82, 8, 36),
+      Cone(196, 66),
+      Pass(80, 62, 150, 68, 1),
+      Run('M80 54 Q160 28 240 48', 2),
+      Run('M168 76 Q178 90 200 92', 2),
+      Pass(204, 88, 238, 56, 3),
+      Run('M216 130 Q240 124 256 116', 4),
+      Pass(246, 58, 258, 106, 4),
+      Pass(262, 116, 300, 116, 5),
+      LINEUP,
+    ],
     fthird2: [
       Goal(304, 82, 8, 36),
       Cone(200, 80), Cone(200, 120),
