@@ -1620,6 +1620,31 @@ const BEATS: Partial<Record<Variant, { beats: AnimBeat[] }>> = {
       },
     ],
   },
+  // Zigzagpassen langs poppen naar doeltje
+  pzigzag: {
+    beats: [
+      { label: 'A speelt in op B', ms: 800, ball: 'p1' },
+      { label: 'B kaatst in één keer terug naar A', ms: 700, ball: 's' },
+      { label: 'A speelt in op C', ms: 800, ball: 'p2' },
+      { label: 'A loopt meteen richting D; C kaatst in zijn loop', ms: 900, ball: 's', moves: { s: [100, 132] } },
+      { label: 'A speelt in op D; C start meteen zijn loopactie als derde man', ms: 1000, ball: 'p3', moves: { p2: [170, 80] } },
+      { label: 'D legt af in de loop van C', ms: 700, ball: 'p2', moves: { p2: [186, 100] } },
+      { label: 'C speelt door naar E', ms: 900, ball: 'p4' },
+      { label: 'E speelt in op D en sprint meteen richting het doeltje', ms: 1000, ball: 'p3', moves: { p4: [200, 64] } },
+      { label: 'D speelt de bal in de loop van E', ms: 800, ball: 'p4' },
+      { label: 'E drijft de bal op, terug richting het doeltje aan de startkant…', ms: 1100, ball: 'p4', moves: { p4: [132, 56] } },
+      { label: '…en blijft versnellen tot aan het doeltje', ms: 1000, ball: 'p4', moves: { p4: [66, 58] } },
+      { label: 'E werkt af op het doeltje', ms: 500, ball: [38, 58] },
+      {
+        label: 'Doorschuiven: A wordt B, B wordt C, C wordt D, D wordt E; E haalt zijn bal en sluit aan in de rij',
+        ms: 1800,
+        newBall: 'q1',
+        ball: 'q1',
+        moves: { s: [110, 150], p1: [146, 88], p2: [214, 140], p3: [262, 82], p4: [40, 126], q1: [56, 126] },
+        labels: { s: 'B', p1: 'C', p2: 'D', p3: 'E', p4: '', q1: 'A' },
+      },
+    ],
+  },
   // Overlappen op de flank en afwerken
   foverlap: {
     beats: [

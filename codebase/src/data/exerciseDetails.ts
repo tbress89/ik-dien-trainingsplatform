@@ -5626,6 +5626,46 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'game', fit: 'Als afsluiter' },
     ],
   },
+  pzigzag: {
+    summary:
+      'A kaatst eerst met B, speelt dan in op C en krijgt de bal terug in zijn loop richting D. Hij speelt in op D, die aflegt in de loop van C als derde man. C speelt door naar E, die inspeelt op D en meteen richting een doeltje naast de start sprint. D speelt hem in zijn loop, en E drijft op en werkt af. Traint kaatsen, de loopactie van de derde man, kijken voor de aanname en de stevige pass over de grond.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet vier poppen (of kegels) in een zigzag over ongeveer 40 meter, met telkens een speler ervoor en de pop in zijn rug: B en C dicht bij de start, B rechts en C links, dan verder D rechts en E helemaal aan het einde links. Aan het begin staat de rij met ballen (A). Er is geen groot doel: het doeltje staat aan de startkant, naast de rij, een tiental meter opzij.' },
+      { title: 'Twee keer kaatsen.', text: 'A speelt in op B, die in één keer terugkaatst. Daarna speelt A in op C en loopt hij meteen richting D; C kaatst in zijn loop.' },
+      { title: 'Derde man.', text: 'Na zijn kaatsbal vertrekt C meteen als derde man, voorbij zijn pop naar voren. A speelt in op D, die in één keer aflegt in de loop van C. C speelt door naar E.' },
+      { title: 'Afwerken en doorschuiven.', text: 'E speelt in op D en sprint meteen richting het doeltje aan de startkant. D speelt de bal in zijn loop, en E drijft met snelheid op en werkt af. Daarna schuift iedereen een letter op: A wordt B, B wordt C, C wordt D en D wordt E; E haalt zijn bal en sluit achteraan aan in de rij.' },
+      { title: 'Ritme.', text: 'Speel 3 reeksen van 4 minuten met 1 minuut rust. Spiegel de opstelling na een reeks, zodat iedereen ook met de andere voet aanneemt en speelt.' },
+    ],
+    easier: 'Verklein de afstanden tussen de poppen en laat twee balcontacten toe bij het kaatsen.',
+    harder: 'Alles in één keer behalve de aanname van C en E, en start een nieuwe bal bij A zodra E de bal heeft.',
+    objectives: ['Kaatsen in één keer', 'Derde man', 'Kijken voor de aanname', 'Kwaliteit tot de afwerking'],
+    coaching: [
+      'Pass hard en over de grond, op de voet waarmee je ploegmaat wil spelen.',
+      'C: vertrek als derde man zodra je hebt teruggekaatst, en kijk naar D.',
+      'Kijk over je schouder voor de bal komt: waar staat de pop, waar ga je heen?',
+      'E: na je pass naar D meteen vertrekken richting het doeltje; neem de bal mee in je loop en kijk op voor je afwerkt.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Vier spelers met een pop in de rug; de rij bij A en het doeltje aan de startkant'],
+      ['Kaatsen met B', 'A speelt in op B, die terugkaatst'],
+      ['Kaatsen met C', 'A speelt in op C en loopt richting D; C kaatst in zijn loop'],
+      ['Derde man', 'A speelt in op D, die aflegt in de loop van C'],
+      ['Naar E', 'C speelt door naar E'],
+      ['In de loop', 'E speelt in op D en sprint richting het doeltje; D speelt hem in zijn loop'],
+      ['Afwerken', 'E drijft de bal terug op naar het doeltje aan de startkant en werkt af'],
+    ],
+    related: [
+      { id: 'pline', fit: 'Als warming-up' },
+      { id: 'pdrive', fit: 'Zelfde thema' },
+      { id: 'pthird', fit: 'Als vervolg' },
+      { id: 'foverlap', fit: 'Kern' },
+    ],
+    source: {
+      label: 'PASSING DRILL',
+      url: 'https://www.instagram.com/reels/Df4_j-LhPsU/',
+      channel: 'burdovilya',
+    },
+  },
   foverlap: {
     summary:
       'De back (A) speelt in de voeten van de flankspeler (B) en overlapt meteen aan de buitenkant. B neemt de bal mee naar binnen, rond een kegel die de verdediger voorstelt, en speelt A in zijn loop. A geeft de voorzet voor de spits (C), die aan de eerste paal afwerkt. Traint de klassieke overlap: inspelen en vertrekken, de verdediger naar binnen trekken en de pass in de loop.',

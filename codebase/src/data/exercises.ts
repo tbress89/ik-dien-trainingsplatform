@@ -182,7 +182,8 @@ export type Variant =
   | 'sgswap'
   | 'fthird'
   | 'fthird2'
-  | 'foverlap';
+  | 'foverlap'
+  | 'pzigzag';
 
 export type ExerciseType = 'Warming-up' | 'Technisch' | 'Tactisch' | 'Fysiek' | 'Partijvorm';
 
@@ -4179,6 +4180,28 @@ export const EXERCISES: Exercise[] = [
       { name: 'Hesjes', qty: '6' },
       { name: 'Ballen', qty: '10' },
       { name: 'Kegels', qty: '8' },
+    ],
+  },
+  {
+    id: 'pzigzag',
+    title: 'Zigzagpassen langs poppen naar doeltje',
+    variant: 'pzigzag',
+    type: 'Technisch',
+    phase: 'Aanvallen',
+    themes: ['Passing & aanname', 'Opbouw van achteruit'],
+    ages: ['U10–13', 'U14–15', 'U16–21'],
+    ageLabel: 'U10 – U21',
+    diff: 2,
+    pmin: 6,
+    players: '6–8',
+    playersDetail: '(4 posities + rij)',
+    min: 15,
+    intensity: 3,
+    field: '40 × 30 m',
+    materials: [
+      { name: 'Kegels', qty: '4 (of poppen)' },
+      { name: 'Doeltjes', qty: '1' },
+      { name: 'Ballen', qty: '10' },
     ],
   },
   {
