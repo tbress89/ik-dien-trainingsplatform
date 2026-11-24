@@ -52,7 +52,7 @@ export const RECOMMENDED: string[] = [
   'pdy', // Passvorm in dubbele Y
   'playoff', // Ruitpassen: kaatsen en één-twee
   'pdrive', // Ruitpassen: opdribbelen, inspelen en breed wisselen
-  'pzigzag', // Zigzagpassen langs poppen naar doeltje
+  'pzigzag', // Kaatsen, derde man en afwerken op doeltje
   'fcounter', // 3 tegen 2 afwerken na omschakeling
   'sggates', // Poortjesspel 4 tegen 4
   'sgcolor', // Kleurdoeltjes 3 tegen 3

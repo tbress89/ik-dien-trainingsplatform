@@ -1823,13 +1823,13 @@ export const LINEUPS: Partial<Record<Variant, Lineup>> = {
     ],
     ballStart: 'p3',
   },
-  // Zigzagpassen langs poppen naar doeltje
+  // Kaatsen, derde man en afwerken op doeltje
   pzigzag: {
     actors: [
       { id: 's', team: 'P', label: 'A', x: 56, y: 126 },
       { id: 'q1', team: 'P', x: 40, y: 126 },
-      { id: 'p1', team: 'P', label: 'B', x: 110, y: 150 },
-      { id: 'p2', team: 'P', label: 'C', x: 146, y: 88 },
+      { id: 'p1', team: 'P', label: 'B', x: 110, y: 88 },
+      { id: 'p2', team: 'P', label: 'C', x: 146, y: 150 },
       { id: 'p3', team: 'P', label: 'D', x: 214, y: 140 },
       { id: 'p4', team: 'P', label: 'E', x: 262, y: 82 },
     ],

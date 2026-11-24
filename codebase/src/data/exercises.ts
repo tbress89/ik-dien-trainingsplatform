@@ -4184,7 +4184,7 @@ export const EXERCISES: Exercise[] = [
   },
   {
     id: 'pzigzag',
-    title: 'Zigzagpassen langs poppen naar doeltje',
+    title: 'Kaatsen, derde man en afwerken op doeltje',
     variant: 'pzigzag',
     type: 'Technisch',
     phase: 'Aanvallen',
