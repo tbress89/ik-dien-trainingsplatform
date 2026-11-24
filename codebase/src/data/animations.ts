@@ -1640,7 +1640,7 @@ const BEATS: Partial<Record<Variant, { beats: AnimBeat[] }>> = {
         ms: 1800,
         newBall: 'q1',
         ball: 'q1',
-        moves: { s: [110, 88], p1: [146, 150], p2: [214, 140], p3: [262, 82], p4: [40, 126], q1: [56, 126] },
+        moves: { s: [110, 88], p1: [146, 150], p2: [214, 126], p3: [262, 82], p4: [40, 126], q1: [56, 126] },
         labels: { s: 'B', p1: 'C', p2: 'D', p3: 'E', p4: '', q1: 'A' },
       },
     ],
