@@ -5637,7 +5637,7 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { title: 'Ritme.', text: 'Speel 3 reeksen van 4 minuten met 1 minuut rust. Draai na een reeks de richting om (diagonaal naar rechts en doorschuiven naar rechts), zodat ook de andere voet aan bod komt.' },
     ],
     easier: 'Laat twee balcontacten toe en vergroot het vierkant, zodat de pass erdoor makkelijker is.',
-    harder: 'Alles in twee balcontacten of in één keer, en speel met twee ballen tegelijk vanaf onder en boven.',
+    harder: 'Speel alles in één tijd.',
     objectives: ['Zuivere pass door een kleine ruimte', 'Open aannemen', 'Diagonaal doorspelen', 'Doorbewegen na de pass'],
     coaching: [
       'Pass hard en zuiver door het vierkant, zonder de paaltjes te raken.',
