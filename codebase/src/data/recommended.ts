@@ -53,6 +53,7 @@ export const RECOMMENDED: string[] = [
   'playoff', // Ruitpassen: kaatsen en één-twee
   'pdrive', // Ruitpassen: opdribbelen, inspelen en breed wisselen
   'pzigzag', // Kaatsen, derde man en afwerken op doeltje
+  'psquare', // Passen door het vierkant en diagonaal links
   'fcounter', // 3 tegen 2 afwerken na omschakeling
   'sggates', // Poortjesspel 4 tegen 4
   'sgcolor', // Kleurdoeltjes 3 tegen 3

@@ -1823,6 +1823,18 @@ export const LINEUPS: Partial<Record<Variant, Lineup>> = {
     ],
     ballStart: 'p3',
   },
+  // Passen door het vierkant en diagonaal links
+  psquare: {
+    actors: [
+      { id: 'p1', team: 'P', x: 160, y: 142 },
+      { id: 'p5', team: 'P', x: 160, y: 156 },
+      { id: 'p2', team: 'P', x: 160, y: 58 },
+      { id: 'p6', team: 'P', x: 160, y: 44 },
+      { id: 'p3', team: 'P', x: 220, y: 100 },
+      { id: 'p4', team: 'P', x: 100, y: 100 },
+    ],
+    ballStart: 'p1',
+  },
   // Kaatsen, derde man en afwerken op doeltje
   pzigzag: {
     actors: [

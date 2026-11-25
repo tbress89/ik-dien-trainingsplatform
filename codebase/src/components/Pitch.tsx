@@ -591,6 +591,16 @@ export function Pitch({ variant, step = Infinity, hideActors = false }: Props) {
       O(150, 70), O(200, 58), O(160, 135), O(244, 124),
       Ball(106, 74), Ball(166, 139),
     ],
+    psquare: [
+      Cone(144, 84), Cone(176, 84), Cone(144, 116), Cone(176, 116),
+      Pass(160, 134, 160, 66, 1),
+      Pass(168, 62, 212, 94, 2),
+      Pass(212, 100, 108, 100, 3),
+      Pass(106, 94, 152, 62, 4),
+      Run('M148 150 Q104 148 88 112', 5),
+      Run('M174 50 Q226 52 236 88', 5),
+      LINEUP,
+    ],
     pzigzag: [
       Goal(30, 46, 10, 24),
       Cone(124, 88), Cone(160, 150), Cone(228, 126), Cone(276, 82),

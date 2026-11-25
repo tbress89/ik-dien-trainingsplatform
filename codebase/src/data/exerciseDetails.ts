@@ -5626,6 +5626,46 @@ export const EXERCISE_DETAILS: Record<string, ExerciseDetail> = {
       { id: 'game', fit: 'Als afsluiter' },
     ],
   },
+  psquare: {
+    summary:
+      'Rond een klein vierkant van paaltjes staat aan elke kant een speler. De bal gaat afwisselend recht door het vierkant naar de overkant en diagonaal naar links naar de volgende kegel, en na elke pass schuift de passer door naar de kegel aan zijn linkerkant. Traint zuivere passing, de open aanname en snel doorbewegen.',
+    steps: [
+      { title: 'Opstelling.', text: 'Zet vier paaltjes (of kegels) in een vierkant van ongeveer 4 × 4 meter. Zet aan elke kant, op 8 meter van het vierkant, een kegel: onder, links, boven en rechts. Bij twee tegenover elkaar liggende kegels staan twee spelers, bij de andere twee één. De eerste speler onder heeft de bal.' },
+      { title: 'Door het vierkant.', text: 'De speler onder speelt recht door het vierkant naar de speler boven. Die neemt open aan en speelt diagonaal naar zijn linkerkant, buiten het vierkant langs: voor de trainer is dat de speler rechts.' },
+      { title: 'En weer door.', text: 'De speler rechts speelt opnieuw recht door het vierkant, naar links, en die speelt diagonaal naar zijn linkerkant, naar boven. Zo blijft het patroon draaien: altijd eerst door het vierkant, dan diagonaal naar de linkerkant van de passer.' },
+      { title: 'Doorschuiven.', text: 'Na elke pass loopt de passer naar de kegel aan zijn linkerkant en sluit hij daar aan. Wie diagonaal speelt, volgt dus zijn bal. Zo komt iedereen beurtelings op elke positie.' },
+      { title: 'Ritme.', text: 'Speel 3 reeksen van 4 minuten met 1 minuut rust. Draai na een reeks de richting om (diagonaal naar rechts en doorschuiven naar rechts), zodat ook de andere voet aan bod komt.' },
+    ],
+    easier: 'Laat twee balcontacten toe en vergroot het vierkant, zodat de pass erdoor makkelijker is.',
+    harder: 'Alles in twee balcontacten of in één keer, en speel met twee ballen tegelijk vanaf onder en boven.',
+    objectives: ['Zuivere pass door een kleine ruimte', 'Open aannemen', 'Diagonaal doorspelen', 'Doorbewegen na de pass'],
+    coaching: [
+      'Pass hard en zuiver door het vierkant, zonder de paaltjes te raken.',
+      'Neem open aan met de voet die het verst van het vierkant staat, zodat je meteen diagonaal kan spelen.',
+      'Speel de diagonale bal op de voet, buiten het vierkant langs.',
+      'Na je pass meteen weg naar de kegel links van je.',
+    ],
+    diagramSteps: [
+      ['Organisatie', 'Een vierkant van paaltjes met een speler aan elke kant; twee spelers onder en boven'],
+      ['Door het vierkant', 'Onder speelt recht door het vierkant naar boven'],
+      ['Diagonaal links', 'Boven speelt diagonaal naar links, naar de speler rechts'],
+      ['Door het vierkant', 'Rechts speelt recht door het vierkant naar links'],
+      ['Diagonaal links', 'Links speelt diagonaal naar links, naar boven'],
+      ['Doorschuiven', 'Na elke pass loopt de passer naar de kegel aan zijn linkerkant'],
+    ],
+    related: [
+      { id: 'pline', fit: 'Als warming-up' },
+      { id: 'pass', fit: 'Zelfde thema' },
+      { id: 'pdiamond', fit: 'Als vervolg' },
+      { id: 'pten', fit: 'Als afsluiter' },
+    ],
+    source: {
+      label: '5-6 Players Passing Drill | 3 Variations | Football/Soccer Training',
+      url: 'https://www.youtube.com/watch?v=I42b7aYo9Cg',
+      channel: 'AD Football Training Videos',
+      youtube: { id: 'I42b7aYo9Cg', start: 8 },
+    },
+  },
   pzigzag: {
     summary:
       'A kaatst eerst met B, speelt dan in op C en krijgt de bal terug in zijn loop richting D. Hij speelt in op D, die aflegt in de loop van B als derde man. B speelt door naar E, die inspeelt op D en meteen richting een doeltje naast de start sprint. D speelt hem in zijn loop, en E drijft op en werkt af. Traint kaatsen, de loopactie van de derde man, kijken voor de aanname en de stevige pass over de grond.',

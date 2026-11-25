@@ -183,7 +183,8 @@ export type Variant =
   | 'fthird'
   | 'fthird2'
   | 'foverlap'
-  | 'pzigzag';
+  | 'pzigzag'
+  | 'psquare';
 
 export type ExerciseType = 'Warming-up' | 'Technisch' | 'Tactisch' | 'Fysiek' | 'Partijvorm';
 
@@ -4180,6 +4181,27 @@ export const EXERCISES: Exercise[] = [
       { name: 'Hesjes', qty: '6' },
       { name: 'Ballen', qty: '10' },
       { name: 'Kegels', qty: '8' },
+    ],
+  },
+  {
+    id: 'psquare',
+    title: 'Passen door het vierkant en diagonaal links',
+    variant: 'psquare',
+    type: 'Technisch',
+    phase: 'Aanvallen',
+    themes: ['Passing & aanname'],
+    ages: ['U10–13', 'U14–15', 'U16–21'],
+    ageLabel: 'U13 – U16',
+    diff: 2,
+    pmin: 5,
+    players: '5–6',
+    playersDetail: '(4 kegels)',
+    min: 15,
+    intensity: 2,
+    field: '20 × 20 m',
+    materials: [
+      { name: 'Kegels', qty: '8 (4 paaltjes + 4 kegels)' },
+      { name: 'Ballen', qty: '2' },
     ],
   },
   {

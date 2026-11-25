@@ -1620,6 +1620,19 @@ const BEATS: Partial<Record<Variant, { beats: AnimBeat[] }>> = {
       },
     ],
   },
+  // Passen door het vierkant en diagonaal links
+  psquare: {
+    beats: [
+      { label: 'Onder speelt recht door het vierkant naar boven en loopt naar de kegel aan zijn linkerkant (links)', ms: 1100, ball: 'p2', moves: { p1: [86, 100], p5: [160, 142] } },
+      { label: 'Boven speelt diagonaal naar zijn linkerkant, naar de speler rechts, en volgt zijn bal', ms: 1100, ball: 'p3', moves: { p2: [234, 100], p6: [160, 58] } },
+      { label: 'Rechts speelt recht door het vierkant naar links en loopt naar de kegel onder', ms: 1100, ball: 'p4', moves: { p3: [160, 156], p2: [220, 100] } },
+      { label: 'Links speelt diagonaal naar zijn linkerkant, naar de speler boven, en volgt zijn bal', ms: 1100, ball: 'p6', moves: { p4: [160, 44], p1: [100, 100] } },
+      { label: 'Boven speelt recht door het vierkant naar onder en loopt naar de kegel rechts', ms: 1100, ball: 'p5', moves: { p6: [234, 100], p4: [160, 58] } },
+      { label: 'Onder speelt diagonaal naar zijn linkerkant, naar de speler links, en volgt zijn bal', ms: 1100, ball: 'p1', moves: { p5: [86, 100], p3: [160, 142] } },
+      { label: 'Links speelt recht door het vierkant naar rechts en loopt naar de kegel boven', ms: 1100, ball: 'p2', moves: { p1: [160, 44], p5: [100, 100] } },
+      { label: 'Rechts speelt diagonaal naar zijn linkerkant, naar de speler onder, en volgt zijn bal', ms: 1100, ball: 'p3', moves: { p2: [160, 156], p6: [220, 100] } },
+    ],
+  },
   // Kaatsen, derde man en afwerken op doeltje
   pzigzag: {
     beats: [
